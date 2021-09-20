@@ -30,7 +30,7 @@
                                         </div>
                                         <div class="d-flex flex-column justify-content-center">
                                             <h6 class="text-sm mb-1">
-                                                <a href="<?= base_url('lembaga'); ?>" class="nav-link text-body p-0"><span class="font-weight-bold"><?php echo user()->username; ?></span> </a>
+                                                <a href="<?= base_url('lembaga'); ?>" class="nav-link text-body p-0"><span class="font-weight-bold"><?php echo session()->get('username'); ?></span> </a>
                                             </h6>
                                         </div>
                                     </div>

@@ -27,7 +27,7 @@ class Login extends BaseController
     public function proses()
     {
         $session = session();
-        $model = new UserModel1();
+        $model = new UserModel();
         $username = $this->request->getVar('username');
         $password = $this->request->getVar('password');
         $data = $model->where('username', $username)->first();

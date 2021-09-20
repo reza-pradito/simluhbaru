@@ -101,7 +101,7 @@
             <nav class="col-lg-12">
                 <div class="nav nav-tabs" id="nav-tab" role="tablist">
                     <button class="nav-link active" id="nav-home-tab" data-bs-toggle="tab" data-bs-target="#nav-home" type="button" role="tab" aria-controls="nav-home" aria-selected="true">Profil</button>
-                    <button class="nav-link" id="nav-contact-tab" data-bs-toggle="tab" data-bs-target="#nav-contact" type="button" role="tab" aria-controls="nav-contact" aria-selected="false">Kontak</button>
+                    <button class="nav-link" id="nav-penyuluh-tab" data-bs-toggle="tab" data-bs-target="#nav-penyuluh" type="button" role="tab" aria-controls="nav-penyuluh" aria-selected="false">Daftar Penyuluh</button>
                 </div>
             </nav>
             <div class="tab-content " id="nav-tabContent">
@@ -113,18 +113,64 @@
                                     <div class="row">
                                         <h1 class="h3 mb-4 text-gray-800"><?= $title; ?></h1>
                                         <div class="col-lg-12">
-                                            <ul class="list-group list-group-flush">
-                                                <li class="list-group-item">Nama Kelembagaan : <?= $dt['deskripsi_lembaga_lain']; ?> <?= $sessnama; ?> </li>
-                                                <li class="list-group-item">Tanggal Pembentukan : <?= $dt['tgl_berdiri'] . '-' . $dt['bln_berdiri'] . '-' . $dt['thn_berdiri']; ?> </li>
-                                                <li class="list-group-item">Alamat : <?= $dt['alamat']; ?></li>
-                                                <li class="list-group-item">Provinsi : <?= $dt['kode_prop']; ?></li>
-                                                <li class="list-group-item">No Telepon/Fax : <?= $dt['telp_kantor']; ?></li>
-                                                <li class="list-group-item">Alamat Email: <?= $dt['email']; ?></li>
-                                                <li class="list-group-item">Alamat Website <?= $dt['website']; ?></li>
-                                                <li class="list-group-item">Nama Pimpinan <?= $dt['nama_kabid']; ?></li>
-                                                <li class="list-group-item">No HP Pimpinan <?= $dt['hp_kabid']; ?></li>
-                                                <li class="list-group-item">Nama Koordinator PP <?= $dt['nama_koord_penyuluh']; ?></li>
-                                            </ul>
+
+                                        <table class="table">
+                                               
+                                                <tbody>
+                                                    <tr>                                                  
+                                                    <td>Nama Kelembagaan</td>
+                                                    <td>:</td>
+                                                    <td><?= $dt['deskripsi_lembaga_lain']; ?> <?= $sessnama; ?></td>
+                                                    </tr>
+                                                    <tr>                                                  
+                                                    <td>Tanggal Pembentukan</td>
+                                                    <td>:</td> 
+                                                    <td><?= $dt['tgl_berdiri'] . '-' . $dt['bln_berdiri'] . '-' . $dt['thn_berdiri']; ?></td>
+                                                    </tr>
+                                                    <tr>                                                  
+                                                    <td>Alamat</td>
+                                                    <td>:</td> 
+                                                    <td> <?= $dt['alamat']; ?></td>
+                                                    </tr>
+                                                    <tr>                                                  
+                                                    <td>Provinsi</td>
+                                                    <td>:</td> 
+                                                    <td><?= $dt['kode_prop']; ?></td>
+                                                    </tr>
+                                                    <tr>                                                  
+                                                    <td>No Telepon/Fax</td>
+                                                    <td>:</td> 
+                                                    <td><?= $dt['telp_kantor']; ?></td> 
+                                                    </tr>
+                                                    <tr>                                                  
+                                                    <td>Alamat Email</td>
+                                                    <td>:</td> 
+                                                    <td><?= $dt['email']; ?></td>
+                                                    </tr>
+                                                    <tr>                                                  
+                                                    <td>Alamat Website</td>
+                                                    <td>:</td> 
+                                                    <td><?= $dt['website']; ?></td>
+                                                    </tr>
+                                                    <tr>                                                  
+                                                    <td>Nama Pimpinan</td>
+                                                    <td>:</td> 
+                                                    <td><?= $dt['nama_kabid']; ?></td>
+                                                    </tr>
+                                                    <tr>                                                  
+                                                    <td>No HP Pimpinan</td>
+                                                    <td>:</td> 
+                                                    <td><?= $dt['hp_kabid']; ?></td>
+                                                    </tr>
+                                                    <tr>                                                  
+                                                    <td>Nama Koordinator PP</td>
+                                                    <td>:</td> 
+                                                    <td><?= $dt['nama_koord_penyuluh']; ?></td>
+                                                    </tr>
+                                                
+                                                </tbody>
+                                                
+                                                </table>                                    
                                         </div>
 
                                     </div>
@@ -143,7 +189,45 @@
                     </div>
                 </div>
 
-                <div class="tab-pane fade" id="nav-contact" role="tabpanel" aria-labelledby="nav-contact-tab">3</div>
+                <div class="tab-pane fade" id="nav-penyuluh" role="tabpanel" aria-labelledby="nav-penyuluh-tab">
+                        <div class="row">
+
+                        <div class="col-lg-12 mb-lg-0 mb-4">
+                            <div class="card">
+                                <div class="card-body p-3">
+                                    <div class="row">
+                                        <h1 class="h3 mb-4 text-gray-800">Daftar Penyuluh yang bertugas di Kab/Kota</h1>
+                                        <div class="col-lg-8">
+
+                                        <table class="table">                                               
+                                                <tbody>
+                                                    <tr>                                                  
+                                                    <td>Penyuluh PNS</td>
+                                                    <td>:</td>
+                                                    <td>dadasas</td>
+                                                    </tr>                                                                              
+                                                    <tr>                                                  
+                                                    <td>THL-TBPP (APBN)</td>
+                                                    <td>:</td>
+                                                    <td>dadasas</td>
+                                                    </tr>                                                                              
+                                                    <tr>                                                  
+                                                    <td>THL-TB PP (APBD)</td>
+                                                    <td>:</td>
+                                                    <td>dadasas</td>
+                                                    </tr>                                                                              
+                                                </tbody>                                                
+                                        </table>
+                                    
+                                        </div>
+
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        </div>
+                </div>
             </div>
 
         </div>

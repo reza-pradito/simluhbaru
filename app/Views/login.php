@@ -77,43 +77,31 @@
                         <div class="col-xl-4 col-lg-5 col-md-6 d-flex flex-column mx-auto">
                             <div class="card card-plain mt-8">
                                 <div class="card-header pb-0 text-left bg-transparent">
-                                    <h2 class="card-header"><?= lang('Auth.loginTitle') ?></h2>
+                                    <h3 class="font-weight-bolder text-info text-gradient">Selamat Datang</h3>
                                     <p class="mb-0">Masukkan akun anda untuk login</p>
                                 </div>
                                 <div class="card-body">
-                                    <?= view('Myth\Auth\Views\_message_block') ?>
-                                    <form action="<?= route_to('login') ?>" method="post">
-                                        <?= csrf_field() ?>
+                                    <?php if (session()->getFlashdata('msg')) : ?>
+                                        <div class="alert alert-danger"><?= session()->getFlashdata('msg') ?></div>
+                                    <?php endif; ?>
+                                    <form class="user" method="post" action="<?= base_url('auth/login/proses'); ?>">
+                                        <label>Username</label>
+                                        <div class="mb-3">
+                                            <input type="text" class="form-control" name="username" placeholder="Username" aria-label="Email" aria-describedby="email-addon">
+                                        </div>
+                                        <label>Password</label>
+                                        <div class="mb-3">
+                                            <input type="password" class="form-control" name="password" placeholder="Password" aria-label="Password" aria-describedby="password-addon">
 
-                                       
-                                            <div class="form-group">
-                                                <label for="login">Username</label>
-                                                <input type="text" class="form-control <?php if (session('errors.login')) : ?>is-invalid<?php endif ?>" name="login" placeholder="Username">
-                                                <div class="invalid-feedback">
-                                                    <?= session('errors.login') ?>
-                                                </div>
-                                            </div>
-                                   
-                                        <div class="form-group">
-                                            <label for="password"><?= lang('Auth.password') ?></label>
-                                            <input type="password" name="password" class="form-control  <?php if (session('errors.password')) : ?>is-invalid<?php endif ?>" placeholder="<?= lang('Auth.password') ?>">
-                                            <div class="invalid-feedback">
-                                                <?= session('errors.password') ?>
-                                            </div>
                                         </div>
 
-                                        <?php if ($config->allowRemembering) : ?>
-                                            <div class="form-check">
-                                                <label class="form-check-label">
-                                                    <input type="checkbox" name="remember" class="form-check-input" <?php if (old('remember')) : ?> checked <?php endif ?>>
-                                                    <?= lang('Auth.rememberMe') ?>
-                                                </label>
-                                            </div>
-                                        <?php endif; ?>
-
-                                        <br>
-
-                                        <button type="submit" class="btn btn-primary btn-block"><?= lang('Auth.loginAction') ?></button>
+                                        <div class="form-check form-switch">
+                                            <input class="form-check-input" type="checkbox" id="rememberMe" checked="">
+                                            <label class="form-check-label" for="rememberMe">Ingat saya</label>
+                                        </div>
+                                        <div class="text-center">
+                                            <button type="submit" class="btn bg-gradient-info w-100 mt-4 mb-0">Masuk</button>
+                                        </div>
                                     </form>
                                 </div>
                                 <div class="card-footer text-center pt-0 px-lg-2 px-1">
