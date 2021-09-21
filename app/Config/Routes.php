@@ -51,7 +51,7 @@ $routes->get('/penyuluhswastakec', 'Penyuluh/PenyuluhSwastaKec::penyuluhswastake
 $routes->get('/penyuluhpnskec', 'Penyuluh/PenyuluhPNSKec::penyuluhpnskec');
 $routes->get('/penyuluhpppkkec', 'Penyuluh/PenyuluhPPPKKec::penyuluhpppkkec');
 
-$routes->get('/penyuluh', 'profil/Penyuluh::index');
+//$routes->get('profil/penyuluh/detail/(:any)', 'penyuluh::detail/$1');
 
 
 $routes->get('/desa', 'Kelembagaan/Desa::index');

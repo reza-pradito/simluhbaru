@@ -3,6 +3,7 @@
 namespace App\Controllers\profil;
 
 use App\Controllers\BaseController;
+use App\Models\penyuluh\PenyuluhPNSModel;
 
 class Penyuluh extends BaseController
 {
@@ -13,12 +14,16 @@ class Penyuluh extends BaseController
         $this->session->start();
     }
 
-    public function index()
+    public function detail($nik)
     {
-
+        $penyuluhmodel = new PenyuluhPNSModel();
+        $dtpenyuluh = $penyuluhmodel->getDetailPenyuluhPNSByNIK($nik);
         $data = [
-            'title' => 'Profil penyuluh'
+            'title' => 'Profil penyuluh',
+            'dt' => $dtpenyuluh
         ];
+
+        //dd($data);
 
         return view('profil/profilpenyuluh', $data);
     }

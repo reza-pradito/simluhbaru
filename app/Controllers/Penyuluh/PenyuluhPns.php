@@ -12,11 +12,11 @@ class PenyuluhPns extends BaseController
     public function penyuluhpns()
     {
 
-        $get_param = $this->request->getGet();
+        // $get_param = $this->request->getGet();
 
-        $kode_kab = $get_param['kode_kab'];
+        // $kode_kab = $get_param['kode_kab'];
         $penyuluh_model = new PenyuluhPNSModel();
-        $pns_data = $penyuluh_model->getPenyuluhPNSTotal($kode_kab);
+        $pns_data = $penyuluh_model->getPenyuluhPNSTotal(session()->get('kodebapel'));
 
         $data = [
             'jml_data' => $pns_data['jum'],

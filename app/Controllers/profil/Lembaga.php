@@ -23,7 +23,7 @@ class Lembaga extends BaseController
         // if (empty($this->session->get('kodebapel'))) {
         //     return redirect()->to('login');
         // } else {
-             $dtlembaga = $lembagaModel->getProfil('3501');
+             $dtlembaga = $lembagaModel->getProfil(session()->get('kodebapel'));
 
 
             $data = [

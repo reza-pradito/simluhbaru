@@ -12,11 +12,11 @@ class PenyuluhSwasta extends BaseController
     public function penyuluhswasta()
     {
 
-        $get_param = $this->request->getGet();
+        // $get_param = $this->request->getGet();
 
-        $kode_kab = $get_param['kode_kab'];
+        // $kode_kab = $get_param['kode_kab'];
         $penyuluh_model = new PenyuluhSwastaModel();
-        $swasta_data = $penyuluh_model->getPenyuluhSwastaTotal($kode_kab);
+        $swasta_data = $penyuluh_model->getPenyuluhSwastaTotal(session()->get('kodebapel'));
 
         $data = [
             'jml_data' => $swasta_data['jum'],

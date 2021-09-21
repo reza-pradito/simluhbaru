@@ -25,6 +25,13 @@ class PenyuluhPNSModel extends Model
     // protected $validationRules    = [];
     // protected $validationMessages = [];
     // protected $skipValidation     = false;
+    public function getDetailPenyuluhPNSByNIK($nik)
+    {
+        $query = $this->db->query("SELECT * FROM tbldasar WHERE noktp = '$nik'");
+        $row   = $query->getRowArray();
+        return $row;
+
+    }
 
 
     public function getPenyuluhPNSTotal($kode_kab)
@@ -59,9 +66,6 @@ class PenyuluhPNSModel extends Model
                                 case a.kode_kab when '3' then r.deskripsi when '4' then w.nm_desa else '' end as wilker8,
                                 case a.kode_kab when '3' then s.deskripsi when '4' then x.nm_desa else '' end as wilker9,
                                 case a.kode_kab when '3' then t.deskripsi when '4' then y.nm_desa else '' end as wilker10,
-                                
-                                
-
                                 j.deskripsi as kecamatan_tugas
                                 from tbldasar a
                                 left join tblsatminkal b on a.satminkal=b.kode

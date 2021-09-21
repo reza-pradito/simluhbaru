@@ -12,11 +12,11 @@ class PenyuluhPPPK extends BaseController
     public function penyuluhpppk()
     {
 
-        $get_param = $this->request->getGet();
+        // $get_param = $this->request->getGet();
 
-        $kode_kab = $get_param['kode_kab'];
+        // $kode_kab = $get_param['kode_kab'];
         $penyuluh_model = new PenyuluhPPPKModel();
-        $pppk_data = $penyuluh_model->getPenyuluhPPPKTotal($kode_kab);
+        $pppk_data = $penyuluh_model->getPenyuluhPPPKTotal(session()->get('kodebapel'));
 
         $data = [
             'jml_data' => $pppk_data['jum'],

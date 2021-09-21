@@ -12,11 +12,11 @@ class PenyuluhTHLAPBD extends BaseController
     public function penyuluhthlAPBD()
     {
 
-        $get_param = $this->request->getGet();
+        // $get_param = $this->request->getGet();
 
-        $kode_kab = $get_param['kode_kab'];
+        // $kode_kab = $get_param['kode_kab'];
         $penyuluh_model = new PenyuluhTHLAPBDModel();
-        $thlapbd_data = $penyuluh_model->getPenyuluhTHLAPBDTotal($kode_kab);
+        $thlapbd_data = $penyuluh_model->getPenyuluhTHLAPBDTotal(session()->get('kodebapel'));
 
         $data = [
             'jml_data' => $thlapbd_data['jum'],

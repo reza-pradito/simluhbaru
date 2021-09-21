@@ -31,13 +31,13 @@
                 <div class="col-auto my-auto">
                     <div class="h-100">
                         <h5 class="mb-1">
-                            Nandhar Mundhy Nugroho
+                        <?= $dt['nama']; ?>
                         </h5>
                         <p class="mb-0 font-weight-bold text-sm">
-                            198908252017061001
+                        <?= $dt['nip']; ?>
                         </p>
                         <p class="mb-0 font-weight-bold text-sm">
-                            Penyuluh Pertanian Madya
+                        <?= $dt['jabatan']; ?>
                         </p>
                     </div>
                 </div>
@@ -52,8 +52,8 @@
             <nav class="col-lg-12">
                 <div class="nav nav-tabs" id="nav-tab" role="tablist">
                     <button class="nav-link active" id="nav-home-tab" data-bs-toggle="tab" data-bs-target="#nav-home" type="button" role="tab" aria-controls="nav-home" aria-selected="true">Profil</button>
-                    <button class="nav-link" id="nav-unker-tab" data-bs-toggle="tab" data-bs-target="#nav-unker" type="button" role="tab" aria-controls="nav-home" aria-selected="true">Unit Kerja</button>
-                    <button class="nav-link" id="nav-riwayat-tab" data-bs-toggle="tab" data-bs-target="#nav-jabatan" type="button" role="tab" aria-controls="nav-contact" aria-selected="false">Riwayat Jabatan</button>
+                    <button class="nav-link" id="nav-unker-tab" data-bs-toggle="tab" data-bs-target="#nav-unker" type="button" role="tab" aria-controls="nav-home" aria-selected="true">Wilayah Kerja</button>
+                    <button class="nav-link" id="nav-jabatan-tab" data-bs-toggle="tab" data-bs-target="#nav-jabatan" type="button" role="tab" aria-controls="nav-jabatan" aria-selected="false">Riwayat Jabatan</button>
                     <button class="nav-link" id="nav-pendidikan-tab" data-bs-toggle="tab" data-bs-target="#nav-pendidikan" type="button" role="tab" aria-controls="nav-pendidikan" aria-selected="false">Pendidikan</button>
                     <button class="nav-link" id="nav-pelatihan-tab" data-bs-toggle="tab" data-bs-target="#nav-pelatihan" type="button" role="tab" aria-controls="nav-pelatihan" aria-selected="false">Pelatihan</button>
                 </div>
@@ -66,18 +66,61 @@
                                 <div class="card-body p-3">
                                     <div class="row">
 
-                                        <div class="col-lg-12">
-                                            <ul class="list-group list-group-flush">
-                                                <li class="list-group-item"><b>Nama Lengkap :</b> Nandhar Mundhy Nugroho</li>
-                                                <li class="list-group-item"><b>NIP :</b> 198908252017061001</li>
-                                                <li class="list-group-item"><b>NIK :</b> 3423435246545646</li>
-                                                <li class="list-group-item"><b>Tempat/Tanggal Lahir :</b> Brebes, 25-08-1989 </li>
-                                                <li class="list-group-item"><b>Agama :</b> Islam</li>
-                                                <li class="list-group-item"><b>Bidang Keahlian :</b> Tanaman Pangan</li>
-                                                <li class="list-group-item"><b>Pendidikan Akhir :</b> S2</li>
-                                                <li class="list-group-item"><b>Bidang Pendidikan :</b> Pertanian</li>
-                                                <li class="list-group-item"><b>Alamat Email : </b>nandhar@pertanian.go.id</li>
-                                            </ul>
+                                        <div class="col-lg-8">
+
+                                        <table class="table">
+                                               
+                                               <tbody>
+                                                   <tr>                                                  
+                                                   <td>Nama Lengkap</td>
+                                                   <td>:</td>
+                                                   <td><?= $dt['nama']; ?></td>
+                                                   </tr>
+                                                   <tr>                                                  
+                                                   <td>NIP</td>
+                                                   <td>:</td> 
+                                                   <td><?= $dt['nip']; ?></td>
+                                                   </tr>
+                                                   <tr>                                                  
+                                                   <td>NIK</td>
+                                                   <td>:</td> 
+                                                   <td> <?= $dt['noktp']; ?></td>
+                                                   </tr>
+                                                   <tr>                                                  
+                                                   <td>Tempat/Tanggal Lahir </td>
+                                                   <td>:</td> 
+                                                   <td><?= $dt['tempat_lahir'].' / '.$dt['tgl_lahir']; ?></td>
+                                                   </tr>
+                                                   <tr>                                                  
+                                                   <td>Agama</td>
+                                                   <td>:</td> 
+                                                   <td><?= $dt['agama']; ?></td> 
+                                                   </tr>
+                                                   <tr>                                                  
+                                                   <td>Bidang Keahlian </td>
+                                                   <td>:</td> 
+                                                   <td><?= $dt['keahlian']; ?></td>
+                                                   </tr>
+                                                   <tr>                                                  
+                                                   <td>Pendidikan Akhir</td>
+                                                   <td>:</td> 
+                                                   <td><?= $dt['tingkat_pendidikan']; ?></td>
+                                                   </tr>
+                                                   <tr>                                                  
+                                                   <td>Bidang Pendidikan </td>
+                                                   <td>:</td> 
+                                                   <td><?= $dt['bidang_pendidikan']; ?></td>
+                                                   </tr>
+                                                   <tr>                                                  
+                                                   <td>Alamat Email</td>
+                                                   <td>:</td> 
+                                                   <td><?= $dt['email']; ?></td>
+                                                   </tr>                                            
+                                               
+                                               </tbody>
+                                               
+                                               </table>      
+                                           
                                         </div>
 
 
@@ -116,7 +159,7 @@
                     </div>
 
                 </div>
-                <div class="tab-pane fade" id="nav-riwayat" role="tabpanel" aria-labelledby="nav-riwayat-tab">Riwayat Jabatan</div>
+                <div class="tab-pane fade" id="nav-jabatan" role="tabpanel" aria-labelledby="nav-jabatan-tab">Riwayat Jabatan</div>
                 <div class="tab-pane fade" id="nav-pendidikan" role="tabpanel" aria-labelledby="nav-pendidikan-tab">Pendidikan</div>
                 <div class="tab-pane fade" id="nav-pelatihan" role="tabpanel" aria-labelledby="nav-pelatihan-tab">Pelatihan</div>
             </div>

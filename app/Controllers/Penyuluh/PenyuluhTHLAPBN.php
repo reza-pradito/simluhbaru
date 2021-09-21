@@ -12,11 +12,11 @@ class PenyuluhTHLAPBN extends BaseController
     public function penyuluhthlAPBN()
     {
 
-        $get_param = $this->request->getGet();
+        // $get_param = $this->request->getGet();
 
-        $kode_kab = $get_param['kode_kab'];
+        // $kode_kab = $get_param['kode_kab'];
         $penyuluh_model = new PenyuluhTHLAPBNModel();
-        $thlapbn_data = $penyuluh_model->getPenyuluhTHLAPBNTotal($kode_kab);
+        $thlapbn_data = $penyuluh_model->getPenyuluhTHLAPBNTotal(session()->get('kodebapel'));
 
         $data = [
             'jml_data' => $thlapbn_data['jum'],

@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Models\penyuluh;
+namespace App\Models;
 
 use CodeIgniter\Model;
 use \Config\Database;
@@ -13,14 +13,10 @@ class PenyuluhModel extends Model
     // protected $table      = 'tbljabatan';
 
     //protected $primaryKey = 'id';
-
-
     //protected $returnType     = 'array';
     //protected $useSoftDeletes = true;
 
     //protected $allowedFields = ['nama', 'alamat', 'telpon'];
-
-
     protected $useTimestamps = false;
     // protected $createdField  = 'created_at';
     // protected $updatedField  = 'updated_at';
@@ -29,8 +25,7 @@ class PenyuluhModel extends Model
     // protected $validationRules    = [];
     // protected $validationMessages = [];
     // protected $skipValidation     = false;
-
-
+    
     public function getPenyuluhSwadayaTotal($kode_kab)
     {
         $db = Database::connect();
