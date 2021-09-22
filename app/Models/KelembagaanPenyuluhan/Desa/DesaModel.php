@@ -7,7 +7,7 @@ use \Config\Database;
 
 class DesaModel extends Model
 {
-    protected $table      = 'penyuluh';
+    protected $table      = 'simluhtan';
     //protected $primaryKey = 'id';
 
 
@@ -26,6 +26,12 @@ class DesaModel extends Model
     // protected $validationMessages = [];
     // protected $skipValidation     = false;
 
+    public function getDetailPosluhdes($kode_kec)
+    {
+        $query = $this->db->query("SELECT * FROM tb_posluhdes WHERE id_daerah = '$kode_kec'");
+        $row   = $query->getRowArray();
+        return $row;
+    }
 
     public function getDesaTotal($kode_kab)
     {

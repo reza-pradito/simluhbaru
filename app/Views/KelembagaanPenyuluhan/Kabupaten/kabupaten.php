@@ -2,6 +2,8 @@
 
 <?= $this->section('content') ?>
 
+<?php $sessnama = session()->get('kodebapel'); ?>
+
 <center>
     <h3> Data Kelembagaan Penyuluhan Pertanian <br>Kab <?= ucwords(strtolower($nama_kabupaten)) ?> </h3>
 </center>
@@ -45,22 +47,22 @@
                             <p class="text-xs font-weight-bold mb-0"><?= $row['ketua'] ?></p>
                         </td>
                         <td class="align-middle text-center text-sm">
-                            <p class="text-xs font-weight-bold mb-0"></p>
+                            <p class="text-xs font-weight-bold mb-0"><?= $row['jumpns'] ?></p>
                         </td>
                         <td class="align-middle text-center text-sm">
-                            <p class="text-xs font-weight-bold mb-0"></p>
+                            <p class="text-xs font-weight-bold mb-0"><?= $row['jumthl'] ?></p>
                         </td>
                         <td class="align-middle text-center text-sm">
-                            <p class="text-xs font-weight-bold mb-0"></p>
+                            <p class="text-xs font-weight-bold mb-0"><?= $row['jumswa'] ?></p>
                         </td>
                         <td class="align-middle text-center text-sm">
-                            <p class="text-xs font-weight-bold mb-0"></p>
+                            <p class="text-xs font-weight-bold mb-0"><?= $row['jumpok'] ?></p>
                         </td>
                         <td class="align-middle text-center text-sm">
-                            <p class="text-xs font-weight-bold mb-0"></p>
+                            <p class="text-xs font-weight-bold mb-0"><?= $row['jumgap'] ?></p>
                         </td>
                         <td class="align-middle text-center text-sm">
-                            <p class="text-xs font-weight-bold mb-0"></p>
+                            <p class="text-xs font-weight-bold mb-0"><?= $row['jumkep'] ?></p>
                         </td>
                         <td class="align-middle text-center text-sm">
                             <p class="text-xs font-weight-bold mb-0"><?= $row['tgl_update'] ?></p>
