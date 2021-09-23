@@ -15,9 +15,9 @@ class PenyuluhTHLAPBNKec extends BaseController
         $get_param = $this->request->getGet();
 
         // $kode_kab = $get_param['kode_kab'];
-        $kode_kec = $get_param['kode_kec'];
+        // $kode_kec = $get_param['kode_kec'];
         $penyuluh_model = new PenyuluhTHLAPBNKecModel();
-        $thlapbn_data = $penyuluh_model->getPenyuluhTHLAPBNKecTotal($kode_kec);
+        $thlapbn_data = $penyuluh_model->getPenyuluhTHLAPBNKecTotal(session()->get('kodebpp'));
 
         $data = [
             'jml_data' => $thlapbn_data['jum'],
