@@ -47,7 +47,7 @@
                         <p class="text-xs font-weight-bold mb-0"></p>
                     </th>
                     <th class="align-middle text-center text-sm">
-                        <p class="text-xs font-weight-bold mb-0">JUMLAH</p>
+                        <p class="text-xs font-weight-bold mb-0">JUMLAH POKTAN</p>
                     </th>
                     <th class="align-middle text-center text-sm">
                         <p class="text-xs font-weight-bold mb-0"><?= $jum_poktan ?></p>
