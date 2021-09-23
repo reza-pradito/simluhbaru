@@ -63,7 +63,7 @@
                         </td>
                         <td class="align-middle text-center text-sm">
                             <a href="#">
-                                <button type="button" data-bs-toggle="modal" data-bs-target="#modal-form" id="btn-edit" class="btn bg-gradient-warning btn-sm" data-kecamatan="<?= $row['deskripsi']; ?>" data-nm_desa="<?= $row['nm_desa']; ?>" data-nama="<?= $row['nama']; ?>" data-alamat="<?= $row['alamat']; ?>" data-ketua="<?= $row['ketua']; ?>" data-sekretaris="<?= $row['sekretaris']; ?>" data-bendahara="<?= $row['bendahara']; ?>" data-tahun_berdiri="<?= $row['tahun_berdiri']; ?>" data-jum_anggota="<?= $row['jum_anggota']; ?>" data-nama="<?= $row['penyuluh_swadaya']; ?>">
+                                <button type="button" data-bs-toggle="modal" data-bs-target="#modal-form" id="btn-edit" class="btn bg-gradient-warning btn-sm" data-kecamatan="<?= $row['deskripsi']; ?>" data-nm_desa="<?= $row['nm_desa']; ?>" data-nama="<?= $row['nama']; ?>" data-alamat="<?= $row['alamat']; ?>" data-ketua="<?= $row['ketua']; ?>" data-sekretaris="<?= $row['sekretaris']; ?>" data-bendahara="<?= $row['bendahara']; ?>" data-tahun_berdiri="<?= $row['tahun_berdiri']; ?>" data-jum_anggota="<?= $row['jum_anggota']; ?>" data-penyuluh_swadaya="<?= $row['penyuluh_swadaya']; ?>">
                                     <i class="fas fa-edit"></i> Ubah
                                 </button>
                             </a>
