@@ -25,7 +25,13 @@ class ListGapoktanDesaModel extends Model
     // protected $validationRules    = [];
     // protected $validationMessages = [];
     // protected $skipValidation     = false;
+    public function getDetailAnggotaGapoktan($kode_desa)
+    {
+        $query = $this->db->query("SELECT * FROM tbldesa WHERE id_desa = '$kode_desa'");
+        $row   = $query->getRowArray();
+        return $row;
 
+    }
 
     public function getListGapoktanDesaTotal($kode_desa)
     {

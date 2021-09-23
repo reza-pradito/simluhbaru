@@ -47,8 +47,8 @@
                         <p class="text-xs font-weight-bold mb-0"><?= $row['alamat'] ?></p>
                     </td>
                     <td class="align-middle text-center text-sm">
-                        <p class="text-xs font-weight-bold mb-0"><?= $row['jumpok'] ?></p>
-                    </td>
+                    <a href="<?=('listgapoktandesa?kode_desa=' .$row['id_desa'])?>"> <p class="text-xs font-weight-bold mb-0"><?= $row['jumpok'] ?></p>
+                    </td></a>
                     
                     <td class="align-middle text-center text-sm">
                             <a href="#">
@@ -56,8 +56,14 @@
                                     <i class="fas fa-edit"></i> Ubah
                                 </button>
                             </a>
+                            <a href="">
                             <button type="button" class="btn bg-gradient-danger btn-sm">
                                 <i class="fas fa-trash"></i> Hapus
+                            </button>
+                            </a>
+                            <a href="/listgapoktandesa">
+                            <button type="button" class="btn bg-gradient-info btn-sm">
+                                <i class=""></i> Detail
                             </button>
                             </a>
                         </td>

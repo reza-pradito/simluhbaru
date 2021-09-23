@@ -26,7 +26,13 @@ class KelompokTaniModel extends Model
     // protected $validationMessages = [];
     // protected $skipValidation     = false;
 
+    public function getDetailKelompokTani($kode_kec)
+    {
+        $query = $this->db->query("SELECT * FROM tbldaerah WHERE id_daerah = '$kode_kec'");
+        $row   = $query->getRowArray();
+        return $row;
 
+    }
     public function getKelompokTaniTotal($kode_kab)
     {
         $db = Database::connect();

@@ -8,11 +8,9 @@ class Gapoktan extends BaseController
 {
     public function gapoktan()
     {
-        $get_param = $this->request->getGet();
-
-        $kode_kab = $get_param['kode_kab'];
+        
         $gapoktan_model = new GapoktanModel;
-        $gapoktan_data = $gapoktan_model->getGapoktanTotal($kode_kab);
+        $gapoktan_data = $gapoktan_model->getGapoktanTotal(session()->get('kodebapel'));
 
         $data = [
             
