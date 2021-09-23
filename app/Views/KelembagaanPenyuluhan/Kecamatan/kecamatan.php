@@ -7,7 +7,11 @@
 <center>
     <h5> Daftar Kelembagaan Penyuluhan Pertanian Tingkat Kecamatan <br>Kab <?= ucwords(strtolower($nama_kabupaten)) ?> </h5>
 </center>
-<a href="#"><button type="button" data-bs-toggle="modal" data-bs-target="#modal-form" class="btn bg-gradient-primary">+ Tambah Data</button></a>
+<a href="#"><button type="button" data-bs-toggle="modal" data-bs-target="#modal-form" class="btn-kec bg-gradient-primary">+ Tambah Data</button></a>
+<a href="#"><button type="button" data-bs-toggle="modal" data-bs-target="#modal-form" class="btn-kec bg-gradient-primary">+ Lahan Percontohan</button></a>
+<a href="#"><button type="button" data-bs-toggle="modal" data-bs-target="#modal-form" class="btn-kec bg-gradient-primary">+ Sarana & Prasarana</button></a>
+<a href="#"><button type="button" data-bs-toggle="modal" data-bs-target="#modal-form" class="btn-kec bg-gradient-primary">+ Potensi Ekonomi</button></a>
+<a href="#"><button type="button" data-bs-toggle="modal" data-bs-target="#modal-form" class="btn-kec bg-gradient-primary">+ Potensi Wilayah</button></a>
 <div class="card">
     <div class="table-responsive">
         <table class="table align-items-center mb-0">
