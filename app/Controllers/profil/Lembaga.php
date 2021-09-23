@@ -19,19 +19,19 @@ class Lembaga extends BaseController
     public function index()
     {
         //is_logged_in();
-         $lembagaModel = new LembagaModel();
+        $lembagaModel = new LembagaModel();
         // if (empty($this->session->get('kodebapel'))) {
         //     return redirect()->to('login');
         // } else {
-             $dtlembaga = $lembagaModel->getProfil(session()->get('kodebapel'));
+        $dtlembaga = $lembagaModel->getProfil(session()->get('kodebapel'));
 
 
-            $data = [
-                'title' => 'Profil Lembaga',
-                'dt' => $dtlembaga
-            ];
+        $data = [
+            'title' => 'Profil Lembaga',
+            'dt' => $dtlembaga
+        ];
 
-            return view('profil/profillembaga', $data);
+        return view('profil/profillembaga', $data);
         //}
     }
 }

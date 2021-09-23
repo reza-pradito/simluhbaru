@@ -11,12 +11,12 @@ class PenyuluhSwadayaKec extends BaseController
 
     public function penyuluhswadayakec()
     {
-        $get_param = $this->request->getGet();
+        // $get_param = $this->request->getGet();
 
-        $kode_kec = $get_param['kode_kec'];
+        // $kode_kec = $get_param['kode_kec'];
         // $kode_kab = $get_param['kode_kab'];
         $penyuluh_model = new PenyuluhSwadayaKecModel();
-        $swadayakec_data = $penyuluh_model->getPenyuluhSwadayaKecTotal($kode_kec);
+        $swadayakec_data = $penyuluh_model->getPenyuluhSwadayaKecTotal(session()->get('kodebpp'));
 
         $data = [
             'jml_data' => $swadayakec_data['jum'],

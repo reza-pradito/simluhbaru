@@ -16,7 +16,7 @@ class PenyuluhSwastaKec extends BaseController
         $kode_kec = $get_param['kode_kec'];
         // $kode_kab = $get_param['kode_kab'];
         $penyuluh_model = new PenyuluhSwastaKecModel();
-        $swastakec_data = $penyuluh_model->getPenyuluhSwastaKecTotal($kode_kec);
+        $swastakec_data = $penyuluh_model->getPenyuluhSwastaKecTotal(session()->get('kodebpp'));
 
         $data = [
             'jml_data' => $swastakec_data['jum'],
