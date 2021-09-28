@@ -12,12 +12,12 @@ class PenyuluhTHLAPBDKec extends BaseController
     public function penyuluhthlAPBDKec()
     {
 
-        $get_param = $this->request->getGet();
+        // $get_param = $this->request->getGet();
 
         // $kode_kab = $get_param['kode_kab'];
-        $kode_kec = $get_param['kode_kec'];
+        // $kode_kec = $get_param['kode_kec'];
         $penyuluh_model = new PenyuluhTHLAPBDKecModel();
-        $thlapbd_data = $penyuluh_model->getPenyuluhTHLAPBDKecTotal($kode_kec);
+        $thlapbd_data = $penyuluh_model->getPenyuluhTHLAPBDKecTotal(session()->get('kodebpp'));
 
         $data = [
             'jml_data' => $thlapbd_data['jum'],
