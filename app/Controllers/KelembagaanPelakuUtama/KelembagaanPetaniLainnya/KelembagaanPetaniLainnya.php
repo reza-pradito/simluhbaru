@@ -8,11 +8,11 @@ class KelembagaanPetaniLainnya extends BaseController
 {
     public function kelembagaanpetanilainnya()
     {
-        $get_param = $this->request->getGet();
+        //$get_param = $this->request->getGet();
 
-        $kode_kab = $get_param['kode_kab'];
+        //$kode_kab = $get_param['kode_kab'];
         $kelembagaanpetanilainnya_model = new KelembagaanPetaniLainnyaModel();
-        $kelembagaanpetanilainnya_data = $kelembagaanpetanilainnya_model->getKelembagaanPetaniLainnyaTotal($kode_kab);
+        $kelembagaanpetanilainnya_data = $kelembagaanpetanilainnya_model->getKelembagaanPetaniLainnyaTotal(session()->get('kodebapel'));
 
         $data = [
             

@@ -8,11 +8,11 @@ class KelompokTani extends BaseController
 {
     public function kelompoktani()
     {
-        $get_param = $this->request->getGet();
+       // $get_param = $this->request->getGet();
 
-        $kode_kab = $get_param['kode_kab'];
+      //  $kode_kab = $get_param['kode_kab'];
         $kelompoktani_model = new KelompokTaniModel();
-        $kelompoktani_data = $kelompoktani_model->getKelompokTaniTotal($kode_kab);
+        $kelompoktani_data = $kelompoktani_model->getKelompokTaniTotal(session()->get('kodebapel'));
 
         $data = [
             
@@ -26,12 +26,5 @@ class KelompokTani extends BaseController
         return view('KelembagaanPelakuUtama/KelompokTani/kelompoktani', $data);
     }
   
-    public function listkelompoktani()
-    {
-        $data = [
-            'title' => 'Gapoktan'
-        ];
-
-        return view('KelembagaanPelakuUtama/listkelompoktani', $data);
-    }
+  
 }

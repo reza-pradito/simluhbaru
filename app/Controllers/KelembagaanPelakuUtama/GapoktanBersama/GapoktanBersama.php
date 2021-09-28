@@ -8,11 +8,11 @@ class GapoktanBersama extends BaseController
 {
     public function gapoktanbersama()
     {
-        $get_param = $this->request->getGet();
+      //  $get_param = $this->request->getGet();
 
-        $kode_kab = $get_param['kode_kab'];
+      //  $kode_kab = $get_param['kode_kab'];
         $gapoktanbersama_model = new GapoktanBersamaModel;
-        $gapoktanbersama_data = $gapoktanbersama_model->getGapoktanBersamaTotal($kode_kab);
+        $gapoktanbersama_data = $gapoktanbersama_model->getGapoktanBersamaTotal(session()->get('kodebapel'));
 
         $data = [
             
