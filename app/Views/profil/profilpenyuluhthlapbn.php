@@ -34,10 +34,7 @@
                             <?= $dt['nama']; ?>
                         </h5>
                         <p class="mb-0 font-weight-bold text-sm">
-                            <?= $dt['nip']; ?>
-                        </p>
-                        <p class="mb-0 font-weight-bold text-sm">
-                            <?= $dt['jabatan']; ?>
+                            <?= $dt['no_peserta']; ?>
                         </p>
                     </div>
                 </div>
@@ -77,11 +74,6 @@
                                                         <td><?= $dt['nama']; ?></td>
                                                     </tr>
                                                     <tr>
-                                                        <td>NIP</td>
-                                                        <td>:</td>
-                                                        <td><?= $dt['nip']; ?></td>
-                                                    </tr>
-                                                    <tr>
                                                         <td>NIK</td>
                                                         <td>:</td>
                                                         <td> <?= $dt['noktp']; ?></td>
@@ -97,14 +89,9 @@
                                                         <td><?= $dt['agama']; ?></td>
                                                     </tr>
                                                     <tr>
-                                                        <td>Bidang Keahlian </td>
-                                                        <td>:</td>
-                                                        <td><?= $dt['keahlian']; ?></td>
-                                                    </tr>
-                                                    <tr>
                                                         <td>Pendidikan Akhir</td>
                                                         <td>:</td>
-                                                        <td><?= $dt['tingkat_pendidikan']; ?></td>
+                                                        <td><?= $dt['namapen']; ?></td>
                                                     </tr>
                                                     <tr>
                                                         <td>Bidang Pendidikan </td>
@@ -145,16 +132,16 @@
                                             <ul class="list-group list-group-flush">
                                                 <li class="list-group-item"><b>Unit Kerja : </b><?= $dt['nama_bapel'] ?></li>
                                                 <li class="list-group-item"><b>Wilayah Kerja :</b>
-                                                    <br>1. <?= $dt['wilker'] ?> <br>
-                                                    2. <?= $dt['wilker2'] ?> <br>
-                                                    3. <?= $dt['wilker3'] ?> <br>
-                                                    4. <?= $dt['wilker4'] ?> <br>
-                                                    5. <?= $dt['wilker5'] ?> <br>
-                                                    6. <?= $dt['wilker6'] ?> <br>
-                                                    7. <?= $dt['wilker7'] ?> <br>
-                                                    8. <?= $dt['wilker8'] ?> <br>
-                                                    9. <?= $dt['wilker9'] ?> <br>
-                                                    10. <?= $dt['wilker10'] ?>
+                                                    <br>1. <?= $dt['wil_kerja'] ?> <br>
+                                                    2. <?= $dt['wil_kerja2'] ?> <br>
+                                                    3. <?= $dt['wil_kerja3'] ?> <br>
+                                                    4. <?= $dt['wil_kerja4'] ?> <br>
+                                                    5. <?= $dt['wil_kerja5'] ?> <br>
+                                                    6. <?= $dt['wil_kerja6'] ?> <br>
+                                                    7. <?= $dt['wil_kerja7'] ?> <br>
+                                                    8. <?= $dt['wil_kerja8'] ?> <br>
+                                                    9. <?= $dt['wil_kerja9'] ?> <br>
+                                                    10. <?= $dt['wil_kerja10'] ?>
                                                 </li>
                                                 <li class="list-group-item"><b>Poktan Binaan :</b></li>
 
