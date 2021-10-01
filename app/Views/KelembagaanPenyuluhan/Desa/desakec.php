@@ -1,12 +1,10 @@
 <?= $this->extend('layout/main_template') ?>
 
 <?= $this->section('content') ?>
-<?php $sessnama = session()->get('kodebapel'); ?>
-<?php $sessnama = session()->get('kodebpp'); ?>
 
 
 <center>
-    <h4> Daftar Posluhdes di Kab <?= ucwords(strtolower($nama_kabupaten)) ?> </h4>
+    <h4> Daftar posluhdes binaan BPP (<?= ucwords(strtolower($nama_bp3k)) ?>) </h4>
 </center>
 <div class="card">
     <div class="table-responsive">
@@ -32,7 +30,7 @@
                             <p class="text-xs font-weight-bold mb-0"><?= $i++ ?></p>
                         </td>
                         <td class="align-middle text-center text-sm">
-                            <a href="<?= base_url('/daftar_posluhdes?kode_kec=' . $row['id_daerah']) ?>">
+                            <a href='/daftar_posluhdes_kec?kode_kec='>
                                 <p class="text-xs font-weight-bold mb-0"><?= $row['deskripsi'] ?></p>
                             </a>
                         </td>

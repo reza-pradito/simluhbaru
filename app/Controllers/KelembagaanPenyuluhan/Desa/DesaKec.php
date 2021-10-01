@@ -3,33 +3,28 @@
 namespace App\Controllers\KelembagaanPenyuluhan\Desa;
 
 use App\Controllers\BaseController;
-use App\Models\KelembagaanPenyuluhan\Desa\DesaModel;
-use App\Models\KelembagaanPenyuluhan\Desa\PosluhdesModel;
+use App\Models\KelembagaanPenyuluhan\Desa\DesaKecModel;
+use App\Models\KelembagaanPenyuluhan\Desa\PosluhdesKecModel;
 
-
-class Desa extends BaseController
+class DesaKec extends BaseController
 {
-    protected $session;
-
-    function __construct()
-    {
-        $this->session = \Config\Services::session();
-        $this->session->start();
-    }
     public function desa()
     {
+        $get_param = $this->request->getGet();
 
-        $desa_model = new DesaModel;
-        $desa_data = $desa_model->getDesaTotal($this->session->get('kodebapel'));
+        $kode_bpp = $get_param['kode_bpp'];
+        $desa_model = new DesaKecModel;
+        $desa_data = $desa_model->getDesaTotal($kode_bpp);
+
         $data = [
             'jum_des' => $desa_data['jum_des'],
-            'nama_kabupaten' => $desa_data['nama_kab'],
+            'nama_bp3k' => $desa_data['nama_kec'],
             'tabel_data' => $desa_data['table_data'],
             'title' => 'Desa',
             'name' => 'Desa'
         ];
 
-        return view('KelembagaanPenyuluhan/Desa/desa', $data);
+        return view('KelembagaanPenyuluhan/Desa/desakec', $data);
     }
 
     public function listdesa()
@@ -38,8 +33,8 @@ class Desa extends BaseController
         $get_param = $this->request->getGet();
 
         $kode_kec = $get_param['kode_kec'];
-        $posluhdes_model = new PosluhdesModel;
-        $posluhdes_data = $posluhdes_model->getPosluhdesTotal($kode_kec);
+        $posluhdes_model = new PosluhdesKecModel;
+        $posluhdes_data = $posluhdes_model->getPosluhdesKecTotal($kode_kec);
 
         $data = [
             'jum_kec' => $posluhdes_data['jum_kec'],
@@ -49,6 +44,6 @@ class Desa extends BaseController
             'name' => 'Posluhdes'
         ];
 
-        return view('KelembagaanPenyuluhan/Desa/daftar_posluhdes', $data);
+        return view('KelembagaanPenyuluhan/Desa/daftar_posluhdes_kec', $data);
     }
 }

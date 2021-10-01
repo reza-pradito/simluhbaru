@@ -7,16 +7,22 @@ use App\Models\KelembagaanPenyuluhan\Kabupaten\KabupatenModel;
 
 class Kabupaten extends BaseController
 {
+    protected $session;
+
+    function __construct()
+    {
+        $this->session = \Config\Services::session();
+        $this->session->start();
+    }
+
     public function kab()
     {
-        $get_param = $this->request->getGet();
 
-        $kode_kab = $get_param['kode_kab'];
         $kab_model = new KabupatenModel;
-        $kab_data = $kab_model->getKabTotal($kode_kab);
+        $kab_data = $kab_model->getKabTotal($this->session->get('kodebapel'));
 
         $data = [
-            //'jum_des' => $desa_data['jum_des'],
+            // 'jumpns' => $kab_data['jumpns'],
             'nama_kabupaten' => $kab_data['nama_kab'],
             'tabel_data' => $kab_data['table_data'],
             'title' => 'Kabupaten',

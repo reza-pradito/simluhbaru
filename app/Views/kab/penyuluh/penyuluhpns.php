@@ -36,7 +36,7 @@
                                         <p class="text-xs font-weight-bold mb-0"><?= $i++ ?></p>
                                     </td>
                                     <td class="align-middle text-center text-sm">
-                                        <p class="text-xs font-weight-bold mb-0"><a href="<?=base_url('profil/penyuluh/detail/'.$row['noktp'])?>"><?= $row['noktp'] ?></a></p>
+                                        <p class="text-xs font-weight-bold mb-0"><a href="<?= base_url('profil/penyuluh/detail/' . $row['noktp']) ?>"><?= $row['noktp'] ?></a></p>
                                     </td>
                                     <td class="align-middle text-center text-sm">
                                         <p class="text-xs font-weight-bold mb-0"><?= $row['nip'] ?></p>
@@ -50,20 +50,7 @@
                                     <td class="align-middle text-center text-sm">
                                         <p class="text-xs font-weight-bold mb-0">Kec.<?= ucwords(strtolower($row['kecamatan_tugas'])) ?></p>
                                     </td>
-                                    <td class="align-middle text-sm">
-                                        <p class="text-xs font-weight-bold mb-0">
-                                            1. <?= $row['wilker'] ?> <br>
-                                            2. <?= $row['wilker2'] ?> <br>
-                                            3. <?= $row['wilker3'] ?> <br>
-                                            4. <?= $row['wilker4'] ?> <br>
-                                            5. <?= $row['wilker5'] ?> <br>
-                                            6. <?= $row['wilker6'] ?> <br>
-                                            7. <?= $row['wilker7'] ?> <br>
-                                            8. <?= $row['wilker8'] ?> <br>
-                                            9. <?= $row['wilker9'] ?> <br>
-                                            10. <?= $row['wilker10'] ?>
-                                        </p>
-                                    </td>
+
                                     <td class="align-middle text-center text-sm">
                                         <p class="text-xs font-weight-bold mb-0"><?= $row['status_kel'] ?></p>
                                     </td>
