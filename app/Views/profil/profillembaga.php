@@ -159,7 +159,7 @@
                                                     <tr>
                                                         <td>Nama Pimpinan</td>
                                                         <td>:</td>
-                                                        <td><?= $dt['nama_kabid']; ?></td>
+                                                        <td><?= $dt['ketua']; ?></td>
                                                     </tr>
                                                     <tr>
                                                         <td>No HP Pimpinan</td>
@@ -169,7 +169,7 @@
                                                     <tr>
                                                         <td>Nama Koordinator PP</td>
                                                         <td>:</td>
-                                                        <td><?= $dt['nama_koord_penyuluh']; ?></td>
+                                                        <td><?= $dt['nama']; ?></td>
                                                     </tr>
 
                                                 </tbody>

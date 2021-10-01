@@ -206,6 +206,9 @@
         }); // end am4core.ready()
     </script>
 
+
+
+
     <script>
         $("#lokasikerja").change(function() {
             if ($(this).val() == "kabupaten") {
@@ -269,7 +272,7 @@
     <script>
         var min = 1970,
             max = new Date().getFullYear(),
-            select = document.getElementById('selectElementId');
+            select = document.getElementById('tahun_berdiri');
 
         for (var i = min; i <= max; i++) {
             var opt = document.createElement('option');
@@ -290,6 +293,10 @@
             select.appendChild(opt);
         }
     </script>
+
+    <?= $this->renderSection('script') ?>
+
+
 </body>
 
 </html>

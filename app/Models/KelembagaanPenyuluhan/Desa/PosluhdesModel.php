@@ -65,7 +65,14 @@ class PosluhdesModel extends Model
 
     public function getPenyuluhSwadaya($kode_kec)
     {
-        $query = $this->db->query("select * from tbldasar_swa where tempat_tugas LIKE '" . $kode_kec . "%' ORDER BY nama ASC");
+        $query = $this->db->query("select id_swa, nama from tbldasar_swa where tempat_tugas LIKE '" . $kode_kec . "%' ORDER BY nama ASC");
+        $row   = $query->getResultArray();
+        return $row;
+    }
+
+    public function getPosluhdes($idpos)
+    {
+        $query = $this->db->query("select *, b.deskripsi from tb_posluhdes a left join tbldaerah b on a.kode_kec=b.id_daerah where idpos LIKE '" . $idpos . "%' ORDER BY nama ASC");
         $row   = $query->getResultArray();
         return $row;
     }
