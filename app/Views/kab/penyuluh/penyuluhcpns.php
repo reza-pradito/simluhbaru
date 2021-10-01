@@ -48,9 +48,18 @@
                         <td class="align-middle text-center text-sm">
                             <p class="text-xs font-weight-bold mb-0">Kec.<?= ucwords(strtolower($row['kecamatan_tugas'])) ?></p>
                         </td>
-                        <td class="align-middle text-center text-sm">
+                        <td class="align-middle text-sm">
                             <p class="text-xs font-weight-bold mb-0">
-                                1.
+                                1. <?= $row['wil_kerja'] ?><br>
+                                2. <?= $row['wil_kerja2'] ?><br>
+                                3. <?= $row['wil_kerja3'] ?><br>
+                                4. <?= $row['wil_kerja4'] ?><br>
+                                5. <?= $row['wil_kerja5'] ?><br>
+                                6. <?= $row['wil_kerja6'] ?><br>
+                                7. <?= $row['wil_kerja7'] ?><br>
+                                8. <?= $row['wil_kerja8'] ?><br>
+                                9. <?= $row['wil_kerja9'] ?><br>
+                                10. <?= $row['wil_kerja10'] ?>
                             </p>
                         </td>
                         <td class="align-middle text-center text-sm">

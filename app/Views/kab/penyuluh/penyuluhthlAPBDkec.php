@@ -12,7 +12,7 @@
             <thead>
                 <tr>
                     <th class="text-uppercase text-secondary text-xxs font-weight-bolder" style="text-align: center;">No</th>
-                    <th class="text-uppercase text-secondary text-xxs font-weight-bolder" style="text-align: center;">No Peserta</th>
+                    <th class="text-uppercase text-secondary text-xxs font-weight-bolder" style="text-align: center;">NIK</th>
                     <th class="text-uppercase text-secondary text-xxs font-weight-bolder" style="text-align: center;">Nama</th>
                     <th class="text-uppercase text-secondary text-xxs font-weight-bolder" style="text-align: center;">Nama Unit Kerja</th>
                     <th class="text-uppercase text-secondary text-xxs font-weight-bolder" style="text-align: center;">Tempat Tugas<br>(Kecamatan)</th>
@@ -31,7 +31,7 @@
                             <p class="text-xs font-weight-bold mb-8"><?= $i++ ?></p>
                         </td>
                         <td class="align-middle text-center text-sm">
-                            <p class="text-xs font-weight-bold mb-8"><?= $row['no_peserta'] ?></p>
+                            <p class="text-xs font-weight-bold mb-8"><?= $row['noktp'] ?></p>
                         </td>
                         <td class="align-middle text-center text-sm">
                             <p class="text-xs font-weight-bold mb-8"><?= $row['nama'] ?></p>
