@@ -48,6 +48,7 @@
     <script src="https://cdn.amcharts.com/lib/4/maps.js"></script>
     <script src="https://cdn.amcharts.com/lib/4/geodata/indonesiaLow.js"></script>
     <script src="https://cdn.amcharts.com/lib/4/themes/animated.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js" integrity="sha512-894YE6QWD5I59HgZOGReFYm4dnWc1Qt5NtvYSaNcOP+u1T9qYdvdihz0PPSiiqn/+/3e7Jo4EaG7TubfWGUrMQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 
     <script>
         var win = navigator.platform.indexOf('Win') > -1;
@@ -70,7 +71,31 @@
             $(this).addClass('active');
         })
     </script>
+<script>
+    var min = 1970,
+    max = new Date().getFullYear(),
+    select = document.getElementById('selectElementId');
 
+for (var i = min; i<=max; i++){
+    var opt = document.createElement('option');
+    opt.value = i;
+    opt.innerHTML = i;
+    select.appendChild(opt);
+}
+</script>
+
+<script>
+    var min = 1970,
+    max = new Date().getFullYear(),
+    select = document.getElementById('selectElementId1');
+
+for (var i = min; i<=max; i++){
+    var opt = document.createElement('option');
+    opt.value = i;
+    opt.innerHTML = i;
+    select.appendChild(opt);
+}
+</script>
 
     <!-- Styles -->
     <style>

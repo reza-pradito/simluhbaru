@@ -55,5 +55,7 @@ class BaseController extends Controller
 		//--------------------------------------------------------------------
 		// E.g.: $this->session = \Config\Services::session();
 		$this->session = \Config\Services::session();
+		$this->addgapmodel = new \App\Models\KelembagaanPelakuUtama\Gapoktan\ListGapoktanModel();
+		$this->addpoktanmodel = new \App\Models\KelembagaanPelakuUtama\KelompokTani\ListPoktanModel();
 	}
 }
