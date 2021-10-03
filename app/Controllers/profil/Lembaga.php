@@ -27,6 +27,7 @@ class Lembaga extends BaseController
 
 
         $data = [
+
             'title' => 'Profil Lembaga',
             'dt' => $dtlembaga
         ];

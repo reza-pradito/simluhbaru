@@ -17,6 +17,7 @@
     <!-- Font Awesome Icons -->
     <script src="https://kit.fontawesome.com/42d5adcbca.js" crossorigin="anonymous"></script>
     <link href="<?= base_url('assets/vendor/fontawesome-free/css/all.min.css'); ?>" rel="stylesheet">
+    <link href="/assets/vendor/@fortawesome/fontawesome-free/css/all.min.css" rel="stylesheet">
     <link href="<?= base_url('assets/css/nucleo-svg.css'); ?>" rel="stylesheet" />
     <!-- CSS Files -->
     <link id="pagestyle" href="<?= base_url('assets/css/soft-ui-dashboard.css?v=1.0.3'); ?>" rel="stylesheet" />
@@ -40,6 +41,7 @@
     <script src="<?= base_url('assets/js/core/popper.min.js'); ?>"></script>
     <script src="<?= base_url('assets/js/jquery.min.js'); ?>"></script>
     <script src="<?= base_url('assets/js/script.js'); ?>"></script>
+    <script src="<?= base_url('assets/js/add-pos.js'); ?>"></script>
     <script src="<?= base_url('assets/js/core/bootstrap.min.js'); ?>"></script>
     <script src="<?= base_url('assets/js/plugins/perfect-scrollbar.min.js'); ?>"></script>
     <script src="<?= base_url('assets/js/plugins/smooth-scrollbar.min.js'); ?>"></script>
@@ -235,6 +237,9 @@ for (var i = min; i<=max; i++){
         }); // end am4core.ready()
     </script>
 
+
+
+
     <script>
         var min = 1970,
             max = new Date().getFullYear(),
@@ -323,6 +328,33 @@ for (var i = min; i<=max; i++){
     </script>
 
     <script>
+        var min = 1970,
+            max = new Date().getFullYear(),
+            select = document.getElementById('tahun_berdiri');
+
+        for (var i = min; i <= max; i++) {
+            var opt = document.createElement('option');
+            opt.value = i;
+            opt.innerHTML = i;
+            select.appendChild(opt);
+        }
+    </script>
+    <script>
+        var min = 1970,
+            max = new Date().getFullYear(),
+            select = document.getElementById('selectElementId2');
+
+        for (var i = min; i <= max; i++) {
+            var opt = document.createElement('option');
+            opt.value = i;
+            opt.innerHTML = i;
+            select.appendChild(opt);
+        }
+    </script>
+
+    <?= $this->renderSection('script') ?>
+
+    <script>
         $(document).ready(function() {
             const monthNames = ["January", "February", "March", "April", "May", "June",
                 "July", "August", "September", "October", "November", "December"
@@ -408,6 +440,7 @@ for (var i = min; i<=max; i++){
             //alert($('.modal-body #jum_anggota').val());
         })
     </script>
+
 
 </body>
 
