@@ -8,11 +8,11 @@ class KelembagaanEkonomiPetani extends BaseController
 {
     public function kelembagaanekonomipetani()
     {
-        $get_param = $this->request->getGet();
+       // $get_param = $this->request->getGet();
 
-        $kode_kab = $get_param['kode_kab'];
+        //$kode_kab = $get_param['kode_kab'];
         $kelembagaanekonomipetani_model = new KelembagaanEkonomiPetaniModel();
-        $kelembagaanekonomipetani_data = $kelembagaanekonomipetani_model->getKelembagaanEkonomiPetaniTotal($kode_kab);
+        $kelembagaanekonomipetani_data = $kelembagaanekonomipetani_model->getKelembagaanEkonomiPetaniTotal(session()->get('kodebapel'));
 
         $data = [
             
