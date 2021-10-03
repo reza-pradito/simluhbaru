@@ -8,11 +8,11 @@ class KelompokTaniKec extends BaseController
 {
     public function kelompoktanikec()
     {
-        $get_param = $this->request->getGet();
+       // $get_param = $this->request->getGet();
 
-        $nama_kec = $get_param['nama_kec'];
+       // $nama_kec = $get_param['nama_kec'];
         $kelompoktanikec_model = new KelompokTaniKecModel();
-        $kelompoktanikec_data = $kelompoktanikec_model->getKelompokTaniKecTotal($nama_kec);
+        $kelompoktanikec_data = $kelompoktanikec_model->getKelompokTaniKecTotal(session()->get('kodebapel'));
 
         $data = [
             
