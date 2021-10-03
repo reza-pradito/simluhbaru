@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use \Config\Database;
 use CodeIgniter\Model;
 
 class LembagaModel extends Model
