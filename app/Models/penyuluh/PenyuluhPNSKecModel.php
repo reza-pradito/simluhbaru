@@ -26,6 +26,50 @@ class PenyuluhPNSKecModel extends Model
     // protected $validationMessages = [];
     // protected $skipValidation     = false;
 
+    public function getDetailPenyuluhPNSKecByNIK($nik)
+    {
+        $query = $this->db->query("select *, a.nip_lama, a.nip, a.nama, a.gelar_dpn, a.gelar_blk, a.tgl_update, a.agama, a.keahlian, a.email, k.nama_bpp,
+        case a.status
+        when '0' then 'Aktif'
+        when '6' then 'Tugas Belajar'
+        else '' end status_kel,
+        d.nm_desa as wil_kerja, e.nm_desa as wil_kerja2,
+        f.nm_desa as wil_kerja3, g.nm_desa as wil_kerja4, h.nm_desa as wil_kerja5, u.nm_desa as wil_kerja6, 
+        v.nm_desa as wil_kerja7, w.nm_desa as wil_kerja8, x.nm_desa as wil_kerja9, y.nm_desa as wil_kerja10,
+        case a.agama 
+        when '1' then 'Islam'
+        when '2' then 'Protestan'
+        when '3' then 'Khatolik'
+        when '4' then 'Hindu'
+        when '5' then 'Budha'
+        else '' end as agama,
+        case a.keahlian
+        when '1' then 'Tanaman Pangan'
+        when '2' then 'Peternakan'
+        when '3' then 'Perkebunan'
+        when '4' then 'Hortikultura'
+        else '' end as keahlian,
+        j.deskripsi as kecamatan_tugas
+        from tbldasar a
+        left join tblsatminkal b on a.satminkal=b.kode
+        left join tblstatus_penyuluh c on a.status='0' and a.status_kel=c.kode
+        left join tbldesa d on a.wil_kerja=d.id_desa
+        left join tbldesa e on a.wil_kerja2=e.id_desa
+        left join tbldesa f on a.wil_kerja3=f.id_desa
+        left join tbldesa g on a.wil_kerja4=g.id_desa
+        left join tbldesa h on a.wil_kerja5=h.id_desa
+        left join tbldesa u on a.wil_kerja6=u.id_desa
+        left join tbldesa v on a.wil_kerja7=v.id_desa
+        left join tbldesa w on a.wil_kerja8=w.id_desa
+        left join tbldesa x on a.wil_kerja9=x.id_desa
+        left join tbldesa y on a.wil_kerja10=y.id_desa
+        left join tblbpp k on a.unit_kerja=k.id
+        left join tbldaerah j on a.kecamatan_tugas=j.id_daerah
+        WHERE nip = '$nik'");
+        $row   = $query->getRowArray();
+        return $row;
+    }
+
 
     public function getPenyuluhPNSKecTotal($kode_kec)
     {
@@ -42,11 +86,8 @@ class PenyuluhPNSKecModel extends Model
                                 when '6' then 'Tugas Belajar'
                                 else '' end status_kel,
                                 d.nm_desa as wil_kerja, e.nm_desa as wil_kerja2,
-                                f.nm_desa as wil_kerja3, g.nm_desa as wil_kerja4, h.nm_desa as wil_kerja5, u.nm_desa as wil_kerja6, v.nm_desa as wil_kerja7,
-                                w.nm_desa as wil_kerja8, x.nm_desa as wil_kerja9, y.nm_desa as wil_kerja10,
-                                
-                                
-
+                                f.nm_desa as wil_kerja3, g.nm_desa as wil_kerja4, h.nm_desa as wil_kerja5, u.nm_desa as wil_kerja6, 
+                                v.nm_desa as wil_kerja7, w.nm_desa as wil_kerja8, x.nm_desa as wil_kerja9, y.nm_desa as wil_kerja10,
                                 j.deskripsi as kecamatan_tugas
                                 from tbldasar a
                                 left join tblsatminkal b on a.satminkal=b.kode

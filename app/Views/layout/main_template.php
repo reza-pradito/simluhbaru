@@ -44,6 +44,8 @@
     <script src="<?= base_url('assets/js/plugins/perfect-scrollbar.min.js'); ?>"></script>
     <script src="<?= base_url('assets/js/plugins/smooth-scrollbar.min.js'); ?>"></script>
     <script src="<?= base_url('assets/js/plugins/chartjs.min.js'); ?>"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js" integrity="sha512-894YE6QWD5I59HgZOGReFYm4dnWc1Qt5NtvYSaNcOP+u1T9qYdvdihz0PPSiiqn/+/3e7Jo4EaG7TubfWGUrMQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 
     <!-- Resources -->
     <script src="https://cdn.amcharts.com/lib/4/core.js"></script>
@@ -107,6 +109,10 @@ for (var i = min; i<=max; i++){
             overflow: hidden;
         }
     </style>
+
+    <div class="penyuluhswasta">
+
+    </div>
 
     <!-- Chart code -->
     <script>
@@ -230,6 +236,32 @@ for (var i = min; i<=max; i++){
     </script>
 
     <script>
+        var min = 1970,
+            max = new Date().getFullYear(),
+            select = document.getElementById('selectElementId');
+
+        for (var i = min; i <= max; i++) {
+            var opt = document.createElement('option');
+            opt.value = i;
+            opt.innerHTML = i;
+            select.appendChild(opt);
+        }
+    </script>
+
+    <script>
+        var min = 1970,
+            max = new Date().getFullYear(),
+            select = document.getElementById('selectElementId2');
+
+        for (var i = min; i <= max; i++) {
+            var opt = document.createElement('option');
+            opt.value = i;
+            opt.innerHTML = i;
+            select.appendChild(opt);
+        }
+    </script>
+
+    <script>
         $("#lokasikerja").change(function() {
             if ($(this).val() == "kabupaten") {
                 $('#kecamatan1Div').show();
@@ -289,6 +321,94 @@ for (var i = min; i<=max; i++){
         });
         $("#lokasikerja").trigger("change");
     </script>
+
+    <script>
+        $(document).ready(function() {
+            const monthNames = ["January", "February", "March", "April", "May", "June",
+                "July", "August", "September", "October", "November", "December"
+            ];
+            let qntYears = 80;
+            let selectYear = $("#year");
+            let selectMonth = $("#month");
+            let selectDay = $("#day");
+            let currentYear = new Date().getFullYear();
+
+            for (var y = 0; y < qntYears; y++) {
+                let date = new Date(currentYear);
+                let yearElem = document.createElement("option");
+                yearElem.value = currentYear
+                yearElem.textContent = currentYear;
+                selectYear.append(yearElem);
+                currentYear--;
+            }
+
+            for (var m = 0; m < 12; m++) {
+                let month = monthNames[m];
+                let monthElem = document.createElement("option");
+                monthElem.value = m;
+                monthElem.textContent = month;
+                selectMonth.append(monthElem);
+            }
+
+            var d = new Date();
+            var month = d.getMonth();
+            var year = d.getFullYear();
+            var day = d.getDate();
+
+            selectYear.val(year);
+            selectYear.on("change", AdjustDays);
+            selectMonth.val(month);
+            selectMonth.on("change", AdjustDays);
+
+            AdjustDays();
+            selectDay.val(day)
+
+            function AdjustDays() {
+                var year = selectYear.val();
+                var month = parseInt(selectMonth.val()) + 1;
+                selectDay.empty();
+
+                //get the last day, so the number of days in that month
+                var days = new Date(year, month, 0).getDate();
+
+                //lets create the days of that month
+                for (var d = 1; d <= days; d++) {
+                    var dayElem = document.createElement("option");
+                    dayElem.value = d;
+                    dayElem.textContent = d;
+                    selectDay.append(dayElem);
+                }
+            }
+        });
+    </script>
+
+    <script>
+        $(document).on('click', '#btn-edit', function() {
+            $('.modal-body #id_swa').val($(this).data('id_swa'));
+            $('.modal-body #jenis_penyuluh').val($(this).data('jenis_penyuluh'));
+            $('.modal-body #noktp').val($(this).data('noktp'));
+            $('.modal-body #nama').val($(this).data('nama'));
+            $('.modal-body #tgl_lahir').val($(this).data('tgl_lahir'));
+            $('.modal-body #bln_lahir').val($(this).data('bln_lahir'));
+            $('.modal-body #thn_lahir').val($(this).data('thn_lahir'));
+            $('.modal-body #tempat_lahir').val($(this).data('tempat_lahir'));
+            $('.modal-body #jenis_kelamin').val($(this).data('jenis_kelamin'));
+            $('.modal-body #satminkal').val($(this).data('satminkal'));
+            $('.modal-body #lokasi_kerja').val($(this).data('lokasi_kerja'));
+            $('.modal-body #dati2').val($(this).data('dati2'));
+            $('.modal-body #kodepos').val($(this).data('kodepos'));
+            $('.modal-body #kode_prop').val($(this).data('kode_prop'));
+            $('.modal-body #telp').val($(this).data('telp'));
+            $('.modal-body #email').val($(this).data('email'));
+            $('.modal-body #nama_perusahaan').val($(this).data('nama_perusahaan'));
+            $('.modal-body #alamat_perush').val($(this).data('alamat_perush'));
+            $('.modal-body #telp_perush').val($(this).data('telp_perush'));
+            $('.modal-body #jabatan_di_perush').val($(this).data('jabatan_di_perush'));
+            $('.modal-body #tempat_tugas').val($(this).data('tempat_tugas'));
+            //alert($('.modal-body #jum_anggota').val());
+        })
+    </script>
+
 </body>
 
 </html>

@@ -26,6 +26,43 @@ class PenyuluhSwadayaKecModel extends Model
     // protected $validationMessages = [];
     // protected $skipValidation     = false;
 
+    public function getDetailPenyuluhSwadayaKecByNIK($nik)
+    {
+        $query = $this->db->query("select *, a.nm_pelatihan1, a.tahun_pelatihan1, d.nm_desa as wil_ker, e.nm_desa as wil_ker2, 
+        f.nm_desa as wil_ker3, g.nm_desa as wil_ker4, h.nm_desa as wil_ker5, i.nama_bpp, 
+        j.deskripsi,
+        case a.agama 
+        when '1' then 'Islam'
+        when '2' then 'Protestan'
+        when '3' then 'Khatolik'
+        when '4' then 'Hindu'
+        when '5' then 'Budha'
+        else '' end as agama,
+        case a.tingkat
+        when '01' then 'S3 (Setara)'
+        when '02' then 'S2 (Setara)'
+        when '03' then 'S1 (Setara)'
+        when '04' then 'D4'
+        when '05' then 'SM'
+        when '06' then 'D3'
+        when '07' then 'D2'
+        when '08' then 'D1'
+        when '09' then 'SLTA'
+        when '10' then 'SLTP'
+        when '11' then 'SD'
+        else '' end as tingkat
+        from tbldasar_swa a
+        left join tbldesa d on a.wil_kerja=d.id_desa
+        left join tbldesa e on a.wil_kerja2=e.id_desa
+        left join tbldesa f on a.wil_kerja3=f.id_desa
+        left join tbldesa g on a.wil_kerja4=g.id_desa
+        left join tbldesa h on a.wil_kerja5=h.id_desa
+        left join tblbpp i on a.unit_kerja=i.id
+        left join tbldaerah j on a.kecamatan_tugas=j.id_daerah
+        WHERE noktp = '$nik'");
+        $row   = $query->getRowArray();
+        return $row;
+    }
 
     public function getPenyuluhSwadayaKecTotal($kode_kec)
     {
