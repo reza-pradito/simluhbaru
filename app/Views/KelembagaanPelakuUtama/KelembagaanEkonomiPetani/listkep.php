@@ -4,6 +4,8 @@
 
 
 <center><h2> Daftar Kelembagaan Ekonomi Petani di Kecamatan <?= ucwords(strtolower($nama_kecamatan)) ?> </h2></center>
+
+<a href="/tambahkep"><button type="button" class="btn bg-gradient-primary btn-sm">+ Tambah Data</button></a>
 <div class="card">
     <div class="table-responsive">
         <table class="table align-items-center mb-0">
