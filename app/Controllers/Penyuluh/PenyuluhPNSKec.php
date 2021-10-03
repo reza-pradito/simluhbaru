@@ -15,7 +15,7 @@ class PenyuluhPNSKec extends BaseController
             return redirect()->to('login');
         }
         $penyuluh_model = new PenyuluhPNSKecModel();
-        $pnskec_data = $penyuluh_model->getPenyuluhPNSKecTotal(session()->get('koedbpp'));
+        $pnskec_data = $penyuluh_model->getPenyuluhPNSKecTotal(session()->get('kodebpp'));
 
         $data = [
             'jml_data' => $pnskec_data['jum'],

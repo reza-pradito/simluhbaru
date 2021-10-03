@@ -16,6 +16,7 @@ class ListPoktan extends BaseController
 
         $kode_kec = $get_param['kode_kec'];
         $listpoktan_model = new ListPoktanModel();
+        $desa = $listpoktan_model->getDesa($kode_kec);
         $listpoktan_data = $listpoktan_model->getKelompokTaniTotal($kode_kec);
 
         $data = [
@@ -26,7 +27,8 @@ class ListPoktan extends BaseController
             // 'jup' => $listpoktan_data['jup'],
             'tabel_data' => $listpoktan_data['table_data'],
             'title' => 'List Kelompok Tani',
-            'name' => 'List Kelompok Tani'
+            'name' => 'List Kelompok Tani',
+            'desa' => $desa
         ];
 
         return view('KelembagaanPelakuUtama/KelompokTani/listpoktan', $data);

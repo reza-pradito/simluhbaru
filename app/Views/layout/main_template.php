@@ -44,12 +44,15 @@
     <script src="<?= base_url('assets/js/plugins/perfect-scrollbar.min.js'); ?>"></script>
     <script src="<?= base_url('assets/js/plugins/smooth-scrollbar.min.js'); ?>"></script>
     <script src="<?= base_url('assets/js/plugins/chartjs.min.js'); ?>"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js" integrity="sha512-894YE6QWD5I59HgZOGReFYm4dnWc1Qt5NtvYSaNcOP+u1T9qYdvdihz0PPSiiqn/+/3e7Jo4EaG7TubfWGUrMQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 
     <!-- Resources -->
     <script src="https://cdn.amcharts.com/lib/4/core.js"></script>
     <script src="https://cdn.amcharts.com/lib/4/maps.js"></script>
     <script src="https://cdn.amcharts.com/lib/4/geodata/indonesiaLow.js"></script>
     <script src="https://cdn.amcharts.com/lib/4/themes/animated.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js" integrity="sha512-894YE6QWD5I59HgZOGReFYm4dnWc1Qt5NtvYSaNcOP+u1T9qYdvdihz0PPSiiqn/+/3e7Jo4EaG7TubfWGUrMQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 
     <script>
         var win = navigator.platform.indexOf('Win') > -1;
@@ -72,7 +75,31 @@
             $(this).addClass('active');
         })
     </script>
+    <script>
+        var min = 1970,
+            max = new Date().getFullYear(),
+            select = document.getElementById('selectElementId');
 
+        for (var i = min; i <= max; i++) {
+            var opt = document.createElement('option');
+            opt.value = i;
+            opt.innerHTML = i;
+            select.appendChild(opt);
+        }
+    </script>
+
+    <script>
+        var min = 1970,
+            max = new Date().getFullYear(),
+            select = document.getElementById('selectElementId1');
+
+        for (var i = min; i <= max; i++) {
+            var opt = document.createElement('option');
+            opt.value = i;
+            opt.innerHTML = i;
+            select.appendChild(opt);
+        }
+    </script>
 
     <!-- Styles -->
     <style>
@@ -82,6 +109,10 @@
             overflow: hidden;
         }
     </style>
+
+    <div class="penyuluhswasta">
+
+    </div>
 
     <!-- Chart code -->
     <script>
@@ -205,6 +236,32 @@
     </script>
 
     <script>
+        var min = 1970,
+            max = new Date().getFullYear(),
+            select = document.getElementById('selectElementId');
+
+        for (var i = min; i <= max; i++) {
+            var opt = document.createElement('option');
+            opt.value = i;
+            opt.innerHTML = i;
+            select.appendChild(opt);
+        }
+    </script>
+
+    <script>
+        var min = 1970,
+            max = new Date().getFullYear(),
+            select = document.getElementById('selectElementId2');
+
+        for (var i = min; i <= max; i++) {
+            var opt = document.createElement('option');
+            opt.value = i;
+            opt.innerHTML = i;
+            select.appendChild(opt);
+        }
+    </script>
+
+    <script>
         $("#lokasikerja").change(function() {
             if ($(this).val() == "kabupaten") {
                 $('#kecamatan1Div').show();
@@ -214,30 +271,6 @@
                 $('#kecamatan2').attr('required', '');
                 $('#kecamatan2').attr('data-error', 'This field is required.');
 
-                // } else if ($(this).val() == "selasa") {
-                //     $('#selasaDiv').show();
-                //     $('#selasa').attr('required', '');
-                //     $('#selasa').attr('data-error', 'This field is required.');
-                // } else if ($(this).val() == "rabu") {
-                //     $('#rabuDiv').show();
-                //     $('#rabu').attr('required', '');
-                //     $('#rabu').attr('data-error', 'This field is required.');
-                // } else if ($(this).val() == "kamis") {
-                //     $('#kamisDiv').show();
-                //     $('#kamis').attr('required', '');
-                //     $('#kamis').attr('data-error', 'This field is required.');
-                // } else if ($(this).val() == "jumat") {
-                //     $('#jumatDiv').show();
-                //     $('#jumat').attr('required', '');
-                //     $('#jumat').attr('data-error', 'This field is required.');
-                // } else if ($(this).val() == "sabtu") {
-                //     $('#sabtuDiv').show();
-                //     $('#sabtu').attr('required', '');
-                //     $('#sabtu').attr('data-error', 'This field is required.');
-                // } else if ($(this).val() == "minggu") {
-                //     $('#mingguDiv').show();
-                //     $('#minggu').attr('required', '');
-                //     $('#minggu').attr('data-error', 'This field is required.');
             } else {
                 $('#kecamatan1Div').hide();
                 $('#kecamatan1').removeAttr('required');
