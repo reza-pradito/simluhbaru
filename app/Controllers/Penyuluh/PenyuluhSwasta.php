@@ -15,6 +15,9 @@ class PenyuluhSwasta extends BaseController
         // $get_param = $this->request->getGet();
 
         // $kode_kab = $get_param['kode_kab'];
+        if (session()->get('username') == "") {
+            return redirect()->to('login');
+        }
         $penyuluh_model = new PenyuluhSwastaModel();
         $swasta_data = $penyuluh_model->getPenyuluhSwastaTotal(session()->get('kodebapel'));
 

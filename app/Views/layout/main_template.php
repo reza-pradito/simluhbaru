@@ -245,24 +245,81 @@
                 $('#kecamatan2Div').hide();
                 $('#kecamatan2').removeAttr('required');
                 $('#kecamatan2').removeAttr('data-error');
-                // $('#rabuDiv').hide();
-                // $('#rabu').removeAttr('required');
-                // $('#rabu').removeAttr('data-error');
-                // $('#kamisDiv').hide();
-                // $('#kamis').removeAttr('required');
-                // $('#kamis').removeAttr('data-error');
-                // $('#jumatDiv').hide();
-                // $('#jumat').removeAttr('required');
-                // $('#jumat').removeAttr('data-error');
-                // $('#sabtuDiv').hide();
-                // $('#sabtu').removeAttr('required');
-                // $('#sabtu').removeAttr('data-error');
-                // $('#mingguDiv').hide();
-                // $('#minggu').removeAttr('required');
-                // $('#minggu').removeAttr('data-error');
+
             }
         });
         $("#lokasikerja").trigger("change");
+    </script>
+
+    <script>
+        // $('#btnEdit').on('click', function() {
+        //     alert('test');
+        // });
+
+        $('#btnEdit').on('click', function() {
+            $.ajax({
+                url: '<?= base_url() ?>master/jabatan/edit/' + $(this).data('id'),
+                type: 'GET',
+                dataType: 'JSON',
+                success: function(result) {
+                    console.log(result);
+
+                    $('#idjab').val(result.id_jab);
+                    $('#jabatan').val(result.jabatan);
+
+                    $('#modalJab').modal('show');
+
+                    $("#btnSave").attr("id", "btnEdit");
+
+                    $(document).delegate('#btnEdit', 'click', function(e) {
+                        e.preventDefault();
+
+                        var idjab = $('#idjab').val();
+                        var jab = $('#jabatan').val();
+
+                        let formData = new FormData();
+                        formData.append('idjab', idjab);
+
+                        $.ajax({
+                            url: "<?php echo base_url(); ?>master/jabatan/update/",
+                            type: "POST",
+                            data: formData,
+                            cache: false,
+                            processData: false,
+                            contentType: false,
+                            success: function(result) {
+                                $('#modalJab').modal('hide');
+                                Swal.fire({
+                                    title: 'Sukses',
+                                    text: "Sukses simpan data",
+                                    type: 'success',
+                                }).then((result) => {
+                                    //console.log('sukses');
+                                    if (result.value) {
+                                        location.reload();
+                                    }
+                                });
+                            },
+                            error: function(jqxhr, status, exception) {
+
+                                // alert('data');
+                                Swal.fire({
+                                    title: 'Gagal',
+                                    text: "Gagal simpan data",
+                                    type: 'danger',
+                                });
+                            }
+                        });
+
+                    });
+                }
+            });
+
+            $('.modal').on('hidden.bs.modal', function() {
+                $(this).find('form')[0].reset();
+            });
+
+        });
     </script>
 </body>
 

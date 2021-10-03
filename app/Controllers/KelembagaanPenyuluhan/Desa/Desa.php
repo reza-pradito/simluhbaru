@@ -18,6 +18,9 @@ class Desa extends BaseController
     }
     public function desa()
     {
+        if (session()->get('username') == "") {
+            return redirect()->to('login');
+        }
 
         $desa_model = new DesaModel;
         $desa_data = $desa_model->getDesaTotal($this->session->get('kodebapel'));
@@ -34,6 +37,9 @@ class Desa extends BaseController
 
     public function listdesa()
     {
+        if (session()->get('username') == "") {
+            return redirect()->to('login');
+        }
 
         $get_param = $this->request->getGet();
 

@@ -8,13 +8,15 @@ use App\Models\penyuluh\PenyuluhSwadayaKecModel;
 class PenyuluhSwadayaKec extends BaseController
 {
 
-
     public function penyuluhswadayakec()
     {
         // $get_param = $this->request->getGet();
 
         // $kode_kec = $get_param['kode_kec'];
         // $kode_kab = $get_param['kode_kab'];
+        if (session()->get('username') == "") {
+            return redirect()->to('login');
+        }
         $penyuluh_model = new PenyuluhSwadayaKecModel();
         $swadayakec_data = $penyuluh_model->getPenyuluhSwadayaKecTotal(session()->get('kodebpp'));
 

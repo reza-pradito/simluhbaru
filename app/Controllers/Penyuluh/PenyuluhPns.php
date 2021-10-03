@@ -12,9 +12,9 @@ class PenyuluhPns extends BaseController
     public function penyuluhpns()
     {
 
-        // $get_param = $this->request->getGet();
-
-        // $kode_kab = $get_param['kode_kab'];
+        if (session()->get('username') == "") {
+            return redirect()->to('login');
+        }
         $penyuluh_model = new PenyuluhPNSModel();
         $pns_data = $penyuluh_model->getPenyuluhPNSTotal(session()->get('kodebapel'));
 
