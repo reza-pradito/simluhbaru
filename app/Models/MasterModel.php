@@ -30,6 +30,17 @@ class MasterModel extends Model
         return json_encode($row);
     }
 
+    // public function editJabatan($id, $data)
+    // {
+    //     $data = [
+    //         'title' => 'My title',
+    //         'name'  => 'My Name',
+    //         'date'  => 'My date',
+    //     ];
+
+    //     $builder->replace($data);
+    // }
+
     public function getPenyuluhSwadayaTotal($kode_kab)
     {
         $db = Database::connect();

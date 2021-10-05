@@ -40,7 +40,7 @@ class Jabatan extends BaseController
     public function save()
     {
         $this->model->save([
-            'nama_jab' => $this->request->getVar('jabatan'),
+            'nama_jab' => $this->request->getPost('jab'),
         ]);
 
         return redirect()->to('master/jabatan');
@@ -50,6 +50,19 @@ class Jabatan extends BaseController
     {
         $jabatan = $this->model->getDataById($id);
         echo $jabatan;
+    }
+
+    public function update($id)
+    {
+        //$id = $this->request->getVar('idjab');
+        $jab = $this->request->getPost('jab');
+        $this->model->save([
+            'id_jab' => $id,
+            'nama_jab' => $jab
+        ]);
+
+        //session()->setFlashdata('pesan', 'Data berhasil diubah');
+
     }
 
     public function delete($id)

@@ -268,7 +268,7 @@ $data = $json[0];
                                                     <tr>
                                                         <td>Nama Koordinator PP</td>
                                                         <td>:</td>
-                                                        <td><?= $dt['nama']; ?></td>
+                                                        <td></td>
                                                     </tr>
 
                                                 </tbody>
