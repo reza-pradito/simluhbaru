@@ -1,7 +1,22 @@
 <?= $this->extend('layout/main_template') ?>
 
 <?= $this->section('content') ?>
-<?php $sessnama = session()->get('nama');
+<?php $sessnama = session()->get('nama'); ?>
+<?php
+if (empty(session()->get('status_user')) || session()->get('status_user') == '2') {
+    $kode = '00';
+} elseif (session()->get('status_user') == '1') {
+    $kode = session()->get('kodebakor');
+} elseif (session()->get('status_user') == '200') {
+    $kode = session()->get('kodebapel');
+} elseif (session()->get('status_user') == '300') {
+    $kode = session()->get('kodebpp');
+}
+
+$api = 'https://api.pertanian.go.id/api/simantap/dashboard/list?&api-key=f13914d292b53b10936b7a7d1d6f2406&kode=' . $kode;
+$result = file_get_contents($api, false);
+$json = json_decode($result, true);
+$data = $json[0];
 ?>
 <div class="container-fluid py-4">
     <div class="row">
@@ -16,13 +31,13 @@
                                 <div class="numbers">
                                     <p class="text-sm mb-0 text-capitalize font-weight-bold">Jumlah BPP</p>
                                     <h5 class="font-weight-bolder mb-0">
-                                        <?= number_format(14); ?>
+                                        <?= number_format($data['jumbpp']); ?>
                                     </h5>
                                 </div>
                             </div>
                             <div class="col-4 text-end">
                                 <div class="icon icon-shape bg-gradient-primary shadow text-center border-radius-md">
-                                    <i class="fas fa-user"></i>
+                                    <i class="far fa-building"></i>
                                 </div>
                             </div>
                         </div>
@@ -37,7 +52,7 @@
                                 <div class="numbers">
                                     <p class="text-sm mb-0 text-capitalize font-weight-bold">Jumlah Poktan</p>
                                     <h5 class="font-weight-bolder mb-0">
-                                        <?= number_format(1253); ?>
+                                        <?= number_format($data['jumpoktan']); ?>
                                     </h5>
                                 </div>
                             </div>
@@ -58,7 +73,7 @@
                                 <div class="numbers">
                                     <p class="text-sm mb-0 text-capitalize font-weight-bold">Jumlah Gapoktan</p>
                                     <h5 class="font-weight-bolder mb-0">
-                                        <?= number_format(236); ?>
+                                        <?= number_format($data['jumgapoktan']); ?>
                                     </h5>
                                 </div>
                             </div>
@@ -77,9 +92,93 @@
                         <div class="row">
                             <div class="col-8">
                                 <div class="numbers">
-                                    <p class="text-sm mb-0 text-capitalize font-weight-bold">Jumlah KEP</p>
+                                    <p class="text-sm mb-0 text-capitalize font-weight-bold">Jumlah Penyuluh PNS</p>
                                     <h5 class="font-weight-bolder mb-0">
-                                        <?= number_format(20); ?>
+                                        <?= number_format($data['jumpenyuluhpns']); ?>
+                                    </h5>
+                                </div>
+                            </div>
+                            <div class="col-4 text-end">
+                                <div class="icon icon-shape bg-gradient-primary shadow text-center border-radius-md">
+                                    <i class="fas fa-user"></i>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-xl-3 col-sm-6">
+                <div class="card">
+                    <div class="card-body p-3">
+                        <div class="row">
+                            <div class="col-8">
+                                <div class="numbers">
+                                    <p class="text-sm mb-0 text-capitalize font-weight-bold">Jumlah Penyuluh THL APBN</p>
+                                    <h5 class="font-weight-bolder mb-0">
+                                        <?= number_format($data['jumpenyuluhthlapbn']); ?>
+                                    </h5>
+                                </div>
+                            </div>
+                            <div class="col-4 text-end">
+                                <div class="icon icon-shape bg-gradient-primary shadow text-center border-radius-md">
+                                    <i class="fas fa-user"></i>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-xl-3 col-sm-6">
+                <div class="card">
+                    <div class="card-body p-3">
+                        <div class="row">
+                            <div class="col-8">
+                                <div class="numbers">
+                                    <p class="text-sm mb-0 text-capitalize font-weight-bold">Jumlah Penyuluh THL APBD</p>
+                                    <h5 class="font-weight-bolder mb-0">
+                                        <?= number_format($data['jumpenyuluhthlapbd']); ?>
+                                    </h5>
+                                </div>
+                            </div>
+                            <div class="col-4 text-end">
+                                <div class="icon icon-shape bg-gradient-primary shadow text-center border-radius-md">
+                                    <i class="fas fa-user"></i>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-xl-3 col-sm-6">
+                <div class="card">
+                    <div class="card-body p-3">
+                        <div class="row">
+                            <div class="col-8">
+                                <div class="numbers">
+                                    <p class="text-sm mb-0 text-capitalize font-weight-bold">Jumlah Penyuluh Swadaya</p>
+                                    <h5 class="font-weight-bolder mb-0">
+                                        <?= number_format($data['jumpenyuluhswadaya']); ?>
+                                    </h5>
+                                </div>
+                            </div>
+                            <div class="col-4 text-end">
+                                <div class="icon icon-shape bg-gradient-primary shadow text-center border-radius-md">
+                                    <i class="fas fa-user"></i>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-xl-3 col-sm-6">
+                <div class="card">
+                    <div class="card-body p-3">
+                        <div class="row">
+                            <div class="col-8">
+                                <div class="numbers">
+                                    <p class="text-sm mb-0 text-capitalize font-weight-bold">Jumlah Penyuluh Swasta</p>
+                                    <h5 class="font-weight-bolder mb-0">
+                                        <?= number_format($data['jumpenyuluhswasta']); ?>
                                     </h5>
                                 </div>
                             </div>
@@ -169,7 +268,7 @@
                                                     <tr>
                                                         <td>Nama Koordinator PP</td>
                                                         <td>:</td>
-                                                        <td><?= $dt['nama']; ?></td>
+                                                        <td></td>
                                                     </tr>
 
                                                 </tbody>

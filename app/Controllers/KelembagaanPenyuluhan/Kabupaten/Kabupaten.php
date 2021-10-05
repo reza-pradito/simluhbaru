@@ -17,6 +17,9 @@ class Kabupaten extends BaseController
 
     public function kab()
     {
+        if (session()->get('username') == "") {
+            return redirect()->to('login');
+        }
 
         $kab_model = new KabupatenModel;
         $kab_data = $kab_model->getKabTotal($this->session->get('kodebapel'));
