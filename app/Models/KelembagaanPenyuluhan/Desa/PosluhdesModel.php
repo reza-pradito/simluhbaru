@@ -72,7 +72,7 @@ class PosluhdesModel extends Model
 
     public function getPosluhdes($idpos)
     {
-        $query = $this->db->query("select *, b.deskripsi from tb_posluhdes a left join tbldaerah b on a.kode_kec=b.id_daerah where idpos LIKE '" . $idpos . "%' ORDER BY nama ASC");
+        $query = $this->db->query("select *, b.deskripsi from tb_posluhdes a left join tbldaerah b on a.kode_kec=b.id_daerah where idpos = '" . $idpos . "' ORDER BY nama ASC");
         $row   = $query->getResultArray();
         return $row;
     }
@@ -87,5 +87,10 @@ class PosluhdesModel extends Model
     public function ubah($data, $idpos)
     {
         return $this->builder->update($data, ['idpos' => $idpos]);
+    }
+
+    public function hapus($idpos)
+    {
+        return $this->builder->delete(['idpos' => $idpos]);
     }
 }

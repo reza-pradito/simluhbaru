@@ -99,7 +99,7 @@ class Desa extends BaseController
             'penyuluh_swadaya' => $this->request->getVar('penyuluh_swadaya')
         ]);
 
-        return redirect()->to('/desa');
+        return redirect()->to('/daftar_posluhdes?kode_kec=' . $this->request->getVar('kode_kec'));
     }
 
     public function edit()
@@ -122,12 +122,12 @@ class Desa extends BaseController
 
         $this->posModel->ubah($data, $idpos);
 
-        return redirect()->to('/desa');
+        return redirect()->to('/daftar_posluhdes?kode_kec=' . $this->request->getVar('kode_kec'));
     }
 
     public function delete($idpos)
     {
-        $this->posModel->delete($idpos);
+        $this->posModel->hapus($idpos);
         return redirect()->to('/desa');
     }
 }

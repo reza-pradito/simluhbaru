@@ -16,8 +16,6 @@
     <link href="<?= base_url(); ?>assets/css/nucleo-svg.css" rel="stylesheet" />
     <!-- Font Awesome Icons -->
     <script src="https://kit.fontawesome.com/42d5adcbca.js" crossorigin="anonymous"></script>
-    <link href="<?= base_url('assets/vendor/fontawesome-free/css/all.min.css'); ?>" rel="stylesheet">
-    <link href="/assets/vendor/@fortawesome/fontawesome-free/css/all.min.css" rel="stylesheet">
     <link href="<?= base_url('assets/css/nucleo-svg.css'); ?>" rel="stylesheet" />
     <!-- CSS Files -->
     <link id="pagestyle" href="<?= base_url('assets/css/soft-ui-dashboard.css?v=1.0.3'); ?>" rel="stylesheet" />
@@ -41,11 +39,11 @@
     <script src="<?= base_url('assets/js/core/popper.min.js'); ?>"></script>
     <script src="<?= base_url('assets/js/jquery.min.js'); ?>"></script>
     <script src="<?= base_url('assets/js/script.js'); ?>"></script>
-    <script src="<?= base_url('assets/js/add-pos.js'); ?>"></script>
     <script src="<?= base_url('assets/js/core/bootstrap.min.js'); ?>"></script>
     <script src="<?= base_url('assets/js/plugins/perfect-scrollbar.min.js'); ?>"></script>
     <script src="<?= base_url('assets/js/plugins/smooth-scrollbar.min.js'); ?>"></script>
     <script src="<?= base_url('assets/js/plugins/chartjs.min.js'); ?>"></script>
+    <script src="//cdn.jsdelivr.net/npm/alertifyjs@1.13.1/build/alertify.min.js"></script>
 
     <!-- Resources -->
     <script src="https://cdn.amcharts.com/lib/4/core.js"></script>

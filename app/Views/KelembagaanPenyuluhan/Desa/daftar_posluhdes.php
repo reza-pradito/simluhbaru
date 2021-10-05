@@ -65,12 +65,12 @@
                         </td>
                         <td class="align-middle text-center text-sm">
                             <a href="#">
-                                <button type="button" id="btn-edit" class="btn bg-gradient-warning btn-sm" data-idpos="<?= $item['idpos']; ?>" data-kecamatan="<?= $item['deskripsi']; ?>" data-nm_desa="<?= $item['nm_desa']; ?>" data-kode_desa="<?= $item['kode_desa']; ?>" data-kode_kab="<?= $item['kode_kab']; ?>" data-kode_kec="<?= $item['kode_kec']; ?>" data-nama="<?= $item['nama']; ?>" data-alamat="<?= $item['alamat']; ?>" data-ketua="<?= $item['ketua']; ?>" data-sekretaris="<?= $item['sekretaris']; ?>" data-bendahara="<?= $item['bendahara']; ?>" data-tahun_berdiri="<?= $item['tahun_berdiri']; ?>" data-jum_anggota="<?= $item['jum_anggota']; ?>" data-id_swa="<?= $item['id_swa']; ?>" data-penyuluh_swadaya="<?= $item['penyuluh_swadaya']; ?>">
+                                <button type="button" id="btn-edit" class="btn bg-gradient-warning btn-sm" data-idpos="<?= $item['idpos'] ?>">
                                     <i class="fas fa-edit"></i> Ubah
                                 </button>
                             </a>
-                            <a href="<?= base_url('KelembagaanPenyuluhan/Desa/desa/delete/' . $item['idpos']) ?>">
-                                <button type="button" onclick="return confirm('apakah anda ingin menghapus data ini?')" class="btn bg-gradient-danger btn-sm">
+                            <a href="">
+                                <button type="button" id="btn-hapus" data-idpos="<?= $item['idpos'] ?>" onclick="return confirm('apakah anda ingin menghapus data ini?')" class="btn bg-gradient-danger btn-sm">
                                     <i class="fas fa-trash"></i> Hapus
                                 </button>
                             </a>
@@ -115,7 +115,7 @@
                                                     </div>
                                                     <label for="alamat">Alamat</label>
                                                     <div class="input-group mb-3">
-                                                        <input type="text" class="form-control" placeholder="alamat" name="alamat">
+                                                        <textarea type="text" class="form-control" placeholder="alamat" name="alamat"></textarea>
                                                     </div>
                                                     <label for="ketua">Ketua</label>
                                                     <div class="input-group mb-3">
@@ -174,7 +174,7 @@
                             <div class="modal-body p-0">
                                 <div class="card card-plain">
                                     <div class="card-header pb-0 text-left">
-                                        <h4 class="font-weight-bolder text-warning text-gradient">Ubah Data</h4>
+                                        <h4 class="font-weight-bolder text-warning text-gradient" id="judul-form">Ubah Data</h4>
                                     </div>
                                     <div class="card-body">
                                         <form role="form text-left" action="<?= base_url('KelembagaanPenyuluhan/Desa/desa/edit'); ?>" method="post" enctype="multipart/form-data">
@@ -280,7 +280,7 @@
 <?= $this->section('script') ?>
 <script>
     $(document).ready(function() {
-        $('#btn-edit').on('click', function() {
+        $(document).delegate('#btn-edit', 'click', function() {
             var myModal = new bootstrap.Modal(document.getElementById('modal-edit'), options);
             var id = $(this).data('idpos');
             // alert(id);
@@ -295,6 +295,8 @@
                     $('#idpos').val(res[0].idpos);
                     $('#deskripsi').val(res[0].deskripsi);
                     $('#kode_desa').val(res[0].kode_desa);
+                    $('#kode_kab').val(res[0].kode_kab);
+                    $('#kode_kec').val(res[0].kode_kec);
                     $('#nama').val(res[0].nama);
                     $('#alamat').val(res[0].alamat);
                     $('#ketua').val(res[0].ketua);
@@ -303,12 +305,29 @@
                     $('#selectElementId2').val(res[0].tahun_berdiri);
                     $('#jum_anggota').val(res[0].jum_anggota);
                     $('#penyuluh_swadaya').val(res[0].penyuluh_swadaya);
-                    $('#judul_form').text("Edit Data");
+                    $('#judul-form').text("Edit Data");
                     myModal.show();
                 }
             })
         })
 
+    })
+</script>
+<script>
+    $(document).ready(function() {
+        $(document).delegate('#btn-hapus', 'click', function() {
+            var id = $($this).data('idpos');
+
+            $.ajax({
+                url: '<?= base_url() ?>/kelembagaanpenyuluhan/desa/desa/delete/' + id,
+                type: 'POST',
+                success: function(res) {
+                    console.log(res)
+                    location.reload();
+
+                }
+            })
+        })
     })
 </script>
 <?= $this->endSection() ?>
