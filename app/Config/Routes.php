@@ -55,34 +55,40 @@ $routes->get('/penyuluhpppkkec', 'Penyuluh/PenyuluhPPPKKec::penyuluhpppkkec');
 
 //$routes->get('profil/penyuluh/detail/(:any)', 'penyuluh::detail/$1');
 
-
-$routes->get('/desa', 'Kelembagaan/Desa::index');
-$routes->get('/daftar_posluhdes', 'Kelembagaan/DaftarPosluhdes::index');
-$routes->get('/kabupaten_kota', 'Kelembagaan/KabupatenKota::index');
-
-
 //KelembagaanPelakuUtamaRoutes
 
 $routes->get('/gapoktan', 'KelembagaanPelakuUtama/Gapoktan/Gapoktan::gapoktan');
 $routes->get('/listgapoktan', 'KelembagaanPelakuUtama/Gapoktan/ListGapoktan::listgapoktan');
 $routes->get('/listgapoktandesa', 'KelembagaanPelakuUtama/Gapoktan/ListGapoktanDesa::listgapoktandesa');
+$routes->get('/tambahgapoktan', 'KelembagaanPelakuUtama/Gapoktan/ListGapoktan::tambahgapoktan');
 
 $routes->get('/gapoktanbersama', 'KelembagaanPelakuUtama/GapoktanBersama/GapoktanBersama::gapoktanbersama');
+$routes->get('/tambahgapoktanbersama', 'KelembagaanPelakuUtama/GapoktanBersama/TambahGapoktanBersama::tambahgapoktanbersama');
 
-$routes->get('/kelembagaanekonomipetani', 'KelembagaanPelakuUtama/KelembagaanEkonomiPetani::kelembagaanekonomipetani');
+$routes->get('kelembagaanekonomipetani', 'KelembagaanPelakuUtama/KelembagaanEkonomiPetani/KelembagaanEkonomiPetani::kelembagaanekonomipetani');
 $routes->get('/listkep', 'KelembagaanPelakuUtama/KelembagaanEkonomiPetani/ListKEP::listkep');
+$routes->get('/tambahkep', 'KelembagaanPelakuUtama/KelembagaanEkonomiPetani/TambahKEP::tambahkep');
+
 
 $routes->get('/kelompoktani', 'KelembagaanPelakuUtama/KelompokTani/KelompokTani::kelompoktani');
 $routes->get('/kelompoktanikec', 'KelembagaanPelakuUtama/KelompokTani/KelompokTaniKec::kelompoktanikec');
 $routes->get('/listpoktan', 'KelembagaanPelakuUtama/KelompokTani/ListPokTan::listpoktan');
 $routes->get('/listpoktananggota', 'KelembagaanPelakuUtama/KelompokTani/ListPoktanAnggota::listpoktananggota');
+$routes->get('/tambahkelompoktani', 'KelembagaanPelakuUtama/KelompokTani/TambahKelompokTani::tambahkelompoktani');
 
 $routes->get('/kelembagaanpetanilainnya', 'KelembagaanPelakuUtama/KelembagaanPetaniLainnya/KelembagaanPetaniLainnya::kelembagaanpetanilainnya');
 $routes->get('/listkep2l', 'KelembagaanPelakuUtama/KelembagaanPetaniLainnya/ListKEP2L::listkep2l');
-
+$routes->get('/tambahkp2l', 'KelembagaanPelakuUtama/KelembagaanPetaniLainnya/TambahKP2L::tambahkp2l');
+//
 $routes->get('/desa', 'KelembagaanPenyuluhan/Desa/Desa::desa');
+$routes->get('/daftar_posluhdes', 'KelembagaanPenyuluhan/Desa/Desa::listdesa');
 $routes->get('/kabupaten_kota', 'KelembagaanPenyuluhan/Kabupaten/Kabupaten::kab');
 $routes->get('/kecamatan', 'KelembagaanPenyuluhan/Kecamatan/Kecamatan::kecamatan');
+$routes->get('/kecamatankec', 'KelembagaanPenyuluhan/Kecamatan/KecamatanKec::kecamatan');
+$routes->get('/desakec', 'KelembagaanPenyuluhan/Desa/DesaKec::Desa');
+$routes->get('/daftar_posluhdes_kec', 'KelembagaanPenyuluhan/Desa/DesaKec::listdesa');
+//$routes->get('/add_pos', 'KelembagaanPenyuluhan/Desa/Desa::add_pos');
+$routes->delete('/daftar_posluhdes/(:num)', 'KelembagaanPenyuluhan/Desa/Desa::delete/$1');
 /*
  * --------------------------------------------------------------------
  * Additional Routing
