@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use \Config\Database;
 use CodeIgniter\Model;
 
 class LembagaModel extends Model
@@ -13,7 +14,14 @@ class LembagaModel extends Model
 
     public function getProfil($id)
     {
-        $query = $this->db->query("SELECT * FROM tblbapel where kabupaten = $id");
+        if (session()->get('status_user') == '1') {
+            $query = $this->db->query("SELECT * FROM tblbakor where kode_prop = $id");
+        } elseif (session()->get('status_user') == '200') {
+            $query = $this->db->query("SELECT * FROM tblbapel where kabupaten = $id");
+        } elseif (session()->get('status_user') == '300') {
+            $query = $this->db->query("SELECT * FROM tblbakor where kecamatan = $id");
+        }
+
         $row   = $query->getRowArray();
         return $row;
     }
