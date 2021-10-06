@@ -22,7 +22,7 @@
             <tbody>
                 <?php
                 $i = 1;
-                foreach ($tabel_data as $row) {
+                foreach ($tabel_data as $item => $row) {
                 ?>
 
                     <tr>
