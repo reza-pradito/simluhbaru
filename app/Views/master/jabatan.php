@@ -13,7 +13,7 @@
             <div class="col-lg-2">
                 <button type="button" class="btn bg-gradient-success btn-block mb-3" data-bs-toggle="modal" data-bs-target="#modalJab">Tambah</button>
             </div>
-            <table class="table">
+            <table id="tblJab" class="table">
                 <thead>
                     <tr>
                         <th scope="col">#</th>
@@ -32,10 +32,7 @@
                             <td><?= $row['nama_jab']; ?></td>
                             <td>
                                 <button type="button" id="btnEditJab" data-id="<?= $row['id_jab'] ?>" class=" btn btn-warning btn-sm">Edit</button>
-
-                                <form action="jabatan/delete/<?= $row['id_jab']; ?>" method="POST" class="d-inline">
-                                    <button class="btn btn-danger btn-sm" type="submit" onclick="return confirm('Are you sure ?')">Hapus</button>
-                                </form>
+                                <button class="btn btn-danger btn-sm" id="btnHapusJab" data-id="<?= $row['id_jab'] ?>" type="button">Hapus</button>
 
                             </td>
                         </tr>
@@ -84,6 +81,8 @@
 <script>
     $(document).ready(function() {
 
+        $('#tblJab').DataTable();
+
         $(document).delegate('#btnSave', 'click', function() {
 
             var jab = $('#jabatan').val();
@@ -119,6 +118,10 @@
                 }
             });
 
+            $('.modal').on('hidden.bs.modal', function() {
+                $(this).find('form')[0].reset();
+            });
+
         });
 
         $(document).delegate('#btnEditJab', 'click', function() {
@@ -135,6 +138,7 @@
                     $('#modalJab').modal('show');
 
                     $("#btnSave").attr("id", "btnDoEdit");
+                    $("#exampleModalLabel").text("Edit Jabatan");
 
                     $(document).delegate('#btnDoEdit', 'click', function() {
                         console.log('ok');
@@ -192,6 +196,55 @@
             });
 
         });
+
+        $(document).delegate('#btnHapusJab', 'click', function() {
+
+            Swal.fire({
+                title: 'Apakah anda yakin',
+                text: "Data akan dihapus ?",
+                type: 'warning',
+                showCloseButton: true,
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                confirmButtonText: 'Hapus Data!'
+            }).then((result) => {
+                if (result.value) {
+                    $.ajax({
+                        url: '<?= base_url() ?>/master/jabatan/delete/' + $(this).data('id'),
+                        type: 'GET',
+                        data: {
+                            'idjab': $(this).data('id')
+                        },
+                        success: function(result) {
+                            Swal.fire({
+                                title: 'Sukses',
+                                text: "Sukses hapus data",
+                                type: 'success',
+                            }).then((result) => {
+
+                                if (result.value) {
+                                    location.reload();
+                                }
+                            });
+                        },
+                        error: function(jqxhr, status, exception) {
+                            Swal.fire({
+                                title: 'Error',
+                                text: "Gagal hapus data",
+                                type: 'error',
+                            }).then((result) => {
+                                if (result.value) {
+                                    location.reload();
+                                }
+                            });
+                        }
+                    });
+                }
+            });
+
+        })
+
     });
 </script>
 
