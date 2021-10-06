@@ -8,7 +8,6 @@ use \Config\Database;
 class PenyuluhSwastaModel extends Model
 {
     protected $table      = 'tbldasar_swasta';
-    protected $useSoftDeletes = true;
     protected $primaryKey = 'id_swa';
     protected $allowedFields = [
         'jenis_penyuluh', 'noktp', 'nama', 'tgl_lahir', 'bln_lahir', 'thn_lahir', 'tempat_lahir', 'jenis_kelamin',
@@ -74,6 +73,24 @@ a.nama_perusahaan, a.jabatan_di_perush, a.tgl_update, a.alamat_perush, a.telp_pe
     {
         $query = $this->db->query("select * from tbldaerah a 
     left join tbldasar_swasta b on b.satminkal=a.id_dati2 where id_dati2='$kode_kab'");
+        $row   = $query->getResultArray();
+        return $row;
+    }
+
+    public function getDetailEdit($id_swa)
+    {
+        $query = $this->db->query("select a.id_swa, a.jenis_penyuluh, a.noktp, a.nama, a.tgl_lahir, a.bln_lahir, a.thn_lahir, a.tempat_lahir, a.jenis_kelamin,
+        a.satminkal, a.prop_satminkal, a.lokasi_kerja, a.alamat, a.dati2, a.kodepos, a.kode_prop, a.telp, a.email,
+        a.nama_perusahaan, a.jabatan_di_perush, a.tgl_update, a.alamat_perush, a.telp_perush, a.tempat_tugas, b.kode, c.nama_prop,
+                                        j.deskripsi,
+                                        z.nama_prop,
+                                        z.id_prop,
+                                        j.id_daerah from tbldasar_swasta a
+                                        left join tblsatminkal b on a.satminkal=b.kode
+                                        left join tblpropinsi c on a.kode_prop=c.id_prop
+                                        left join tbldaerah j on a.tempat_tugas=j.id_daerah
+                                        left join tblpropinsi z on a.kode_prop=z.id_prop
+        where id_swa = '" . $id_swa . "' ORDER BY nama ASC");
         $row   = $query->getResultArray();
         return $row;
     }

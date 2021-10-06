@@ -16,10 +16,10 @@
     <link href="<?= base_url(); ?>assets/css/nucleo-svg.css" rel="stylesheet" />
     <!-- Font Awesome Icons -->
     <script src="https://kit.fontawesome.com/42d5adcbca.js" crossorigin="anonymous"></script>
-    <link href="<?= base_url('assets/vendor/fontawesome-free/css/all.min.css'); ?>" rel="stylesheet">
     <link href="<?= base_url('assets/css/nucleo-svg.css'); ?>" rel="stylesheet" />
     <!-- CSS Files -->
     <link id="pagestyle" href="<?= base_url('assets/css/soft-ui-dashboard.css?v=1.0.3'); ?>" rel="stylesheet" />
+    <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/alertifyjs@1.13.1/build/css/alertify.min.css" />
 
 </head>
 
@@ -36,6 +36,7 @@
     <!-- config template -->
     <?php echo view('layout/config_template'); ?>
 
+
     <!--   Core JS Files   -->
     <script src="<?= base_url('assets/js/core/popper.min.js'); ?>"></script>
     <script src="<?= base_url('assets/js/core/bootstrap.min.js'); ?>"></script>
@@ -44,6 +45,7 @@
     <script src="<?= base_url('assets/js/plugins/chartjs.min.js'); ?>"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js" integrity="sha512-894YE6QWD5I59HgZOGReFYm4dnWc1Qt5NtvYSaNcOP+u1T9qYdvdihz0PPSiiqn/+/3e7Jo4EaG7TubfWGUrMQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script src="//cdn.jsdelivr.net/npm/alertifyjs@1.13.1/build/alertify.min.js"></script>
 
     <!-- Resources -->
     <script src="https://cdn.amcharts.com/lib/4/core.js"></script>
@@ -83,9 +85,6 @@
         }
     </style>
 
-    <div class="penyuluhswasta">
-
-    </div>
 
     <!-- Chart code -->
     <script>
@@ -208,7 +207,7 @@
         }); // end am4core.ready()
     </script>
 
-    <script>
+    <!-- <script>
         var min = 1970,
             max = new Date().getFullYear(),
             select = document.getElementById('selectElementId');
@@ -219,9 +218,9 @@
             opt.innerHTML = i;
             select.appendChild(opt);
         }
-    </script>
+    </script> -->
 
-    <script>
+    <!-- <script>
         var min = 1970,
             max = new Date().getFullYear(),
             select = document.getElementById('selectElementId2');
@@ -232,9 +231,9 @@
             opt.innerHTML = i;
             select.appendChild(opt);
         }
-    </script>
+    </script> -->
 
-    <script>
+    <!-- <script>
         $("#lokasikerja").change(function() {
             if ($(this).val() == "kabupaten") {
                 $('#kecamatan1Div').show();
@@ -268,13 +267,13 @@
                 //     $('#mingguDiv').show();
                 //     $('#minggu').attr('required', '');
                 //     $('#minggu').attr('data-error', 'This field is required.');
-            } else {
-                $('#kecamatan1Div').hide();
-                $('#kecamatan1').removeAttr('required');
-                $('#kecamatan1').removeAttr('data-error');
-                $('#kecamatan2Div').hide();
-                $('#kecamatan2').removeAttr('required');
-                $('#kecamatan2').removeAttr('data-error');
+            // } else {
+            //     $('#kecamatan1Div').hide();
+            //     $('#kecamatan1').removeAttr('required');
+            //     $('#kecamatan1').removeAttr('data-error');
+            //     $('#kecamatan2Div').hide();
+            //     $('#kecamatan2').removeAttr('required');
+            //     $('#kecamatan2').removeAttr('data-error');
                 // $('#rabuDiv').hide();
                 // $('#rabu').removeAttr('required');
                 // $('#rabu').removeAttr('data-error');
@@ -293,7 +292,7 @@
             }
         });
         $("#lokasikerja").trigger("change");
-    </script>
+    </script> -->
 
     <script>
         $(document).ready(function() {
@@ -356,6 +355,66 @@
     </script>
 
     <script>
+        $(document).ready(function() {
+            const monthNames = ["January", "February", "March", "April", "May", "June",
+                "July", "August", "September", "October", "November", "December"
+            ];
+            let qntYears = 80;
+            let selectYear = $("#year2");
+            let selectMonth = $("#month2");
+            let selectDay = $("#day2");
+            let currentYear = new Date().getFullYear();
+
+            for (var y = 0; y < qntYears; y++) {
+                let date = new Date(currentYear);
+                let yearElem = document.createElement("option");
+                yearElem.value = currentYear
+                yearElem.textContent = currentYear;
+                selectYear.append(yearElem);
+                currentYear--;
+            }
+
+            for (var m = 0; m < 12; m++) {
+                let month = monthNames[m];
+                let monthElem = document.createElement("option");
+                monthElem.value = m;
+                monthElem.textContent = month;
+                selectMonth.append(monthElem);
+            }
+
+            var d = new Date();
+            var month2 = d.getMonth();
+            var year2 = d.getFullYear();
+            var day2 = d.getDate();
+
+            selectYear.val(year2);
+            selectYear.on("change", AdjustDays);
+            selectMonth.val(month2);
+            selectMonth.on("change", AdjustDays);
+
+            AdjustDays();
+            selectDay.val(day2)
+
+            function AdjustDays() {
+                var year2 = selectYear.val();
+                var month2 = parseInt(selectMonth.val()) + 1;
+                selectDay.empty();
+
+                //get the last day, so the number of days in that month
+                var days = new Date(year2, month2, 0).getDate();
+
+                //lets create the days of that month
+                for (var d = 1; d <= days; d++) {
+                    var dayElem = document.createElement("option");
+                    dayElem.value = d;
+                    dayElem.textContent = d;
+                    selectDay.append(dayElem);
+                }
+            }
+        });
+    </script>
+
+    <!-- <script>
         $(document).on('click', '#btn-edit', function() {
             $('.modal-body #id_swa').val($(this).data('id_swa'));
             $('.modal-body #jenis_penyuluh').val($(this).data('jenis_penyuluh'));
@@ -380,7 +439,18 @@
             $('.modal-body #tempat_tugas').val($(this).data('tempat_tugas'));
             //alert($('.modal-body #jum_anggota').val());
         })
+    </script> -->
+
+    <script>
+        $(document).ready(function() {
+            <?php if (session()->getFlashdata('status')) { ?>
+                alertify.set('notifier', 'position', 'top-right');
+                alertify.success("<?= session()->getFlashdata('status') ?>");
+            <?php } ?>
+        });
     </script>
+
+    <?= $this->renderSection('script') ?>
 
 </body>
 
