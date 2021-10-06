@@ -18,6 +18,9 @@ class Kecamatan extends BaseController
     public function kecamatan()
     {
 
+        if (session()->get('username') == "") {
+            return redirect()->to('login');
+        }
         $kec_model = new KecamatanModel;
         $kec_data = $kec_model->getKecTotal($this->session->get('kodebapel'));
 

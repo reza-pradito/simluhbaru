@@ -8,9 +8,10 @@
             <h2><?= $title; ?></h2>
         </div>
         <hr>
+
         <div class="row mt-3">
             <div class="col-lg-2">
-                <button type="button" class="btn bg-gradient-success btn-block mb-3" data-bs-toggle="modal" data-bs-target="#exampleModalMessage">Tambah</button>
+                <button type="button" class="btn bg-gradient-success btn-block mb-3" data-bs-toggle="modal" data-bs-target="#modalJab">Tambah</button>
             </div>
             <table class="table">
                 <thead>
@@ -29,8 +30,13 @@
                             <th scope="row"><?= $no++; ?></th>
                             <td><?= $row['id_jab']; ?></td>
                             <td><?= $row['nama_jab']; ?></td>
-                            <td><button type="button" class="btn btn-warning btn-sm">Edit</button>
-                                <button type="button" class="btn btn-danger btn-sm">Hapus</button>
+                            <td>
+                                <button type="button" id="btnEditJab" data-id="<?= $row['id_jab'] ?>" class=" btn btn-warning btn-sm">Edit</button>
+
+                                <form action="jabatan/delete/<?= $row['id_jab']; ?>" method="POST" class="d-inline">
+                                    <button class="btn btn-danger btn-sm" type="submit" onclick="return confirm('Are you sure ?')">Hapus</button>
+                                </form>
+
                             </td>
                         </tr>
                     <?php endforeach; ?>
@@ -44,32 +50,150 @@
     </div>
 </div>
 <!-- Modal -->
-<div class="modal fade" id="exampleModalMessage" tabindex="-1" role="dialog" aria-labelledby="exampleModalMessageTitle" aria-hidden="true">
+<div class="modal fade" id="modalJab" tabindex="-1" role="dialog" aria-labelledby="exampleModalMessageTitle" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel">New message to @CT</h5>
+                <h5 class="modal-title" id="exampleModalLabel">Tambah Jabatan</h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">×</span>
                 </button>
             </div>
             <div class="modal-body">
-                <form>
+                <form method="POST" action="<?= base_url('master/jabatan/save'); ?>">
                     <div class="form-group">
-                        <label for="recipient-name" class="col-form-label">Recipient:</label>
-                        <input type="text" class="form-control" value="Creative Tim" id="recipient-name">
+                        <label for="recipient-name" class="col-form-label">Jabatan:</label>
+                        <input type="text" class="form-control" name="jabatan" id="jabatan">
+                        <input type="hidden" class="form-control" name="idjab" id="idjab">
                     </div>
-                    <div class="form-group">
-                        <label for="message-text" class="col-form-label">Message:</label>
-                        <textarea class="form-control" id="message-text"></textarea>
-                    </div>
-                </form>
+
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn bg-gradient-secondary" data-bs-dismiss="modal">Close</button>
-                <button type="button" class="btn bg-gradient-primary">Send message</button>
+                <button type="button" id="btnSave" class="btn bg-gradient-primary">Simpan</button>
             </div>
+            </form>
         </div>
     </div>
 </div>
+
+<?= $this->endSection() ?>
+
+<?= $this->section('script') ?>
+
+<script>
+    $(document).ready(function() {
+
+        $(document).delegate('#btnSave', 'click', function() {
+
+            var jab = $('#jabatan').val();
+
+            $.ajax({
+                url: '<?= base_url() ?>/master/jabatan/save/',
+                type: 'POST',
+                data: {
+                    'jab': jab
+                },
+                success: function(result) {
+                    Swal.fire({
+                        title: 'Sukses',
+                        text: "Sukses tambah data",
+                        type: 'success',
+                    }).then((result) => {
+
+                        if (result.value) {
+                            location.reload();
+                        }
+                    });
+                },
+                error: function(jqxhr, status, exception) {
+                    Swal.fire({
+                        title: 'Error',
+                        text: "Gagal tambah data",
+                        type: 'error',
+                    }).then((result) => {
+                        if (result.value) {
+                            location.reload();
+                        }
+                    });
+                }
+            });
+
+        });
+
+        $(document).delegate('#btnEditJab', 'click', function() {
+            $.ajax({
+                url: '<?= base_url() ?>/master/jabatan/edit/' + $(this).data('id'),
+                type: 'GET',
+                dataType: 'JSON',
+                success: function(result) {
+                    // console.log(result);
+
+                    $('#idjab').val(result.id_jab);
+                    $('#jabatan').val(result.nama_jab);
+
+                    $('#modalJab').modal('show');
+
+                    $("#btnSave").attr("id", "btnDoEdit");
+
+                    $(document).delegate('#btnDoEdit', 'click', function() {
+                        console.log('ok');
+
+                        var idjab = $('#idjab').val();
+                        var jab = $('#jabatan').val();
+
+                        let formData = new FormData();
+                        formData.append('idjab', idjab);
+                        formData.append('jab', jab);
+
+                        $.ajax({
+                            url: '<?= base_url() ?>/master/jabatan/update/' + idjab,
+                            type: "POST",
+                            data: formData,
+                            cache: false,
+                            processData: false,
+                            contentType: false,
+                            success: function(result) {
+                                $('#modalJab').modal('hide');
+                                Swal.fire({
+                                    title: 'Sukses',
+                                    text: "Sukses edit data",
+                                    type: 'success',
+                                }).then((result) => {
+
+                                    if (result.value) {
+                                        location.reload();
+                                    }
+                                });
+
+                            },
+                            error: function(jqxhr, status, exception) {
+
+                                Swal.fire({
+                                    title: 'Error',
+                                    text: "Gagal edit data",
+                                    type: 'Error',
+                                }).then((result) => {
+
+                                    if (result.value) {
+                                        location.reload();
+                                    }
+                                });
+
+                            }
+                        });
+                    });
+
+                }
+            });
+
+            $('.modal').on('hidden.bs.modal', function() {
+                $(this).find('form')[0].reset();
+            });
+
+        });
+    });
+</script>
+
+
 <?= $this->endSection() ?>

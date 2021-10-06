@@ -16,6 +16,9 @@ class PenyuluhPPPK extends BaseController
 
     public function detail($nik)
     {
+        if (session()->get('username') == "") {
+            return redirect()->to('login');
+        }
         $penyuluhmodel = new PenyuluhPPPKModel();
         $dtpenyuluh = $penyuluhmodel->getDetailPenyuluhPPPKByNIK($nik);
         $data = [

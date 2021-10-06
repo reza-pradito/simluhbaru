@@ -5,7 +5,7 @@
     <div class="row">
         <!-- Map -->
         <div class="col-xs-12 col-md-12 col-lg-12 mb-4">
-            <button type="button" class="btn bg-gradient-primary btn-sm">+ Tambah Data</button><br>
+            <button type="button" data-bs-toggle="modal" data-bs-target="#modal-form-tambah" class="btn bg-gradient-primary btn-sm">+ Tambah Data</button><br>
             <b>Daftar Penyuluh PNS Kab <?= ucwords(strtolower($nama_kabupaten)) ?></b>
             <p>Ditemukan <?= $jml_data ?> data</p>
             <div class="card">
@@ -19,7 +19,6 @@
                                 <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Nama</th>
                                 <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Unit<br>Kerja</th>
                                 <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Tempat<br>Tugas</th>
-                                <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Wilayah<br>Kerja</th>
                                 <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Status</th>
                                 <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Jabatan<br>Terakhir</th>
                                 <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Terakhir<br>Update</th>
@@ -50,13 +49,11 @@
                                     <td class="align-middle text-center text-sm">
                                         <p class="text-xs font-weight-bold mb-0">Kec.<?= ucwords(strtolower($row['kecamatan_tugas'])) ?></p>
                                     </td>
-
                                     <td class="align-middle text-center text-sm">
                                         <p class="text-xs font-weight-bold mb-0"><?= $row['status_kel'] ?></p>
                                     </td>
                                     <td class="align-middle text-center text-sm">
-                                        <p class="text-xs font-weight-bold mb-0"></p>
-                                    </td>
+                                        <p class="text-xs font-weight-bold mb-0"><?= $row['gol'] ?> / <?= $row['jabatan'] ?></p>
                                     </td>
                                     <td class="align-middle text-center text-sm">
                                         <p class="text-xs font-weight-bold mb-0"><?= $row['tgl_update'] ?></p>
@@ -114,7 +111,9 @@
                                                         <label>Tempat, Tanggal Lahir</label>
                                                         <div class="input-group mb-3">
                                                             <input type="text" class="form-control" placeholder="Tempat" aria-label="Password" aria-describedby="password-addon">
-                                                            <input type="date" class="form-control" placeholder="Password" aria-label="Password" aria-describedby="password-addon">
+                                                            <select id="selectElementId">
+                                                                <option value="">Tahun</option>
+                                                            </select>
                                                         </div>
                                                         <label>Jenis Kelamin</label>
                                                         <div class="input-group mb-3">
@@ -292,6 +291,355 @@
                                                                 <option value="SUMATERA BARAT">SUMATERA BARAT</option>
                                                                 <option value="SUMATERA SELATAN">SUMATERA SELATAN</option>
                                                                 <option value="SUMATERA UTARA">SUMATERA UTARA</option>
+                                                            </select>
+                                                        </div>
+                                                        <label>No.Telepon rumah</label>
+                                                        <div class="input-group mb-3">
+                                                            <input type="number" class="form-control" placeholder="No.Telepon rumah" aria-label="Password" aria-describedby="password-addon">
+                                                            <input type="number" class="form-control" placeholder="| HP" aria-label="Password" aria-describedby="password-addon">
+                                                        </div>
+                                                        <label>Alamat Email</label>
+                                                        <div class="input-group mb-3">
+                                                            <input type="email" class="form-control" placeholder="Password" aria-label="Password" aria-describedby="password-addon">
+                                                        </div>
+                                                    </div>
+                                                    <div class="text-center">
+                                                        <button type="button" class="btn btn-round bg-gradient-warning btn-sm">Simpan Data</button>
+                                                    </div>
+                                                </div>
+                                            </form>
+                                        </div>
+
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="modal fade" id="modal-form-tambah" tabindex="-1" role="dialog" aria-labelledby="modal-form-tambah" aria-hidden="true">
+                        <div class="modal-dialog modal-dialog-centered modal-xl" role="document">
+                            <div class="modal-content">
+                                <div class="modal-body p-0">
+                                    <div class="card card-plain">
+                                        <div class="card-header pb-0 text-left">
+                                            <h4 class="font-weight-bolder text-warning text-gradient">Tambah Data</h4>
+                                        </div>
+                                        <div class="card-body">
+                                            <form role="form text-left">
+                                                <div class="row">
+                                                    <div class="col">
+                                                        <label>No KTP (16 Digit)</label>
+                                                        <div class="input-group mb-3">
+                                                            <input type="number" class="form-control" placeholder="Penulisan NIK disambung (tanpa tanda pemisah)" aria-label="Password" aria-describedby="password-addon">
+                                                        </div>
+                                                        <label>NIP (18 Digit)</label>
+                                                        <div class="input-group mb-3">
+                                                            <input type="number" class="form-control" placeholder="Penulisan NIP disambung (tanpa tanda pemisah)" aria-label="Email" aria-describedby="email-addon">
+                                                        </div>
+                                                        <label>Nama Penyuluh</label>
+                                                        <div class="input-group mb-3">
+                                                            <input type="text" class="form-control" placeholder="Nama" aria-label="Password" aria-describedby="password-addon">
+                                                        </div>
+
+                                                        <label>Gelar depan</label>
+                                                        <div class="input-group mb-3">
+                                                            <input type="text" class="form-control" placeholder="Gelar Depan" aria-label="Password" aria-describedby="password-addon">
+
+                                                            <input type="text" class="form-control" placeholder="| Gelar Belakang" aria-label="Password" aria-describedby="password-addon">
+                                                        </div>
+                                                        <label>Tempat, Tanggal Lahir</label>
+                                                        <div class="input-group mb-3">
+                                                            <input type="text" class="form-control" placeholder="Tempat Lahir" aria-label="Password" aria-describedby="password-addon">
+                                                            <select id="year" name="tgl_lahir" class="form-select" aria-label="Default select example">
+                                                                <option value="">Tahun</option>
+                                                            </select>
+                                                            <select id="month" name="bln_lahir" class="form-select" aria-label="Default select example">
+                                                                <option value="">Bulan</option>
+                                                            </select>
+                                                            <select id="day" name="thn_lahir" class="form-select" aria-label="Default select example">
+                                                                <option value="">Tanggal</option>
+                                                            </select>
+                                                        </div>
+                                                        <label>Jenis Kelamin</label>
+                                                        <div class="input-group mb-3">
+                                                            <div class="form-check form-check-inline">
+                                                                <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio1" value="option1">
+                                                                <label class="form-check-label" for="inlineRadio1">Laki-laki</label>
+                                                            </div>
+                                                            <div class="form-check form-check-inline">
+                                                                <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio2" value="option2">
+                                                                <label class="form-check-label" for="inlineRadio2">Perempuan</label>
+                                                            </div>
+                                                        </div>
+                                                        <label>Agama</label>
+                                                        <div class="input-group mb-3">
+                                                            <select class="form-select" aria-label="Default select example">
+                                                                <option selected>Pilih Agama</option>
+                                                                <option value="Islam">Islam</option>
+                                                                <option value="Protestan">Protestan</option>
+                                                                <option value="Khatolik">Khatolik</option>
+                                                                <option value="Hindu">Hindu</option>
+                                                                <option value="Budha">Budha</option>
+                                                                <option value="Lainnya">Lainnya</option>
+                                                            </select>
+                                                        </div>
+                                                        <label>Bidang Keahlian</label>
+                                                        <div class="input-group mb-3">
+                                                            <select class="form-select" aria-label="Default select example">
+                                                                <option selected>Pilih Bidang Keahlian</option>
+                                                                <option value="Tanaman Pangan">Tanaman Pangan</option>
+                                                                <option value="Peternakan">Peternakan</option>
+                                                                <option value="Perkebunan">Perkebunan</option>
+                                                                <option value="Horikultura">Horikultura</option>
+                                                            </select>
+                                                        </div>
+                                                        <label>Tingkat Pendidikan Akhir</label>
+                                                        <div class="input-group mb-3">
+                                                            <select name="tingkat_pendidikan" id="tingkat_pendidikan" class="form-control input-lg">
+                                                                <option value="">Pilih Tingkat Pendidikan Akhir</option>
+                                                                <?php
+                                                                foreach ($pendidikan as $row3) {
+                                                                    echo '<option value="' . $row3["id"] . '">' . $row3["nama"] . '</option>';
+                                                                }
+                                                                ?>
+                                                            </select>
+                                                        </div>
+                                                        <label>Bidang Pendidikan</label>
+                                                        <div class="input-group mb-3">
+                                                            <select class="form-select" aria-label="Default select example">
+                                                                <option selected>Pilih Bidang Pendidikan</option>
+                                                                <option value="Pertanian">Pertanian</option>
+                                                                <option value="Non Pertanian">Non Pertanian</option>
+                                                            </select>
+                                                        </div>
+                                                        <label>Jurusan</label>
+                                                        <div class="input-group mb-3">
+                                                            <input type="text" class="form-control" placeholder="Jurusan" aria-label="Password" aria-describedby="password-addon">
+                                                        </div>
+                                                        <label>Nama Sekolah/Universitas</label>
+                                                        <div class="input-group mb-3">
+                                                            <input type="text" class="form-control" placeholder="Nama Sekolah/Universitas" aria-label="Password" aria-describedby="password-addon">
+                                                        </div>
+                                                    </div>
+                                                    <div class="col">
+                                                        <label>Lokasi Kerja</label>
+                                                        <div class="input-group mb-3">
+                                                            <div class="form-check form-check-inline">
+                                                                <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio1" value="kabupaten">
+                                                                <label class="form-check-label" for="inlineRadio1">Kabupaten</label>
+                                                            </div>
+                                                            <div class="form-check form-check-inline">
+                                                                <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio2" value="kecamatan">
+                                                                <label class="form-check-label" for="inlineRadio2">Kecamatan</label>
+                                                            </div>
+                                                        </div>
+                                                        <label>Kecamatan 1</label>
+                                                        <div class="input-group mb-3">
+                                                            <select name="kecamatan_tugas" id="kecamatan_tugas" class="form-control input-lg">
+                                                                <option value="">Pilih Desa</option>
+                                                                <?php
+                                                                foreach ($tugas as $row4) {
+                                                                    echo '<option value="' . $row4["id_daerah"] . '">' . $row4["deskripsi"] . '</option>';
+                                                                }
+                                                                ?>
+                                                            </select>
+                                                        </div>
+                                                        <label>Kecamatan 2</label>
+                                                        <div class="input-group mb-3">
+                                                            <select name="kecamatan_tugas2" id="kecamatan_tugas2" class="form-control input-lg">
+                                                                <option value="">Pilih Desa</option>
+                                                                <?php
+                                                                foreach ($tugas as $row5) {
+                                                                    echo '<option value="' . $row5["id_daerah"] . '">' . $row5["deskripsi"] . '</option>';
+                                                                }
+                                                                ?>
+                                                            </select>
+                                                        </div>
+                                                        <label>Kecamatan 3</label>
+                                                        <div class="input-group mb-3">
+                                                            <select name="kecamatan_tugas3" id="kecamatan_tugas3" class="form-control input-lg">
+                                                                <option value="">Pilih Desa</option>
+                                                                <?php
+                                                                foreach ($tugas as $row6) {
+                                                                    echo '<option value="' . $row6["id_daerah"] . '">' . $row6["deskripsi"] . '</option>';
+                                                                }
+                                                                ?>
+                                                            </select>
+                                                        </div>
+                                                        <label>Kecamatan 4</label>
+                                                        <div class="input-group mb-3">
+                                                            <select name="kecamatan_tugas4" id="kecamatan_tugas4" class="form-control input-lg">
+                                                                <option value="">Pilih Desa</option>
+                                                                <?php
+                                                                foreach ($tugas as $row7) {
+                                                                    echo '<option value="' . $row7["id_daerah"] . '">' . $row7["deskripsi"] . '</option>';
+                                                                }
+                                                                ?>
+                                                            </select>
+                                                        </div>
+                                                        <label>Kecamatan 5</label>
+                                                        <div class="input-group mb-3">
+                                                            <select name="kecamatan_tugas5" id="kecamatan_tugas5" class="form-control input-lg">
+                                                                <option value="">Pilih Desa</option>
+                                                                <?php
+                                                                foreach ($tugas as $row8) {
+                                                                    echo '<option value="' . $row8["id_daerah"] . '">' . $row8["deskripsi"] . '</option>';
+                                                                }
+                                                                ?>
+                                                            </select>
+                                                        </div>
+                                                        <label>Kecamatan 6</label>
+                                                        <div class="input-group mb-3">
+                                                            <select name="kecamatan_tugas6" id="kecamatan_tugas6" class="form-control input-lg">
+                                                                <option value="">Pilih Desa</option>
+                                                                <?php
+                                                                foreach ($tugas as $row9) {
+                                                                    echo '<option value="' . $row9["id_daerah"] . '">' . $row9["deskripsi"] . '</option>';
+                                                                }
+                                                                ?>
+                                                            </select>
+                                                        </div>
+                                                        <label>Kecamatan 7</label>
+                                                        <div class="input-group mb-3">
+                                                            <select name="kecamatan_tugas7" id="kecamatan_tugas7" class="form-control input-lg">
+                                                                <option value="">Pilih Desa</option>
+                                                                <?php
+                                                                foreach ($tugas as $row10) {
+                                                                    echo '<option value="' . $row10["id_daerah"] . '">' . $row10["deskripsi"] . '</option>';
+                                                                }
+                                                                ?>
+                                                            </select>
+                                                        </div>
+                                                        <label>Kecamatan 8</label>
+                                                        <div class="input-group mb-3">
+                                                            <select name="kecamatan_tugas8" id="kecamatan_tugas8" class="form-control input-lg">
+                                                                <option value="">Pilih Desa</option>
+                                                                <?php
+                                                                foreach ($tugas as $row11) {
+                                                                    echo '<option value="' . $row11["id_daerah"] . '">' . $row11["deskripsi"] . '</option>';
+                                                                }
+                                                                ?>
+                                                            </select>
+                                                        </div>
+                                                        <label>Kecamatan 9</label>
+                                                        <div class="input-group mb-3">
+                                                            <select name="kecamatan_tugas9" id="kecamatan_tugas9" class="form-control input-lg">
+                                                                <option value="">Pilih Desa</option>
+                                                                <?php
+                                                                foreach ($tugas as $row12) {
+                                                                    echo '<option value="' . $row12["id_daerah"] . '">' . $row12["deskripsi"] . '</option>';
+                                                                }
+                                                                ?>
+                                                            </select>
+                                                        </div>
+                                                        <label>Kecamatan 10</label>
+                                                        <div class="input-group mb-3">
+                                                            <select name="kecamatan_tugas10" id="kecamatan_tugas10" class="form-control input-lg">
+                                                                <option value="">Pilih Desa</option>
+                                                                <?php
+                                                                foreach ($tugas as $row13) {
+                                                                    echo '<option value="' . $row13["id_daerah"] . '">' . $row13["deskripsi"] . '</option>';
+                                                                }
+                                                                ?>
+                                                            </select>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col">
+                                                        <label>Wilayah Kerja 1</label>
+                                                        <div class="input-group mb-3">
+                                                            <select name="wil_kerja" id="wil_kerja" class="form-control input-lg">
+                                                                <option value="">Pilih Desa</option>
+                                                                <?php
+                                                                foreach ($tugas as $row5) {
+                                                                    echo '<option value="' . $row5["id_daerah"] . '">' . $row5["deskripsi"] . '</option>';
+                                                                }
+                                                                ?>
+                                                            </select>
+                                                        </div>
+                                                        <label>Wilayah Kerja 2</label>
+                                                        <div class="input-group mb-3">
+                                                            <select class="form-select" aria-label="Default select example">
+                                                                <option selected>Pilih Desa</option>
+                                                            </select>
+                                                        </div>
+                                                        <label>Wilayah Kerja 3</label>
+                                                        <div class="input-group mb-3">
+                                                            <select class="form-select" aria-label="Default select example">
+                                                                <option selected>Pilih Desa</option>
+                                                            </select>
+                                                        </div>
+                                                        <label>Wilayah Kerja 4</label>
+                                                        <div class="input-group mb-3">
+                                                            <select class="form-select" aria-label="Default select example">
+                                                                <option selected>Pilih Desa</option>
+                                                            </select>
+                                                        </div>
+                                                        <label>Wilayah Kerja 5</label>
+                                                        <div class="input-group mb-3">
+                                                            <select class="form-select" aria-label="Default select example">
+                                                                <option selected>Pilih Desa</option>
+                                                            </select>
+                                                        </div>
+                                                        <label>Wilayah Kerja 6</label>
+                                                        <div class="input-group mb-3">
+                                                            <select class="form-select" aria-label="Default select example">
+                                                                <option selected>Pilih Desa</option>x
+                                                            </select>
+                                                        </div>
+                                                        <label>Wilayah Kerja 7</label>
+                                                        <div class="input-group mb-3">
+                                                            <select class="form-select" aria-label="Default select example">
+                                                                <option selected>Pilih Desa</option>
+                                                            </select>
+                                                        </div>
+                                                        <label>Wilayah Kerja 8</label>
+                                                        <div class="input-group mb-3">
+                                                            <select class="form-select" aria-label="Default select example">
+                                                                <option selected>Pilih Desa</option>
+                                                            </select>
+                                                        </div>
+                                                        <label>Wilayah Kerja 9</label>
+                                                        <div class="input-group mb-3">
+                                                            <select class="form-select" aria-label="Default select example">
+                                                                <option selected>Pilih Desa</option>
+                                                            </select>
+                                                        </div>
+                                                        <label>Wilayah Kerja 10</label>
+                                                        <div class="input-group mb-3">
+                                                            <select class="form-select" aria-label="Default select example">
+                                                                <option selected>Pilih Desa</option>
+                                                            </select>
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="col">
+                                                        <label>Tgl SK CPNS</label>
+                                                        <div class="input-group mb-3">
+                                                            <input type="date" class="form-control" placeholder="Tgl SK PPPK" aria-label="Password" aria-describedby="password-addon">
+                                                        </div>
+                                                        <label>Tgl SK Penyuluh</label>
+                                                        <div class="input-group mb-3">
+                                                            <input type="date" class="form-control" placeholder="Tgl SPMT" aria-label="Password" aria-describedby="password-addon">
+                                                        </div>>
+                                                        <label>Alamat Rumah</label>
+                                                        <div class="input-group mb-3">
+                                                            <textarea class="form-control" placeholder="Alamat Rumah" id="floatingTextarea"></textarea>
+                                                        </div>
+                                                        <label>Kabupaten</label>
+                                                        <div class="input-group mb-3">
+                                                            <input type="text" class="form-control" placeholder="Kabupaten" aria-label="Password" aria-describedby="password-addon">
+
+                                                            <input type="text" class="form-control" placeholder="| Kode Pos" aria-label="Password" aria-describedby="password-addon">
+                                                        </div>
+                                                        <label>Provinsi</label>
+                                                        <div class="input-group mb-3">
+                                                            <select name="kode_prop" id="kode_prop" class="form-control input-lg">
+                                                                <option value="">Pilih Provinsi</option>
+                                                                <?php
+                                                                foreach ($namaprop as $row2) {
+                                                                    echo '<option value="' . $row2["id_prop"] . '">' . $row2["nama_prop"] . '</option>';
+                                                                }
+                                                                ?>
                                                             </select>
                                                         </div>
                                                         <label>No.Telepon rumah</label>

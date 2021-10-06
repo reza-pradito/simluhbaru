@@ -11,6 +11,9 @@ class PenyuluhTHLAPBNKec extends BaseController
 
     public function penyuluhthlAPBNKec()
     {
+        if (session()->get('username') == "") {
+            return redirect()->to('login');
+        }
 
         $get_param = $this->request->getGet();
 

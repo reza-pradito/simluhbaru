@@ -3,7 +3,9 @@
 <?= $this->section('content') ?>
 
 
-<button type="button" class="btn bg-gradient-primary btn-sm">+ Tambah Data</button>
+
+
+<button type="button" data-bs-toggle="modal" data-bs-target="#modal-form" class="btn bg-gradient-primary btn-sm">+ Tambah Data</button>
 <br>
 <b>Daftar Penyuluh Swasta Kab <?= ucwords(strtolower($nama_kabupaten)) ?></b>
 <p>Ditemukan <?= $jml_data ?> data</p>
@@ -23,31 +25,30 @@
             </thead>
             <tbody>
                 <?php
-                $i = 1;
-                foreach ($tabel_data as $row) {
+                foreach ($tabel_data as $key => $row) {
                 ?>
                     <tr>
                         <td class="align-middle text-center text-sm">
-                            <p class="text-xs font-weight-bold mb-0"><?= $i++ ?></p>
+                            <p class="text-xs font-weight-bold mb-0"><?= $key + 1; ?></p>
                         </td>
                         <td class="align-middle text-center text-sm">
-                            <p class="text-xs font-weight-bold mb-0"><?= $row['noktp'] ?></p>
+                            <p class="text-xs font-weight-bold mb-0"><?= $row['noktp']; ?></p>
                         </td>
                         <td class="align-middle text-center text-sm">
-                            <p class="text-xs font-weight-bold mb-0"><?= $row['nama'] ?></p>
+                            <p class="text-xs font-weight-bold mb-0"><?= $row['nama']; ?></p>
                         </td>
                         <td class="align-middle text-center text-sm">
                             <p class="text-xs font-weight-bold mb-0">Suhartono,SP</p>
                         </td>
                         <td class="align-middle text-center text-sm">
-                            <p class="text-xs font-weight-bold mb-0"><?= $row['tempat_lahir'] ?>, <?= $row['tgl_lahir'] ?>-<?= $row['bln_lahir'] ?>-<?= $row['thn_lahir'] ?></p>
+                            <p class="text-xs font-weight-bold mb-0"><?= $row['tempat_lahir']; ?>, <?= $row['tgl_lahir']; ?>-<?= $row['bln_lahir']; ?>-<?= $row['thn_lahir']; ?></p>
                         </td>
                         <td class="align-middle text-center text-sm">
-                            <p class="text-xs font-weight-bold mb-0"><?= $row['tgl_update'] ?></p>
+                            <p class="text-xs font-weight-bold mb-0"><?= $row['tgl_update']; ?></p>
                         </td>
                         <td class="align-middle text-center text-sm">
                             <a href="#">
-                                <button type="button" data-bs-toggle="modal" data-bs-target="#modal-form" class="btn bg-gradient-warning btn-sm">
+                                <button type="button" data-bs-toggle="modal" data-bs-target="#modal-edit" id="btn-edit" class="btn bg-gradient-warning btn-sm" data-id_swa="<?= $row['id_swa']; ?>" data-jenis_penyuluh="<?= $row['jenis_penyuluh']; ?>" data-noktp="<?= $row['noktp']; ?>" data-nama="<?= $row['nama']; ?>" data-tgl_lahir="<?= $row['tgl_lahir']; ?>" data-bln_lahir="<?= $row['bln_lahir']; ?>" data-thn_lahir="<?= $row['thn_lahir']; ?>" data-tempat_lahir="<?= $row['tempat_lahir']; ?>" data-jenis_kelamin="<?= $row['jenis_kelamin']; ?>" data-satminkal="<?= $row['satminkal']; ?>" data-lokasi_kerja="<?= $row['lokasi_kerja']; ?>" data-alamat="<?= $row['alamat']; ?>" data-dati2="<?= $row['dati2']; ?>" data-kodepos="<?= $row['kodepos']; ?>" data-kode_prop="<?= $row['kode_prop']; ?>" data-telp="<?= $row['telp']; ?>" data-email="<?= $row['email']; ?>" data-nama_perusahaan="<?= $row['nama_perusahaan']; ?>" data-alamat_perush="<?= $row['alamat_perush']; ?>" data-telp_perush="<?= $row['telp_perush']; ?>" data-jabatan_di_perush="<?= $row['jabatan_di_perush']; ?>" data-tempat_tugas="<?= $row['tempat_tugas']; ?>">
                                     <i class="fas fa-edit"></i> Ubah
                                 </button>
                             </a>
@@ -69,124 +70,97 @@
                     <div class="modal-body p-0">
                         <div class="card card-plain">
                             <div class="card-header pb-0 text-left">
-                                <h4 class="font-weight-bolder text-warning text-gradient">Ubah Data</h4>
+                                <h4 class="font-weight-bolder text-warning text-gradient">Tambah Data</h4>
                             </div>
                             <div class="card-body">
-                                <form role="form text-left">
+                                <form role="form text-left" action="<?= base_url('Penyuluh/PenyuluhSwasta/save'); ?>" method="post" enctype="multipart/form-data">
+                                    <? csrf_field(); ?>
                                     <div class="row">
                                         <div class="col">
-                                            <label>Status Penyuluh</label>
-                                            <div class="input-group mb-3">
-                                                <input type="text" class="form-control" placeholder="Email" aria-label="Email" aria-describedby="email-addon" disabled>
-                                            </div>
+                                            <input type="hidden" name="jenis_penyuluh" class="form-control" value="4">
+                                            <input type="hidden" name="satminkal" class="form-control" value="<?= $row['kode'] ?>">
+
                                             <label>No. KTP</label>
                                             <div class="input-group mb-3">
-                                                <input type="text" class="form-control" placeholder="No. KTP" aria-label="Password" aria-describedby="password-addon">
+                                                <input type="text" name="noktp" class="form-control" placeholder="No. KTP" aria-label="Password" aria-describedby="password-addon">
                                             </div>
                                             <label>Nama Penyuluh</label>
                                             <div class="input-group mb-3">
-                                                <input type="text" class="form-control" placeholder="Nama" aria-label="Password" aria-describedby="password-addon">
+                                                <input type="text" name="nama" class="form-control" placeholder="Nama" aria-label="Password" aria-describedby="password-addon">
                                             </div>
                                             <label>Tempat, Tanggal Lahir</label>
                                             <div class="input-group mb-3">
-                                                <input type="text" class="form-control" placeholder="Tempat" aria-label="Password" aria-describedby="password-addon">
-                                                <input type="date" class="form-control" placeholder="Password" aria-label="Password" aria-describedby="password-addon">
+                                                <input type="text" name="tempat_lahir" class="form-control" placeholder="Tempat Lahir">
+                                                <select id="year" name="thn_lahir" class="form-select" aria-label="Default select example">
+                                                    <option value="">Tahun</option>
+                                                </select>
+                                                <select id="month" name="bln_lahir" class="form-select" aria-label="Default select example">
+                                                    <option value="">Bulan</option>
+                                                </select>
+                                                <select id="day" name="tgl_lahir" class="form-select" aria-label="Default select example">
+                                                    <option value="">Tanggal</option>
+                                                </select>
                                             </div>
                                             <label>Jenis Kelamin</label>
                                             <div class="input-group mb-3">
                                                 <div class="form-check form-check-inline">
-                                                    <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio1" value="option1">
+                                                    <input class="form-check-input" type="radio" name="jenis_kelamin" id="inlineRadio1" value="1">
                                                     <label class="form-check-label" for="inlineRadio1">Laki-laki</label>
                                                 </div>
                                                 <div class="form-check form-check-inline">
-                                                    <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio2" value="option2">
+                                                    <input class="form-check-input" type="radio" name="jenis_kelamin" id="inlineRadio2" value="2">
                                                     <label class="form-check-label" for="inlineRadio2">Perempuan</label>
                                                 </div>
                                             </div>
                                             <label>Lokasi Kerja</label>
                                             <div class="input-group mb-3">
-                                                <select class="form-select" aria-label="Default select example">
+                                                <select name="lokasi_kerja" class="form-select" aria-label="Default select example">
                                                     <option selected>Pilih Lokasi Kerja</option>
-                                                    <option value="Kabupaten/Kota">Kabupaten/Kota</option>
-                                                    <option value="Kecamatan">Kecamatan</option>
+                                                    <option value="3">Kabupaten/Kota</option>
+                                                    <option value="4">Kecamatan</option>
                                                 </select>
                                             </div>
                                         </div>
                                         <div class="col">
                                             <label>Kecamatan Tempat Tugas</label>
                                             <div class="input-group mb-3">
-                                                <select class="form-select" aria-label="Default select example">
-                                                    <option selected>Pilih Kecamatan</option>
-                                                    <option value="Arjosari">Arjosari</option>
-                                                    <option value="Bandar">Bandar</option>
-                                                    <option value="Donorojo">Donorojo</option>
-                                                    <option value="Kebonagung">Kebonagung</option>
-                                                    <option value="Nawangan">Nawangan</option>
-                                                    <option value="Ngadirojo">Ngadirojo</option>
-                                                    <option value="Pacitan">Pacitan</option>
-                                                    <option value="Pringkuku">Pringkuku</option>
-                                                    <option value="Sudimoro">Sudimoro</option>
-                                                    <option value="Tulakan">Tulakan</option>
-                                                    <option value="Tegalombo">Tegalombo</option>
-                                                    <option value="Punung">Punung</option>
+                                                <select name="tempat_tugas" id="tempat_tugas" class="form-control input-lg">
+                                                    <option value="">Pilih Desa</option>
+                                                    <?php
+                                                    foreach ($tugas as $row2) {
+                                                        echo '<option value="' . $row2["id_daerah"] . '">' . $row2["deskripsi"] . '</option>';
+                                                    }
+                                                    ?>
                                                 </select>
                                             </div>
                                             <label>Alamat Rumah</label>
                                             <div class="input-group mb-3">
-                                                <textarea class="form-control" placeholder="Alamat Rumah" id="floatingTextarea"></textarea>
+                                                <textarea class="form-control" placeholder="Alamat Rumah" name="alamat" id="floatingTextarea"></textarea>
                                             </div>
                                             <label>Kab./Kota dan Kode Pos</label>
                                             <div class="input-group mb-3">
-                                                <input type="text" class="form-control" placeholder="Kab./Kota" aria-label="Password" aria-describedby="password-addon">
+                                                <input type="text" class="form-control" name="dati2" placeholder="Kab./Kota">
 
-                                                <input type="text" class="form-control" placeholder="| Kode Pos" aria-label="Password" aria-describedby="password-addon">
+                                                <input type="text" class="form-control" name="kodepos" placeholder="| Kode Pos">
                                             </div>
                                             <label>Provinsi</label>
                                             <div class="input-group mb-3">
-                                                <select class="form-select" aria-label="Default select example">
-                                                    <option selected>Pilih Provinsi</option>
-                                                    <option value="Aceh">Aceh</option>
-                                                    <option value="BALI">BALI</option>
-                                                    <option value="BANTEN">BANTEN</option>
-                                                    <option value="BENKULU">BENKULU</option>
-                                                    <option value="DI YOGYAKARTA">DI YOGYAKARTA</option>
-                                                    <option value="DKI JAKARTA">DKI JAKARTA</option>
-                                                    <option value="GORONTALO">GORONTALO</option>
-                                                    <option value="JAMBI">Kec. Pringkuku</option>
-                                                    <option value="JAWA BARAT">JAWA BARAT</option>
-                                                    <option value="JAWA TENGAH">JAWA TENGAH</option>
-                                                    <option value="JAWA TIMUR">JAWA TIMUR</option>
-                                                    <option value="KALIMANTAN BARAT">KALIMANTAN BARAT</option>
-                                                    <option value="KALIMANTAN SELATAN">KALIMANTAN SELATAN</option>
-                                                    <option value="KALIMANTAN TENGAH">KALIMANTAN TENGAH</option>
-                                                    <option value="KALIMANTAN TIMUR">KALIMANTAN TIMUR</option>
-                                                    <option value="KALIMANTAN UTARA">KALIMANTAN UTARA</option>
-                                                    <option value="KEPULAUAN BANGKA BELITUNG">KEPULAUAN BANGKA BELITUNG</option>
-                                                    <option value="KEPULAUAN RIAU">KEPULAUAN RIAU</option>
-                                                    <option value="MALUKU">MALUKU</option>
-                                                    <option value="MALUKU UTARA">MALUKU UTARA</option>
-                                                    <option value="NUSA TENGGARA BARAT">NUSA TENGGARA BARAT</option>
-                                                    <option value="NUSA TENGGARA TIMUR">NUSA TENGGARA TIMUR</option>
-                                                    <option value="PAPUA">PAPUA</option>
-                                                    <option value="PAPUA BARAT">PAPUA BARAT</option>
-                                                    <option value="RIAU">RIAU</option>
-                                                    <option value="SULAWESI BARAT">SULAWESI BARAT</option>
-                                                    <option value="SULAWESI SELATAN">SULAWESI SELATAN</option>
-                                                    <option value="SULAWESI TENGAH">SULAWESI TENGAH</option>
-                                                    <option value="SULAWESI TENGGARA">SULAWESI TENGGARA</option>
-                                                    <option value="SULAWESI UTARA">SULAWESI UTARA</option>
-                                                    <option value="SUMATERA BARAT">SUMATERA BARAT</option>
-                                                    <option value="SUMATERA SELATAN">SUMATERA SELATAN</option>
-                                                    <option value="SUMATERA UTARA">SUMATERA UTARA</option>
+                                                <select name="kode_prop" id="kode_prop" class="form-control input-lg">
+                                                    <option value="">Pilih Provinsi</option>
+                                                    <?php
+                                                    foreach ($namaprop as $row) {
+                                                        echo '<option value="' . $row["id_prop"] . '">' . $row["nama_prop"] . '</option>';
+                                                    }
+                                                    ?>
                                                 </select>
                                             </div>
                                             <label>No.Telepon/HP</label>
                                             <div class="input-group mb-3">
-                                                <input type="number" class="form-control" placeholder="Password" aria-label="Password" aria-describedby="password-addon">
+                                                <input type="number" name="telp" class="form-control" placeholder="No.Telepon/HP">
                                             </div>
                                             <label>Email</label>
                                             <div class="input-group mb-3">
-                                                <input type="email" class="form-control" placeholder="Password" aria-label="Password" aria-describedby="password-addon">
+                                                <input type="email" name="email" class="form-control" placeholder="Email">
                                             </div>
                                         </div>
                                         <h5>Perusahaan</h5>
@@ -194,24 +168,24 @@
 
                                             <label>Nama Perusahaan</label>
                                             <div class="input-group mb-3">
-                                                <input type="text" class="form-control" placeholder="No. KTP" aria-label="Password" aria-describedby="password-addon">
+                                                <input type="text" name="nama_perusahaan" class="form-control" placeholder="Nama Perusahaan">
                                             </div>
                                             <label>
                                                 Jabatan Dalam Perusahaan</label>
                                             <div class="input-group mb-3">
-                                                <input type="text" class="form-control" placeholder="Nama" aria-label="Password" aria-describedby="password-addon">
+                                                <input type="text" name="jabatan_di_perush" class="form-control" placeholder="Jabatan Dalam Perusahaan">
                                             </div>
                                             <label>Alamat Perusahaan</label>
                                             <div class="input-group mb-3">
-                                                <textarea class="form-control" placeholder="Alamat Rumah" id="floatingTextarea"></textarea>
+                                                <textarea class="form-control" name="alamat_perush" placeholder="Alamat Perusahaan" id="floatingTextarea"></textarea>
                                             </div>
                                             <label>No.Telepon</label>
                                             <div class="input-group mb-3">
-                                                <input type="text" class="form-control" placeholder="Nama" aria-label="Password" aria-describedby="password-addon">
+                                                <input type="text" name="telp_perush" class="form-control" placeholder="No.Telepon">
                                             </div>
                                         </div>
                                         <div class="text-center">
-                                            <center><button type="button" class="btn btn-round bg-gradient-warning btn-lg">Simpan Data</button></center>
+                                            <center><button type="submit" class="btn btn-round bg-gradient-warning btn-lg">Simpan Data</button></center>
                                         </div>
                                     </div>
                                 </form>
@@ -227,5 +201,7 @@
 
 </div>
 </div>
+
+
 
 <?= $this->endSection() ?>

@@ -43,6 +43,7 @@ $routes->get('/penyuluhthlapbn', 'Penyuluh/PenyuluhTHLAPBN::penyuluhthlAPBN');
 $routes->get('/penyuluhthlapbd', 'Penyuluh/PenyuluhTHLAPBD::penyuluhthlAPBD');
 $routes->get('/penyuluhswadaya', 'Penyuluh/PenyuluhSwadaya::penyuluhswadaya');
 $routes->get('/penyuluhswasta', 'Penyuluh/PenyuluhSwasta::penyuluhswasta');
+// $routes->post('/penyuluhswasta/save', 'Penyuluh/PenyuluhSwasta::save');
 $routes->get('/penyuluhpppk', 'Penyuluh/PenyuluhPPPK::penyuluhpppk');
 $routes->get('/penyuluhswadayakec', 'Penyuluh/PenyuluhSwadayaKec::penyuluhswadayakec');
 $routes->get('/penyuluhthlapbnkec', 'Penyuluh/PenyuluhTHLAPBNKec::penyuluhthlAPBNkec');
@@ -85,6 +86,8 @@ $routes->get('/kecamatan', 'KelembagaanPenyuluhan/Kecamatan/Kecamatan::kecamatan
 $routes->get('/kecamatankec', 'KelembagaanPenyuluhan/Kecamatan/KecamatanKec::kecamatan');
 $routes->get('/desakec', 'KelembagaanPenyuluhan/Desa/DesaKec::Desa');
 $routes->get('/daftar_posluhdes_kec', 'KelembagaanPenyuluhan/Desa/DesaKec::listdesa');
+//$routes->get('/add_pos', 'KelembagaanPenyuluhan/Desa/Desa::add_pos');
+$routes->delete('/daftar_posluhdes/(:num)', 'KelembagaanPenyuluhan/Desa/Desa::delete/$1');
 /*
  * --------------------------------------------------------------------
  * Additional Routing
