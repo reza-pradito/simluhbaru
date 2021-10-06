@@ -16,20 +16,17 @@
     <link href="<?= base_url(); ?>assets/css/nucleo-svg.css" rel="stylesheet" />
     <!-- Font Awesome Icons -->
     <script src="https://kit.fontawesome.com/42d5adcbca.js" crossorigin="anonymous"></script>
-    <<<<<<< HEAD <link href="<?= base_url('assets/css/nucleo-svg.css'); ?>" rel="stylesheet" />
+    <link href="<?= base_url('assets/css/nucleo-svg.css'); ?>" rel="stylesheet" />
     <!-- CSS Files -->
     <link id="pagestyle" href="<?= base_url('assets/css/soft-ui-dashboard.css?v=1.0.3'); ?>" rel="stylesheet" />
     <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/alertifyjs@1.13.1/build/css/alertify.min.css" />
-    =======
+
     <!-- <link href="<?= base_url('assets/css/nucleo-svg.css'); ?>" rel="stylesheet" /> -->
     <!-- CSS Files -->
     <link id="pagestyle" href="<?= base_url('assets/css/soft-ui-dashboard.css'); ?>" rel="stylesheet" />
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.bundle.min.js"></script>
-    >>>>>>> 806b7b7fec3ec6883cd6b12f9b07aa6f22e9334d
-
-</head>
 
 <body class="g-sidenav-show  bg-gray-100">
 
@@ -57,42 +54,35 @@
     <script src="<?= base_url('assets/js/plugins/perfect-scrollbar.min.js'); ?>"></script>
     <script src="<?= base_url('assets/js/plugins/smooth-scrollbar.min.js'); ?>"></script>
     <script src="<?= base_url('assets/js/plugins/chartjs.min.js'); ?>"></script>
-    <<<<<<< HEAD <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js">
-        </script>
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js" integrity="sha512-894YE6QWD5I59HgZOGReFYm4dnWc1Qt5NtvYSaNcOP+u1T9qYdvdihz0PPSiiqn/+/3e7Jo4EaG7TubfWGUrMQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
-        <script src="//cdn.jsdelivr.net/npm/alertifyjs@1.13.1/build/alertify.min.js"></script>
-        =======
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js" integrity="sha512-894YE6QWD5I59HgZOGReFYm4dnWc1Qt5NtvYSaNcOP+u1T9qYdvdihz0PPSiiqn/+/3e7Jo4EaG7TubfWGUrMQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script src="//cdn.jsdelivr.net/npm/alertifyjs@1.13.1/build/alertify.min.js"></script>
 
+    <!-- Resources -->
+    <script src="https://cdn.amcharts.com/lib/4/core.js"></script>
+    <script src="https://cdn.amcharts.com/lib/4/maps.js"></script>
+    <script src="https://cdn.amcharts.com/lib/4/geodata/indonesiaLow.js"></script>
+    <script src="https://cdn.amcharts.com/lib/4/themes/animated.js"></script>
+    <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js" integrity="sha512-894YE6QWD5I59HgZOGReFYm4dnWc1Qt5NtvYSaNcOP+u1T9qYdvdihz0PPSiiqn/+/3e7Jo4EaG7TubfWGUrMQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script> -->
 
-        >>>>>>> 806b7b7fec3ec6883cd6b12f9b07aa6f22e9334d
+    <!-- Github buttons -->
+    <script async defer src="https://buttons.github.io/buttons.js"></script>
+    <!-- Control Center for Soft Dashboard: parallax effects, scripts for the example pages etc -->
 
-        <!-- Resources -->
-        <script src="https://cdn.amcharts.com/lib/4/core.js"></script>
-        <script src="https://cdn.amcharts.com/lib/4/maps.js"></script>
-        <script src="https://cdn.amcharts.com/lib/4/geodata/indonesiaLow.js"></script>
-        <script src="https://cdn.amcharts.com/lib/4/themes/animated.js"></script>
-        <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js" integrity="sha512-894YE6QWD5I59HgZOGReFYm4dnWc1Qt5NtvYSaNcOP+u1T9qYdvdihz0PPSiiqn/+/3e7Jo4EaG7TubfWGUrMQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script> -->
-
-        <!-- Github buttons -->
-        <script async defer src="https://buttons.github.io/buttons.js"></script>
-        <!-- Control Center for Soft Dashboard: parallax effects, scripts for the example pages etc -->
-
-        <!-- Styles -->
-        <style>
-            #chartdiv {
-                width: 100%;
-                height: 300px;
-                overflow: hidden;
-            }
-        </style>
+    <!-- Styles -->
+    <style>
+        #chartdiv {
+            width: 100%;
+            height: 300px;
+            overflow: hidden;
+        }
+    </style>
 
 
 
-        <?= $this->renderSection('script') ?>
+    <?= $this->renderSection('script') ?>
 
-        <<<<<<< HEAD // Zoom control chart.zoomControl=new am4maps.ZoomControl(); var homeButton=new am4core.Button(); homeButton.events.on("hit", function() { // polygonSeries.show(); // countrySeries.hide(); chart.goHome(); }); homeButton.icon=new am4core.Sprite(); homeButton.padding(7, 5, 7, 5); homeButton.width=30; homeButton.icon.path="M16,8 L14,8 L14,16 L10,16 L10,10 L6,10 L6,16 L2,16 L2,8 L0,8 L8,0 L16,8 Z M16,8" ; homeButton.marginBottom=10; homeButton.parent=chart.zoomControl; homeButton.insertBefore(chart.zoomControl.plusButton); }); // end am4core.ready() </script>
-
-            <!-- <script>
+    <!-- <script>
         var min = 1970,
             max = new Date().getFullYear(),
             select = document.getElementById('selectElementId');
@@ -105,7 +95,7 @@
         }
     </script> -->
 
-            <!-- <script>
+    <!-- <script>
         var min = 1970,
             max = new Date().getFullYear(),
             select = document.getElementById('selectElementId2');
@@ -117,10 +107,9 @@
             select.appendChild(opt);
         }
     </script> -->
-            =======
-            >>>>>>> 806b7b7fec3ec6883cd6b12f9b07aa6f22e9334d
 
-            <!-- <script>
+
+    <!-- <script>
         $("#lokasikerja").change(function() {
             if ($(this).val() == "kabupaten") {
                 $('#kecamatan1Div').show();
@@ -130,130 +119,73 @@
                 $('#kecamatan2').attr('required', '');
                 $('#kecamatan2').attr('data-error', 'This field is required.');
 
-<<<<<<< HEAD
-                // } else if ($(this).val() == "selasa") {
-                //     $('#selasaDiv').show();
-                //     $('#selasa').attr('required', '');
-                //     $('#selasa').attr('data-error', 'This field is required.');
-                // } else if ($(this).val() == "rabu") {
-                //     $('#rabuDiv').show();
-                //     $('#rabu').attr('required', '');
-                //     $('#rabu').attr('data-error', 'This field is required.');
-                // } else if ($(this).val() == "kamis") {
-                //     $('#kamisDiv').show();
-                //     $('#kamis').attr('required', '');
-                //     $('#kamis').attr('data-error', 'This field is required.');
-                // } else if ($(this).val() == "jumat") {
-                //     $('#jumatDiv').show();
-                //     $('#jumat').attr('required', '');
-                //     $('#jumat').attr('data-error', 'This field is required.');
-                // } else if ($(this).val() == "sabtu") {
-                //     $('#sabtuDiv').show();
-                //     $('#sabtu').attr('required', '');
-                //     $('#sabtu').attr('data-error', 'This field is required.');
-                // } else if ($(this).val() == "minggu") {
-                //     $('#mingguDiv').show();
-                //     $('#minggu').attr('required', '');
-                //     $('#minggu').attr('data-error', 'This field is required.');
-            // } else {
-            //     $('#kecamatan1Div').hide();
-            //     $('#kecamatan1').removeAttr('required');
-            //     $('#kecamatan1').removeAttr('data-error');
-            //     $('#kecamatan2Div').hide();
-            //     $('#kecamatan2').removeAttr('required');
-            //     $('#kecamatan2').removeAttr('data-error');
-                // $('#rabuDiv').hide();
-                // $('#rabu').removeAttr('required');
-                // $('#rabu').removeAttr('data-error');
-                // $('#kamisDiv').hide();
-                // $('#kamis').removeAttr('required');
-                // $('#kamis').removeAttr('data-error');
-                // $('#jumatDiv').hide();
-                // $('#jumat').removeAttr('required');
-                // $('#jumat').removeAttr('data-error');
-                // $('#sabtuDiv').hide();
-                // $('#sabtu').removeAttr('required');
-                // $('#sabtu').removeAttr('data-error');
-                // $('#mingguDiv').hide();
-                // $('#minggu').removeAttr('required');
-                // $('#minggu').removeAttr('data-error');
-=======
-            } else {
-                $('#kecamatan1Div').hide();
-                $('#kecamatan1').removeAttr('required');
-                $('#kecamatan1').removeAttr('data-error');
-                $('#kecamatan2Div').hide();
-                $('#kecamatan2').removeAttr('required');
-                $('#kecamatan2').removeAttr('data-error');
-
->>>>>>> 806b7b7fec3ec6883cd6b12f9b07aa6f22e9334d
             }
         });
         $("#lokasikerja").trigger("change");
     </script> -->
 
 
-            <script>
-                $(document).ready(function() {
-                    const monthNames = ["January", "February", "March", "April", "May", "June",
-                        "July", "August", "September", "October", "November", "December"
-                    ];
-                    let qntYears = 80;
-                    let selectYear = $("#year2");
-                    let selectMonth = $("#month2");
-                    let selectDay = $("#day2");
-                    let currentYear = new Date().getFullYear();
+    <script>
+        $(document).ready(function() {
+            const monthNames = ["January", "February", "March", "April", "May", "June",
+                "July", "August", "September", "October", "November", "December"
+            ];
+            let qntYears = 80;
+            let selectYear = $("#year2");
+            let selectMonth = $("#month2");
+            let selectDay = $("#day2");
+            let currentYear = new Date().getFullYear();
 
-                    for (var y = 0; y < qntYears; y++) {
-                        let date = new Date(currentYear);
-                        let yearElem = document.createElement("option");
-                        yearElem.value = currentYear
-                        yearElem.textContent = currentYear;
-                        selectYear.append(yearElem);
-                        currentYear--;
-                    }
+            for (var y = 0; y < qntYears; y++) {
+                let date = new Date(currentYear);
+                let yearElem = document.createElement("option");
+                yearElem.value = currentYear
+                yearElem.textContent = currentYear;
+                selectYear.append(yearElem);
+                currentYear--;
+            }
 
-                    for (var m = 0; m < 12; m++) {
-                        let month = monthNames[m];
-                        let monthElem = document.createElement("option");
-                        monthElem.value = m;
-                        monthElem.textContent = month;
-                        selectMonth.append(monthElem);
-                    }
+            for (var m = 0; m < 12; m++) {
+                let month = monthNames[m];
+                let monthElem = document.createElement("option");
+                monthElem.value = m;
+                monthElem.textContent = month;
+                selectMonth.append(monthElem);
+            }
 
-                    var d = new Date();
-                    var month2 = d.getMonth();
-                    var year2 = d.getFullYear();
-                    var day2 = d.getDate();
+            var d = new Date();
+            var month2 = d.getMonth();
+            var year2 = d.getFullYear();
+            var day2 = d.getDate();
 
-                    selectYear.val(year2);
-                    selectYear.on("change", AdjustDays);
-                    selectMonth.val(month2);
-                    selectMonth.on("change", AdjustDays);
+            selectYear.val(year2);
+            selectYear.on("change", AdjustDays);
+            selectMonth.val(month2);
+            selectMonth.on("change", AdjustDays);
 
-                    AdjustDays();
-                    selectDay.val(day2)
+            AdjustDays();
+            selectDay.val(day2)
 
-                    function AdjustDays() {
-                        var year2 = selectYear.val();
-                        var month2 = parseInt(selectMonth.val()) + 1;
-                        selectDay.empty();
+            function AdjustDays() {
+                var year2 = selectYear.val();
+                var month2 = parseInt(selectMonth.val()) + 1;
+                selectDay.empty();
 
-                        //get the last day, so the number of days in that month
-                        var days = new Date(year2, month2, 0).getDate();
+                //get the last day, so the number of days in that month
+                var days = new Date(year2, month2, 0).getDate();
 
-                        //lets create the days of that month
-                        for (var d = 1; d <= days; d++) {
-                            var dayElem = document.createElement("option");
-                            dayElem.value = d;
-                            dayElem.textContent = d;
-                            selectDay.append(dayElem);
-                        }
-                    }
-                });
-            </script>
+                //lets create the days of that month
+                for (var d = 1; d <= days; d++) {
+                    var dayElem = document.createElement("option");
+                    dayElem.value = d;
+                    dayElem.textContent = d;
+                    selectDay.append(dayElem);
+                }
+            }
+        });
+    </script>
 
-            <!-- <script>
+    <!-- <script>
         $(document).on('click', '#btn-edit', function() {
             $('.modal-body #id_swa').val($(this).data('id_swa'));
             $('.modal-body #jenis_penyuluh').val($(this).data('jenis_penyuluh'));
@@ -280,14 +212,16 @@
         })
     </script> -->
 
-            <script>
-                $(document).ready(function() {
-                    <?php if (session()->getFlashdata('status')) { ?>
-                        alertify.set('notifier', 'position', 'top-right');
-                        alertify.success("<?= session()->getFlashdata('status') ?>");
-                    <?php } ?>
-                });
-            </script>
+    <script>
+        $(document).ready(function() {
+            <?php if (session()->getFlashdata('status')) { ?>
+                alertify.set('notifier', 'position', 'top-right');
+                alertify.success("<?= session()->getFlashdata('status') ?>");
+            <?php } ?>
+        });
+    </script>
+
+
 
 </body>
 
