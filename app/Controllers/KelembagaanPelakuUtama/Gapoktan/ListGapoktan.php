@@ -31,19 +31,29 @@ class ListGapoktan extends BaseController
     }
     public function save()
     {
-        $this->addgapmodel->save([
-            'kode_desa' => $this->request->getVar('kode_desa'),
-            'kode_kab' => $this->request->getVar('kode_kab'),
-            'kode_kec' => $this->request->getVar('kode_kec'),
-            'nama_gapoktan' => $this->request->getVar('nama_gapoktan'),
-            'ketua_gapoktan' => $this->request->getVar('ketua_gapoktan'),
-            'simluh_bendahara' => $this->request->getVar('simluh_bendahara'),
-            'simluh_sekretaris' => $this->request->getVar('simluh_sekretaris'),
-            'alamat' => $this->request->getVar('alamat'),
-            'simluh_tahun_bentuk' => $this->request->getVar('simluh_tahun_bentuk'),
-            'simluh_sk_pengukuhan' => $this->request->getVar('simluh_sk_pengukuhan')
-        ]);
+        $listgapoktan_model = new ListGapoktanModel();
+        $data = [
+            'kode_desa' => $this->request->getPost('kode_desa'),
+            'kode_kab' => $this->request->getPost('kode_kab'),
+            'kode_kec' => $this->request->getPost('kode_kec'),
+            'nama_gapoktan' => $this->request->getPost('nama_gapoktan'),
+            'ketua_gapoktan' => $this->request->getPost('ketua_gapoktan'),
+            'simluh_bendahara' => $this->request->getPost('simluh_bendahara'),
+            'simluh_sekretaris' => $this->request->getPost('simluh_sekretaris'),
+            'alamat' => $this->request->getPost('alamat'),
+            'simluh_tahun_bentuk' => $this->request->getPost('simluh_tahun_bentuk'),
+            'simluh_sk_pengukuhan' => $this->request->getPost('simluh_sk_pengukuhan')
+        ];
+      
 
-        return redirect()->to('/gapoktan');
+        $listgapoktan_model->save($data);
+        $data = ['status' => 'Data Berhasil Ditambah'];
+        return $this->response->setJson[$data];
+    }
+    public function DetailEdit($id_gap)
+    { $listgapoktan_model = new ListGapoktanModel();
+
+        $gapoktan = $listgapoktan_model->getGapoktan($id_gap);
+        echo json_encode($gapoktan);
     }
 }

@@ -76,4 +76,14 @@ class ListGapoktanModel extends Model
         $row   = $query->getResultArray();
         return $row;
     }
+    public function getGapoktan($id_gap)
+    {
+        $query = $this->db->query("select * , b.deskripsi
+                                from tb_gapoktan a
+                                left join tbldaerah b on a.kode_kec=b.id_daerah
+                                where id_gap= '" . $id_gap . "' 
+                                ORDER BY nama_gapoktan ");
+        $row   = $query->getResultArray();
+        return $row;
+    }
 }

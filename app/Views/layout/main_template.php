@@ -15,8 +15,7 @@
     <link href="<?= base_url(); ?>assets/css/nucleo-icons.css" rel="stylesheet" />
     <link href="<?= base_url(); ?>assets/css/nucleo-svg.css" rel="stylesheet" />
     <!-- Font Awesome Icons -->
-    <script src="https://kit.fontawesome.com/42d5adcbca.js" crossorigin="anonymous"></script>
-    <link href="<?= base_url('assets/vendor/fontawesome-free/css/all.min.css'); ?>" rel="stylesheet">
+  
     <link href="<?= base_url('assets/css/nucleo-svg.css'); ?>" rel="stylesheet" />
     <!-- CSS Files -->
     <link id="pagestyle" href="<?= base_url('assets/css/soft-ui-dashboard.css?v=1.0.3'); ?>" rel="stylesheet" />
@@ -51,7 +50,8 @@
     <script src="https://cdn.amcharts.com/lib/4/geodata/indonesiaLow.js"></script>
     <script src="https://cdn.amcharts.com/lib/4/themes/animated.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js" integrity="sha512-894YE6QWD5I59HgZOGReFYm4dnWc1Qt5NtvYSaNcOP+u1T9qYdvdihz0PPSiiqn/+/3e7Jo4EaG7TubfWGUrMQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
-
+    <script src="https://code.jquery.com/jquery-3.6.0.js" integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk=" crossorigin="anonymous"></script>
+    <script src="//cdn.jsdelivr.net/npm/alertifyjs@1.13.1/build/alertify.min.js"></script>
     <script>
         var win = navigator.platform.indexOf('Win') > -1;
         if (win && document.querySelector('#sidenav-scrollbar')) {
@@ -74,31 +74,65 @@
         })
     </script>
 <script>
-    var min = 1970,
-    max = new Date().getFullYear(),
-    select = document.getElementById('selectElementId');
+        $(document).ready(function() {
+            const monthNames = ["January", "February", "March", "April", "May", "June",
+                "July", "August", "September", "October", "November", "December"
+            ];
+            let qntYears = 80;
+            let selectYear = $("#year");
+            let selectMonth = $("#month");
+            let selectDay = $("#day");
+            let currentYear = new Date().getFullYear();
 
-for (var i = min; i<=max; i++){
-    var opt = document.createElement('option');
-    opt.value = i;
-    opt.innerHTML = i;
-    select.appendChild(opt);
-}
-</script>
+            for (var y = 0; y < qntYears; y++) {
+                let date = new Date(currentYear);
+                let yearElem = document.createElement("option");
+                yearElem.value = currentYear
+                yearElem.textContent = currentYear;
+                selectYear.append(yearElem);
+                currentYear--;
+            }
 
-<script>
-    var min = 1970,
-    max = new Date().getFullYear(),
-    select = document.getElementById('selectElementId1');
+            for (var m = 0; m < 12; m++) {
+                let month = monthNames[m];
+                let monthElem = document.createElement("option");
+                monthElem.value = m;
+                monthElem.textContent = month;
+                selectMonth.append(monthElem);
+            }
 
-for (var i = min; i<=max; i++){
-    var opt = document.createElement('option');
-    opt.value = i;
-    opt.innerHTML = i;
-    select.appendChild(opt);
-}
-</script>
+            var d = new Date();
+            var month = d.getMonth();
+            var year = d.getFullYear();
+            var day = d.getDate();
 
+            selectYear.val(year);
+            selectYear.on("change", AdjustDays);
+            selectMonth.val(month);
+            selectMonth.on("change", AdjustDays);
+
+            AdjustDays();
+            selectDay.val(day)
+
+            function AdjustDays() {
+                var year = selectYear.val();
+                var month = parseInt(selectMonth.val()) + 1;
+                selectDay.empty();
+
+                //get the last day, so the number of days in that month
+                var days = new Date(year, month, 0).getDate();
+
+                //lets create the days of that month
+                for (var d = 1; d <= days; d++) {
+                    var dayElem = document.createElement("option");
+                    dayElem.value = d;
+                    dayElem.textContent = d;
+                    selectDay.append(dayElem);
+                }
+            }
+        });
+    </script>
+---!>
     <!-- Styles -->
     <style>
         #chartdiv {
@@ -289,6 +323,9 @@ for (var i = min; i<=max; i++){
         });
         $("#lokasikerja").trigger("change");
     </script>
+
+<?php $this->renderSection('script') ?>
+
 </body>
 
 </html>

@@ -121,7 +121,7 @@
                                                 <textarea class="form-control" id="alamat" placeholder="Alamat" name="alamat" aria-label="Password" aria-describedby="password-addon"></textarea>
                                             <label>Tahun Pembentukan</label>
                                             <div class="input-group mb-3">
-                                                <select id="selectElementId1" class="form-select"  aria-label="Default select example" name="simluh_tahun_bentuk">
+                                                <select id="year" class="form-select"  aria-label="Default select example" name="simluh_tahun_bentuk">
                                                     <option selected>Pilih Tahun</option>
                                                     
                                                 </select>
