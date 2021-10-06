@@ -241,89 +241,57 @@
 <br>
 
 <?= $this->endSection() ?>
-<?= $this->section('script') ?>
+
+<?php $this->section('script') ?>
 
 
-<script>
-$(document).ready(function() {
-
-    $(document).on('click', '.ajax-save', function() {
-
-        if ($.trim($('.nama').val()).length == 0) {
-            error_nama = 'Nama wajib diisi';
-            $('#error_nama').text(error_nama);
-        } else {
-            error_nama = '';
-            $('#error_nama').text(error_nama);
-        }
-
-        if (error_nama != '') {
-            return false;
-        } else {
-            var data = {
-                'kode_desa': $('.kode_desa').val(),
-                'kode_kec': $('.kode_kec').val(),
-                'kode_kab': $('.kode_kab').val(),
-                'nama_gapoktan': $('.nama_gapoktan').val(),
-                'ketua_gapoktan': $('.ketua_gapoktan').val(),
-                'simluh_bendahara': $('.simluh_bendahara').val(),
-                'simluh_sekretaris': $('.simluh_sekretaris').val(),
-                'alamat': $('.alamat').val(),
-                'simluh_tahun_bentuk': $('.simluh_tahun_bentuk').val(),
-                'simluh_sk_pengukuhan': $('.simluh_sk_pengukuhan').val()
-                
-
-            };
-            $.ajax({
-                method: "POST",
-                url: "KelembagaanPelakuUtama/Gapoktan/ListGapoktan/save",
-                data: data,
-                success: function(response) {
-                    $('#modal-form').modal('hide');
-                    $('#modal-form').find('input').val('');
-
-                    alertify.set('notifier', 'position', 'top-right');
-                    alertify.success(response.status);
-                }
-            });
-        }
-
-    });
-});
-</script>
 <script>
     $(document).ready(function() {
-        $(document).delegate('#btn-edit', 'click', function() {
-            var myModal = new bootstrap.Modal(document.getElementById('modal-edit'), options);
-            var id = $(this).data('id_gap');
-            
-            // alert(id);
-            $.ajax({
-                url: '<?= base_url() ?>/KelembagaanPelakuUtama/Gapoktan/ListGapoktan/DetailEdit/' + id,
-                dataType: 'JSON',
-                success: function(res) {
-                    // $(".daftpos").html(res)
-                  
-                    //res = JSON.parse(res);
-              
 
-                    $('#id_gap').val(res[0].id_gap);
-                    $('#kode_kec').val(res[0].kode_kec);
-                    $('#kode_desa').val(res[0].kode_desa);
-                    $('#kode_kab').val(res[0].kode_kab);
-                    $('#alamat').val(res[0].alamat);
-                    $('#ketua_gapoktan').val(res[0].ketua_gapoktan);
-                    $('#simluh_sekretaris').val(res[0].simluh_sekretaris);
-                    $('#simluh_bendahara').val(res[0].simluh_bendahara);
-                    $('#selectElementId').val(res[0].simluh_tahun_bentuk);
-                    $('#simluh_sk_pengukuhan').val(res[0].simluh_sk_pengukuhan);
-                    $('#judul_form').text("Edit Data");
-                    myModal.show();
-                   
-                }
-            })
-        })
+        $(document).on('click', '.ajax-save', function() {
 
-    })
+            if ($.trim($('.nama').val()).length == 0) {
+                error_nama = 'Nama wajib diisi';
+                $('#error_nama').text(error_nama);
+            } else {
+                error_nama = '';
+                $('#error_nama').text(error_nama);
+            }
+
+            if (error_nama != '') {
+                return false;
+            } else {
+                var data = {
+                    'kode_kab': $('.kode_kab').val(),
+                    'kode_desa': $('.kode_desa').val(),
+                    'kode_kec': $('.kode_kec').val(),
+                    'ketua_gapoktan': $('.nama').val(),
+                    'nama_gapoktan': $('.nama_gapoktan').val(),
+                    'simluh_bendahara': $('.simluh_bendahara').val(),
+                    'simluh_sekretaris': $('.simluh_sekretaris').val(),
+                    'alamat': $('.alamat').val(),
+                    'simluh_sk_bentuk': $('.simluh_sk_bentuk').val(),
+                    'simluh_sk_pengukuhan': $('.simluh_sk_pengukuhan').val(),
+                    
+
+                };
+                $.ajax({
+                    method: "POST",
+                    url: "KelembagaanPelakuUtama/Gapoktan/ListGaapoktan/save",
+                    data: data,
+                    success: function(response) {
+                        $('#modal-form').modal('hide');
+                        $('#modal-form').find('input').val('');
+
+                        alertify.set('notifier', 'position', 'top-right');
+                        alertify.success(response.status);
+                    }
+                });
+            }
+
+        });
+    });
 </script>
-<?= $this->endSection() ?>
+
+
+<?php $this->endSection() ?>

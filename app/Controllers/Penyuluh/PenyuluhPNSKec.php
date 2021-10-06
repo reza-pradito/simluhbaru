@@ -11,12 +11,11 @@ class PenyuluhPNSKec extends BaseController
 
     public function penyuluhpnskec()
     {
-        // $get_param = $this->request->getGet();
-
-        // $kode_kec = $get_param['kode_kec'];
-        // $kode_kab = $get_param['kode_kab'];
+        if (session()->get('username') == "") {
+            return redirect()->to('login');
+        }
         $penyuluh_model = new PenyuluhPNSKecModel();
-        $pnskec_data = $penyuluh_model->getPenyuluhPNSKecTotal(session()->get('koedbpp'));
+        $pnskec_data = $penyuluh_model->getPenyuluhPNSKecTotal(session()->get('kodebpp'));
 
         $data = [
             'jml_data' => $pnskec_data['jum'],

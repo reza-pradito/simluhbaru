@@ -16,6 +16,9 @@ class Penyuluh extends BaseController
 
     public function detail($nik)
     {
+        if (session()->get('username') == "") {
+            return redirect()->to('login');
+        }
         $penyuluhmodel = new PenyuluhPNSModel();
         $dtpenyuluh = $penyuluhmodel->getDetailPenyuluhPNSByNIK($nik);
         $data = [

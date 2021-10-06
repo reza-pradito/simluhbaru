@@ -40,12 +40,17 @@ class Login extends BaseController
                     'userid'       => $data['id'],
                     'username'      => $data['username'],
                     'nama'          => $data['name'],
+                    'status_user'    => $data['status'],
                     'idprop' => $data['idProp'],
                     'kodebapel' => $data['kodeBapel'],
+                    'kodebakor' => $data['kodeBakor'],
                     'kodebpp' => $data['kodeBpp'],
                     'logged_in'     => TRUE
                 ];
                 $session->set($ses_data);
+                if (session()->get('status_user') == '2') {
+                    return redirect()->to('profil/admin');
+                }
                 return redirect()->to('profil/lembaga');
             } else {
                 $session->setFlashdata('msg', 'Wrong Password');

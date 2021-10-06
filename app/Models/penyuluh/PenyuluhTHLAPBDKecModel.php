@@ -36,7 +36,7 @@ class PenyuluhTHLAPBDKecModel extends Model
         where tempat_tugas='$kode_kec' and sumber_dana='apbd'");
         $row   = $query->getRow();
 
-        $query   = $db->query("select a.no_peserta, a.nama, a.tgl_update, d.nm_desa as wil_kerja, e.nm_desa as wil_kerja2,
+        $query   = $db->query("select a.no_peserta, a.noktp, a.nama, a.tgl_update, d.nm_desa as wil_kerja, e.nm_desa as wil_kerja2,
         f.nm_desa as wil_kerja3, g.nm_desa as wil_kerja4, h.nm_desa as wil_kerja5, u.nm_desa as wil_kerja6, v.nm_desa as wil_kerja7,
         w.nm_desa as wil_kerja8, x.nm_desa as wil_kerja9, y.nm_desa as wil_kerja10, 
         j.deskripsi as kecamatan_tugas, k.nama_bpp

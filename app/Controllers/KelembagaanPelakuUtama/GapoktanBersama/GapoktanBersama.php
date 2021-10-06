@@ -1,6 +1,7 @@
 <?php
 
 namespace App\Controllers\KelembagaanPelakuUtama\GapoktanBersama;
+
 use App\Controllers\BaseController;
 use App\Models\KelembagaanPelakuUtama\GapoktanBersama\GapoktanBersamaModel;
 
@@ -8,14 +9,17 @@ class GapoktanBersama extends BaseController
 {
     public function gapoktanbersama()
     {
-      //  $get_param = $this->request->getGet();
+        //  $get_param = $this->request->getGet();
 
-      //  $kode_kab = $get_param['kode_kab'];
+        //  $kode_kab = $get_param['kode_kab'];
+        if (session()->get('username') == "") {
+            return redirect()->to('login');
+        }
         $gapoktanbersama_model = new GapoktanBersamaModel;
         $gapoktanbersama_data = $gapoktanbersama_model->getGapoktanBersamaTotal(session()->get('kodebapel'));
 
         $data = [
-            
+
             'nama_kabupaten' => $gapoktanbersama_data['nama_kab'],
             'jum' => $gapoktanbersama_data['jum'],
             'tabel_data' => $gapoktanbersama_data['table_data'],
@@ -25,6 +29,4 @@ class GapoktanBersama extends BaseController
 
         return view('KelembagaanPelakuUtama/GapoktanBersama/gapoktanbersama', $data);
     }
-  
-    
 }
