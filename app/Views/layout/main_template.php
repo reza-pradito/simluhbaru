@@ -65,6 +65,7 @@
     <script async defer src="https://buttons.github.io/buttons.js"></script>
     <!-- Control Center for Soft Dashboard: parallax effects, scripts for the example pages etc -->
     <script src="<?= base_url(); ?>assets/js/soft-ui-dashboard.min.js?v=1.0.3"></script>
+    <script src="<?= base_url('assets/js/sweetalert2.all.min.js'); ?>"></script>
 
     <script src="https://code.jquery.com/jquery-3.6.0.js" integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk=" crossorigin="anonymous"></script>
     <script type="text/javascript">
@@ -84,156 +85,215 @@
         }
     </style>
 
-    <<<<<<< HEAD <!-- Chart code -->
-        <script>
-            am4core.ready(function() {
+    <!-- Chart code -->
+    <script>
+        am4core.ready(function() {
 
-                // Themes begin
-                am4core.useTheme(am4themes_animated);
-                // Themes end
+            // Themes begin
+            am4core.useTheme(am4themes_animated);
+            // Themes end
 
-                // Create map instance
-                var chart = am4core.create("chartdiv", am4maps.MapChart);
+            // Create map instance
+            var chart = am4core.create("chartdiv", am4maps.MapChart);
 
-                // Set map definition
-                chart.geodata = am4geodata_indonesiaLow;
+            // Set map definition
+            chart.geodata = am4geodata_indonesiaLow;
 
-                // Set projection
-                chart.projection = new am4maps.projections.Miller();
+            // Set projection
+            chart.projection = new am4maps.projections.Miller();
 
-                // Create map polygon series
-                var polygonSeries = chart.series.push(new am4maps.MapPolygonSeries());
+            // Create map polygon series
+            var polygonSeries = chart.series.push(new am4maps.MapPolygonSeries());
 
-                // Exclude Antartica
-                polygonSeries.exclude = ["AQ"];
+            // Exclude Antartica
+            polygonSeries.exclude = ["AQ"];
 
-                // Make map load polygon (like country names) data from GeoJSON
-                polygonSeries.useGeodata = true;
+            // Make map load polygon (like country names) data from GeoJSON
+            polygonSeries.useGeodata = true;
 
-                // Configure series
-                var polygonTemplate = polygonSeries.mapPolygons.template;
-                polygonTemplate.tooltipText = "{name}";
-                polygonTemplate.polygon.fillOpacity = 0.6;
-
-
-                // Create hover state and set alternative fill color
-                var hs = polygonTemplate.states.create("hover");
-                hs.properties.fill = chart.colors.getIndex(0);
-
-                // Add image series
-                var imageSeries = chart.series.push(new am4maps.MapImageSeries());
-                imageSeries.mapImages.template.propertyFields.longitude = "longitude";
-                imageSeries.mapImages.template.propertyFields.latitude = "latitude";
-                imageSeries.mapImages.template.tooltipText = "{title}";
-                imageSeries.mapImages.template.propertyFields.url = "url";
-
-                var circle = imageSeries.mapImages.template.createChild(am4core.Circle);
-                circle.radius = 3;
-                circle.propertyFields.fill = "color";
-
-                var circle2 = imageSeries.mapImages.template.createChild(am4core.Circle);
-                circle2.radius = 3;
-                circle2.propertyFields.fill = "color";
+            // Configure series
+            var polygonTemplate = polygonSeries.mapPolygons.template;
+            polygonTemplate.tooltipText = "{name}";
+            polygonTemplate.polygon.fillOpacity = 0.6;
 
 
-                circle2.events.on("inited", function(event) {
-                    animateBullet(event.target);
+            // Create hover state and set alternative fill color
+            var hs = polygonTemplate.states.create("hover");
+            hs.properties.fill = chart.colors.getIndex(0);
+
+            // Add image series
+            var imageSeries = chart.series.push(new am4maps.MapImageSeries());
+            imageSeries.mapImages.template.propertyFields.longitude = "longitude";
+            imageSeries.mapImages.template.propertyFields.latitude = "latitude";
+            imageSeries.mapImages.template.tooltipText = "{title}";
+            imageSeries.mapImages.template.propertyFields.url = "url";
+
+            var circle = imageSeries.mapImages.template.createChild(am4core.Circle);
+            circle.radius = 3;
+            circle.propertyFields.fill = "color";
+
+            var circle2 = imageSeries.mapImages.template.createChild(am4core.Circle);
+            circle2.radius = 3;
+            circle2.propertyFields.fill = "color";
+
+
+            circle2.events.on("inited", function(event) {
+                animateBullet(event.target);
+            })
+
+
+            function animateBullet(circle) {
+                var animation = circle.animate([{
+                    property: "scale",
+                    from: 1,
+                    to: 5
+                }, {
+                    property: "opacity",
+                    from: 1,
+                    to: 0
+                }], 1000, am4core.ease.circleOut);
+                animation.events.on("animationended", function(event) {
+                    animateBullet(event.target.object);
                 })
+            }
 
+            var colorSet = new am4core.ColorSet();
 
-                function animateBullet(circle) {
-                    var animation = circle.animate([{
-                        property: "scale",
-                        from: 1,
-                        to: 5
-                    }, {
-                        property: "opacity",
-                        from: 1,
-                        to: 0
-                    }], 1000, am4core.ease.circleOut);
-                    animation.events.on("animationended", function(event) {
-                        animateBullet(event.target.object);
-                    })
+            imageSeries.data = [{
+                    "title": "BPP Jombang",
+                    "latitude": -6.2893272,
+                    "longitude": 106.6944967,
+                    "color": colorSet.next()
+                },
+                {
+                    "title": "BPP Ragunan",
+                    "latitude": -6.2956309,
+                    "longitude": 106.8160762,
+                    "color": colorSet.next()
+                },
+                {
+                    "title": "BPPK Lembang",
+                    "latitude": -6.5130159,
+                    "longitude": 106.8843142,
+                    "color": colorSet.next()
+                },
+                {
+                    "title": "BPP Rantau Pauh",
+                    "latitude": 4.302686,
+                    "longitude": 98.0829409,
+                    "color": colorSet.next()
                 }
+            ];
 
-                var colorSet = new am4core.ColorSet();
+            // Zoom control
+            chart.zoomControl = new am4maps.ZoomControl();
 
-                imageSeries.data = [{
-                        "title": "BPP Jombang",
-                        "latitude": -6.2893272,
-                        "longitude": 106.6944967,
-                        "color": colorSet.next()
-                    },
-                    {
-                        "title": "BPP Ragunan",
-                        "latitude": -6.2956309,
-                        "longitude": 106.8160762,
-                        "color": colorSet.next()
-                    },
-                    {
-                        "title": "BPPK Lembang",
-                        "latitude": -6.5130159,
-                        "longitude": 106.8843142,
-                        "color": colorSet.next()
-                    },
-                    {
-                        "title": "BPP Rantau Pauh",
-                        "latitude": 4.302686,
-                        "longitude": 98.0829409,
-                        "color": colorSet.next()
-                    }
-                ];
+            var homeButton = new am4core.Button();
+            homeButton.events.on("hit", function() {
+                //   polygonSeries.show();
+                //   countrySeries.hide();
+                chart.goHome();
+            });
 
-                // Zoom control
-                chart.zoomControl = new am4maps.ZoomControl();
+            homeButton.icon = new am4core.Sprite();
+            homeButton.padding(7, 5, 7, 5);
+            homeButton.width = 30;
+            homeButton.icon.path = "M16,8 L14,8 L14,16 L10,16 L10,10 L6,10 L6,16 L2,16 L2,8 L0,8 L8,0 L16,8 Z M16,8";
+            homeButton.marginBottom = 10;
+            homeButton.parent = chart.zoomControl;
+            homeButton.insertBefore(chart.zoomControl.plusButton);
 
-                var homeButton = new am4core.Button();
-                homeButton.events.on("hit", function() {
-                    //   polygonSeries.show();
-                    //   countrySeries.hide();
-                    chart.goHome();
-                });
+        }); // end am4core.ready()
+    </script>
 
-                homeButton.icon = new am4core.Sprite();
-                homeButton.padding(7, 5, 7, 5);
-                homeButton.width = 30;
-                homeButton.icon.path = "M16,8 L14,8 L14,16 L10,16 L10,10 L6,10 L6,16 L2,16 L2,8 L0,8 L8,0 L16,8 Z M16,8";
-                homeButton.marginBottom = 10;
-                homeButton.parent = chart.zoomControl;
-                homeButton.insertBefore(chart.zoomControl.plusButton);
+    <script>
+        $(document).ready(function() {
+            const monthNames = ["January", "February", "March", "April", "May", "June",
+                "July", "August", "September", "October", "November", "December"
+            ];
+            let qntYears = 80;
+            let selectYear = $("#year");
+            let selectMonth = $("#month");
+            let selectDay = $("#day");
+            let currentYear = new Date().getFullYear();
 
-            }); // end am4core.ready()
+            for (var y = 0; y < qntYears; y++) {
+                let date = new Date(currentYear);
+                let yearElem = document.createElement("option");
+                yearElem.value = currentYear
+                yearElem.textContent = currentYear;
+                selectYear.append(yearElem);
+                currentYear--;
+            }
+
+            for (var m = 0; m < 12; m++) {
+                let month = monthNames[m];
+                let monthElem = document.createElement("option");
+                monthElem.value = m;
+                monthElem.textContent = month;
+                selectMonth.append(monthElem);
+            }
+
+            var d = new Date();
+            var month = d.getMonth();
+            var year = d.getFullYear();
+            var day = d.getDate();
+
+            selectYear.val(year);
+            selectYear.on("change", AdjustDays);
+            selectMonth.val(month);
+            selectMonth.on("change", AdjustDays);
+
+            AdjustDays();
+            selectDay.val(day)
+
+            function AdjustDays() {
+                var year = selectYear.val();
+                var month = parseInt(selectMonth.val()) + 1;
+                selectDay.empty();
+
+                //get the last day, so the number of days in that month
+                var days = new Date(year, month, 0).getDate();
+
+                //lets create the days of that month
+                for (var d = 1; d <= days; d++) {
+                    var dayElem = document.createElement("option");
+                    dayElem.value = d;
+                    dayElem.textContent = d;
+                    selectDay.append(dayElem);
+                }
+            }
+        });
+    </script>
+
+    <!-- <script>
+            var min = 1970,
+                max = new Date().getFullYear(),
+                select = document.getElementById('selectElementId');
+
+            for (var i = min; i <= max; i++) {
+                var opt = document.createElement('option');
+                opt.value = i;
+                opt.innerHTML = i;
+                select.appendChild(opt);
+            }
         </script>
 
+        <script>
+            var min = 1970,
+                max = new Date().getFullYear(),
+                select = document.getElementById('selectElementId2');
 
-        <!-- <script>
-        var min = 1970,
-            max = new Date().getFullYear(),
-            select = document.getElementById('selectElementId');
-
-        for (var i = min; i <= max; i++) {
-            var opt = document.createElement('option');
-            opt.value = i;
-            opt.innerHTML = i;
-            select.appendChild(opt);
-        }
-    </script> -->
-
-        <!-- <script>
-        var min = 1970,
-            max = new Date().getFullYear(),
-            select = document.getElementById('selectElementId2');
-
-        for (var i = min; i <= max; i++) {
-            var opt = document.createElement('option');
-            opt.value = i;
-            opt.innerHTML = i;
-            select.appendChild(opt);
-        }
-    </script> -->
+            for (var i = min; i <= max; i++) {
+                var opt = document.createElement('option');
+                opt.value = i;
+                opt.innerHTML = i;
+                select.appendChild(opt);
+            }
+        </script> -->
 
 
-        <!-- <script>
+    <!-- <script>
         $("#lokasikerja").change(function() {
             if ($(this).val() == "kabupaten") {
                 $('#kecamatan1Div').show();
@@ -243,7 +303,7 @@
                 $('#kecamatan2').attr('required', '');
                 $('#kecamatan2').attr('data-error', 'This field is required.');
 
-<<<<<<< HEAD
+
                 // } else if ($(this).val() == "selasa") {
                 //     $('#selasaDiv').show();
                 //     $('#selasa').attr('required', '');
@@ -303,86 +363,10 @@
         });
         $("#lokasikerja").trigger("change");
     </script> -->
-        <script>
-            for (var i = min; i <= max; i++) {
-                var opt = document.createElement('option');
-                opt.value = i;
-                opt.innerHTML = i;
-                select.appendChild(opt);
-            }
-        </script>
-        <script>
-            var min = 1970,
-                max = new Date().getFullYear(),
-                select = document.getElementById('selectElementId2');
 
-            for (var i = min; i <= max; i++) {
-                var opt = document.createElement('option');
-                opt.value = i;
-                opt.innerHTML = i;
-                select.appendChild(opt);
-            }
 
-            $(document).ready(function() {
-                const monthNames = ["January", "February", "March", "April", "May", "June",
-                    "July", "August", "September", "October", "November", "December"
-                ];
-                let qntYears = 80;
-                let selectYear = $("#year2");
-                let selectMonth = $("#month2");
-                let selectDay = $("#day2");
-                let currentYear = new Date().getFullYear();
 
-                for (var y = 0; y < qntYears; y++) {
-                    let date = new Date(currentYear);
-                    let yearElem = document.createElement("option");
-                    yearElem.value = currentYear
-                    yearElem.textContent = currentYear;
-                    selectYear.append(yearElem);
-                    currentYear--;
-                }
-
-                for (var m = 0; m < 12; m++) {
-                    let month = monthNames[m];
-                    let monthElem = document.createElement("option");
-                    monthElem.value = m;
-                    monthElem.textContent = month;
-                    selectMonth.append(monthElem);
-                }
-
-                var d = new Date();
-                var month2 = d.getMonth();
-                var year2 = d.getFullYear();
-                var day2 = d.getDate();
-
-                selectYear.val(year2);
-                selectYear.on("change", AdjustDays);
-                selectMonth.val(month2);
-                selectMonth.on("change", AdjustDays);
-
-                AdjustDays();
-                selectDay.val(day2)
-
-                function AdjustDays() {
-                    var year2 = selectYear.val();
-                    var month2 = parseInt(selectMonth.val()) + 1;
-                    selectDay.empty();
-
-                    //get the last day, so the number of days in that month
-                    var days = new Date(year2, month2, 0).getDate();
-
-                    //lets create the days of that month
-                    for (var d = 1; d <= days; d++) {
-                        var dayElem = document.createElement("option");
-                        dayElem.value = d;
-                        dayElem.textContent = d;
-                        selectDay.append(dayElem);
-                    }
-                }
-            });
-        </script>
-
-        <!-- <script>
+    <!-- <script>
         $(document).on('click', '#btn-edit', function() {
             $('.modal-body #id_swa').val($(this).data('id_swa'));
             $('.modal-body #jenis_penyuluh').val($(this).data('jenis_penyuluh'));
@@ -409,16 +393,16 @@
         })
     </script> -->
 
-        <script>
-            $(document).ready(function() {
-                <?php if (session()->getFlashdata('status')) { ?>
-                    alertify.set('notifier', 'position', 'top-right');
-                    alertify.success("<?= session()->getFlashdata('status') ?>");
-                <?php } ?>
-            });
-        </script>
+    <script>
+        $(document).ready(function() {
+            <?php if (session()->getFlashdata('status')) { ?>
+                alertify.set('notifier', 'position', 'top-right');
+                alertify.success("<?= session()->getFlashdata('status') ?>");
+            <?php } ?>
+        })
+    </script>
 
-        <?= $this->renderSection('script') ?>
+    <?= $this->renderSection('script') ?>
 
 
 </body>

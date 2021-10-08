@@ -17,7 +17,9 @@ class Page extends BaseController
 
     public function dashboard()
     {
-
+        if (session()->get('username') == "") {
+            return redirect()->to('login');
+        }
         $data = [
             'title' => 'Dashboard',
             'name' => 'dashboard'

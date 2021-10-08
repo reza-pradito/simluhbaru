@@ -43,11 +43,6 @@ $routes->get('/penyuluhthlapbn', 'Penyuluh/PenyuluhTHLAPBN::penyuluhthlAPBN');
 $routes->get('/penyuluhthlapbd', 'Penyuluh/PenyuluhTHLAPBD::penyuluhthlAPBD');
 $routes->get('/penyuluhswadaya', 'Penyuluh/PenyuluhSwadaya::penyuluhswadaya');
 $routes->get('/penyuluhswasta', 'Penyuluh/PenyuluhSwasta::penyuluhswasta');
-<<<<<<< HEAD
-=======
-$routes->post('/penyuluhswasta/save', 'Penyuluh/PenyuluhSwasta::save');
-$routes->post('/penyuluhswasta/update', 'Penyuluh/PenyuluhSwasta::update');
->>>>>>> 3a51b1333fdd24d886d15727bd8978d2c7240500
 $routes->get('/penyuluhpppk', 'Penyuluh/PenyuluhPPPK::penyuluhpppk');
 $routes->get('/penyuluhswadayakec', 'Penyuluh/PenyuluhSwadayaKec::penyuluhswadayakec');
 $routes->get('/penyuluhthlapbnkec', 'Penyuluh/PenyuluhTHLAPBNKec::penyuluhthlAPBNkec');
