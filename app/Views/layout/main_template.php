@@ -17,10 +17,7 @@
     <!-- Font Awesome Icons -->
     <script src="https://kit.fontawesome.com/42d5adcbca.js" crossorigin="anonymous"></script>
     <link href="<?= base_url('assets/css/nucleo-svg.css'); ?>" rel="stylesheet" />
-    <!-- CSS Files -->
     <link id="pagestyle" href="<?= base_url('assets/css/soft-ui-dashboard.css?v=1.0.3'); ?>" rel="stylesheet" />
-
-</head>
 
 <body class="g-sidenav-show  bg-gray-100">
 
@@ -35,6 +32,7 @@
     <!-- config template -->
     <?php echo view('layout/config_template'); ?>
 
+
     <!--   Core JS Files   -->
     <script src="<?= base_url('assets/js/core/popper.min.js'); ?>"></script>
     <script src="<?= base_url('assets/js/jquery.min.js'); ?>"></script>
@@ -43,6 +41,9 @@
     <script src="<?= base_url('assets/js/plugins/perfect-scrollbar.min.js'); ?>"></script>
     <script src="<?= base_url('assets/js/plugins/smooth-scrollbar.min.js'); ?>"></script>
     <script src="<?= base_url('assets/js/plugins/chartjs.min.js'); ?>"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js" integrity="sha512-894YE6QWD5I59HgZOGReFYm4dnWc1Qt5NtvYSaNcOP+u1T9qYdvdihz0PPSiiqn/+/3e7Jo4EaG7TubfWGUrMQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
     <script src="//cdn.jsdelivr.net/npm/alertifyjs@1.13.1/build/alertify.min.js"></script>
 
     <!-- Resources -->
@@ -83,131 +84,156 @@
         }
     </style>
 
-    <!-- Chart code -->
-    <script>
-        am4core.ready(function() {
+    <<<<<<< HEAD <!-- Chart code -->
+        <script>
+            am4core.ready(function() {
 
-            // Themes begin
-            am4core.useTheme(am4themes_animated);
-            // Themes end
+                // Themes begin
+                am4core.useTheme(am4themes_animated);
+                // Themes end
 
-            // Create map instance
-            var chart = am4core.create("chartdiv", am4maps.MapChart);
+                // Create map instance
+                var chart = am4core.create("chartdiv", am4maps.MapChart);
 
-            // Set map definition
-            chart.geodata = am4geodata_indonesiaLow;
+                // Set map definition
+                chart.geodata = am4geodata_indonesiaLow;
 
-            // Set projection
-            chart.projection = new am4maps.projections.Miller();
+                // Set projection
+                chart.projection = new am4maps.projections.Miller();
 
-            // Create map polygon series
-            var polygonSeries = chart.series.push(new am4maps.MapPolygonSeries());
+                // Create map polygon series
+                var polygonSeries = chart.series.push(new am4maps.MapPolygonSeries());
 
-            // Exclude Antartica
-            polygonSeries.exclude = ["AQ"];
+                // Exclude Antartica
+                polygonSeries.exclude = ["AQ"];
 
-            // Make map load polygon (like country names) data from GeoJSON
-            polygonSeries.useGeodata = true;
+                // Make map load polygon (like country names) data from GeoJSON
+                polygonSeries.useGeodata = true;
 
-            // Configure series
-            var polygonTemplate = polygonSeries.mapPolygons.template;
-            polygonTemplate.tooltipText = "{name}";
-            polygonTemplate.polygon.fillOpacity = 0.6;
-
-
-            // Create hover state and set alternative fill color
-            var hs = polygonTemplate.states.create("hover");
-            hs.properties.fill = chart.colors.getIndex(0);
-
-            // Add image series
-            var imageSeries = chart.series.push(new am4maps.MapImageSeries());
-            imageSeries.mapImages.template.propertyFields.longitude = "longitude";
-            imageSeries.mapImages.template.propertyFields.latitude = "latitude";
-            imageSeries.mapImages.template.tooltipText = "{title}";
-            imageSeries.mapImages.template.propertyFields.url = "url";
-
-            var circle = imageSeries.mapImages.template.createChild(am4core.Circle);
-            circle.radius = 3;
-            circle.propertyFields.fill = "color";
-
-            var circle2 = imageSeries.mapImages.template.createChild(am4core.Circle);
-            circle2.radius = 3;
-            circle2.propertyFields.fill = "color";
+                // Configure series
+                var polygonTemplate = polygonSeries.mapPolygons.template;
+                polygonTemplate.tooltipText = "{name}";
+                polygonTemplate.polygon.fillOpacity = 0.6;
 
 
-            circle2.events.on("inited", function(event) {
-                animateBullet(event.target);
-            })
+                // Create hover state and set alternative fill color
+                var hs = polygonTemplate.states.create("hover");
+                hs.properties.fill = chart.colors.getIndex(0);
+
+                // Add image series
+                var imageSeries = chart.series.push(new am4maps.MapImageSeries());
+                imageSeries.mapImages.template.propertyFields.longitude = "longitude";
+                imageSeries.mapImages.template.propertyFields.latitude = "latitude";
+                imageSeries.mapImages.template.tooltipText = "{title}";
+                imageSeries.mapImages.template.propertyFields.url = "url";
+
+                var circle = imageSeries.mapImages.template.createChild(am4core.Circle);
+                circle.radius = 3;
+                circle.propertyFields.fill = "color";
+
+                var circle2 = imageSeries.mapImages.template.createChild(am4core.Circle);
+                circle2.radius = 3;
+                circle2.propertyFields.fill = "color";
 
 
-            function animateBullet(circle) {
-                var animation = circle.animate([{
-                    property: "scale",
-                    from: 1,
-                    to: 5
-                }, {
-                    property: "opacity",
-                    from: 1,
-                    to: 0
-                }], 1000, am4core.ease.circleOut);
-                animation.events.on("animationended", function(event) {
-                    animateBullet(event.target.object);
+                circle2.events.on("inited", function(event) {
+                    animateBullet(event.target);
                 })
-            }
 
-            var colorSet = new am4core.ColorSet();
 
-            imageSeries.data = [{
-                    "title": "BPP Jombang",
-                    "latitude": -6.2893272,
-                    "longitude": 106.6944967,
-                    "color": colorSet.next()
-                },
-                {
-                    "title": "BPP Ragunan",
-                    "latitude": -6.2956309,
-                    "longitude": 106.8160762,
-                    "color": colorSet.next()
-                },
-                {
-                    "title": "BPPK Lembang",
-                    "latitude": -6.5130159,
-                    "longitude": 106.8843142,
-                    "color": colorSet.next()
-                },
-                {
-                    "title": "BPP Rantau Pauh",
-                    "latitude": 4.302686,
-                    "longitude": 98.0829409,
-                    "color": colorSet.next()
+                function animateBullet(circle) {
+                    var animation = circle.animate([{
+                        property: "scale",
+                        from: 1,
+                        to: 5
+                    }, {
+                        property: "opacity",
+                        from: 1,
+                        to: 0
+                    }], 1000, am4core.ease.circleOut);
+                    animation.events.on("animationended", function(event) {
+                        animateBullet(event.target.object);
+                    })
                 }
-            ];
 
-            // Zoom control
-            chart.zoomControl = new am4maps.ZoomControl();
+                var colorSet = new am4core.ColorSet();
 
-            var homeButton = new am4core.Button();
-            homeButton.events.on("hit", function() {
-                //   polygonSeries.show();
-                //   countrySeries.hide();
-                chart.goHome();
-            });
+                imageSeries.data = [{
+                        "title": "BPP Jombang",
+                        "latitude": -6.2893272,
+                        "longitude": 106.6944967,
+                        "color": colorSet.next()
+                    },
+                    {
+                        "title": "BPP Ragunan",
+                        "latitude": -6.2956309,
+                        "longitude": 106.8160762,
+                        "color": colorSet.next()
+                    },
+                    {
+                        "title": "BPPK Lembang",
+                        "latitude": -6.5130159,
+                        "longitude": 106.8843142,
+                        "color": colorSet.next()
+                    },
+                    {
+                        "title": "BPP Rantau Pauh",
+                        "latitude": 4.302686,
+                        "longitude": 98.0829409,
+                        "color": colorSet.next()
+                    }
+                ];
 
-            homeButton.icon = new am4core.Sprite();
-            homeButton.padding(7, 5, 7, 5);
-            homeButton.width = 30;
-            homeButton.icon.path = "M16,8 L14,8 L14,16 L10,16 L10,10 L6,10 L6,16 L2,16 L2,8 L0,8 L8,0 L16,8 Z M16,8";
-            homeButton.marginBottom = 10;
-            homeButton.parent = chart.zoomControl;
-            homeButton.insertBefore(chart.zoomControl.plusButton);
+                // Zoom control
+                chart.zoomControl = new am4maps.ZoomControl();
 
-        }); // end am4core.ready()
-    </script>
+                var homeButton = new am4core.Button();
+                homeButton.events.on("hit", function() {
+                    //   polygonSeries.show();
+                    //   countrySeries.hide();
+                    chart.goHome();
+                });
+
+                homeButton.icon = new am4core.Sprite();
+                homeButton.padding(7, 5, 7, 5);
+                homeButton.width = 30;
+                homeButton.icon.path = "M16,8 L14,8 L14,16 L10,16 L10,10 L6,10 L6,16 L2,16 L2,8 L0,8 L8,0 L16,8 Z M16,8";
+                homeButton.marginBottom = 10;
+                homeButton.parent = chart.zoomControl;
+                homeButton.insertBefore(chart.zoomControl.plusButton);
+
+            }); // end am4core.ready()
+        </script>
 
 
+        <!-- <script>
+        var min = 1970,
+            max = new Date().getFullYear(),
+            select = document.getElementById('selectElementId');
+
+        for (var i = min; i <= max; i++) {
+            var opt = document.createElement('option');
+            opt.value = i;
+            opt.innerHTML = i;
+            select.appendChild(opt);
+        }
+    </script> -->
+
+        <!-- <script>
+        var min = 1970,
+            max = new Date().getFullYear(),
+            select = document.getElementById('selectElementId2');
+
+        for (var i = min; i <= max; i++) {
+            var opt = document.createElement('option');
+            opt.value = i;
+            opt.innerHTML = i;
+            select.appendChild(opt);
+        }
+    </script> -->
 
 
-    <script>
+        <!-- <script>
         $("#lokasikerja").change(function() {
             if ($(this).val() == "kabupaten") {
                 $('#kecamatan1Div').show();
@@ -217,6 +243,7 @@
                 $('#kecamatan2').attr('required', '');
                 $('#kecamatan2').attr('data-error', 'This field is required.');
 
+<<<<<<< HEAD
                 // } else if ($(this).val() == "selasa") {
                 //     $('#selasaDiv').show();
                 //     $('#selasa').attr('required', '');
@@ -271,28 +298,127 @@
         var min = 1970,
             max = new Date().getFullYear(),
             select = document.getElementById('tahun_berdiri');
+=======
+            }
+        });
+        $("#lokasikerja").trigger("change");
+    </script> -->
+        <script>
+            for (var i = min; i <= max; i++) {
+                var opt = document.createElement('option');
+                opt.value = i;
+                opt.innerHTML = i;
+                select.appendChild(opt);
+            }
+        </script>
+        <script>
+            var min = 1970,
+                max = new Date().getFullYear(),
+                select = document.getElementById('selectElementId2');
 
-        for (var i = min; i <= max; i++) {
-            var opt = document.createElement('option');
-            opt.value = i;
-            opt.innerHTML = i;
-            select.appendChild(opt);
-        }
-    </script>
-    <script>
-        var min = 1970,
-            max = new Date().getFullYear(),
-            select = document.getElementById('selectElementId2');
+            for (var i = min; i <= max; i++) {
+                var opt = document.createElement('option');
+                opt.value = i;
+                opt.innerHTML = i;
+                select.appendChild(opt);
+            }
 
-        for (var i = min; i <= max; i++) {
-            var opt = document.createElement('option');
-            opt.value = i;
-            opt.innerHTML = i;
-            select.appendChild(opt);
-        }
-    </script>
+            $(document).ready(function() {
+                const monthNames = ["January", "February", "March", "April", "May", "June",
+                    "July", "August", "September", "October", "November", "December"
+                ];
+                let qntYears = 80;
+                let selectYear = $("#year2");
+                let selectMonth = $("#month2");
+                let selectDay = $("#day2");
+                let currentYear = new Date().getFullYear();
 
-    <?= $this->renderSection('script') ?>
+                for (var y = 0; y < qntYears; y++) {
+                    let date = new Date(currentYear);
+                    let yearElem = document.createElement("option");
+                    yearElem.value = currentYear
+                    yearElem.textContent = currentYear;
+                    selectYear.append(yearElem);
+                    currentYear--;
+                }
+
+                for (var m = 0; m < 12; m++) {
+                    let month = monthNames[m];
+                    let monthElem = document.createElement("option");
+                    monthElem.value = m;
+                    monthElem.textContent = month;
+                    selectMonth.append(monthElem);
+                }
+
+                var d = new Date();
+                var month2 = d.getMonth();
+                var year2 = d.getFullYear();
+                var day2 = d.getDate();
+
+                selectYear.val(year2);
+                selectYear.on("change", AdjustDays);
+                selectMonth.val(month2);
+                selectMonth.on("change", AdjustDays);
+
+                AdjustDays();
+                selectDay.val(day2)
+
+                function AdjustDays() {
+                    var year2 = selectYear.val();
+                    var month2 = parseInt(selectMonth.val()) + 1;
+                    selectDay.empty();
+
+                    //get the last day, so the number of days in that month
+                    var days = new Date(year2, month2, 0).getDate();
+
+                    //lets create the days of that month
+                    for (var d = 1; d <= days; d++) {
+                        var dayElem = document.createElement("option");
+                        dayElem.value = d;
+                        dayElem.textContent = d;
+                        selectDay.append(dayElem);
+                    }
+                }
+            });
+        </script>
+
+        <!-- <script>
+        $(document).on('click', '#btn-edit', function() {
+            $('.modal-body #id_swa').val($(this).data('id_swa'));
+            $('.modal-body #jenis_penyuluh').val($(this).data('jenis_penyuluh'));
+            $('.modal-body #noktp').val($(this).data('noktp'));
+            $('.modal-body #nama').val($(this).data('nama'));
+            $('.modal-body #tgl_lahir').val($(this).data('tgl_lahir'));
+            $('.modal-body #bln_lahir').val($(this).data('bln_lahir'));
+            $('.modal-body #thn_lahir').val($(this).data('thn_lahir'));
+            $('.modal-body #tempat_lahir').val($(this).data('tempat_lahir'));
+            $('.modal-body #jenis_kelamin').val($(this).data('jenis_kelamin'));
+            $('.modal-body #satminkal').val($(this).data('satminkal'));
+            $('.modal-body #lokasi_kerja').val($(this).data('lokasi_kerja'));
+            $('.modal-body #dati2').val($(this).data('dati2'));
+            $('.modal-body #kodepos').val($(this).data('kodepos'));
+            $('.modal-body #kode_prop').val($(this).data('kode_prop'));
+            $('.modal-body #telp').val($(this).data('telp'));
+            $('.modal-body #email').val($(this).data('email'));
+            $('.modal-body #nama_perusahaan').val($(this).data('nama_perusahaan'));
+            $('.modal-body #alamat_perush').val($(this).data('alamat_perush'));
+            $('.modal-body #telp_perush').val($(this).data('telp_perush'));
+            $('.modal-body #jabatan_di_perush').val($(this).data('jabatan_di_perush'));
+            $('.modal-body #tempat_tugas').val($(this).data('tempat_tugas'));
+            //alert($('.modal-body #jum_anggota').val());
+        })
+    </script> -->
+
+        <script>
+            $(document).ready(function() {
+                <?php if (session()->getFlashdata('status')) { ?>
+                    alertify.set('notifier', 'position', 'top-right');
+                    alertify.success("<?= session()->getFlashdata('status') ?>");
+                <?php } ?>
+            });
+        </script>
+
+        <?= $this->renderSection('script') ?>
 
 
 </body>
