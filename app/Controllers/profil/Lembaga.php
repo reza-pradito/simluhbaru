@@ -18,7 +18,12 @@ class Lembaga extends BaseController
 
     public function index()
     {
-        //is_logged_in();
+
+
+        if (session()->get('username') == "") {
+            return redirect()->to('login');
+        }
+
         $lembagaModel = new LembagaModel();
         // if (empty($this->session->get('kodebapel'))) {
         //     return redirect()->to('login');
@@ -32,7 +37,7 @@ class Lembaga extends BaseController
             'dt' => $dtlembaga
         ];
 
+        //dd($data);
         return view('profil/profillembaga', $data);
-        //}
     }
 }
