@@ -11,9 +11,10 @@ class PenyuluhPPPKKec extends BaseController
 
     public function penyuluhpppkkec()
     {
-        if (session()->get('username') == "") {
-            return redirect()->to('login');
-        }
+        // $get_param = $this->request->getGet();
+
+        // $kode_kec = $get_param['kode_kec'];
+        // $kode_kab = $get_param['kode_kab'];
         $penyuluh_model = new PenyuluhPPPKKecModel();
         $pppkkec_data = $penyuluh_model->getPenyuluhPPPKKecTotal(session()->get('kodebpp'));
 

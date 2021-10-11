@@ -7,18 +7,7 @@ use \Config\Database;
 
 class PenyuluhPNSModel extends Model
 {
-    protected $table      = 'tbldasar';
-    protected $primaryKey = 'id';
-    protected $allowedFields = [
-        'nip', 'nama', 'gelar_dpn', 'gelar_blk', 'tgl_lahir', 'tempat_lahir', 'jenis_kelamin', 'status_kel',
-        'agama', 'gol_darah', 'keahlian', 'satminkal', 'kode_kab', 'tgl_skcpns', 'peng_kerja_thn', 'peng_kerja_bln', 'alamat',
-        'dati2', 'kodepos', 'kode_prop', 'telp', 'hp', 'status', 'gol', 'jabatan', 'tgltmtgol', 'batas_pensiun', 'tgl_pensiun',
-        'bulan_pensiun', 'tahun_pensiun', 'tgl_update', 'unit_kerja', 'tempat_tugas', 'kecamatan_tugas', 'kecamatan_tugas2',
-        'kecamatan_tugas3', 'kecamatan_tugas4', 'kecamatan_tugas5', 'kecamatan_tugas6', 'kecamatan_tugas7', 'kecamatan_tugas8',
-        'kecamatan_tugas9', 'kecamatan_tugas10', 'tgl_sk_luh', 'bln_sk_luh', 'thn_sk_luh', 'tingkat_pendidikan', 'bidang_pendidikan',
-        'mapping', 'jurusan', 'nama_sekolah', 'noktp', 'wil_kerja', 'wil_kerja2', 'wil_kerja3', 'wil_kerja4', 'wil_kerja5', 'wil_kerja6',
-        'wil_kerja7', 'wil_kerja8', 'wil_kerja9', 'wil_kerja10'
-    ];
+    protected $table      = 'simluhtan';
     //protected $primaryKey = 'id';
 
 
@@ -108,14 +97,7 @@ class PenyuluhPNSModel extends Model
         $query = $db->query("select count(a.id) as jum, nama_dati2 as nama_kab from tbldasar a left join tbldati2 b on b.id_dati2=a.satminkal where satminkal='$kode_kab' and status !='1' and status !='2' and status !='3' and status !='7'");
         $row   = $query->getRow();
 
-        $query   = $db->query("select a.nip, a.nama, a.gelar_dpn, a.gelar_blk, a.tgl_lahir, a.tempat_lahir, a.jenis_kelamin, a.status_kel,
-a.agama, a.gol_darah, a.keahlian, a.satminkal, a.kode_kab, a.tgl_skcpns, a.peng_kerja_thn, a.peng_kerja_bln, a.alamat,
-a.dati2, a.kodepos, a.kode_prop, a.telp, a.hp, a.status, a.gol, a.jabatan, a.tgltmtgol, a.batas_pensiun, a.tgl_pensiun,
-a.bulan_pensiun, a.tahun_pensiun, a.tgl_update, a.unit_kerja, a.tempat_tugas, a.kecamatan_tugas, a.kecamatan_tugas2,
-a.kecamatan_tugas3, a.kecamatan_tugas4, a.kecamatan_tugas5, a.kecamatan_tugas6, a.kecamatan_tugas7, a.kecamatan_tugas8,
-a.kecamatan_tugas9, a.kecamatan_tugas10, a.tgl_sk_luh, a.bln_sk_luh, a.thn_sk_luh, a.tingkat_pendidikan, a.bidang_pendidikan,
-a.mapping, a.jurusan, a.nama_sekolah, a.noktp, a.wil_kerja, a.wil_kerja2, a.wil_kerja3, a.wil_kerja4, a.wil_kerja5, a.wil_kerja6,
-a.wil_kerja7, a.wil_kerja8, a.wil_kerja9, a.wil_kerja10, d.nm_desa,
+        $query   = $db->query("select a.noktp, a.nip, a.nama, a.gelar_dpn, a.gelar_blk, a.tgl_update, d.nm_desa,
                                 case a.kode_kab 
                                 when '3' then 
                                     case a.unit_kerja 
@@ -141,12 +123,7 @@ a.wil_kerja7, a.wil_kerja8, a.wil_kerja9, a.wil_kerja10, d.nm_desa,
                                 case a.kode_kab when '3' then r.deskripsi when '4' then w.nm_desa else '' end as wilker8,
                                 case a.kode_kab when '3' then s.deskripsi when '4' then x.nm_desa else '' end as wilker9,
                                 case a.kode_kab when '3' then t.deskripsi when '4' then y.nm_desa else '' end as wilker10,
-                                j.deskripsi as kecamatan_tugas,
-                                z.nama_prop,
-                                z.id_prop,
-                                j.id_daerah,
-                                aa.id as idsklh,
-                                aa.nama as namasklh
+                                j.deskripsi as kecamatan_tugas
                                 from tbldasar a
                                 left join tblsatminkal b on a.satminkal=b.kode
                                 left join tblstatus_penyuluh c on a.status='0' and a.status_kel=c.kode
@@ -172,8 +149,6 @@ a.wil_kerja7, a.wil_kerja8, a.wil_kerja9, a.wil_kerja10, d.nm_desa,
                                 left join tbldaerah r on a.kecamatan_tugas8=r.id_daerah
                                 left join tbldaerah s on a.kecamatan_tugas9=s.id_daerah
                                 left join tbldaerah t on a.kecamatan_tugas10=t.id_daerah
-                                left join tblpropinsi z on a.kode_prop=z.id_prop
-                                left join tblsekolah aa on a.tingkat_pendidikan=aa.id
                                 where a.satminkal='$kode_kab' and status !='1' and status !='2' and status !='3' and status !='7' order by nama");
         $results = $query->getResultArray();
 
@@ -184,27 +159,5 @@ a.wil_kerja7, a.wil_kerja8, a.wil_kerja9, a.wil_kerja10, d.nm_desa,
         ];
 
         return $data;
-    }
-
-    public function getPropvinsi()
-    {
-        $query = $this->db->query("select * from tblpropinsi ORDER BY nama_prop ASC");
-        $row   = $query->getResultArray();
-        return $row;
-    }
-
-    public function getPendidikan()
-    {
-        $query = $this->db->query("select * from tblsekolah where urut !='14' and urut !='1' and urut !='2' order by urut");
-        $row   = $query->getResultArray();
-        return $row;
-    }
-
-    public function getTugas($kode_kab)
-    {
-        $query = $this->db->query("select * from tbldaerah a 
-    left join tbldasar_swasta b on b.satminkal=a.id_dati2 where id_dati2='$kode_kab'");
-        $row   = $query->getResultArray();
-        return $row;
     }
 }
