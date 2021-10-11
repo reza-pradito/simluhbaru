@@ -51,7 +51,7 @@ class Login extends BaseController
                 if (session()->get('status_user') == '2') {
                     return redirect()->to('profil/admin');
                 }
-                return redirect()->to('profil/lembaga');
+                return redirect()->to('lembaga');
             } else {
                 $session->setFlashdata('msg', 'Wrong Password');
                 return redirect()->to('login');

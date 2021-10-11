@@ -12,18 +12,21 @@
 
         <div class="row mt-3">
             <div class="col-lg-2">
-                <button type="button" class="btn bg-gradient-success btn-block mb-3" data-bs-toggle="modal" data-bs-target="#newSubMenuModal">Tambah</button>
+                <button type="button" class="btn bg-gradient-success btn-block mb-3" data-bs-toggle="modal" data-bs-target="#newUserModal">Tambah</button>
             </div>
-            <table id="tblMenu" class="table">
+            <table id="tblUser" class="table">
                 <thead>
                     <tr>
                         <th scope="col">#</th>
-                        <th scope="col">Title</th>
-                        <th scope="col">Menu</th>
-                        <th scope="col">Url</th>
-                        <th scope="col">Icon</th>
-                        <th scope="col">Active</th>
-                        <th scope="col">Action</th>
+                        <th scope="col">Username</th>
+                        <th scope="col">Name</th>
+                        <th scope="col">Status</th>
+                        <th scope="col">IdProp</th>
+                        <th scope="col">kodeBakor</th>
+                        <th scope="col">kodeBapel</th>
+                        <th scope="col">kodeBpp</th>
+                        <th scope="col">p_oke</th>
+                        <th scope="col">Aksi</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -32,15 +35,17 @@
                     foreach ($dt as $row) : ?>
                         <tr>
                             <th scope="row"><?= $no++; ?></th>
-                            <td><?= $row['title']; ?></td>
-                            <td><?= $row['menu']; ?></td>
-                            <td><?= $row['url']; ?></td>
-                            <td><?= $row['icon']; ?></td>
-                            <td><?= $row['is_active']; ?></td>
+                            <td><?= $row['username']; ?></td>
+                            <td><?= $row['name']; ?></td>
+                            <td><?= $row['status']; ?></td>
+                            <td><?= $row['idProp']; ?></td>
+                            <td><?= $row['kodeBakor']; ?></td>
+                            <td><?= $row['kodeBapel']; ?></td>
+                            <td><?= $row['kodeBpp']; ?></td>
+                            <td><?= $row['p_oke']; ?></td>
                             <td>
-                                <button type="button" id="btnEditSubMenu" data-id="<?= $row['id'] ?>" class=" btn btn-warning btn-sm">Edit</button>
-                                <button type="button" class="btn btn-danger btn-sm" id="btnDeleteSubmenu" data-id="<?= $row['id'] ?>">Hapus</button>
-
+                                <button type="button" id="btnEditUser" data-id="<?= $row['id'] ?>" class=" btn btn-warning btn-sm">Edit</button>
+                                <button class="btn btn-danger btn-sm" id="btnHapusUser" data-id="<?= $row['id'] ?>" type="button">Hapus</button>
 
                             </td>
                         </tr>
@@ -55,11 +60,11 @@
 </div>
 
 <!-- Modal -->
-<div class="modal fade" id="newSubMenuModal" tabindex="-1" role="dialog" aria-labelledby="newSubMenuModalLabel" aria-hidden="true">
+<div class="modal fade" id="newUserModal" tabindex="-1" role="dialog" aria-labelledby="newUserModalLabel" aria-hidden="true">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="newSubMenuModalLabel">Add New Sub Menu</h5>
+                <h5 class="modal-title" id="newSubMenuModalLabel">Add New User</h5>
                 <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
@@ -69,14 +74,7 @@
                     <div class="form-group">
                         <input type="text" class="form-control" id="title" name="title" placeholder="Submenu title">
                     </div>
-                    <div class="form-group">
-                        <select name="menu_id" id="menu_id" class="form-control">
-                            <option value="">Select Menu</option>
-                            <?php foreach ($menu as $m) : ?>
-                                <option value="<?= $m['id']; ?>"><?= $m['menu']; ?></option>
-                            <?php endforeach; ?>
-                        </select>
-                    </div>
+
                     <div class="form-group">
                         <input type="text" class="form-control" id="url" name="url" placeholder="Submenu url">
                     </div>
@@ -95,7 +93,6 @@
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
                     <button type="button" id="btnSave" class="btn btn-primary">Tambah</button>
-                    <input type="hidden" class="form-control" id="submenuid" name="submenuid" placeholder="Submenu id">
                 </div>
             </form>
         </div>
@@ -113,7 +110,9 @@
 <script>
     $(document).ready(function() {
 
-        $('#tblMenu').DataTable();
+        $('#tblUser').DataTable({
+            "scrollX": true
+        });
 
         //save
 
@@ -169,46 +168,34 @@
 
         //Update
 
-        $(document).delegate('#btnEditSubMenu', 'click', function() {
+        $(document).delegate('#btnEditMenu', 'click', function() {
             $.ajax({
-                url: '<?= base_url() ?>/manage/menu/editsubmenu/' + $(this).data('id'),
+                url: '<?= base_url() ?>/manage/menu/edit/' + $(this).data('id'),
                 type: 'GET',
                 dataType: 'JSON',
                 success: function(result) {
                     // console.log(result);
 
-                    $('#submenuid').val(result.id);
-                    $('#title').val(result.title);
-                    $('#menu_id').val(result.menu_id);
-                    $('#url').val(result.url);
-                    $('#icon').val(result.icon);
-                    $('#is_active').val(result.is_active);
+                    $('#idmenu').val(result.id);
+                    $('#menu').val(result.menu);
 
-                    $('#newSubMenuModal').modal('show');
+                    $('#modalMenu').modal('show');
 
                     $("#btnSave").attr("id", "btnDoEdit");
-                    $("#newSubMenuModalLabel").text("Edit Sub Menu");
-                    $("#btnDoEdit").text("Edit");
+                    $("#exampleModalLabel").text("Edit Menu");
 
                     $(document).delegate('#btnDoEdit', 'click', function() {
-                        // console.log('ok');
-                        var submenuid = $('#submenuid').val();
-                        var judul = $('#title').val();
-                        var menu_id = $('#menu_id').val();
-                        var url = $('#url').val();
-                        var icon = $('#icon').val();
-                        var is_active = $('#is_active').val();
+                        console.log('ok');
+
+                        var idmenu = $('#idmenu').val();
+                        var menu = $('#menu').val();
 
                         let formData = new FormData();
-                        formData.append('menu_id', menu_id);
-                        formData.append('judul', judul);
-                        formData.append('submenuid', submenuid);
-                        formData.append('url', url);
-                        formData.append('icon', icon);
-                        formData.append('is_active', is_active);
-                        debugger;
+                        formData.append('idmenu', idmenu);
+                        formData.append('menu', menu);
+
                         $.ajax({
-                            url: '<?= base_url() ?>/manage/menu/submenu_update/' + submenuid,
+                            url: '<?= base_url() ?>/manage/menu/update/' + idmenu,
                             type: "POST",
                             data: formData,
                             cache: false,
@@ -254,7 +241,7 @@
 
         });
 
-        $(document).delegate('#btnDeleteSubmenu', 'click', function() {
+        $(document).delegate('#btnHapusMenu', 'click', function() {
 
             Swal.fire({
                 title: 'Apakah anda yakin',
@@ -268,10 +255,10 @@
             }).then((result) => {
                 if (result.value) {
                     $.ajax({
-                        url: '<?= base_url() ?>/manage/menu/deletesubmenu/' + $(this).data('id'),
+                        url: '<?= base_url() ?>/manage/menu/delete/' + $(this).data('id'),
                         type: 'GET',
                         data: {
-                            'id': $(this).data('id')
+                            'idmenu': $(this).data('id')
                         },
                         success: function(result) {
                             Swal.fire({

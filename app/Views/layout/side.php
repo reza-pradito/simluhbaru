@@ -8,8 +8,7 @@
     </div>
     <hr class="horizontal dark mt-0">
 
-
-    <div class="collapse navbar-collapse  w-auto  max-height-vh-100 h-100" id="sidenav-collapse-main">
+    <div class="collapse navbar-collapse  w-auto  max-height-vh-300 h-100" id="sidenav-collapse-main">
         <ul class="navbar-nav">
 
             <!-- QUERY MENU -->

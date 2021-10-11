@@ -39,11 +39,35 @@ class MenuModel extends Model
         return $row;
     }
 
+    public function getSubMenuById($id)
+    {
+        $query = $this->db->query("SELECT `user_sub_menu`.*, `user_menu`.`menu`
+        FROM `user_sub_menu` JOIN `user_menu`
+        ON `user_sub_menu`.`menu_id` = `user_menu`.`id` WHERE `user_sub_menu`.`id` = $id");
+        $row = $query->getRow();
+        return json_encode($row);
+    }
+
+    public function updateSubmenu($id, $data)
+    {
+        $db = db_connect();
+        $builder = $db->table('user_sub_menu');
+        $builder->where('id', $id)->update($data);
+    }
+
     public function saveSubMenu($data)
     {
         $db = db_connect();
         $builder = $db->table('user_sub_menu');
         $builder->insert($data);
+    }
+
+    public function deleteSubMenu($id)
+    {
+        $db = db_connect();
+        $builder = $db->table('user_sub_menu');
+        $builder->where('id', $id)->delete();
+        // $builder->delete($id);
     }
 
     public function getMenuById($id)
