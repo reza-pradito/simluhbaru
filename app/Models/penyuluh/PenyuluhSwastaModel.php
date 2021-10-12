@@ -79,7 +79,7 @@ a.nama_perusahaan, a.jabatan_di_perush, a.tgl_update, a.alamat_perush, a.telp_pe
 
     public function getDetailEdit($id_swa)
     {
-        $query = $this->db->query("select a.id_swa, a.jenis_penyuluh, a.noktp, a.nama, a.tgl_lahir, a.bln_lahir, a.thn_lahir, a.tempat_lahir, a.jenis_kelamin,
+        $query = $this->db->query("select *, a.id_swa, a.jenis_penyuluh, a.noktp, a.nama, a.tgl_lahir, a.bln_lahir, a.thn_lahir, a.tempat_lahir, a.jenis_kelamin,
         a.satminkal, a.prop_satminkal, a.lokasi_kerja, a.alamat, a.dati2, a.kodepos, a.kode_prop, a.telp, a.email,
         a.nama_perusahaan, a.jabatan_di_perush, a.tgl_update, a.alamat_perush, a.telp_perush, a.tempat_tugas, b.kode, c.nama_prop,
                                         j.deskripsi,
@@ -90,8 +90,8 @@ a.nama_perusahaan, a.jabatan_di_perush, a.tgl_update, a.alamat_perush, a.telp_pe
                                         left join tblpropinsi c on a.kode_prop=c.id_prop
                                         left join tbldaerah j on a.tempat_tugas=j.id_daerah
                                         left join tblpropinsi z on a.kode_prop=z.id_prop
-        where id_swa = '" . $id_swa . "' ORDER BY nama ASC");
-        $row   = $query->getResultArray();
-        return $row;
+        where id_swa = '" . $id_swa . "'");
+        $row = $query->getRow();
+        return json_encode($row);
     }
 }
