@@ -28,11 +28,17 @@
                         <p class="text-xs font-weight-bold mb-0"><?= $i++ ?></p>
                     </td>
                     <td class="align-middle text-center text-sm">
-                        <a href="<?=base_url('/listgapoktan?kode_kec='.$row['id_daerah'])?>"><p class="text-xs font-weight-bold mb-0"><?= $row['deskripsi'] ?></p>
-                    </td></a>
+                        <p class="text-xs font-weight-bold mb-0"><?= $row['deskripsi'] ?></p>
+                    </td>
                     <td class="align-middle text-center text-sm">
                         <p class="text-xs font-weight-bold mb-0"><?= $row['jum'] ?></p>
                   
+                        <td class="align-middle text-center text-sm">
+                        <a href="/gapoktan/list"></a><button type="button" class="btn btn-info btn-sm">
+                             Detail
+                        </button>
+                        </a>
+                    </td>
                 </tr>
             <?php
             }
@@ -49,6 +55,14 @@
                     </th>
                     <th class="align-middle text-center text-sm">
                         <p class="text-xs font-weight-bold mb-0"><?= $jum_gapoktan ?></p>
+                    </th>
+                
+
+                    <th class="align-middle text-center text-sm">
+                        <button type="button" class="btn btn-info btn-sm">
+                             Detail
+                        </button>
+                        </a>
                     </th>
                 </tr>
             </tfoot>

@@ -2,8 +2,9 @@
 
 <?= $this->section('content') ?>
 
-<a href="/tambahgapoktanbersama"><button type="button" class="btn bg-gradient-primary btn-sm">+ Tambah Data</button></a>
 <br>
+<center><h2> Daftar Gapoktan Bersama di Kab <?= ucwords(strtolower($nama_kabupaten)) ?> </h2></center>
+<center>Data ditemukan <?= ucwords(strtolower($jum)) ?> </center>
 <br>
 <div class="card">
     <div class="table-responsive">

@@ -10,9 +10,6 @@ class DesaKec extends BaseController
 {
     public function desa()
     {
-        if (session()->get('username') == "") {
-            return redirect()->to('login');
-        }
         $get_param = $this->request->getGet();
 
         $kode_bpp = $get_param['kode_bpp'];
@@ -32,9 +29,7 @@ class DesaKec extends BaseController
 
     public function listdesa()
     {
-        if (session()->get('username') == "") {
-            return redirect()->to('login');
-        }
+
         $get_param = $this->request->getGet();
 
         $kode_kec = $get_param['kode_kec'];

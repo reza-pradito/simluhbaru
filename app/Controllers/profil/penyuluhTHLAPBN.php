@@ -16,9 +16,6 @@ class PenyuluhTHLAPBN extends BaseController
 
     public function detail($nik)
     {
-        if (session()->get('username') == "") {
-            return redirect()->to('login');
-        }
         $penyuluhmodel = new PenyuluhTHLAPBNModel();
         $dtpenyuluh = $penyuluhmodel->getDetailPenyuluhTHLAPBNByNIK($nik);
         $data = [

@@ -43,12 +43,11 @@ class PosluhdesModel extends Model
         $row   = $query->getRow();
         $query2 = $db->query("SELECT count(idpos) as jum_kec FROM tb_posluhdes where kode_kec ='$kode_kec'");
         $row2   = $query2->getRow();
-        $query3  = $db->query("select * , b.nm_desa, c.nama as penyuluh_swadaya, a.idpos, a.kode_kec, a.kode_kab, a.tahun_berdiri, a.nama, a.alamat, b.id_desa, c.id_swa, c.noktp, d.deskripsi, b.id_daerah, e.id_dati2 
+        $query3  = $db->query("select * , b.nm_desa, c.nama as penyuluh_swadaya, a.idpos, a.kode_kec, a.kode_kab, a.tahun_berdiri, a.nama, a.alamat, b.id_desa, c.id_swa, c.noktp, d.deskripsi, b.id_daerah, b.id_dati2, b.id_prop 
                                 from tb_posluhdes a
                                 left join tbldesa b on a.kode_desa=b.id_desa
                                 left join tbldasar_swa c on a.penyuluh_swadaya=c.id_swa 
                                 left join tbldaerah d on a.kode_kec=d.id_daerah
-                                left join tbldati2 e on a.kode_kab=e.id_dati2
                                 where kode_kec='$kode_kec'
                                 order by a.nama, a.kode_desa, b.nm_desa ASC");
         $results = $query3->getResultArray();
@@ -72,7 +71,7 @@ class PosluhdesModel extends Model
 
     public function getPosluhdes($idpos)
     {
-        $query = $this->db->query("select *, b.deskripsi from tb_posluhdes a left join tbldaerah b on a.kode_kec=b.id_daerah where idpos LIKE '" . $idpos . "%' ORDER BY nama ASC");
+        $query = $this->db->query("select *, b.deskripsi from tb_posluhdes a left join tbldaerah b on a.kode_kec=b.id_daerah where idpos = '" . $idpos . "' ORDER BY nama ASC");
         $row   = $query->getResultArray();
         return $row;
     }
@@ -87,5 +86,10 @@ class PosluhdesModel extends Model
     public function ubah($data, $idpos)
     {
         return $this->builder->update($data, ['idpos' => $idpos]);
+    }
+
+    public function hapus($idpos)
+    {
+        return $this->builder->delete(['idpos' => $idpos]);
     }
 }

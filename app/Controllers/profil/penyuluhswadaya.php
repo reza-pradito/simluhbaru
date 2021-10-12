@@ -16,9 +16,6 @@ class PenyuluhSwadaya extends BaseController
 
     public function detail($nik)
     {
-        if (session()->get('username') == "") {
-            return redirect()->to('login');
-        }
         $penyuluhmodel = new PenyuluhSwadayaModel();
         $dtpenyuluh = $penyuluhmodel->getDetailPenyuluhSwadayaByNIK($nik);
         $data = [

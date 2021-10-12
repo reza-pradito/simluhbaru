@@ -7,14 +7,17 @@ use \Config\Database;
 
 class PenyuluhSwastaModel extends Model
 {
+<<<<<<< HEAD
+    protected $table      = 'simluhtan';
+=======
     protected $table      = 'tbldasar_swasta';
-    protected $useSoftDeletes = true;
     protected $primaryKey = 'id_swa';
     protected $allowedFields = [
         'jenis_penyuluh', 'noktp', 'nama', 'tgl_lahir', 'bln_lahir', 'thn_lahir', 'tempat_lahir', 'jenis_kelamin',
         'satminkal', 'prop_satminkal', 'lokasi_kerja', 'alamat', 'dati2', 'kodepos', 'kode_prop', 'telp', 'email',
         'nama_perusahaan', 'jabatan_di_perush', 'tgl_update', 'alamat_perush', 'telp_perush', 'tempat_tugas'
     ];
+>>>>>>> 3a51b1333fdd24d886d15727bd8978d2c7240500
     //protected $primaryKey = 'id';
 
 
@@ -40,17 +43,8 @@ class PenyuluhSwastaModel extends Model
         $query = $db->query("select count(a.id_swa) as jum, nama_dati2 as nama_kab from tbldasar_swasta a left join tbldati2 b on b.id_dati2=a.satminkal where satminkal='$kode_kab'");
         $row   = $query->getRow();
 
-        $query   = $db->query("select a.id_swa, a.jenis_penyuluh, a.noktp, a.nama, a.tgl_lahir, a.bln_lahir, a.thn_lahir, a.tempat_lahir, a.jenis_kelamin,
-a.satminkal, a.prop_satminkal, a.lokasi_kerja, a.alamat, a.dati2, a.kodepos, a.kode_prop, a.telp, a.email,
-a.nama_perusahaan, a.jabatan_di_perush, a.tgl_update, a.alamat_perush, a.telp_perush, a.tempat_tugas, b.kode, c.nama_prop,
-                                j.deskripsi,
-                                z.nama_prop,
-                                z.id_prop,
-                                j.id_daerah from tbldasar_swasta a
+        $query   = $db->query("select a.noktp, a.nama, a.tgl_update, a.tempat_lahir, a.tgl_lahir, a.bln_lahir, a.thn_lahir from tbldasar_swasta a
                                 left join tblsatminkal b on a.satminkal=b.kode
-                                left join tblpropinsi c on a.kode_prop=c.id_prop
-                                left join tbldaerah j on a.tempat_tugas=j.id_daerah
-                                left join tblpropinsi z on a.kode_prop=z.id_prop
                                 where a.satminkal='$kode_kab' order by nama");
         $results = $query->getResultArray();
 
@@ -62,6 +56,8 @@ a.nama_perusahaan, a.jabatan_di_perush, a.tgl_update, a.alamat_perush, a.telp_pe
 
         return $data;
     }
+<<<<<<< HEAD
+=======
 
     public function getPropvinsi()
     {
@@ -77,4 +73,23 @@ a.nama_perusahaan, a.jabatan_di_perush, a.tgl_update, a.alamat_perush, a.telp_pe
         $row   = $query->getResultArray();
         return $row;
     }
+
+    public function getDetailEdit($id_swa)
+    {
+        $query = $this->db->query("select a.id_swa, a.jenis_penyuluh, a.noktp, a.nama, a.tgl_lahir, a.bln_lahir, a.thn_lahir, a.tempat_lahir, a.jenis_kelamin,
+        a.satminkal, a.prop_satminkal, a.lokasi_kerja, a.alamat, a.dati2, a.kodepos, a.kode_prop, a.telp, a.email,
+        a.nama_perusahaan, a.jabatan_di_perush, a.tgl_update, a.alamat_perush, a.telp_perush, a.tempat_tugas, b.kode, c.nama_prop,
+                                        j.deskripsi,
+                                        z.nama_prop,
+                                        z.id_prop,
+                                        j.id_daerah from tbldasar_swasta a
+                                        left join tblsatminkal b on a.satminkal=b.kode
+                                        left join tblpropinsi c on a.kode_prop=c.id_prop
+                                        left join tbldaerah j on a.tempat_tugas=j.id_daerah
+                                        left join tblpropinsi z on a.kode_prop=z.id_prop
+        where id_swa = '" . $id_swa . "' ORDER BY nama ASC");
+        $row   = $query->getResultArray();
+        return $row;
+    }
+>>>>>>> 3a51b1333fdd24d886d15727bd8978d2c7240500
 }
