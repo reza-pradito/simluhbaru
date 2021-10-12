@@ -28,7 +28,7 @@
 
                                                 <tbody>
                                                     <tr>
-                                                        <td>Nama Kelembagaan</td>
+                                                        <td>Nama</td>
                                                         <td>:</td>
                                                         <td><?= $dt['name']; ?></td>
                                                     </tr>
@@ -36,6 +36,11 @@
                                                         <td>Status</td>
                                                         <td>:</td>
                                                         <td><?= $dt['status']; ?></td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>username</td>
+                                                        <td>:</td>
+                                                        <td><?= $dt['username']; ?></td>
                                                     </tr>
 
                                                 </tbody>
