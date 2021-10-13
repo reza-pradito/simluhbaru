@@ -47,19 +47,18 @@
     <!-- config template -->
     <?php echo view('layout/config_template'); ?>
 
-
-    <!--   Core JS Files   -->
-    <script src="<?= base_url('assets/js/core/popper.min.js'); ?>"></script>
-    <script src="<?= base_url('assets/js/jquery.min.js'); ?>"></script>
     <script src="<?= base_url('assets/js/script.js'); ?>"></script>
-    <script src="<?= base_url('assets/js/core/bootstrap.min.js'); ?>"></script>
     <script src="<?= base_url('assets/js/plugins/perfect-scrollbar.min.js'); ?>"></script>
     <script src="<?= base_url('assets/js/plugins/smooth-scrollbar.min.js'); ?>"></script>
     <script src="<?= base_url('assets/js/plugins/chartjs.min.js'); ?>"></script>
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js" integrity="sha512-894YE6QWD5I59HgZOGReFYm4dnWc1Qt5NtvYSaNcOP+u1T9qYdvdihz0PPSiiqn/+/3e7Jo4EaG7TubfWGUrMQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 
-    <script src="//cdn.jsdelivr.net/npm/alertifyjs@1.13.1/build/alertify.min.js"></script>
+    <!--   Core JS Files   -->
+    <script src="<?= base_url('assets/js/core/popper.min.js'); ?>"></script>
+    <script src="<?= base_url('assets/js/core/bootstrap.min.js'); ?>"></script>
+    <script src="<?= base_url('assets/js/soft-ui-dashboard.min.js'); ?>"></script>
+    <script src="<?= base_url('assets/js/sweetalert2.all.min.js'); ?>"></script>
+    <!-- Third party plugin JS-->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-easing/1.4.1/jquery.easing.min.js"></script>
 
     <!-- Resources -->
     <script src="https://cdn.amcharts.com/lib/4/core.js"></script>

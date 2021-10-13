@@ -67,6 +67,40 @@ class Menu extends BaseController
         //return redirect()->to('manage/menu');
     }
 
+    public function editsubmenu($id)
+    {
+        if (session()->get('username') == "") {
+            return redirect()->to('login');
+        }
+
+        $data = $this->model->getSubMenuById($id);
+        echo $data;
+    }
+
+    public function submenu_update($id)
+    {
+        if (session()->get('username') == "") {
+            return redirect()->to('login');
+        }
+
+        $data = [
+            'menu_id' => $this->request->getPost('menu_id'),
+            'title' => $this->request->getPost('judul'),
+            'url' => $this->request->getPost('url'),
+            'icon' => $this->request->getPost('icon'),
+            'is_active' => $this->request->getPost('is_active'),
+        ];
+
+        $this->model->updateSubmenu($id, $data);
+    }
+
+    public function deleteSubmenu($id)
+    {
+        $this->model->deleteSubMenu($id);
+        session()->setFlashdata('pesan', 'Data berhasil dihapus');
+        // return redirect()->to('master/jabatan');
+    }
+
     public function save()
     {
         $this->model->save([
