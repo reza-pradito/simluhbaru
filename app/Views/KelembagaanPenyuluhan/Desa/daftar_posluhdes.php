@@ -1,8 +1,17 @@
 <?= $this->extend('layout/main_template') ?>
 
 <?= $this->section('content') ?>
-<?php $seskab = session()->get('kodebapel'); ?>
-<?php $seskec = session()->get('kodebpp'); ?>
+<?php
+if (empty(session()->get('status_user')) || session()->get('status_user') == '2') {
+    $kode = '00';
+} elseif (session()->get('status_user') == '1') {
+    $kode = session()->get('kodebakor');
+} elseif (session()->get('status_user') == '200') {
+    $kode = session()->get('kodebapel');
+} elseif (session()->get('status_user') == '300') {
+    $kode = session()->get('kodebpp');
+}
+?>
 
 <center>
     <h4> Daftar Posluhdes di Kecamatan <?= ucwords(strtolower($nama_kecamatan)) ?> </h4>
@@ -152,7 +161,7 @@
                                                                 ?>
                                                             </select>
                                                         </div>
-                                                        <input type="hidden" name="kode_kab" id="kode_kab" value="<?= $seskab; ?>">
+                                                        <input type="hidden" name="kode_kab" id="kode_kab" value="<?= $kode; ?>">
                                                         <input type="hidden" name="kode_prop" id="kode_prop" value="<?= $item['id_prop']; ?>">
                                                         <input type="hidden" name="kode_kec" id="kode_kec" value="<?= $item['kode_kec']; ?>">
                                                     </div>
