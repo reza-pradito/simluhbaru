@@ -7,28 +7,16 @@ use \Config\Database;
 
 class ListPoktanModel extends Model
 {
-    //protected $primaryKey = 'id';
-
-
-    //protected $returnType     = 'array';
-    //protected $useSoftDeletes = true;
-
-    //protected $allowedFields = ['nama', 'alamat', 'telpon'];
+    protected $table      = 'tb_poktan';
+    protected $primaryKey = 'id_poktan';
+    protected $allowedFields = ['no_reg', 'kode_prop', 'kode_kab',
+     'kode_kec', 'kode_desa', 'nama_poktan', 'ketua_poktan', 'alamat', 'jum_anggota','simluh_tahun_bentuk','status'];
 
 
     protected $useTimestamps = false;
-    protected $table      = 'tb_poktan';
-    protected $primarykey = 'id_poktan';
-    protected $allowedFields = ['id_poktan', 'id_gapber', 'no_reg', 'kode_prop', 'kode_kab',
-     'kode_kec', 'kode_desa', 'nama_poktan', 'ketua_poktan', 'alamat', 'jum_anggota','simluh_tahun_bentuk','status'];
+    
 
-    // protected $createdField  = 'created_at';
-    // protected $updatedField  = 'updated_at';
-    // protected $deletedField  = 'deleted_at';
-
-    // protected $validationRules    = [];
-    // protected $validationMessages = [];
-    // protected $skipValidation     = false;
+   
 
 
     public function getKelompokTaniTotal($kode_kec)
@@ -71,5 +59,15 @@ class ListPoktanModel extends Model
         $query = $this->db->query("select * from tbldesa where id_daerah LIKE '" . $kode_kec . "%' ORDER BY nm_desa ASC");
         $row   = $query->getResultArray();
         return $row;
+    }
+    public function getDataById($id_poktan)
+    {
+        $query = $this->db->query("select * , b.deskripsi
+                                from tb_poktan a
+                                left join tbldaerah b on a.kode_kec=b.id_daerah
+                                where id_poktan= '" . $id_poktan . "' 
+                                ORDER BY nama_poktan ");
+                                $row = $query->getRow();
+                                return json_encode($row);
     }
 }

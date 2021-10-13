@@ -7,29 +7,16 @@ use \Config\Database;
 
 class ListGapoktanModel extends Model
 {
-    //protected $table      = 'penyuluh';
-    //protected $primaryKey = 'id';
+  
 
-
-    //protected $returnType     = 'array';
-    //protected $useSoftDeletes = true;
-
-    //protected $allowedFields = ['nama', 'alamat', 'telpon'];
-
-
-    protected $useTimestamps = false;
     protected $table      = 'tb_gapoktan';
-    protected $primarykey = 'id_gapoktan';
-    protected $allowedFields = ['id_gap', 'id_gapber', 'no_reg', 'kode_prop', 'kode_kab',
+    protected $primaryKey = 'id_gap';
+    protected $allowedFields = ['id_gapber', 'no_reg', 'kode_prop', 'kode_kab',
      'kode_kec', 'kode_desa', 'nama_gapoktan', 'ketua_gapoktan', 'simluh_sk_pengukuhan', 'simluh_tahun_bentuk', 'simluh_sekretaris', 'simluh_bendahara', 'alamat'];
 
-    // protected $createdField  = 'created_at';
-    // protected $updatedField  = 'updated_at';
-    // protected $deletedField  = 'deleted_at';
+    protected $useTimestamps = false;
 
-    // protected $validationRules    = [];
-    // protected $validationMessages = [];
-    // protected $skipValidation     = false;
+
 
   
    
@@ -76,14 +63,14 @@ class ListGapoktanModel extends Model
         $row   = $query->getResultArray();
         return $row;
     }
-    public function getGapoktan($id_gap)
+    public function getDataById($id_gap)
     {
         $query = $this->db->query("select * , b.deskripsi
                                 from tb_gapoktan a
                                 left join tbldaerah b on a.kode_kec=b.id_daerah
                                 where id_gap= '" . $id_gap . "' 
                                 ORDER BY nama_gapoktan ");
-        $row   = $query->getResultArray();
-        return $row;
+                                $row = $query->getRow();
+                                return json_encode($row);
     }
 }

@@ -7,24 +7,13 @@ use \Config\Database;
 
 class GapoktanBersamaModel extends Model
 {
-    //protected $table      = 'penyuluh';
-    //protected $primaryKey = 'id';
-
-
-    //protected $returnType     = 'array';
-    //protected $useSoftDeletes = true;
-
-    //protected $allowedFields = ['nama', 'alamat', 'telpon'];
-
-
+  
+    protected $table      = 'tb_gapoktan_bersama';
+    protected $primaryKey = 'id_gapber';
+    protected $allowedFields = [ 'kode_prop', 'kode_kab',
+     'kode_kec', 'kode_desa', 'nama_gapoktan', 'ketua_gapoktan', 'alamat', 'simluh_sk_pengukuhan','simluh_tahun_bentuk','simluh_bendahara','simluh_sekretaris'];
     protected $useTimestamps = false;
-    // protected $createdField  = 'created_at';
-    // protected $updatedField  = 'updated_at';
-    // protected $deletedField  = 'deleted_at';
-
-    // protected $validationRules    = [];
-    // protected $validationMessages = [];
-    // protected $skipValidation     = false;
+  
 
 
     public function getGapoktanBersamaTotal($kode_kab)
@@ -50,5 +39,21 @@ class GapoktanBersamaModel extends Model
         ];
 
         return $data;
+    }
+    public function getDesa($kode_kec)
+    {
+        $query = $this->db->query("select * from tbldesa where id_daerah LIKE '" . $kode_kec . "%' ORDER BY nm_desa ASC");
+        $row   = $query->getResultArray();
+        return $row;
+    }
+    public function getDataById($id_gapber)
+    {
+        $query = $this->db->query("select * , b.deskripsi
+                                from tb_gapoktan_bersama a
+                                left join tbldaerah b on a.kode_kec=b.id_daerah
+                                where id_gapber= '" . $id_gapber . "' 
+                                ORDER BY nama_gapoktan ");
+                                $row = $query->getRow();
+                                return json_encode($row);
     }
 }

@@ -51,16 +51,15 @@
                     </td></a>
                     
                     <td class="align-middle text-center text-sm">
-                            <a href="#">
-                                <button type="button" id="btn-edit" data-bs-toggle="modal" data-bs-target="#modal-edit" data-id_gap="<?= $row['id_gap'] ?>" class="btn bg-gradient-warning btn-sm">
+                            
+                           
+                          
+                            <button type="button"  data-id_gap="<?= $row['id_gap'] ?>" id="btnEditGap" class="btn bg-gradient-warning btn-sm">
                                     <i class="fas fa-edit"></i> Ubah
                                 </button>
-                            </a>
-                            <a href="">
-                            <button type="button" class="btn bg-gradient-danger btn-sm">
-                                <i class="fas fa-trash"></i> Hapus
+                                <button class="btn btn-danger btn-sm" id="btnHapus" data-id_gap="<?= $row['id_gap'] ?>" type="submit" onclick="return confirm('Are you sure ?')">Hapus</button>
+                                <i class="fas fa-trash"></i> 
                             </button>
-                            </a>
                           
                         </td>
                 </tr>
@@ -79,17 +78,17 @@
                                             <h4 class="font-weight-bolder text-warning text-gradient">Tambah Data</h4>
                                         </div>
                                         <div class="card-body">
-                                      <form role="form text-left"
+                                        <form method="POST" action="<?= base_url('KelembagaanPelakuUtama/Gapoktan/ListGapoktan/save'); ?>">
                                             <? csrf_field(); ?>
                                     <div class="row">
                                         <div class="col-5" mt-5>
                                             <label>Kecamatan</label>
                                             <div class="input-group mb-5">
-                                            <input type="text" class="form-control deskripsi" id="deskripsi" name="deskripsi" placeholder="Kecamatan" value="<?= $nama_kecamatan; ?>" disabled>
+                                            <input type="text" class="form-control" id="deskripsi" name="deskripsi" placeholder="Kecamatan" value="<?= $nama_kecamatan; ?>" disabled>
                                             </div>
                                             <label>Desa</label>
                                             <div class="input-group mb-3">
-                                               <select name="kode_desa"  class="form-control desa input-lg">
+                                               <select name="kode_desa" id="kode_desa"  class="form-control  input-lg">
                                                             <option value="">Pilih Desa</option>
                                                             <?php
                                                             foreach ($desa as $row2) {
@@ -100,44 +99,44 @@
                                             </div>
                                             <label>Nama Gapoktan</label>
                                             <div class="input-group mb-3">
-                                                <input type="text" class="form-control nama_gapoktan" id="nama_gapoktan" name="nama_gapoktan" placeholder="Nama Gapoktan" aria-label="Password" aria-describedby="password-addon">
+                                                <input type="text" class="form-control " id="nama_gapoktan" name="nama_gapoktan" placeholder="Nama Gapoktan" aria-label="Password" aria-describedby="password-addon">
                                             </div>
                                             <label>Nama Ketua</label>
                                             <div class="input-group mb-3">
-                                                <input type="text" class="form-control ketua_gapoktan" id="ketua_gapoktan" name="ketua_gapoktan" placeholder="Nama Ketua" aria-label="Password" aria-describedby="password-addon">
+                                                <input type="text" class="form-control" id="ketua_gapoktan" name="ketua_gapoktan" placeholder="Nama Ketua" aria-label="Password" aria-describedby="password-addon">
                                             </div>
                                             <label>Nama Bendahara</label>
                                             <div class="input-group mb-3">
-                                                <input type="text" class="form-control simluh_bendahara" id="simluh_bendahara" name="simluh_bendahara" placeholder="Nama Bendahara" aria-label="Password" aria-describedby="password-addon">
+                                                <input type="text" class="form-control " id="simluh_bendahara" name="simluh_bendahara" placeholder="Nama Bendahara" aria-label="Password" aria-describedby="password-addon">
                                             </div>
                                             <label>Nama Sekretaris</label>
                                             <div class="input-group mb-3">
-                                                <input type="text" class="form-control simluh_sekretaris" id="simluh_sekretaris" name="simluh_sekretaris" placeholder="Nama Sekretaris" aria-label="Password" aria-describedby="password-addon">
+                                                <input type="text" class="form-control " id="simluh_sekretaris" name="simluh_sekretaris" placeholder="Nama Sekretaris" aria-label="Password" aria-describedby="password-addon">
                                             </div>
                                             <label>Alamat Lengkap Sekretariat</label>
-                                                <textarea class="form-control alamat" id="alamat" placeholder="Alamat" name="alamat" aria-label="Password" aria-describedby="password-addon"></textarea>
+                                                <textarea class="form-control " id="alamat" placeholder="Alamat" name="alamat" aria-label="Password" aria-describedby="password-addon"></textarea>
                                             <label>Tahun Pembentukan</label>
                                             <div class="input-group mb-3">
-                                                <select id="year" class="form-select simluh_tahun_bentuk"  aria-label="Default select example" name="simluh_tahun_bentuk">
+                                                <select id="year" class="form-select "  aria-label="Default select example" name="simluh_tahun_bentuk">
                                                     <option selected>Pilih Tahun</option>
                                                     
                                                 </select>
                                             </div>
                                             <label>SK Pengukuhan</label>
                                             <div class="input-group mb-3">
-                                                <select class="form-select simluh_sk_pengukuhan" id="simluh_sk_pengukuhan" name="simluh_sk_pengukuhan" aria-label="Default select example">
+                                                <select class="form-select" id="simluh_sk_pengukuhan" name="simluh_sk_pengukuhan" aria-label="Default select example">
                                                     <option selected>Pilih  </option>
                                                     <option value="ada">ada</option>
                                                     <option value="tidak">tidak</option>
                                                    
                                                 </select>
                                             </div>
-                                            <input type="hidden" class="form-control kode_kec" name="kode_kec" value="<?= $row['id_daerah'] ?>">
-                                                <input type="hidden" class="form-control kode_kab" name="kode_kab" value="<?= $row['id_dati2'] ?>" >
-                                                <input type="hidden" class="form-control id_gap" name="kode_kab" value="<?= $row['id_dati2'] ?>" >
+                                            <input type="hidden" class="form-control" id="kode_kec" name="kode_kec" value="<?= $row['id_daerah'] ?>">
+                                                <input type="hidden" class="form-control" id="kode_kab" name="kode_kab" value="<?= $row['id_dati2'] ?>" >
+                                                <input type="hidden" class="form-control" id="id_gap" name="id_gap" value="<?= $row['id_gap'] ?>" >
                                              
                                                     <div class="text-center">
-                                                        <button type="button" class="btn btn-round bg-gradient-warning btn-sm ajax-save">Simpan Data</button>
+                                                        <button type="button" id="btnSave" class="btn btn-round bg-gradient-warning btn-sm ">Simpan Data</button>
                                                     </div>
                                                 </div>
                                          
@@ -149,86 +148,9 @@
                         </div>
                       </div>
     
+    </div>
+</div>
 
-
-                        <div class="modal fade" id="modal-edit" tabindex="-1" role="dialog" aria-labelledby="modal-edit" aria-hidden="true">
-                            <div class="modal-dialog modal-dialog-centered modal-xl" role="document">
-                                <div class="modal-content">
-                                    <div class="modal-body p-0">
-                                        <div class="card card-plain">
-                                        <div class="card-header pb-0 text-left">
-                                            <h4 class="font-weight-bolder text-warning text-gradient">Tambah Data</h4>
-                                        </div>
-                                        <div class="card-body">
-                                        
-                                    <div class="row">
-                                        <div class="col-5" mt-5>
-                                            <label>Kecamatan</label>
-                                            <div class="input-group mb-5">
-                                            <input type="text" class="form-control deskripsi" id="deskripsi" name="deskripsi" placeholder="Kecamatan" value="<?= $nama_kecamatan; ?>" disabled>
-                                            </div>
-                                            <label>Desa</label>
-                                            <div class="input-group mb-3">
-                                               <select name="kode_desa" id="kode_desa" class="form-control desa input-lg">
-                                                            <option value="">Pilih Desa</option>
-                                                            <?php
-                                                            foreach ($desa as $row2) {
-                                                                echo '<option value="' . $row2["id_desa"] . '">' . $row2["nm_desa"] . '</option>';
-                                                            }
-                                                            ?>
-                                                        </select>
-                                            </div>
-                                            <label>Nama Gapoktan</label>
-                                            <div class="input-group mb-3">
-                                                <input type="text" class="form-control nama_gapoktan" id="nama_gapoktan" name="nama_gapoktan"  ">
-                                            </div>
-                                            <label>Nama Ketua</label>
-                                            <div class="input-group mb-3">
-                                                <input type="text" class="form-control ketua_gapoktan" id="ketua_gapoktan" name="ketua_gapoktan" ">
-                                            </div>
-                                            <label>Nama Bendahara</label>
-                                            <div class="input-group mb-3">
-                                                <input type="text" class="form-control simluh_bendahara" id="simluh_bendahara" name="simluh_bendahara" ">
-                                            </div>
-                                            <label>Nama Sekretaris</label>
-                                            <div class="input-group mb-3">
-                                                <input type="text" class="form-control simluh_sekretaris" id="simluh_sekretaris" name="simluh_sekretaris" ">
-                                            </div>
-                                            <label>Alamat Lengkap Sekretariat</label>
-                                                <textarea class="form-control alamat" id="alamat" placeholder="Alamat" name="alamat""></textarea>
-                                            <label>Tahun Pembentukan</label>
-                                            <div class="input-group mb-3">
-                                                <select id="selectElementId" class="form-select simluh_tahun_bentuk"  aria-label="Default select example" name="simluh_tahun_bentuk">
-                                                    <option selected>Pilih Tahun</option>
-                                                    
-                                                </select>
-                                            </div>
-                                            <label>SK Pengukuhan</label>
-                                            <div class="input-group mb-3">
-                                                <select class="form-select simluh_sk_pengukuhan" id="simluh_sk_pengukuhan" name="simluh_sk_pengukuhan" aria-label="Default select example">
-                                                    <option selected>Pilih  </option>
-                                                    <option value="ada">ada</option>
-                                                    <option value="tidak">tidak</option>
-                                                   
-                                                </select>
-                                            </div>
-                                                <input type="hidden" class="form-control kode_kec" name="kode_kec" value="<?= $row['id_daerah'] ?>">
-                                                <input type="hidden" class="form-control kode_kab" name="kode_kab" value="<?= $row['id_dati2'] ?>" >
-                                                <input type="hidden" class="form-control id_gap" name="id_gap" value="<?= $row['id_gap'] ?>" >
-                                             
-                                                    <div class="text-center">
-                                                        <button type="button" class="btn btn-round bg-gradient-warning btn-sm ajax-save">Simpan Data</button>
-                                                    </div>
-                                                </div>
-                                            </form>
-                                        </div>
-                                        </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div 
     </div>
 </div>
 </div>
@@ -248,50 +170,205 @@
 <script>
     $(document).ready(function() {
 
-        $(document).on('click', '.ajax-save', function() {
+        $(document).delegate('#btnSave', 'click', function() {
 
-            if ($.trim($('.nama').val()).length == 0) {
-                error_nama = 'Nama wajib diisi';
-                $('#error_nama').text(error_nama);
-            } else {
-                error_nama = '';
-                $('#error_nama').text(error_nama);
-            }
+            var kode_kec = $('#kode_kec').val();
+            var kode_kab = $('#kode_kab').val();
+            var kode_desa = $('#kode_desa').val();
+            var ketua_gapoktan = $('#ketua_gapoktan').val();
+            var nama_gapoktan = $('#nama_gapoktan').val();
+            var alamat = $('#alamat').val();
+            var simluh_sekretaris = $('#simluh_sekretaris').val();
+            var simluh_bendahara = $('#simluh_bendahara').val();
+            var simluh_tahun_bentuk = $('#year').val();
+            var simluh_sk_pengukuhan = $('#simluh_sk_pengukuhan').val();
+            $.ajax({
+                url: '<?= base_url() ?>/KelembagaanPelakuUtama/Gapoktan/ListGapoktan/save/',
+                type: 'POST',
+                data: {
+                    'kode_kec': kode_kec,
+                    'kode_kab': kode_kab,
+                    'kode_desa': kode_desa,
+                    'nama_gapoktan': nama_gapoktan,
+                    'ketua_gapoktan': ketua_gapoktan,
+                    'alamat': alamat,
+                    'simluh_sekretaris': simluh_sekretaris,
+                    'simluh_bendahara': simluh_bendahara,
+                    'simluh_tahun_bentuk': simluh_tahun_bentuk,
+                    'simluh_sk_pengukuhan': simluh_sk_pengukuhan
+                },
+                success: function(result) {
+                    result = JSON.parse(result);
+                    if(result.value){
+                        Swal.fire({
+                            title: 'Sukses',
+                            text: "Sukses tambah data",
+                            type: 'success',
+                        }).then((result) => {
 
-            if (error_nama != '') {
-                return false;
-            } else {
-                var data = {
-                    'kode_kab': $('.kode_kab').val(),
-                    'kode_desa': $('.kode_desa').val(),
-                    'kode_kec': $('.kode_kec').val(),
-                    'ketua_gapoktan': $('.nama').val(),
-                    'nama_gapoktan': $('.nama_gapoktan').val(),
-                    'simluh_bendahara': $('.simluh_bendahara').val(),
-                    'simluh_sekretaris': $('.simluh_sekretaris').val(),
-                    'alamat': $('.alamat').val(),
-                    'simluh_sk_bentuk': $('.simluh_sk_bentuk').val(),
-                    'simluh_sk_pengukuhan': $('.simluh_sk_pengukuhan').val(),
-                    
-
-                };
-                $.ajax({
-                    method: "POST",
-                    url: "KelembagaanPelakuUtama/Gapoktan/ListGaapoktan/save",
-                    data: data,
-                    success: function(response) {
-                        $('#modal-form').modal('hide');
-                        $('#modal-form').find('input').val('');
-
-                        alertify.set('notifier', 'position', 'top-right');
-                        alertify.success(response.status);
+                            if (result.value) {
+                                location.reload();
+                            }
+                        });
+                    }else{
+                        Swal.fire({
+                            title: 'Error',
+                            text: "Gagal tambah data. " + result.message,
+                            type: 'error',
+                        }).then((result) => {
+                            
+                        });
                     }
-                });
-            }
+                },
+                error: function(jqxhr, status, exception) {
+                    Swal.fire({
+                        title: 'Error',
+                        text: "Gagal tambah data",
+                        type: 'error',
+                    }).then((result) => {
+                        if (result.value) {
+                            location.reload();
+                        }
+                    });
+                }
+            });
 
         });
-    });
-</script>
+        $(document).delegate('#btnHapus', 'click', function() {
+            var id_gap = $(this).data('id_gap');
+
+            $.ajax({
+                url: '<?= base_url() ?>/KelembagaanPelakuUtama/Gapoktan/ListGapoktan/delete/' + id_gap,
+                type: 'POST',
+                success: function(result) {
+                    Swal.fire({
+                        title: 'Sukses',
+                        text: "Sukses Hapus data",
+                        type: 'success',
+                    }).then((result) => {
+
+                        if (result.value) {
+                            location.reload();
+                        }
+                    });
+                },
+                error: function(jqxhr, status, exception) {
+                    Swal.fire({
+                        title: 'Error',
+                        text: "Gagal Hapus data",
+                        type: 'error',
+                    }).then((result) => {
+                        if (result.value) {
+                            location.reload();
+                        }
+                    });
+                }
+
+            });
+        });
+        $(document).delegate('#btnEditGap', 'click', function() {
+            $.ajax({
+                url: '<?= base_url() ?>/KelembagaanPelakuUtama/Gapoktan/ListGapoktan/edit/' + $(this).data('id_gap'),
+                type: 'GET',
+                dataType: 'JSON',
+                success: function(result) {
+                    // console.log(result);
+
+                    $('#id_gap').val(result.id_gap);
+                    $('#kode_kec').val(result.kode_kec);
+                    $('#kode_desa').val(result.kode_desa);
+                    $('#kode_kab').val(result.kode_kab);
+                    $('#nama_gapoktan').val(result.nama_gapoktan);
+                    $('#ketua_gapoktan').val(result.ketua_gapoktan);
+                    $('#simluh_bendahara').val(result.simluh_bendahara);
+                    $('#simluh_sekretaris').val(result.simluh_sekretaris);
+                    $('#simluh_sk_pengukuhan').val(result.simluh_sk_pengukuhan);
+                    $('#alamat').val(result.alamat);
+                    $('#year').val(result.simluh_tahun_bentuk);
+                   
+
+
+                    $('#modal-form').modal('show');
+                    $("#btnSave").attr("id", "btnDoEdit");
+
+                    $(document).delegate('#btnDoEdit', 'click', function() {
+                     
+
+                        var id_gap = $('#id_gap').val();
+                        var kode_kec = $('#kode_kec').val();
+                        var kode_kab = $('#kode_kab').val();
+                        var kode_desa = $('#kode_desa').val();
+                        var nama_poktan = $('#nama_poktan').val();
+                        var ketua_poktan = $('#ketua_poktan').val();
+                        var simluh_sekretaris = $('#simluh_sekretaris').val();
+                        var simluh_bendahara = $('#simluh_bendahara').val();
+                        var simluh_sk_pengukuhan = $('#simluh_sk_pengukuhan').val();
+                        var alamat = $('#alamat').val();
+                        var simluh_tahun_bentuk = $('#year').val();
+                        
+
+                        let formData = new FormData();
+                        formData.append('id_gap', id_gap);
+                        formData.append('kode_kec', kode_kec);
+                        formData.append('kode_kab', kode_kab);
+                        formData.append('kode_desa', kode_desa);
+                        formData.append('nama_poktan', nama_poktan);
+                        formData.append('ketua_poktan', ketua_poktan);
+                        formData.append('simluh_sekretaris', simluh_sekretaris);
+                        formData.append('simluh_bendahara', simluh_bendahara);
+                        formData.append('simluh_sk_pengukuhan', simluh_sk_pengukuhan);
+                        formData.append('alamat', alamat);
+                        formData.append('simluh_tahun_bentuk', simluh_tahun_bentuk);
+                       
+
+                        $.ajax({
+                            url: '<?= base_url() ?>/KelembagaanPelakuUtama/Gapoktan/ListGapoktan/update/' + id_gap,
+                            type: "POST",
+                            data: formData,
+                            cache: false,
+                            processData: false,
+                            contentType: false,
+                            success: function(result) {
+                                $('#modal-form').modal('hide');
+                                Swal.fire({
+                                    title: 'Sukses',
+                                    text: "Sukses edit data",
+                                    type: 'success',
+                                }).then((result) => {
+
+                                    if (result.value) {
+                                        location.reload();
+                                    }
+                                });
+
+                            },
+                            error: function(jqxhr, status, exception) {
+
+                                Swal.fire({
+                                    title: 'Error',
+                                    text: "Gagal edit data",
+                                    type: 'Error',
+                                }).then((result) => {
+
+                                    if (result.value) {
+                                        location.reload();
+                                    }
+                                });
+
+                            }
+                        });
+                    });
+
+                }
+            });
+      
+            $('.modal').on('hidden.bs.modal', function() {
+                $(this).find('form')[0].reset();
+            });
+        });
+        });
+    
+        </script>
 
 
 <?php $this->endSection() ?>
