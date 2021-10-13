@@ -185,131 +185,144 @@
                     <div class="modal-body p-0">
                         <div class="card card-plain">
                             <div class="card-header pb-0 text-left">
-                                <h4 class="font-weight-bolder text-warning text-gradient">Ubah Data</h4>
+                                <h4 class="font-weight-bolder text-warning text-gradient">Tambah Data</h4>
                             </div>
                             <div class="card-body">
                                 <form role="form text-left">
                                     <div class="row">
                                         <div class="col">
+                                            <input type="hidden" name="id_swa" id="id_swa" class="form-control id_swa">
+                                            <input type="hidden" name="jenis_penyuluh" id="jenis_penyuluh" class="form-control jenis_penyuluh" value="4">
+                                            <input type="hidden" name="satminkal" id="satminkal" class="form-control satminkal" value="<?= $row['kode'] ?>">
                                             <label>Status Penyuluh</label>
                                             <div class="input-group mb-3">
-                                                <input type="text" class="form-control" placeholder="Email" aria-label="Email" aria-describedby="email-addon" disabled>
+                                                <input type="text" class="form-control" value="Swadaya" disabled>
                                             </div>
                                             <label>No. KTP</label>
                                             <div class="input-group mb-3">
-                                                <input type="text" class="form-control" placeholder="No. KTP" aria-label="Password" aria-describedby="password-addon">
+                                                <input type="text" name="noktp" id="noktp" class="form-control noktp" placeholder="No. KTP">
                                             </div>
                                             <label>Nama</label>
                                             <div class="input-group mb-3">
-                                                <input type="text" class="form-control" placeholder="Nama" aria-label="Password" aria-describedby="password-addon">
+                                                <input type="text" name="nama" id="nama" class="form-control nama" placeholder="Nama">
                                             </div>
                                             <label>Tempat, Tanggal Lahir</label>
+                                            <div class="input-group mb-1">
+                                                <input type="text" name="tempat_lahir" id="tempat_lahir" class="form-control tempat_lahir" placeholder="Tempat Lahir">
+                                            </div>
                                             <div class="input-group mb-3">
-                                                <input type="text" class="form-control" placeholder="Tempat" aria-label="Password" aria-describedby="password-addon">
-                                                <input type="date" class="form-control" placeholder="Password" aria-label="Password" aria-describedby="password-addon">
+                                                <select id="year" name="thn_lahir" class="form-select thn_lahir" aria-label="Default select example">
+                                                    <option value="">Tahun</option>
+                                                </select>
+                                                <select id="month" name="bln_lahir" class="form-select bln_lahir" aria-label="Default select example">
+                                                    <option value="">Bulan</option>
+                                                </select>
+                                                <select id="day" name="tgl_lahir" class="form-select tgl_lahir" aria-label="Default select example">
+                                                    <option value="">Tanggal</option>
+                                                </select>
                                             </div>
                                             <label>Jenis Kelamin</label>
                                             <div class="input-group mb-3">
-                                                <div class="form-check form-check-inline">
-                                                    <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio1" value="option1">
+                                                <div class="form-check form-check-inline" id="jenis_kelamin">
+                                                    <input class="form-check-input" type="radio" name="jenis_kelamin" id="jenis_kelamin" value="1">
                                                     <label class="form-check-label" for="inlineRadio1">Laki-laki</label>
                                                 </div>
-                                                <div class="form-check form-check-inline">
-                                                    <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio2" value="option2">
+                                                <div class="form-check form-check-inline" id="jenis_kelamin">
+                                                    <input class="form-check-input" type="radio" name="jenis_kelamin" id="jenis_kelamin" value="2">
                                                     <label class="form-check-label" for="inlineRadio2">Perempuan</label>
                                                 </div>
                                             </div>
                                             <label>Status Pernikahan</label>
                                             <div class="input-group mb-3">
-                                                <select class="form-select" aria-label="Default select example">
+                                                <select id="status_kel" name="status_kel" class="form-select" aria-label="Default select example">
                                                     <option selected>Pilih Status Pernikahan</option>
-                                                    <option value="Nikah">Nikah</option>
-                                                    <option value="Belum Nikah">Belum Nikah</option>
-                                                    <option value="Janda">Janda</option>
-                                                    <option value="Duda">Duda</option>
+                                                    <option value="1">Menikah</option>
+                                                    <option value="2">Belum Menikah</option>
+                                                    <option value="3">Janda</option>
+                                                    <option value="4">Duda</option>
                                                 </select>
                                             </div>
                                             <label>Agama</label>
                                             <div class="input-group mb-3">
-                                                <select class="form-select" aria-label="Default select example">
+                                                <select id="agama" name="agama" class="form-select" aria-label="Default select example">
                                                     <option selected>Pilih Agama</option>
-                                                    <option value="Islam">Islam</option>
-                                                    <option value="Protestan">Protestan</option>
-                                                    <option value="Khatolik">Khatolik</option>
-                                                    <option value="Hindu">Hindu</option>
-                                                    <option value="Budha">Budha</option>
-                                                    <option value="Lainnya">Lainnya</option>
+                                                    <option value="1">Islam</option>
+                                                    <option value="2">Kristen Protestan</option>
+                                                    <option value="3">Khatolik</option>
+                                                    <option value="4">Hindu</option>
+                                                    <option value="5">Budha</option>
                                                 </select>
                                             </div>
                                             <label>Tingkat Pendidikan</label>
                                             <div class="input-group mb-3">
-                                                <select class="form-select" aria-label="Default select example">
+                                                <select id="tingkat" name="tingkat" class="form-select" aria-label="Default select example">
                                                     <option selected>Pilih Tingkat Pendidikan</option>
-                                                    <option value="S3 (Setara)">S3 (Setara)</option>
-                                                    <option value="S2 (Setara)">S2 (Setara)</option>
-                                                    <option value="S1 (Setara)">S1 (Setara)</option>
-                                                    <option value="D4">D4</option>
-                                                    <option value="SM">SM</option>
-                                                    <option value="D3">D3</option>
-                                                    <option value="D2">D2</option>
-                                                    <option value="D1">D1</option>
-                                                    <option value="SLTA">SLTA</option>
-                                                    <option value="SLTP">SLTP</option>
-                                                    <option value="D3">D3</option>
+                                                    <option value="01">S3 (Setara)</option>
+                                                    <option value="02">S2 (Setara)</option>
+                                                    <option value="03">S1 (Setara)</option>
+                                                    <option value="04">D4</option>
+                                                    <option value="05">SM</option>
+                                                    <option value="06">D3</option>
+                                                    <option value="07">D2</option>
+                                                    <option value="08">D1</option>
+                                                    <option value="09">SLTA</option>
+                                                    <option value="10">SLTP</option>
+                                                    <option value="11">D3</option>
                                                 </select>
+                                            </div>
+                                            <label>No. SK Penetapan</label>
+                                            <div class="input-group mb-3">
+                                                <input type="text" id="no_sk_penetapan" name="no_sk_penetapan" class="form-control" placeholder="No. SK Penetapan" aria-label="Password" aria-describedby="password-addon">
                                             </div>
                                         </div>
                                         <div class="col">
-                                            <label>No. SK Penetapan</label>
-                                            <div class="input-group mb-3">
-                                                <input type="text" class="form-control" placeholder="No. SK Penetapan" aria-label="Password" aria-describedby="password-addon">
-                                            </div>
+
 
                                             <label>Pejabat Yang Menetapkan</label>
                                             <div class="input-group mb-3">
-                                                <input type="text" class="form-control" placeholder="Pejabat Yang Menetapkan" aria-label="Password" aria-describedby="password-addon">
+                                                <input type="text" id="pejabat_menetapkan" name="pejabat_menetapkan" class="form-control" placeholder="Pejabat Yang Menetapkan" aria-label="Password" aria-describedby="password-addon">
                                             </div>
                                             <label>Keahlian Bidang Teknis</label>
-                                            <div class="input-group mb-3">
+                                            <div class="input-group">
                                                 <div class="form-check">
-                                                    <input class="form-check-input" type="checkbox" value="Tanaman Pangan" id="flexCheckDefault">
+                                                    <input class="form-check-input" type="checkbox" id="ahli_tp" name="ahli_tp" value="1">
                                                     <label class="form-check-label" for="flexCheckDefault">
                                                         Tanaman Pangan
                                                     </label>
-                                                </div> &nbsp; &nbsp; &nbsp; &nbsp; <input type="text" class="form-control" aria-label="Password" aria-describedby="password-addon">
-                                            </div>
-                                            <div class="input-group mb-3">
+                                                </div>
+                                            </div><input type="text" class="form-control" id="detail_tp" name="detail_tp" aria-label="Password" aria-describedby="password-addon">
+                                            <div class="input-group">
                                                 <div class="form-check">
-                                                    <input class="form-check-input" type="checkbox" value="Tanaman Pangan" id="flexCheckDefault">
+                                                    <input class="form-check-input" type="checkbox" id="ahli_nak" name="ahli_nak" value="2">
                                                     <label class="form-check-label" for="flexCheckDefault">
                                                         Peternakan
                                                     </label>
-                                                </div> &nbsp; &nbsp; &nbsp; &nbsp; <input type="text" class="form-control" aria-label="Password" aria-describedby="password-addon">
-                                            </div>
-                                            <div class="input-group mb-3">
+                                                </div>
+                                            </div><input type="text" class="form-control" id="detail_nak" name="detail_nak" aria-label="Password" aria-describedby="password-addon">
+                                            <div class="input-group">
                                                 <div class="form-check">
-                                                    <input class="form-check-input" type="checkbox" value="Tanaman Pangan" id="flexCheckDefault">
+                                                    <input class="form-check-input" type="checkbox" id="ahli_bun" name="ahli_bun" value="3">
                                                     <label class="form-check-label" for="flexCheckDefault">
                                                         Perkebunan
                                                     </label>
-                                                </div> &nbsp; &nbsp; &nbsp; &nbsp; <input type="text" class="form-control" aria-label="Password" aria-describedby="password-addon">
-                                            </div>
-                                            <div class="input-group mb-3">
+                                                </div>
+                                            </div><input type="text" class="form-control" id="detail_bun" name="detail_bun" aria-label="Password" aria-describedby="password-addon">
+                                            <div class="input-group">
                                                 <div class="form-check">
-                                                    <input class="form-check-input" type="checkbox" value="Tanaman Pangan" id="flexCheckDefault">
+                                                    <input class="form-check-input" type="checkbox" id="ahli_hor" name="ahli_hor" value="4">
                                                     <label class="form-check-label" for="flexCheckDefault">
                                                         Hortikultura
                                                     </label>
-                                                </div> &nbsp; &nbsp; &nbsp; &nbsp; <input type="text" class="form-control" aria-label="Password" aria-describedby="password-addon">
-                                            </div>
-                                            <div class="input-group mb-3">
+                                                </div>
+                                            </div><input type="text" class="form-control" id="detail_hor" name="detail_hor" aria-label="Password" aria-describedby="password-addon">
+                                            <div class="input-group">
                                                 <div class="form-check">
-                                                    <input class="form-check-input" type="checkbox" value="Tanaman Pangan" id="flexCheckDefault">
+                                                    <input class="form-check-input" type="checkbox" id="ahli_lainnya" name="ahli_lainnya" value="5">
                                                     <label class="form-check-label" for="flexCheckDefault">
                                                         Lainnya
                                                     </label>
-                                                </div> &nbsp; &nbsp; &nbsp; &nbsp; <input type="text" class="form-control" aria-label="Password" aria-describedby="password-addon">
-                                            </div>
+                                                </div>
+                                            </div><input type="text" class="form-control" id="detail_lainnya" name="detail_lainnya" aria-label="Password" aria-describedby="password-addon">
                                             <label>Unit Kerja (BPP Kecamatan)</label>
                                             <div class="input-group mb-3">
                                                 <select class="form-select" aria-label="Default select example">
@@ -352,14 +365,15 @@
                                                     <option selected>Pilih Desa</option>x
                                                 </select>
                                             </div>
-                                        </div>
-                                        <div class="col">
                                             <label>Wilayah Kerja 2</label>
                                             <div class="input-group mb-3">
                                                 <select class="form-select" aria-label="Default select example">
                                                     <option selected>Pilih Desa</option>
                                                 </select>
                                             </div>
+                                        </div>
+                                        <div class="col">
+
                                             <label>Wilayah Kerja 3</label>
                                             <div class="input-group mb-3">
                                                 <select class="form-select" aria-label="Default select example">
@@ -381,67 +395,85 @@
                                             <div class="col">
                                                 <label>Alamat Rumah</label>
                                                 <div class="input-group mb-3">
-                                                    <textarea class="form-control" placeholder="Alamat Rumah" id="floatingTextarea"></textarea>
+                                                    <textarea class="form-control" id="alamat" name="alamat" placeholder="Alamat Rumah"></textarea>
                                                 </div>
                                                 <label>Kab./Kota dan Kode Pos</label>
                                                 <div class="input-group mb-3">
-                                                    <input type="text" class="form-control" placeholder="Kab./Kota" aria-label="Password" aria-describedby="password-addon">
+                                                    <input type="text" class="form-control" id="dati2" name="dati2" placeholder="Kab./Kota">
 
-                                                    <input type="text" class="form-control" placeholder="| Kode Pos" aria-label="Password" aria-describedby="password-addon">
+                                                    <input type="text" class="form-control" id="kodepos" name="kodepos" placeholder="| Kode Pos">
                                                 </div>
                                                 <label>Provinsi</label>
                                                 <div class="input-group mb-3">
-                                                    <select class="form-select" aria-label="Default select example">
-                                                        <option selected>Pilih Provinsi</option>
-                                                        <option value="Aceh">Aceh</option>
-                                                        <option value="BALI">BALI</option>
-                                                        <option value="BANTEN">BANTEN</option>
-                                                        <option value="BENKULU">BENKULU</option>
-                                                        <option value="DI YOGYAKARTA">DI YOGYAKARTA</option>
-                                                        <option value="DKI JAKARTA">DKI JAKARTA</option>
-                                                        <option value="GORONTALO">GORONTALO</option>
-                                                        <option value="JAMBI">Kec. Pringkuku</option>
-                                                        <option value="JAWA BARAT">JAWA BARAT</option>
-                                                        <option value="JAWA TENGAH">JAWA TENGAH</option>
-                                                        <option value="JAWA TIMUR">JAWA TIMUR</option>
-                                                        <option value="KALIMANTAN BARAT">KALIMANTAN BARAT</option>
-                                                        <option value="KALIMANTAN SELATAN">KALIMANTAN SELATAN</option>
-                                                        <option value="KALIMANTAN TENGAH">KALIMANTAN TENGAH</option>
-                                                        <option value="KALIMANTAN TIMUR">KALIMANTAN TIMUR</option>
-                                                        <option value="KALIMANTAN UTARA">KALIMANTAN UTARA</option>
-                                                        <option value="KEPULAUAN BANGKA BELITUNG">KEPULAUAN BANGKA BELITUNG</option>
-                                                        <option value="KEPULAUAN RIAU">KEPULAUAN RIAU</option>
-                                                        <option value="MALUKU">MALUKU</option>
-                                                        <option value="MALUKU UTARA">MALUKU UTARA</option>
-                                                        <option value="NUSA TENGGARA BARAT">NUSA TENGGARA BARAT</option>
-                                                        <option value="NUSA TENGGARA TIMUR">NUSA TENGGARA TIMUR</option>
-                                                        <option value="PAPUA">PAPUA</option>
-                                                        <option value="PAPUA BARAT">PAPUA BARAT</option>
-                                                        <option value="RIAU">RIAU</option>
-                                                        <option value="SULAWESI BARAT">SULAWESI BARAT</option>
-                                                        <option value="SULAWESI SELATAN">SULAWESI SELATAN</option>
-                                                        <option value="SULAWESI TENGAH">SULAWESI TENGAH</option>
-                                                        <option value="SULAWESI TENGGARA">SULAWESI TENGGARA</option>
-                                                        <option value="SULAWESI UTARA">SULAWESI UTARA</option>
-                                                        <option value="SUMATERA BARAT">SUMATERA BARAT</option>
-                                                        <option value="SUMATERA SELATAN">SUMATERA SELATAN</option>
-                                                        <option value="SUMATERA UTARA">SUMATERA UTARA</option>
+                                                    <select name="kode_prop" id="kode_prop" class="form-control input-lg kode_prop">
+                                                        <option value="">Pilih Provinsi</option>
+                                                        <?php
+                                                        foreach ($namaprop as $row) {
+                                                            echo '<option value="' . $row["id_prop"] . '">' . $row["nama_prop"] . '</option>';
+                                                        }
+                                                        ?>
                                                     </select>
                                                 </div>
                                                 <label>No.Telepon/HP</label>
                                                 <div class="input-group mb-3">
-                                                    <input type="number" class="form-control" placeholder="Password" aria-label="Password" aria-describedby="password-addon">
+                                                    <input type="number" id="telp" name="telp" class="form-control">
                                                 </div>
                                                 <label>Email</label>
                                                 <div class="input-group mb-3">
-                                                    <input type="email" class="form-control" placeholder="Password" aria-label="Password" aria-describedby="password-addon">
+                                                    <input type="email" id="email" name="email" class="form-control">
                                                 </div>
                                             </div>
+                                        </div>
 
-                                            <div class="text-center">
-                                                <center><button type="button" class="btn btn-round bg-gradient-warning btn-lg w-100 mt-4 mb-0">Simpan Data</button></center>
+                                        <div class="col">
+                                            <label>Tahun Pelatihan</label>
+                                            <div class="input-group mb-3">
+                                                <input type="text" id="tahun_pelatihan1" name="tahun_pelatihan1" class="form-control">
+                                            </div>
+                                            <div class="input-group mb-3">
+                                                <input type="text" id="tahun_pelatihan2" name="tahun_pelatihan2" class="form-control">
+                                            </div>
+                                            <div class="input-group mb-3">
+                                                <input type="text" id="tahun_pelatihan3" name="tahun_pelatihan3" class="form-control">
+                                            </div>
+                                            <div class="input-group mb-3">
+                                                <input type="text" id="tahun_pelatihan4" name="tahun_pelatihan4" class="form-control">
+                                            </div>
+                                            <div class="input-group mb-3">
+                                                <input type="text" id="tahun_pelatihan5" name="tahun_pelatihan5" class="form-control">
+                                            </div>
+                                            <div class="input-group mb-3">
+                                                <input type="text" id="tahun_pelatihan6" name="tahun_pelatihan6" class="form-control">
                                             </div>
                                         </div>
+
+                                        <div class="col">
+                                            <label>Nama Pelatihan</label>
+                                            <div class="input-group mb-3">
+                                                <input type="text" id="nm_pelatihan1" name="nm_pelatihan1" class="form-control">
+                                            </div>
+                                            <div class="input-group mb-3">
+                                                <input type="text" id="nm_pelatihan2" name="nm_pelatihan2" class="form-control">
+                                            </div>
+                                            <div class="input-group mb-3">
+                                                <input type="text" id="nm_pelatihan3" name="nm_pelatihan3" class="form-control">
+                                            </div>
+                                            <div class="input-group mb-3">
+                                                <input type="text" id="nm_pelatihan4" name="nm_pelatihan4" class="form-control">
+                                            </div>
+                                            <div class="input-group mb-3">
+                                                <input type="text" id="nm_pelatihan5" name="nm_pelatihan5" class="form-control">
+                                            </div>
+                                            <div class="input-group mb-3">
+                                                <input type="text" id="nm_pelatihan6" name="nm_pelatihan6" class="form-control">
+                                            </div>
+
+                                        </div>
+
+                                        <div class="text-center">
+                                            <center><button type="button" class="btn btn-round bg-gradient-warning btn-lg w-100 mt-4 mb-0">Simpan Data</button></center>
+                                        </div>
+
                                 </form>
                             </div>
 

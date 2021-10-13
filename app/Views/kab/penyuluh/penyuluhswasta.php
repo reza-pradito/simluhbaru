@@ -79,11 +79,11 @@
 
                                             <label>No. KTP</label>
                                             <div class="input-group mb-3">
-                                                <input type="text" name="noktp" id="noktp" class="form-control noktp" placeholder="No. KTP" aria-label="Password" aria-describedby="password-addon">
+                                                <input type="text" name="noktp" id="noktp" class="form-control noktp" placeholder="No. KTP">
                                             </div>
                                             <label>Nama Penyuluh</label> <span id="error_nama" class="text-danger ms-3"></span>
                                             <div class="input-group mb-3">
-                                                <input type="text" name="nama" id="nama" class="form-control nama" placeholder="Nama" aria-label="Password" aria-describedby="password-addon">
+                                                <input type="text" name="nama" id="nama" class="form-control nama" placeholder="Nama">
                                             </div>
                                             <label>Tempat, Tanggal Lahir</label>
                                             <div class="input-group mb-3">
