@@ -4,6 +4,7 @@ namespace App\Controllers\KelembagaanPelakuUtama\GapoktanBersama;
 
 use App\Controllers\BaseController;
 use App\Models\KelembagaanPelakuUtama\GapoktanBersama\GapoktanBersamaModel;
+use App\MoDELS\KodeWilayah\KodeWilModel;
 
 class GapoktanBersama extends BaseController
 {
@@ -20,8 +21,10 @@ class GapoktanBersama extends BaseController
         if (session()->get('username') == "") {
             return redirect()->to('login');
         }
+        $kode_model = new KodeWilModel;
         $gapoktanbersama_model = new GapoktanBersamaModel;
         $gapoktanbersama_data = $gapoktanbersama_model->getGapoktanBersamaTotal(session()->get('kodebapel'));
+        $kode_data = $kode_model->getKodeWil2(session()->get('kodebapel'));
 
         $data = [
 
@@ -29,7 +32,9 @@ class GapoktanBersama extends BaseController
             'jum' => $gapoktanbersama_data['jum'],
             'tabel_data' => $gapoktanbersama_data['table_data'],
             'title' => 'Gapoktan Bersama',
-            'name' => 'Gapoktan Bersama'
+            'name' => 'Gapoktan Bersama',
+            'kode_prop' => $kode_data['kode_prop']
+           
         ];
 
         return view('KelembagaanPelakuUtama/GapoktanBersama/gapoktanbersama', $data);
@@ -39,9 +44,10 @@ class GapoktanBersama extends BaseController
         try {
             $res = $this->model->save([
                 'kode_kec' => $this->request->getPost('kode_kec'),
+                'kode_prop' => $this->request->getPost('kode_prop'),
                 'kode_kab' => $this->request->getPost('kode_kab'),
                 'kode_desa' => $this->request->getPost('kode_desa'),
-                'namagapoktan' => $this->request->getPost('nama_gapoktan'),
+                'nama_gapoktan' => $this->request->getPost('nama_gapoktan'),
                 'ketua_gapoktan' => $this->request->getPost('ketua_gapoktan'),
                 'alamat' => $this->request->getPost('alamat'),
                 'simluh_tahun_bentuk' => $this->request->getPost('simluh_tahun_bentuk'),
@@ -78,7 +84,7 @@ class GapoktanBersama extends BaseController
 
     public function update($id_gapber)
     {
-        
+        $kode_prop = $this->request->getPost('kode_prop');
         $kode_kec = $this->request->getPost('kode_kec');
         $kode_kab = $this->request->getPost('kode_kab');
         $kode_desa = $this->request->getPost('kode_desa');
@@ -92,6 +98,7 @@ class GapoktanBersama extends BaseController
         $this->model->save([
             'id_gapber' => $id_gapber,
             'kode_kec' => $kode_kec,
+            'kode_prop' => $kode_prop,
             'kode_kab' => $kode_kab,
             'kode_desa' => $kode_desa,
             'nama_gapoktan' => $nama_gapoktan,

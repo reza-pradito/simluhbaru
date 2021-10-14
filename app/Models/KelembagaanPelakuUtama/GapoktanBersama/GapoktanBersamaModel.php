@@ -25,9 +25,11 @@ class GapoktanBersamaModel extends Model
         $query2 = $db->query("SELECT count(id_gapber) as jum FROM tb_gapoktan_bersama where kode_kab ='$kode_kab'");
         $row2   = $query2->getRow();
         
-        $query3   = $db->query("select id_gapber,kode_desa,kode_kec,nama_gapoktan,ketua_gapoktan,simluh_bendahara,alamat, b.nm_desa 
+        $query3   = $db->query("select id_gapber,kode_desa,kode_kec,nama_gapoktan,ketua_gapoktan,simluh_bendahara,alamat, b.nm_desa ,c.id_daerah,d.id_dati2
                                 from tb_gapoktan_bersama a
                                 left join tbldesa b on a.kode_desa=b.id_desa 
+                                left join tbldaerah c on a.kode_kec=c.id_daerah
+                                left join tbldati2 d on a.kode_kab=d.id_dati2
                                 where kode_kab='$kode_kab'          
                                 order by kode_desa");
         $results = $query3->getResultArray();

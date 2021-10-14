@@ -7,26 +7,14 @@ use \Config\Database;
 
 class ListKEP2LModel extends Model
 {
-   // protected $table      = 'penyuluh';
-    //protected $primaryKey = 'id';
 
-
-    //protected $returnType     = 'array';
-    //protected $useSoftDeletes = true;
-
-    //protected $allowedFields = ['nama', 'alamat', 'telpon'];
-
+    protected $table      = 'tb_poktan';
+    protected $primaryKey = 'id_poktan';
+    protected $allowedFields = ['no_reg', 'kode_prop', 'kode_kab',
+     'kode_kec', 'kode_desa', 'nama_poktan', 'ketua_poktan', 'alamat', 'jum_anggota','simluh_tahun_bentuk','status'];
 
     protected $useTimestamps = false;
-    // protected $createdField  = 'created_at';
-    // protected $updatedField  = 'updated_at';
-    // protected $deletedField  = 'deleted_at';
-
-    // protected $validationRules    = [];
-    // protected $validationMessages = [];
-    // protected $skipValidation     = false;
-
-
+ 
     public function getListKEP2LTotal($kode_kec)
     {
         $db = Database::connect();

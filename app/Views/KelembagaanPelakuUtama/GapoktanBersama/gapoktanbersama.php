@@ -2,8 +2,10 @@
 
 <?= $this->section('content') ?>
 
+
+<?php $kode_kab = session()->get('kodebapel'); ?>
 <center><h2> Daftar Gapoktan Bersama di Kabupaten <?= ucwords(strtolower($nama_kabupaten)) ?> </h2></center>
-<a href="/tambahgapoktanbersama"><button type="button" class="btn bg-gradient-primary btn-sm">+ Tambah Data</button></a>
+<button type="button" data-bs-toggle="modal" data-bs-target="#modal-form" class="btn bg-gradient-primary btn-sm">+ Tambah Data</button>
 <br>
 <br>
 <div class="card">
@@ -74,30 +76,23 @@
                                             <? csrf_field(); ?>
                                     <div class="row">
                                         <div class="col-5" mt-5>
-                                            <label>Kecamatan</label>
+                                            <label>Nama Gapoktan Bersama</label>
                                             <div class="input-group mb-3">
-                                            <input type="text" class="form-control" id="deskripsi" name="deskripsi" placeholder="Kecamatan" value="<?= $nama_kecamatan; ?>" disabled>
-                                            </div>
-                                            <label>Desa</label>
-                                            <div class="input-group mb-3">
-                                               <select name="kode_desa" id="kode_desa"  class="form-control input-lg">
-                                                            <option value="">Pilih Desa</option>
-                                                            <?php
-                                                            foreach ($desa as $row2) {
-                                                                echo '<option value="' . $row2["id_desa"] . '">' . $row2["nm_desa"] . '</option>';
-                                                            }
-                                                            ?>
-                                                        </select>
-                                            </div>
-                                            <label>Nama Poktan</label>
-                                            <div class="input-group mb-3">
-                                                <input type="text" class="form-control" id="nama_poktan" name="nama_poktan" placeholder="Nama Poktan" aria-label="Password" aria-describedby="password-addon">
+                                                <input type="text" class="form-control" id="nama_gapoktan" name="nama_gapoktan" placeholder="Nama Poktan" aria-label="Password" aria-describedby="password-addon">
                                             </div>
                                             <label>Nama Ketua</label>
                                             <div class="input-group mb-3">
-                                                <input type="text" class="form-control" id="ketua_poktan" name="ketua_poktan" placeholder="Nama Ketua" aria-label="Password" aria-describedby="password-addon">
+                                                <input type="text" class="form-control" id="ketua_gapoktan" name="ketua_gapoktan" placeholder="Nama Ketua" aria-label="Password" aria-describedby="password-addon">
                                             </div>
-                                            <label>Alamat Lengkap Sekretariat</label>
+                                            <label>Nama Bendahara</label>
+                                            <div class="input-group mb-3">
+                                                <input type="text" class="form-control" id="simluh_bendahara" name="simluh_bendahara" placeholder="Nama Bendahara" aria-label="Password" aria-describedby="password-addon">
+                                            </div>
+                                            <label>Nama Sekretaris</label>
+                                            <div class="input-group mb-3">
+                                                <input type="text" class="form-control" id="simluh_sekretaris" name="simluh_sekretaris" placeholder="Nama Sekretaris" aria-label="Password" aria-describedby="password-addon">
+                                            </div>
+                                            <label>Alamat    Sekretariat</label>
                                                 <textarea class="form-control" id="alamat" placeholder="Alamat" name="alamat" aria-label="Password" aria-describedby="password-addon"></textarea>
                                             <label>Tahun Pembentukan</label>
                                             <div class="input-group mb-3">
@@ -106,20 +101,17 @@
                                                     
                                                 </select>
                                             </div>
-                                            <label>Status</label>
+                                            <label>SK Pengukuhan</label>
                                             <div class="input-group mb-3">
                                                 <select class="form-select" id="status" name="status" aria-label="Default select example">
                                                     <option selected>Pilih  </option>
-                                                    <option value="1">Aktif</option>
-                                                    <option value="2">Tidak aktif</option>
-                                                    <option value="3">Bergabung Dengan Kelompok Lain</option>
+                                                    <option value="ada">Ada</option>
+                                                    <option value="tidak">Tidak</option>
                                                 </select>
                                             </div>
-                                            <input type="hidden" id="kode_kec" name="kode_kec" value="<?= $row['id_daerah'] ?>" >
-                                                <input type="hidden" id="kode_kab" name="kode_kab" value="<?= $row['id_dati2'] ?>">
-                                                
+                                            <input type="hidden" id="kode_kab" name="kode_kab" value="<?= $kode_kab; ?>">
+                                            <input type="hidden" id="kode_prop" name="kode_prop" value="<?= $kode_prop; ?>">
                                                 <input type="hidden" id="id_poktan" name="id_poktan" >
-                                                <!-- <input type="hidden" name="kode_desa" value="<?= $row['id_desa'] ?>" class="form-control" placeholder="" aria-label="Email" aria-describedby="email-addon" disabled> -->
                                                     <div class="text-center">
                                                         <button type="button" id="btnSave" class="btn btn-round bg-gradient-warning btn-sm">Simpan Data</button>
                                                     </div>
@@ -144,4 +136,212 @@
 <?php echo view('layout/footer'); ?>
 <br>
 
+<?= $this->endSection() ?>
+
+<?= $this->section('script') ?>
+
+<script>
+    $(document).ready(function() {
+
+        $(document).delegate('#btnSave', 'click', function() {
+            var kode_prop = $('#kode_prop').val();
+            var kode_kec = $('#kode_kec').val();
+            var kode_kab = $('#kode_kab').val();
+            var kode_desa = $('#kode_desa').val();
+            var nama_gapoktan = $('#nama_gapoktan').val();
+            var ketua_gapoktan = $('#ketua_gapoktan').val();
+            var alamat = $('#alamat').val();
+            var simluh_tahun_bentuk = $('#year').val();
+            var simluh_sk_pengukuhan = $('#simluh_sk_pengukuhan').val();
+            var simluh_bendahara = $('#simluh_bendahara').val();
+            var simluh_sekretaris = $('#simluh_sekretaris').val();
+
+            $.ajax({
+                url: '<?= base_url() ?>/KelembagaanPelakuUtama/GapoktanBersama/GapoktanBersama/save/',
+                type: 'POST',
+                data: {
+                    'kode_prop': kode_prop,
+                    'kode_kec': kode_kec,
+                    'kode_kab': kode_kab,
+                    'kode_desa': kode_desa,
+                    'nama_gapoktan': nama_gapoktan,
+                    'ketua_gapoktan': ketua_gapoktan,
+                    'alamat': alamat,
+                    'simluh_tahun_bentuk': simluh_tahun_bentuk,
+                    'simluh_sk_pengukuhan': simluh_sk_pengukuhan,
+                    'simluh_sekretaris': simluh_sekretaris,
+                    'simluh_bendahara': simluh_bendahara,
+                },
+                success: function(result) {
+                    result = JSON.parse(result);
+                    if(result.value){
+                        Swal.fire({
+                            title: 'Sukses',
+                            text: "Sukses tambah data",
+                            type: 'success',
+                        }).then((result) => {
+
+                            if (result.value) {
+                                location.reload();
+                            }
+                        });
+                    }else{
+                        Swal.fire({
+                            title: 'Error',
+                            text: "Gagal tambah data. " + result.message,
+                            type: 'error',
+                        }).then((result) => {
+                            
+                        });
+                    }
+                },
+                error: function(jqxhr, status, exception) {
+                    Swal.fire({
+                        title: 'Error',
+                        text: "Gagal tambah data",
+                        type: 'error',
+                    }).then((result) => {
+                        if (result.value) {
+                            location.reload();
+                        }
+                    });
+                }
+            });
+
+        });
+        $(document).delegate('#btnHapus', 'click', function() {
+            var id_gapber = $(this).data('id_gapber');
+
+            $.ajax({
+                url: '<?= base_url() ?>/KelembagaanPelakuUtama/GapoktanBersama/GapoktanBersama/delete/' + id_gapber,
+                type: 'POST',
+                success: function(result) {
+                    Swal.fire({
+                        title: 'Sukses',
+                        text: "Sukses Hapus data",
+                        type: 'success',
+                    }).then((result) => {
+
+                        if (result.value) {
+                            location.reload();
+                        }
+                    });
+                },
+                error: function(jqxhr, status, exception) {
+                    Swal.fire({
+                        title: 'Error',
+                        text: "Gagal Hapus data",
+                        type: 'error',
+                    }).then((result) => {
+                        if (result.value) {
+                            location.reload();
+                        }
+                    });
+                }
+
+            });
+        });
+        $(document).delegate('#btnEditGapber', 'click', function() {
+            $.ajax({
+                url: '<?= base_url() ?>/KelembagaanPelakuUtama/GapoktanBersama/GapoktanBersama/edit/' + $(this).data('id_gapber'),
+                type: 'GET',
+                dataType: 'JSON',
+                success: function(result) {
+                    // console.log(result);
+
+                    $('#id_gapber').val(result.id_gapber);
+                    $('#kode_kec').val(result.kode_kec);
+                    $('#kode_prop').val(result.kode_prop);
+                    $('#kode_desa').val(result.kode_desa);
+                    $('#kode_kab').val(result.kode_kab);
+                    $('#nama_gapoktan').val(result.nama_gapoktan);
+                    $('#ketua_gapoktan').val(result.ketua_gapoktan);
+                    $('#alamat').val(result.alamat);
+                    $('#year').val(result.simluh_tahun_bentuk);
+                    $('#simluh_sk_pengukuhan').val(result.simluh_sk_pengukuhan);
+                    $('#simluh_bendahara').val(result.simluh_bendahara);
+                    $('#simluh_sekretaris').val(result.simluh_sekretaris);
+
+
+                    $('#modal-form').modal('show');
+                    $("#btnSave").attr("id", "btnDoEdit");
+
+                    $(document).delegate('#btnDoEdit', 'click', function() {
+                     
+
+                        var id_gapber = $('#id_gapber').val();
+                        var kode_kec = $('#kode_kec').val();
+                        var kode_prop = $('#kode_prop').val();
+                        var kode_kab = $('#kode_kab').val();
+                        var kode_desa = $('#kode_desa').val();
+                        var nama_gapoktan = $('#nama_gapoktan').val();
+                        var ketua_gapoktan = $('#ketua_gapoktan').val();
+                        var alamat = $('#alamat').val();
+                        var simluh_tahun_bentuk = $('#year').val();
+                        var simluh_sekretaris = $('#simluh_sekretaris').val();
+                        var simluh_bendahara = $('#simluh_bendahara').val();
+                        var simluh_sk_pengukuhan = $('#simluh_sk_pengukuhan').val();
+
+                        let formData = new FormData();
+                        formData.append('id_gapber', id_gapber);
+                        formData.append('kode_kec', kode_kec);
+                        formData.append('kode_prop', kode_prop);
+                        formData.append('kode_kab', kode_kab);
+                        formData.append('kode_desa', kode_desa);
+                        formData.append('nama_gapoktan', nama_gapoktan);
+                        formData.append('ketua_gapoktan', ketua_gapoktan);
+                        formData.append('alamat', alamat);
+                        formData.append('simluh_tahun_bentuk', simluh_tahun_bentuk);
+                        formData.append('simluh_bendahara', simluh_bendahara);
+                        formData.append('simluh_sekretaris', simluh_sekretaris);
+                        formData.append('simluh_sk_pengukuhan', simluh_sk_pengukuhan);
+
+                        $.ajax({
+                            url: '<?= base_url() ?>/KelembagaanPelakuUtama/GapoktanBersama/GapoktanBersama/update/' + id_gapber,
+                            type: "POST",
+                            data: formData,
+                            cache: false,
+                            processData: false,
+                            contentType: false,
+                            success: function(result) {
+                                $('#modal-form').modal('hide');
+                                Swal.fire({
+                                    title: 'Sukses',
+                                    text: "Sukses edit data",
+                                    type: 'success',
+                                }).then((result) => {
+
+                                    if (result.value) {
+                                        location.reload();
+                                    }
+                                });
+
+                            },
+                            error: function(jqxhr, status, exception) {
+
+                                Swal.fire({
+                                    title: 'Error',
+                                    text: "Gagal edit data",
+                                    type: 'Error',
+                                }).then((result) => {
+
+                                    if (result.value) {
+                                        location.reload();
+                                    }
+                                });
+
+                            }
+                        });
+                    });
+
+                }
+            });
+     
+        $('.modal').on('hidden.bs.modal', function() {
+                $(this).find('form')[0].reset();
+        });
+    });
+    });
+    
+</script>
 <?= $this->endSection() ?>
