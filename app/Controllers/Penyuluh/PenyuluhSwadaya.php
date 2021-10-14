@@ -35,6 +35,16 @@ class PenyuluhSwadaya extends BaseController
         return view('kab/penyuluh/penyuluhswadaya', $data);
     }
 
+    public function getWilKer($tempat_tugas = null)
+    {
+        $wilker_model = new PenyuluhSwadayaModel();
+        $tabel_desa = $wilker_model->getPropvinsi();
+        $data = [
+            'tabel_data' => $tabel_desa,
+        ];
+        return json_encode($data);
+    }
+
     public function save()
     {
         try {

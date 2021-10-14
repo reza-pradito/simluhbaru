@@ -38,7 +38,7 @@
                             <p class="text-xs font-weight-bold mb-0"><?= $row['nama']; ?></p>
                         </td>
                         <td class="align-middle text-center text-sm">
-                            <p class="text-xs font-weight-bold mb-0">Suhartono,SP</p>
+                            <p class="text-xs font-weight-bold mb-0"></p>
                         </td>
                         <td class="align-middle text-center text-sm">
                             <p class="text-xs font-weight-bold mb-0"><?= $row['tempat_lahir']; ?>, <?= $row['tgl_lahir']; ?>-<?= $row['bln_lahir']; ?>-<?= $row['thn_lahir']; ?></p>
@@ -56,7 +56,9 @@
                                 <i class="fas fa-trash"></i> Hapus</button>
                         </td>
                     </tr>
-
+                <?php
+                }
+                ?>
             </tbody>
         </table>
         <!-- Modal -->
@@ -194,9 +196,7 @@
             </div>
         </div>
 
-    <?php
-                }
-    ?>
+
 
     </div>
 </div>
