@@ -5,6 +5,7 @@ namespace App\Controllers\KelembagaanPenyuluhan\Desa;
 use App\Controllers\BaseController;
 use App\Models\KelembagaanPenyuluhan\Desa\DesaModel;
 use App\Models\KelembagaanPenyuluhan\Desa\PosluhdesModel;
+use App\Models\KodeWilayah\KodeWilModel;
 
 
 class Desa extends BaseController
@@ -40,8 +41,10 @@ class Desa extends BaseController
         $get_param = $this->request->getGet();
         $kode_kec = $get_param['kode_kec'];
         $posluhdes_model = new PosluhdesModel;
+        $kodewil_model = new KodeWilModel;
         $pen_swa = $posluhdes_model->getPenyuluhSwadaya($kode_kec);
         $desa = $posluhdes_model->getDesa($kode_kec);
+        $kode_data = $kodewil_model->getKodeWil($kode_kec);
         //dd($pen_swa);
         // $data['desa'] = $posluhdes_model->orderBy('nm_desa', 'ASC')->findAll();
         $posluhdes_data = $posluhdes_model->getPosluhdesTotal($kode_kec);
@@ -52,6 +55,8 @@ class Desa extends BaseController
             'tabel_data' => $posluhdes_data['table_data'],
             'desa' => $desa,
             'pen_swa' => $pen_swa,
+            'kode_kec' => $kode_kec,
+            'kode_prop' => $kode_data['kode_prop'],
             'title' => 'Daftar Posluhdes',
             'name' => 'Posluhdes'
         ];

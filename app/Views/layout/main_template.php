@@ -28,7 +28,6 @@
 
     <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.11.3/css/jquery.dataTables.css">
 
-    <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.11.3/js/jquery.dataTables.js"></script>
 
 
 </head>
@@ -90,135 +89,6 @@
     </script>
 
 
-    <!-- Styles -->
-    <style>
-        #chartdiv {
-            width: 100%;
-            height: 300px;
-            overflow: hidden;
-        }
-    </style>
-
-    <!-- Chart code -->
-    <script>
-        am4core.ready(function() {
-
-            // Themes begin
-            am4core.useTheme(am4themes_animated);
-            // Themes end
-
-            // Create map instance
-            var chart = am4core.create("chartdiv", am4maps.MapChart);
-
-            // Set map definition
-            chart.geodata = am4geodata_indonesiaLow;
-
-            // Set projection
-            chart.projection = new am4maps.projections.Miller();
-
-            // Create map polygon series
-            var polygonSeries = chart.series.push(new am4maps.MapPolygonSeries());
-
-            // Exclude Antartica
-            polygonSeries.exclude = ["AQ"];
-
-            // Make map load polygon (like country names) data from GeoJSON
-            polygonSeries.useGeodata = true;
-
-            // Configure series
-            var polygonTemplate = polygonSeries.mapPolygons.template;
-            polygonTemplate.tooltipText = "{name}";
-            polygonTemplate.polygon.fillOpacity = 0.6;
-
-
-            // Create hover state and set alternative fill color
-            var hs = polygonTemplate.states.create("hover");
-            hs.properties.fill = chart.colors.getIndex(0);
-
-            // Add image series
-            var imageSeries = chart.series.push(new am4maps.MapImageSeries());
-            imageSeries.mapImages.template.propertyFields.longitude = "longitude";
-            imageSeries.mapImages.template.propertyFields.latitude = "latitude";
-            imageSeries.mapImages.template.tooltipText = "{title}";
-            imageSeries.mapImages.template.propertyFields.url = "url";
-
-            var circle = imageSeries.mapImages.template.createChild(am4core.Circle);
-            circle.radius = 3;
-            circle.propertyFields.fill = "color";
-
-            var circle2 = imageSeries.mapImages.template.createChild(am4core.Circle);
-            circle2.radius = 3;
-            circle2.propertyFields.fill = "color";
-
-
-            circle2.events.on("inited", function(event) {
-                animateBullet(event.target);
-            })
-
-
-            function animateBullet(circle) {
-                var animation = circle.animate([{
-                    property: "scale",
-                    from: 1,
-                    to: 5
-                }, {
-                    property: "opacity",
-                    from: 1,
-                    to: 0
-                }], 1000, am4core.ease.circleOut);
-                animation.events.on("animationended", function(event) {
-                    animateBullet(event.target.object);
-                })
-            }
-
-            var colorSet = new am4core.ColorSet();
-
-            imageSeries.data = [{
-                    "title": "BPP Jombang",
-                    "latitude": -6.2893272,
-                    "longitude": 106.6944967,
-                    "color": colorSet.next()
-                },
-                {
-                    "title": "BPP Ragunan",
-                    "latitude": -6.2956309,
-                    "longitude": 106.8160762,
-                    "color": colorSet.next()
-                },
-                {
-                    "title": "BPPK Lembang",
-                    "latitude": -6.5130159,
-                    "longitude": 106.8843142,
-                    "color": colorSet.next()
-                },
-                {
-                    "title": "BPP Rantau Pauh",
-                    "latitude": 4.302686,
-                    "longitude": 98.0829409,
-                    "color": colorSet.next()
-                }
-            ];
-
-            // Zoom control
-            chart.zoomControl = new am4maps.ZoomControl();
-
-            var homeButton = new am4core.Button();
-            homeButton.events.on("hit", function() {
-                //   polygonSeries.show();
-                //   countrySeries.hide();
-                chart.goHome();
-            });
-
-            homeButton.icon = new am4core.Sprite();
-            homeButton.padding(7, 5, 7, 5);
-            homeButton.width = 30;
-            homeButton.icon.path = "M16,8 L14,8 L14,16 L10,16 L10,10 L6,10 L6,16 L2,16 L2,8 L0,8 L8,0 L16,8 Z M16,8";
-            homeButton.marginBottom = 10;
-            homeButton.parent = chart.zoomControl;
-            homeButton.insertBefore(chart.zoomControl.plusButton);
-
-        }); // end am4core.ready()
-    </script>
 
     <script>
         $(document).ready(function() {
@@ -280,45 +150,9 @@
         });
     </script>
 
-    <!-- <script>
-            var min = 1970,
-                max = new Date().getFullYear(),
-                select = document.getElementById('selectElementId');
-
-            for (var i = min; i <= max; i++) {
-                var opt = document.createElement('option');
-                opt.value = i;
-                opt.innerHTML = i;
-                select.appendChild(opt);
-            }
-        </script>
-
-        <script>
-            var min = 1970,
-                max = new Date().getFullYear(),
-                select = document.getElementById('selectElementId2');
-
-            for (var i = min; i <= max; i++) {
-                var opt = document.createElement('option');
-                opt.value = i;
-                opt.innerHTML = i;
-                select.appendChild(opt);
-            }
-        </script>
-
-  
-
-    <script>
-        $(document).ready(function() {
-            <?php if (session()->getFlashdata('status')) { ?>
-                alertify.set('notifier', 'position', 'top-right');
-                alertify.success("<?= session()->getFlashdata('status') ?>");
-            <?php } ?>
-        })
-    </script>
-
     <?= $this->renderSection('script') ?>
 
+    <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.11.3/js/jquery.dataTables.js"></script>
 
 </body>
 

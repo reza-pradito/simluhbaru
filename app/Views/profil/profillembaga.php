@@ -214,7 +214,7 @@ $data = $json[0];
                             <div class="card">
                                 <div class="card-body p-3">
                                     <div class="row">
-                                        <h1 class="h3 mb-4 text-gray-800"><?= $title; ?> <a href="/editbapel"><i class="fas fa-edit" style="float: right;"></i></a></h1>
+                                        <h1 class="h3 mb-4 text-gray-800"><?= $title; ?><i class="fas fa-edit" style="float: right;" data-bs-toggle="modal" data-bs-target="#modal-form"></i></a></h1>
                                         <div class="col-lg-12">
 
                                             <table class="table">
@@ -470,6 +470,165 @@ $data = $json[0];
         </div>
 
 
+        <div class="modal fade" id="modal-form" tabindex="-1" role="dialog" aria-labelledby="modal-form" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered modal-xl" role="document">
+                <div class="modal-content">
+                    <div class="modal-body p-0">
+                        <div class="card card-plain">
+                            <div class="card-header pb-0 text-left">
+                                <h4 class="font-weight-bolder text-warning text-gradient" id="judul_form">Tambah Data</h4>
+                            </div>
+                            <div class="card-body">
+
+                                <form role="form text-left" action="<?= base_url('KelembagaanPenyuluhan/Desa/desa/save'); ?>">
+                                    <div class="row">
+                                        <div class="col">
+                                            <input type="hidden" name="id_gapoktan" id="id_gapoktan">
+                                            <label for="prov">Propinsi</label>
+                                            <div class="input-group mb-3">
+                                                <input type="text" class="form-control" name="prov" value=" " disabled>
+                                            </div>
+                                            <label for="prov">Kabupaten</label>
+                                            <div class="input-group mb-3">
+                                                <input type="text" class="form-control" name="kab" value=" " disabled>
+                                            </div>
+                                            <label for="kode_desa">Jenis Kelembagaan</label>
+                                            <div class="input-group mb-3">
+                                                <select name="kode_desa" id="kode_desa" class="form-control input-lg">
+                                                    <option value=""></option>
+                                                    <OPTION value="31">Badan<BR>
+                                                    <OPTION value="32">Dinas<BR>
+                                                </select>
+                                            </div>
+                                            <div class="input-group mb-3">
+                                                <label>Nomenklatur : </label>
+                                                <input type="text" class="form-control" id="deskripsi_lembaga_lain" placeholder="deskripsi_lembaga_lain" name="deskripsi_lembaga_lain"><br>
+                                                <label>Pilih Sesuai nomenklatur :</label>
+                                                <div class="form-check">
+                                                    <input class="form-check-input" type="checkbox" id="ahli_tp" name="ahli_tp" value="1">
+                                                    <label class="form-check-label" for="flexCheckDefault">
+                                                        Pertanian
+                                                    </label>
+                                                    <input class="form-check-input" type="checkbox" id="ahli_tp" name="ahli_tp" value="1">
+                                                    <label class="form-check-label" for="flexCheckDefault">
+                                                        Tanaman Pangan
+                                                    </label>
+                                                    <input class="form-check-input" type="checkbox" id="ahli_tp" name="ahli_tp" value="1">
+                                                    <label class="form-check-label" for="flexCheckDefault">
+                                                        Hortikultura
+                                                    </label>
+                                                    <input class="form-check-input" type="checkbox" id="ahli_tp" name="ahli_tp" value="1">
+                                                    <label class="form-check-label" for="flexCheckDefault">
+                                                        Perkenbunan
+                                                    </label>
+                                                    <input class="form-check-input" type="checkbox" id="ahli_tp" name="ahli_tp" value="1">
+                                                    <label class="form-check-label" for="flexCheckDefault">
+                                                        Peternakan
+                                                    </label>
+                                                    <input class="form-check-input" type="checkbox" id="ahli_tp" name="ahli_tp" value="1">
+                                                    <label class="form-check-label" for="flexCheckDefault">
+                                                        Kesehatan Pangan
+                                                    </label>
+                                                    <input class="form-check-input" type="checkbox" id="ahli_tp" name="ahli_tp" value="1">
+                                                    <label class="form-check-label" for="flexCheckDefault">
+                                                        Kesehatan Hewan
+                                                    </label>
+                                                    <input class="form-check-input" type="checkbox" id="ahli_tp" name="ahli_tp" value="1">
+                                                    <label class="form-check-label" for="flexCheckDefault">
+                                                        Pangan
+                                                    </label>
+                                                </div>
+                                            </div>
+                                            <label for="alamat">Dasar Hukum Pembentukan</label>
+                                            <select name="kode_desa" id="kode_desa" class="form-control input-lg">
+                                                <option value="perda">Perda</option>
+                                            </select>
+                                            <label for="ketua">No Peraturan</label>
+                                            <div class="input-group mb-3">
+                                                <input type="text" class="form-control" id="ketua" placeholder="ketua" name="ketua">
+                                            </div>
+                                            <label for="ketua">Ketua</label>
+                                            <div class="input-group mb-3">
+                                                <input type="text" class="form-control" id="ketua" placeholder="ketua" name="ketua">
+                                            </div>
+                                        </div>
+                                        <div class="col">
+                                            <label for="ketua">Tanggal Pembentukan</label>
+                                            <div class="input-group mb-3">
+                                                <select id="day" name="tgl_lahir" class="form-select tgl_lahir" aria-label="Default select example">
+                                                    <option value="">Tanggal</option>
+                                                </select>
+                                                <select id="month" name="bln_lahir" class="form-select bln_lahir" aria-label="Default select example">
+                                                    <option value="">Bulan</option>
+                                                </select>
+                                                <select id="year" name="thn_lahir" class="form-select thn_lahir" aria-label="Default select example">
+                                                    <option value="">Tahun</option>
+                                                </select>
+                                            </div>
+                                            <label for="bendahara">Nama Pimpinan</label>
+                                            <div class="input-group mb-3">
+                                                <input type="text" class="form-control" id="bendahara" placeholder="bendahara" name="bendahara">
+                                                <label>No.HP</label>
+                                                <input type="text" class="form-control" id="bendahara" placeholder="bendahara" name="bendahara">
+                                            </div>
+                                            <label> Nama Koordinator Penyuluh</label>
+                                            <div class="input-group mb-3">
+                                                <div class="form-check form-check-inline">
+                                                    <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio1" value="option1">
+                                                    <label class="form-check-label" for="inlineRadio1">PNS</label>
+                                                </div>
+                                                <div class="form-check form-check-inline">
+                                                    <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio2" value="option2">
+                                                    <label class="form-check-label" for="inlineRadio2">THL</label>
+                                                </div>
+                                                <div class="form-check form-check-inline">
+                                                    <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio2" value="option2">
+                                                    <label class="form-check-label" for="inlineRadio2">Struktural</label>
+                                                </div><br>
+                                                <label>PNS:</label>
+                                                <select name="kode_desa" id="kode_desa" class="form-control input-lg">
+                                                    <option value=""></option>
+                                                    <OPTION value="31">PNS<BR>
+                                                    <OPTION value="32">THL<BR>
+                                                    <OPTION value="32">THL<BR>
+                                                </select>
+                                            </div>
+                                            <label for="tahun_beridiri">tahun Berdiri</label>
+                                            <div class="input-group mb-3">
+                                                <select name="tahun_berdiri" id="year" class="form-control input-lg">
+                                                    <option value="">Tahun</option>
+                                                </select>
+                                            </div>
+                                            <label for="alamat">Alamat Kantor</label>
+                                            <div class="input-group mb-3">
+                                                <textarea type="text" class="form-control" id="alamat" placeholder="alamat" name="alamat"></textarea>
+                                            </div>
+                                            <label for="jum_anggota">Jumlah Anggota</label>
+                                            <div class="input-group mb-3">
+                                                <input type="text" class="form-control" id="jum_anggota" placeholder="jumlah anggota" name="jum_anggota">
+                                            </div>
+                                            <label for="penyuluh_swadaya">Penyuluh Swadaya</label>
+                                            <div class="input-group mb-3">
+                                                <select name="penyuluh_swadaya" id="penyuluh_swadaya" class="form-control input-lg">
+                                                    <option value="">Penyuluh Swadaya</option>
+
+                                                </select>
+                                            </div>
+                                            <input type="hidden" name="kode_kab" id="kode_kab" value="<?= $kode; ?>">
+                                        </div>
+                                        <div class="modal-footer">
+                                            <button type="button" class="btn bg-gradient-secondary" data-bs-dismiss="modal">Close</button>
+                                            <button type="button" id="btnSave" class="btn bg-gradient-primary">Simpan Data</button>
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
 
     </div>
 
