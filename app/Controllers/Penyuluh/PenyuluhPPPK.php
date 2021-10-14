@@ -12,9 +12,9 @@ class PenyuluhPPPK extends BaseController
     public function penyuluhpppk()
     {
 
-        if (session()->get('username') == "") {
-            return redirect()->to('login');
-        }
+        // $get_param = $this->request->getGet();
+
+        // $kode_kab = $get_param['kode_kab'];
         $penyuluh_model = new PenyuluhPPPKModel();
         $pppk_data = $penyuluh_model->getPenyuluhPPPKTotal(session()->get('kodebapel'));
 

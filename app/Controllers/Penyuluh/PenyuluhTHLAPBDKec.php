@@ -8,6 +8,7 @@ use App\Models\penyuluh\PenyuluhTHLAPBDKecModel;
 class PenyuluhTHLAPBDKec extends BaseController
 {
 
+
     public function penyuluhthlAPBDKec()
     {
 
@@ -15,9 +16,6 @@ class PenyuluhTHLAPBDKec extends BaseController
 
         // $kode_kab = $get_param['kode_kab'];
         // $kode_kec = $get_param['kode_kec'];
-        if (session()->get('username') == "") {
-            return redirect()->to('login');
-        }
         $penyuluh_model = new PenyuluhTHLAPBDKecModel();
         $thlapbd_data = $penyuluh_model->getPenyuluhTHLAPBDKecTotal(session()->get('kodebpp'));
 

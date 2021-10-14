@@ -26,13 +26,7 @@ class KelembagaanPetaniLainnyaModel extends Model
     // protected $validationMessages = [];
     // protected $skipValidation     = false;
 
-    public function getDetailKelembagaanPetaniLainnya($kode_kec)
-    {
-        $query = $this->db->query("SELECT * FROM tbldaerah WHERE id_daerah = '$kode_kec'");
-        $row   = $query->getRowArray();
-        return $row;
 
-    }
     public function getKelembagaanPetaniLainnyaTotal($kode_kab)
     {
         $db = Database::connect();

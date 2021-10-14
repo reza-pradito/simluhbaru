@@ -1,6 +1,7 @@
 <?= $this->extend('layout/main_template') ?>
 
 <?= $this->section('content') ?>
+
 <div class="container-fluid py-4">
     <div class="row">
         <!-- Page Heading -->
@@ -11,15 +12,18 @@
 
         <div class="row mt-3">
             <div class="col-lg-2">
-                <button type="button" class="btn bg-gradient-success btn-block mb-3" data-bs-toggle="modal" data-bs-target="#modalJab">Tambah</button>
+                <button type="button" class="btn bg-gradient-success btn-block mb-3" data-bs-toggle="modal" data-bs-target="#newSubMenuModal">Tambah</button>
             </div>
-            <table id="tblJab" class="table">
+            <table id="tblMenu" class="table">
                 <thead>
                     <tr>
                         <th scope="col">#</th>
-                        <th scope="col">id</th>
-                        <th scope="col">Jabatan</th>
-                        <th scope="col">Aksi</th>
+                        <th scope="col">Title</th>
+                        <th scope="col">Menu</th>
+                        <th scope="col">Url</th>
+                        <th scope="col">Icon</th>
+                        <th scope="col">Active</th>
+                        <th scope="col">Action</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -28,11 +32,15 @@
                     foreach ($dt as $row) : ?>
                         <tr>
                             <th scope="row"><?= $no++; ?></th>
-                            <td><?= $row['id_jab']; ?></td>
-                            <td><?= $row['nama_jab']; ?></td>
+                            <td><?= $row['title']; ?></td>
+                            <td><?= $row['menu']; ?></td>
+                            <td><?= $row['url']; ?></td>
+                            <td><?= $row['icon']; ?></td>
+                            <td><?= $row['is_active']; ?></td>
                             <td>
-                                <button type="button" id="btnEditJab" data-id="<?= $row['id_jab'] ?>" class=" btn btn-warning btn-sm">Edit</button>
-                                <button class="btn btn-danger btn-sm" id="btnHapusJab" data-id="<?= $row['id_jab'] ?>" type="button">Hapus</button>
+                                <button type="button" id="btnEditSubMenu" data-id="<?= $row['id'] ?>" class=" btn btn-warning btn-sm">Edit</button>
+                                <button type="button" class="btn btn-danger btn-sm" id="btnDeleteSubmenu" data-id="<?= $row['id'] ?>">Hapus</button>
+
 
                             </td>
                         </tr>
@@ -42,36 +50,60 @@
 
         </div>
 
-        <?php echo view('layout/footer'); ?>
-
     </div>
+
 </div>
+
 <!-- Modal -->
-<div class="modal fade" id="modalJab" tabindex="-1" role="dialog" aria-labelledby="exampleModalMessageTitle" aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered" role="document">
+<div class="modal fade" id="newSubMenuModal" tabindex="-1" role="dialog" aria-labelledby="newSubMenuModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel">Tambah Jabatan</h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">×</span>
+                <h5 class="modal-title" id="newSubMenuModalLabel">Add New Sub Menu</h5>
+                <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
                 </button>
             </div>
-            <div class="modal-body">
-                <form method="POST" action="<?= base_url('master/jabatan/save'); ?>">
+            <form action="<?= base_url('manage/menu/submenu_save'); ?>" method="post">
+                <div class="modal-body">
                     <div class="form-group">
-                        <label for="recipient-name" class="col-form-label">Jabatan:</label>
-                        <input type="text" class="form-control" name="jabatan" id="jabatan">
-                        <input type="hidden" class="form-control" name="idjab" id="idjab">
+                        <input type="text" class="form-control" id="title" name="title" placeholder="Submenu title">
                     </div>
-
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn bg-gradient-secondary" data-bs-dismiss="modal">Close</button>
-                <button type="button" id="btnSave" class="btn bg-gradient-primary">Simpan</button>
-            </div>
+                    <div class="form-group">
+                        <select name="menu_id" id="menu_id" class="form-control">
+                            <option value="">Select Menu</option>
+                            <?php foreach ($menu as $m) : ?>
+                                <option value="<?= $m['id']; ?>"><?= $m['menu']; ?></option>
+                            <?php endforeach; ?>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <input type="text" class="form-control" id="url" name="url" placeholder="Submenu url">
+                    </div>
+                    <div class="form-group">
+                        <input type="text" class="form-control" id="icon" name="icon" placeholder="Submenu icon">
+                    </div>
+                    <div class="form-group">
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox" value="1" name="is_active" id="is_active" checked>
+                            <label class="form-check-label" for="is_active">
+                                Active?
+                            </label>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    <button type="button" id="btnSave" class="btn btn-primary">Tambah</button>
+                    <input type="hidden" class="form-control" id="submenuid" name="submenuid" placeholder="Submenu id">
+                </div>
             </form>
         </div>
     </div>
+</div>
+<?php echo view('layout/footer'); ?>
+
+</div>
 </div>
 
 <?= $this->endSection() ?>
@@ -81,17 +113,28 @@
 <script>
     $(document).ready(function() {
 
-        $('#tblJab').DataTable();
+        $('#tblMenu').DataTable();
+
+        //save
 
         $(document).delegate('#btnSave', 'click', function() {
 
-            var jab = $('#jabatan').val();
+            var judul = $('#title').val();
+            var menu_id = $('#menu_id').val();
+            var url = $('#url').val();
+            var icon = $('#icon').val();
+            var is_active = $('#is_active').val();
 
+            //debugger;
             $.ajax({
-                url: '<?= base_url() ?>/master/jabatan/save/',
+                url: '<?= base_url() ?>/manage/menu/submenu_save/',
                 type: 'POST',
                 data: {
-                    'jab': jab
+                    'judul': judul,
+                    'menu_id': menu_id,
+                    'url': url,
+                    'icon': icon,
+                    'is_active': is_active
                 },
                 success: function(result) {
                     Swal.fire({
@@ -124,41 +167,55 @@
 
         });
 
-        $(document).delegate('#btnEditJab', 'click', function() {
+        //Update
+
+        $(document).delegate('#btnEditSubMenu', 'click', function() {
             $.ajax({
-                url: '<?= base_url() ?>/master/jabatan/edit/' + $(this).data('id'),
+                url: '<?= base_url() ?>/manage/menu/editsubmenu/' + $(this).data('id'),
                 type: 'GET',
                 dataType: 'JSON',
                 success: function(result) {
                     // console.log(result);
 
-                    $('#idjab').val(result.id_jab);
-                    $('#jabatan').val(result.nama_jab);
+                    $('#submenuid').val(result.id);
+                    $('#title').val(result.title);
+                    $('#menu_id').val(result.menu_id);
+                    $('#url').val(result.url);
+                    $('#icon').val(result.icon);
+                    $('#is_active').val(result.is_active);
 
-                    $('#modalJab').modal('show');
+                    $('#newSubMenuModal').modal('show');
 
                     $("#btnSave").attr("id", "btnDoEdit");
-                    $("#exampleModalLabel").text("Edit Jabatan");
+                    $("#newSubMenuModalLabel").text("Edit Sub Menu");
+                    $("#btnDoEdit").text("Edit");
 
                     $(document).delegate('#btnDoEdit', 'click', function() {
-                        console.log('ok');
-
-                        var idjab = $('#idjab').val();
-                        var jab = $('#jabatan').val();
+                        // console.log('ok');
+                        var submenuid = $('#submenuid').val();
+                        var judul = $('#title').val();
+                        var menu_id = $('#menu_id').val();
+                        var url = $('#url').val();
+                        var icon = $('#icon').val();
+                        var is_active = $('#is_active').val();
 
                         let formData = new FormData();
-                        formData.append('idjab', idjab);
-                        formData.append('jab', jab);
-
+                        formData.append('menu_id', menu_id);
+                        formData.append('judul', judul);
+                        formData.append('submenuid', submenuid);
+                        formData.append('url', url);
+                        formData.append('icon', icon);
+                        formData.append('is_active', is_active);
+                        debugger;
                         $.ajax({
-                            url: '<?= base_url() ?>/master/jabatan/update/' + idjab,
+                            url: '<?= base_url() ?>/manage/menu/submenu_update/' + submenuid,
                             type: "POST",
                             data: formData,
                             cache: false,
                             processData: false,
                             contentType: false,
                             success: function(result) {
-                                $('#modalJab').modal('hide');
+                                $('#modalMenu').modal('hide');
                                 Swal.fire({
                                     title: 'Sukses',
                                     text: "Sukses edit data",
@@ -197,7 +254,7 @@
 
         });
 
-        $(document).delegate('#btnHapusJab', 'click', function() {
+        $(document).delegate('#btnDeleteSubmenu', 'click', function() {
 
             Swal.fire({
                 title: 'Apakah anda yakin',
@@ -211,10 +268,10 @@
             }).then((result) => {
                 if (result.value) {
                     $.ajax({
-                        url: '<?= base_url() ?>/master/jabatan/delete/' + $(this).data('id'),
+                        url: '<?= base_url() ?>/manage/menu/deletesubmenu/' + $(this).data('id'),
                         type: 'GET',
                         data: {
-                            'idjab': $(this).data('id')
+                            'id': $(this).data('id')
                         },
                         success: function(result) {
                             Swal.fire({
@@ -243,10 +300,9 @@
                 }
             });
 
-        })
+        });
 
     });
 </script>
-
 
 <?= $this->endSection() ?>

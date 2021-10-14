@@ -7,8 +7,62 @@
         </a>
     </div>
     <hr class="horizontal dark mt-0">
-    <div class="collapse navbar-collapse  w-auto  max-height-vh-100 h-100" id="sidenav-collapse-main">
+
+    <div class="collapse navbar-collapse  w-auto  max-height-vh-300 h-100" id="sidenav-collapse-main">
         <ul class="navbar-nav">
+
+            <!-- QUERY MENU -->
+            <?php
+            $role_id = session()->get('status_user');
+            $db = db_connect();
+            $queryMenu = "SELECT `user_menu`.`id`, `menu`
+            FROM `user_menu` JOIN `user_access_menu`
+              ON `user_menu`.`id` = `user_access_menu`.`menu_id`
+           WHERE `user_access_menu`.`role_id` = $role_id
+        ORDER BY `user_access_menu`.`menu_id` ASC";
+            $menu = $db->query($queryMenu)->getResultArray();
+            ?>
+
+            <?php foreach ($menu as $m) : ?>
+                <li class="nav-item mt-3">
+                    <h6 class="ps-4 ms-2 text-uppercase text-xs font-weight-bolder opacity-6"><?= $m['menu']; ?></h6>
+                </li>
+
+                <!-- SIAPKAN SUB-MENU SESUAI MENU -->
+                <?php
+                $menuId = $m['id'];
+                $querySubMenu = "SELECT *
+                               FROM `user_sub_menu` JOIN `user_menu` 
+                                 ON `user_sub_menu`.`menu_id` = `user_menu`.`id`
+                              WHERE `user_sub_menu`.`menu_id` = $menuId
+                                AND `user_sub_menu`.`is_active` = 1
+                        ";
+
+                $subMenu = $db->query($querySubMenu)->getResultArray();
+                ?>
+
+                <?php foreach ($subMenu as $sm) : ?>
+                    <?php if ($title == $sm['title']) : ?>
+                        <li class="nav-item active">
+                        <?php else : ?>
+                        <li class="nav-item">
+                        <?php endif; ?>
+                        <a class="nav-link pb-0" href="<?= base_url($sm['url']); ?>">
+                            <i class="<?= $sm['icon']; ?>"></i>
+                            <span class="nav-link-text ms-1"><?= $sm['title']; ?></span></a>
+                        </li>
+                    <?php endforeach; ?>
+
+                <?php endforeach; ?>
+
+                <!-- <li class=" nav-item">
+                    <a class="nav-link " href="<?= base_url('penyuluhpppk'); ?>">
+                        <span class="nav-link-text ms-1">PPPK</span>
+                    </a>
+                </li> -->
+
+
+                <!--
             <li class="nav-item common_class">
                 <a class="nav-link active" href="<?= base_url('dashboard'); ?>">
                     <div class="icon icon-shape icon-sm shadow border-radius-md bg-white text-center me-2 d-flex align-items-center justify-content-center">
@@ -532,6 +586,7 @@
                     <span class="nav-link-text ms-1">Data Petani ERDKK</span>
                 </a>
             </li>
+-->
         </ul>
         <div class="ps__rail-x" style="left: 0px; bottom: -195px;">
             <div class="ps__thumb-x" tabindex="0" style="left: 0px; width: 0px;"></div>

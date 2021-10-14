@@ -49,9 +49,6 @@ class PenyuluhCPNSModel extends Model
                                 when '0' then 'Aktif'
                                 when '6' then 'Tugas Belajar'
                                 else '' end status_kel,
-                                d.nm_desa as wil_kerja, e.nm_desa as wil_kerja2,
-        f.nm_desa as wil_kerja3, g.nm_desa as wil_kerja4, h.nm_desa as wil_kerja5, u.nm_desa as wil_kerja6, v.nm_desa as wil_kerja7,
-        w.nm_desa as wil_kerja8, x.nm_desa as wil_kerja9, y.nm_desa as wil_kerja10, 
                                 j.deskripsi as kecamatan_tugas
                                 from tbldasar a
                                 left join tblsatminkal b on a.satminkal=b.kode

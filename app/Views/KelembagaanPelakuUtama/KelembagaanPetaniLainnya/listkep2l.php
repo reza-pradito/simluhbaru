@@ -5,8 +5,6 @@
 
 <center><h2> Daftar Kelompok P2L di Kec <?= ucwords(strtolower($nama_kecamatan)) ?> </h2></center>
 <center>Data ditemukan <?= ucwords(strtolower($jum)) ?> </center>
-
-<a href="/tambahkp2l"><button type="button" class="btn bg-gradient-primary btn-sm">+ Tambah Kelompok</button></a>
 <div class="card">
     <div class="table-responsive">
         <table class="table align-items-center mb-0">
