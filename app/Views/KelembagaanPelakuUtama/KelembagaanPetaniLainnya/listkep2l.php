@@ -196,6 +196,7 @@
 
 <?= $this->section('script') ?>
 
+
 <script>
     $(document).ready(function() {
 
