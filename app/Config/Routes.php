@@ -59,6 +59,9 @@ $routes->get('/gapoktan', 'KelembagaanPelakuUtama/Gapoktan/Gapoktan::gapoktan');
 $routes->get('/listgapoktan', 'KelembagaanPelakuUtama/Gapoktan/ListGapoktan::listgapoktan');
 $routes->get('/listgapoktandesa', 'KelembagaanPelakuUtama/Gapoktan/ListGapoktanDesa::listgapoktandesa');
 
+$routes->post('/listgapoktan/save', 'KelembagaanPelakuUtama/Gapoktan/ListGapoktan::save');
+
+
 $routes->get('/gapoktanbersama', 'KelembagaanPelakuUtama/GapoktanBersama/GapoktanBersama::gapoktanbersama');
 
 $routes->get('/kelembagaanekonomipetani', 'KelembagaanPelakuUtama/KelembagaanEkonomiPetani::kelembagaanekonomipetani');
@@ -68,6 +71,10 @@ $routes->get('/kelompoktani', 'KelembagaanPelakuUtama/KelompokTani/KelompokTani:
 $routes->get('/kelompoktanikec', 'KelembagaanPelakuUtama/KelompokTani/KelompokTaniKec::kelompoktanikec');
 $routes->get('/listpoktan', 'KelembagaanPelakuUtama/KelompokTani/ListPokTan::listpoktan');
 $routes->get('/listpoktananggota', 'KelembagaanPelakuUtama/KelompokTani/ListPoktanAnggota::listpoktananggota');
+
+$routes->get('/tambahkelompoktani', 'KelembagaanPelakuUtama/KelompokTani/TambahKelompokTani::tambahkelompoktani');
+$routes->post('/listpoktan/save', 'KelembagaanPelakuUtama/Gapoktan/ListGapoktan::save');
+
 
 $routes->get('/kelembagaanpetanilainnya', 'KelembagaanPelakuUtama/KelembagaanPetaniLainnya/KelembagaanPetaniLainnya::kelembagaanpetanilainnya');
 $routes->get('/listkep2l', 'KelembagaanPelakuUtama/KelembagaanPetaniLainnya/ListKEP2L::listkep2l');

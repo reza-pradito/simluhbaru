@@ -5,6 +5,7 @@ namespace App\Models;
 use CodeIgniter\Model;
 use \Config\Database;
 
+
 class MasterModel extends Model
 {
     protected $table      = 'tbljabatan';
@@ -22,10 +23,18 @@ class MasterModel extends Model
     // protected $validationRules    = [];
     // protected $validationMessages = [];
     // protected $skipValidation     = false;
+    public function getAllDataJab()
+    {
+        $db = db_connect();
+        $query = $db->query("SELECT * FROM tbljabatan");
+        $row = $query->getResultArray();
+        return $row;
+    }
 
     public function getDataById($id)
     {
-        $query = $this->db->query("SELECT * FROM tbljabatan WHERE id_jab = '" . $id . "'");
+        $db = db_connect();
+        $query = $db->query("SELECT * FROM tbljabatan WHERE id_jab = '" . $id . "'");
         $row = $query->getRow();
         return json_encode($row);
     }
