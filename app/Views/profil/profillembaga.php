@@ -200,7 +200,7 @@ $data = $json[0];
             <nav class="col-lg-12">
                 <div class="nav nav-tabs" id="nav-tab" role="tablist">
                     <button class="nav-link active" id="nav-home-tab" data-bs-toggle="tab" data-bs-target="#nav-home" type="button" role="tab" aria-controls="nav-home" aria-selected="true">Profil</button>
-                    <button class="nav-link" id="nav-penyuluh-tab" data-bs-toggle="tab" data-bs-target="#nav-penyuluh" type="button" role="tab" aria-controls="nav-penyuluh" aria-selected="false">Daftar Penyuluh</button>
+                    <button class="nav-link" id="nav-penyuluh-tab" data-bs-toggle="tab" data-bs-target="#nav-penyuluh" type="button" role="tab" aria-controls="nav-penyuluh" aria-selected="false">Wilayah Kerja</button>
                     <button class="nav-link" id="nav-lahancth-tab" data-bs-toggle="tab" data-bs-target="#nav-kegiatan" type="button" role="tab" aria-controls="nav-kegiatan" aria-selected="false">Kegiatan</button>
                     <!-- <button class="nav-link" id="nav-sarpras-tab" data-bs-toggle="tab" data-bs-target="#nav-sarpras" type="button" role="tab" aria-controls="nav-sarpras" aria-selected="false">Sarana & Prasarana</button>
                     <button class="nav-link" id="nav-pokom-tab" data-bs-toggle="tab" data-bs-target="#nav-pokom" type="button" role="tab" aria-controls="nav-pokom" aria-selected="false">Potensi Ekonomi</button>
@@ -216,68 +216,171 @@ $data = $json[0];
                                     <div class="row">
                                         <h1 class="h3 mb-4 text-gray-800"><?= $title; ?> <a href="/editbapel"><i class="fas fa-edit" style="float: right;"></i></a></h1>
                                         <div class="col-lg-12">
+                                            <?php if (session()->get('status_user') == '1') { ?>
+                                                <table class="table">
 
-                                            <table class="table">
+                                                    <tbody>
+                                                        <tr>
+                                                            <td>Nama Kelembagaan</td>
+                                                            <td>:</td>
+                                                            <td><?= $dt['deskripsi_lembaga_lain']; ?> <?= $sessnama; ?></td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td>Tanggal Pembentukan</td>
+                                                            <td>:</td>
+                                                            <td><?= $dt['tgl_berdiri'] . '-' . $dt['bln_berdiri'] . '-' . $dt['thn_berdiri']; ?></td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td>Alamat</td>
+                                                            <td>:</td>
+                                                            <td> <?= $dt['alamat']; ?></td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td>Provinsi</td>
+                                                            <td>:</td>
+                                                            <td><?= $dt['kode_prop']; ?></td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td>No Telepon/Fax</td>
+                                                            <td>:</td>
+                                                            <td><?= $dt['telp_kantor']; ?></td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td>Alamat Email</td>
+                                                            <td>:</td>
+                                                            <td><?= $dt['email']; ?></td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td>Alamat Website</td>
+                                                            <td>:</td>
+                                                            <td><?= $dt['website']; ?></td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td>Nama Pimpinan</td>
+                                                            <td>:</td>
+                                                            <td><?= $dt['ketua']; ?></td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td>No HP Pimpinan</td>
+                                                            <td>:</td>
+                                                            <td><?= $dt['hp_kabid']; ?></td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td>Nama Koordinator PP</td>
+                                                            <td>:</td>
+                                                            <td><?= $dt['nama_koord_penyuluh']; ?></td>
+                                                        </tr>
+                                                    </tbody>
+                                                </table>
+                                            <?php } elseif (session()->get('status_user') == '200') { ?>
+                                                <table class="table">
 
-                                                <tbody>
-                                                    <tr>
-                                                        <td>Nama Kelembagaan</td>
-                                                        <td>:</td>
-                                                        <td><?= $dt['deskripsi_lembaga_lain']; ?> <?= $sessnama; ?></td>
-                                                    </tr>
-                                                    <tr>
-                                                        <td>Tanggal Pembentukan</td>
-                                                        <td>:</td>
-                                                        <td><?= $dt['tgl_berdiri'] . '-' . $dt['bln_berdiri'] . '-' . $dt['thn_berdiri']; ?></td>
-                                                    </tr>
-                                                    <tr>
-                                                        <td>Alamat</td>
-                                                        <td>:</td>
-                                                        <td> <?= $dt['alamat']; ?></td>
-                                                    </tr>
-                                                    <tr>
-                                                        <td>Provinsi</td>
-                                                        <td>:</td>
-                                                        <td><?= $dt['kode_prop']; ?></td>
-                                                    </tr>
-                                                    <tr>
-                                                        <td>No Telepon/Fax</td>
-                                                        <td>:</td>
-                                                        <td><?= $dt['telp_kantor']; ?></td>
-                                                    </tr>
-                                                    <tr>
-                                                        <td>Alamat Email</td>
-                                                        <td>:</td>
-                                                        <td><?= $dt['email']; ?></td>
-                                                    </tr>
-                                                    <tr>
-                                                        <td>Alamat Website</td>
-                                                        <td>:</td>
-                                                        <td><?= $dt['website']; ?></td>
-                                                    </tr>
-                                                    <tr>
-                                                        <td>Nama Pimpinan</td>
-                                                        <td>:</td>
-                                                        <td><?= $dt['ketua']; ?></td>
-                                                    </tr>
-                                                    <tr>
-                                                        <td>No HP Pimpinan</td>
-                                                        <td>:</td>
-                                                        <td><?= $dt['hp_kabid']; ?></td>
-                                                    </tr>
-                                                    <tr>
-                                                        <td>Nama Koordinator PP</td>
-                                                        <td>:</td>
+                                                    <tbody>
+                                                        <tr>
+                                                            <td>Nama Kelembagaan</td>
+                                                            <td>:</td>
+                                                            <td><?= $dt['deskripsi_lembaga_lain']; ?> <?= $sessnama; ?></td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td>Tanggal Pembentukan</td>
+                                                            <td>:</td>
+                                                            <td><?= $dt['tgl_berdiri'] . '-' . $dt['bln_berdiri'] . '-' . $dt['thn_berdiri']; ?></td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td>Alamat</td>
+                                                            <td>:</td>
+                                                            <td> <?= $dt['alamat']; ?></td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td>Provinsi</td>
+                                                            <td>:</td>
+                                                            <td><?= $dt['kode_prop']; ?></td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td>No Telepon/Fax</td>
+                                                            <td>:</td>
+                                                            <td><?= $dt['telp_kantor']; ?></td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td>Alamat Email</td>
+                                                            <td>:</td>
+                                                            <td><?= $dt['email']; ?></td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td>Alamat Website</td>
+                                                            <td>:</td>
+                                                            <td><?= $dt['website']; ?></td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td>Nama Pimpinan</td>
+                                                            <td>:</td>
+                                                            <td><?= $dt['ketua']; ?></td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td>No HP Pimpinan</td>
+                                                            <td>:</td>
+                                                            <td><?= $dt['hp_kabid']; ?></td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td>Nama Koordinator PP</td>
+                                                            <td>:</td>
+                                                            <td><?= $dt['nama_koord_penyuluh']; ?></td>
+                                                        </tr>
+                                                    </tbody>
+                                                </table>
+                                            <?php } elseif (session()->get('status_user') == '300') { ?>
 
-<!--                                                         <td><?= $dt['nama']; ?></td> -->
+                                                <table class="table">
 
-                                                        <td><?= $dt['nama_koord_penyuluh']; ?></td>
-
-                                                    </tr>
-
-                                                </tbody>
-
-                                            </table>
+                                                    <tbody>
+                                                        <tr>
+                                                            <td>Nama BPP</td>
+                                                            <td>:</td>
+                                                            <td><?= $dt['nama_bpp']; ?> </td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td>Klasifikasi BPP</td>
+                                                            <td>:</td>
+                                                            <td><?= $dt['klasifikasi']; ?> </td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td>Alamat</td>
+                                                            <td>:</td>
+                                                            <td> <?= $dt['alamat']; ?>, Kec: , Kab/Kota: , Provinsi: </td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td>Tanggal Pembentukan</td>
+                                                            <td>:</td>
+                                                            <td><?= $dt['tgl_berdiri'] . '-' . $dt['bln_berdiri'] . '-' . $dt['thn_berdiri']; ?></td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td>Status Bangunan</td>
+                                                            <td>:</td>
+                                                            <td><?= $dt['status_gedung']; ?></td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td>Kondisi Bangunan</td>
+                                                            <td>:</td>
+                                                            <td><?= $dt['kondisi_bangunan']; ?></td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td>Nama Kepala/Koordinator</td>
+                                                            <td>:</td>
+                                                            <td><?= $dt['ketua']; ?></td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td>Nomor HP</td>
+                                                            <td>:</td>
+                                                            <td><?= $dt['telp_hp']; ?></td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td>Email</td>
+                                                            <td>:</td>
+                                                            <td><?= $dt['email']; ?></td>
+                                                        </tr>
+                                                    </tbody>
+                                                </table>
+                                            <?php } ?>
                                         </div>
 
                                     </div>
@@ -303,28 +406,10 @@ $data = $json[0];
                             <div class="card">
                                 <div class="card-body p-3">
                                     <div class="row">
-                                        <h1 class="h3 mb-4 text-gray-800">Daftar Penyuluh yang bertugas di Kab/Kota</h1>
+                                        <h1 class="h3 mb-4 text-gray-800">Wilayah Kerja</h1>
                                         <div class="col-lg-8">
 
-                                            <table class="table">
-                                                <tbody>
-                                                    <tr>
-                                                        <td>Penyuluh PNS</td>
-                                                        <td>:</td>
-                                                        <td>dadasas</td>
-                                                    </tr>
-                                                    <tr>
-                                                        <td>THL-TBPP (APBN)</td>
-                                                        <td>:</td>
-                                                        <td>dadasas</td>
-                                                    </tr>
-                                                    <tr>
-                                                        <td>THL-TB PP (APBD)</td>
-                                                        <td>:</td>
-                                                        <td>dadasas</td>
-                                                    </tr>
-                                                </tbody>
-                                            </table>
+
 
                                         </div>
 
@@ -348,63 +433,6 @@ $data = $json[0];
                                         <h1 class="h3 mb-4 text-gray-800">Kegiatan yang dilakukan <a href="/editkegiatan"><i class="fas fa-edit" style="float: right;"></i></a></h1>
                                         <div class="col-lg-12">
 
-                                            <!-- <table class="table">
-
-                                                <tbody>
-                                                    <tr>
-                                                        <td>Nama Kelembagaan</td>
-                                                        <td>:</td>
-                                                        <td><?= $dt['deskripsi_lembaga_lain']; ?> <?= $sessnama; ?></td>
-                                                    </tr>
-                                                    <tr>
-                                                        <td>Tanggal Pembentukan</td>
-                                                        <td>:</td>
-                                                        <td><?= $dt['tgl_berdiri'] . '-' . $dt['bln_berdiri'] . '-' . $dt['thn_berdiri']; ?></td>
-                                                    </tr>
-                                                    <tr>
-                                                        <td>Alamat</td>
-                                                        <td>:</td>
-                                                        <td> <?= $dt['alamat']; ?></td>
-                                                    </tr>
-                                                    <tr>
-                                                        <td>Provinsi</td>
-                                                        <td>:</td>
-                                                        <td><?= $dt['kode_prop']; ?></td>
-                                                    </tr>
-                                                    <tr>
-                                                        <td>No Telepon/Fax</td>
-                                                        <td>:</td>
-                                                        <td><?= $dt['telp_kantor']; ?></td>
-                                                    </tr>
-                                                    <tr>
-                                                        <td>Alamat Email</td>
-                                                        <td>:</td>
-                                                        <td><?= $dt['email']; ?></td>
-                                                    </tr>
-                                                    <tr>
-                                                        <td>Alamat Website</td>
-                                                        <td>:</td>
-                                                        <td><?= $dt['website']; ?></td>
-                                                    </tr>
-                                                    <tr>
-                                                        <td>Nama Pimpinan</td>
-                                                        <td>:</td>
-                                                        <td><?= $dt['nama_kabid']; ?></td>
-                                                    </tr>
-                                                    <tr>
-                                                        <td>No HP Pimpinan</td>
-                                                        <td>:</td>
-                                                        <td><?= $dt['hp_kabid']; ?></td>
-                                                    </tr>
-                                                    <tr>
-                                                        <td>Nama Koordinator PP</td>
-                                                        <td>:</td>
-                                                        <td><?= $dt['nama_koord_penyuluh']; ?></td>
-                                                    </tr>
-
-                                                </tbody>
-
-                                            </table> -->
                                         </div>
 
                                     </div>

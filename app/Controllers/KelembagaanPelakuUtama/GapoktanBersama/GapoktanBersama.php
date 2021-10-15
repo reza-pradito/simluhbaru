@@ -34,7 +34,7 @@ class GapoktanBersama extends BaseController
             'title' => 'Gapoktan Bersama',
             'name' => 'Gapoktan Bersama',
             'kode_prop' => $kode_data['kode_prop']
-           
+
         ];
 
         return view('KelembagaanPelakuUtama/GapoktanBersama/gapoktanbersama', $data);
@@ -54,23 +54,23 @@ class GapoktanBersama extends BaseController
                 'simluh_sk_pengukuhan' => $this->request->getPost('simluh_sk_pengukuhan'),
                 'simluh_bendahara' => $this->request->getPost('simluh_bendahara'),
                 'simluh_sekretaris' => $this->request->getPost('simluh_sekretaris'),
-                
+
             ]);
-            if($res == false){
+            if ($res == false) {
                 $data = [
                     "value" => false,
                     "message" => 'data tidak lengkap'
                 ];
-            }else{
+            } else {
                 $data = [
                     "value" => true
                 ];
             }
             return json_encode($data);
-        } catch (\Exception $e){
+        } catch (\Exception $e) {
             $data = [
                 "value" => false,
-                "message" => $e->getMessage() 
+                "message" => $e->getMessage()
             ];
             return json_encode($data);
         }

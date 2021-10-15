@@ -25,7 +25,7 @@ class Jabatan extends BaseController
             return redirect()->to('login');
         }
         //$penyuluhModel = new MasterModel();
-        $jabatan = $this->model->findAll();
+        $jabatan = $this->model->getAllDataJab();
 
         //dd($jabatan);
 

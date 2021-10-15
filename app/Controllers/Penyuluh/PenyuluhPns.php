@@ -11,13 +11,20 @@ class PenyuluhPns extends BaseController
 
     public function penyuluhpns()
     {
+        if (empty(session()->get('status_user')) || session()->get('status_user') == '2') {
+            $kode = '00';
+        } elseif (session()->get('status_user') == '1') {
+            $kode = session()->get('kodebakor');
+        } elseif (session()->get('status_user') == '200') {
+            $kode = session()->get('kodebapel');
+        } elseif (session()->get('status_user') == '300') {
+            $kode = session()->get('kodebpp');
+        }
 
+        //  d($kode);
 
-        // $get_param = $this->request->getGet();
-
-        // $kode_kab = $get_param['kode_kab'];
         $penyuluh_model = new PenyuluhPNSModel();
-        $pns_data = $penyuluh_model->getPenyuluhPNSTotal(session()->get('kodebapel'));
+        $pns_data = $penyuluh_model->getPenyuluhPNSTotal($kode);
 
         if (session()->get('username') == "") {
             return redirect()->to('login');
@@ -28,13 +35,12 @@ class PenyuluhPns extends BaseController
         //     $kode = session()->get('kodebapel');
         // }
 
-
         $penyuluh_model = new PenyuluhPNSModel();
-        $pns_data = $penyuluh_model->getPenyuluhPNSTotal(session()->get('kodebapel'));
+        $pns_data = $penyuluh_model->getPenyuluhPNSTotal($kode);
         // dd($pns_data);
-        $namaprop = $penyuluh_model->getPropvinsi();
-        $pendidikan = $penyuluh_model->getPendidikan();
-        $tugas = $penyuluh_model->getTugas(session()->get('kodebapel'));
+        // $namaprop = $penyuluh_model->getPropvinsi();
+        // $pendidikan = $penyuluh_model->getPendidikan();
+        // $tugas = $penyuluh_model->getTugas($kode);
 
 
         $data = [
