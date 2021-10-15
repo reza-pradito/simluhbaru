@@ -44,7 +44,6 @@ class PenyuluhSwasta extends BaseController
     }
 
 
-
     public function save()
     {
         try {

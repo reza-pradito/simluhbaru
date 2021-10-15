@@ -327,44 +327,30 @@
                                             </div><input type="text" class="form-control" id="detail_lainnya" name="detail_lainnya" aria-label="Password" aria-describedby="password-addon">
                                             <label>Unit Kerja (BPP Kecamatan)</label>
                                             <div class="input-group mb-3">
-                                                <select id="unit_kerja" name="unit_kerja" class="form-select" aria-label="Default select example">
-                                                    <option selected>Pilih Unit Kerja</option>
-                                                    <option value="Bpp Arjosari">Bpp Arjosari</option>
-                                                    <option value="Bpp Bandar">Bpp Bandar</option>
-                                                    <option value="Bpp Donorojo">Bpp Donorojo</option>
-                                                    <option value="Bpp Kebonagung">Bpp Kebonagung</option>
-                                                    <option value="Bpp Nawangan">Bpp Nawangan</option>
-                                                    <option value="Bpp Ngadirojo">Bpp Ngadirojo</option>
-                                                    <option value="Bpp Pacitan">Bpp Pacitan</option>
-                                                    <option value="Bpp Pringkuku">Bpp Pringkuku</option>
-                                                    <option value="Bpp Sudimoro">Bpp Sudimoro</option>
-                                                    <option value="Bpp Tulakan">Bpp Tulakan</option>
-                                                    <option value="Bpp Kec. Tegalombo">Bpp Kec. Tegalombo</option>
-                                                    <option value="Bpp Punung">Bpp Punung</option>
+                                                <select name="unit_kerja" id="unit_kerja" class="form-control input-lg unit_kerja">
+                                                    <option value="">Pilih Desa</option>
+                                                    <?php
+                                                    foreach ($unitkerja as $row3) {
+                                                        echo '<option value="' . $row3["id"] . '">' . $row3["nama_bpp"] . '</option>';
+                                                    }
+                                                    ?>
                                                 </select>
                                             </div>
                                             <label>Tempat Tugas</label>
                                             <div class="input-group mb-3">
-                                                <select id="tempat_tugas" name="tempat_tugas" class="form-select" aria-label="Default select example">
-                                                    <option selected>Pilih Kecamatan</option>
-                                                    <option value="Kec. Arjosari">Kec. Arjosari</option>
-                                                    <option value="Kec. Bandar">Kec. Bandar</option>
-                                                    <option value="Kec. Donorojo">Kec. Donorojo</option>
-                                                    <option value="Kec. Kebonagung">Kec. Kebonagung</option>
-                                                    <option value="Kec. Nawangan">Kec. Nawangan</option>
-                                                    <option value="Kec. Ngadirojo">Kec. Ngadirojo</option>
-                                                    <option value="Kec. Pacitan">Kec. Pacitan</option>
-                                                    <option value="Kec. Pringkuku">Kec. Pringkuku</option>
-                                                    <option value="Kec. Sudimoro">Kec. Sudimoro</option>
-                                                    <option value="Kec. Tulakan">Kec. Tulakan</option>
-                                                    <option value="Kec. Tegalombo">Kec. Tegalombo</option>
-                                                    <option value="Kec. Punung">Kec. Punung</option>
+                                                <select name="tempat_tugas" id="tempat_tugas" class="form-control input-lg tempat_tugas">
+                                                    <option value="">Pilih Desa</option>
+                                                    <?php
+                                                    foreach ($tugas as $row2) {
+                                                        echo '<option value="' . $row2["id_daerah"] . '">' . $row2["deskripsi"] . '</option>';
+                                                    }
+                                                    ?>
                                                 </select>
                                             </div>
                                             <label>Wilayah Kerja 1</label>
                                             <div class="input-group mb-3">
                                                 <select id="wil_kerja" name="wil_kerja" class="form-select" aria-label="Default select example">
-                                                    <option selected>Pilih Desa</option>x
+                                                    <option value="">Pilih Desa</option>
                                                 </select>
                                             </div>
                                             <label>Wilayah Kerja 2</label>
@@ -639,50 +625,35 @@
         });
 
         $(document).delegate('#tempat_tugas', 'change', function() {
-            //alert($('#tempat_tugas').val());
-            var kode_tt = $('#tempat_tugas').val();
+            var id_daerah = $('#tempat_tugas').val();
 
-            $.ajax({
-                url: '<?= base_url() ?>/Penyuluh/PenyuluhSwadaya/getWilKer/',
-                type: 'POST',
-                data: {
-                    'tempat_tugas': kode_tt,
-                },
-                success: function(result) {
-                    var data_wilker = result.tabel_data;
-                    // var data_wilker = [{
-                    //         'kode': '00',
-                    //         'name': 'Desa A'
-                    //     },
-                    //     {
-                    //         'kode': '01',
-                    //         'name': 'Desa B'
-                    //     },
-                    // ];
-                    $('#wil_kerja').html("");
-                    var opt = '<option value="">Pilih Desa</option>';
-                    for (var i = 0; i < data_wilker.length; i++) {
-                        opt += '<option value="' + data_wilker[i].kode + '">' + data_wilker[i].name + '</option>';
-                    }
+            var action = 'get_wil_kerja';
 
-                    $('#wil_kerja').html(opt);
-                    $('#wil_kerja2').html(opt);
-                    $('#wil_kerja3').html(opt);
-                    $('#wil_kerja4').html(opt);
-                    $('#wil_kerja5').html(opt);
-                },
-                error: function(jqxhr, status, exception) {
-                    Swal.fire({
-                        title: 'Error',
-                        text: "Gagal mendapatkan data wilker",
-                        type: 'error',
-                    }).then((result) => {
-                        if (result.value) {
-                            location.reload();
+            if (id_daerah != '') {
+                $.ajax({
+                    url: "<?php echo base_url('/Penyuluh/PenyuluhSwadaya/action'); ?>",
+                    method: "POST",
+                    data: {
+                        id_daerah: id_daerah,
+                        action: action
+                    },
+                    dataType: "JSON",
+                    success: function(data) {
+                        var html = '<option value="">Select Wilayah Kerja</option>';
+
+                        for (var count = 0; count < data.length; count++) {
+
+                            html += '<option value="' + data[count].id_desa + '">' + data[count].nm_desa + '</option>';
+
                         }
-                    });
-                }
-            });
+
+                        $('#wil_kerja').html(html);
+                    }
+                });
+            } else {
+                $('#wil_kerja').val('');
+            }
+            // $('#city').val('');
         });
     });
 </script>
