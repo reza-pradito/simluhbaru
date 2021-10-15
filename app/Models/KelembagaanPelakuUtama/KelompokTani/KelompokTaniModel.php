@@ -26,13 +26,7 @@ class KelompokTaniModel extends Model
     // protected $validationMessages = [];
     // protected $skipValidation     = false;
 
-    public function getDetailKelompokTani($kode_kec)
-    {
-        $query = $this->db->query("SELECT * FROM tbldaerah WHERE id_daerah = '$kode_kec'");
-        $row   = $query->getRowArray();
-        return $row;
 
-    }
     public function getKelompokTaniTotal($kode_kab)
     {
         $db = Database::connect();
@@ -42,7 +36,7 @@ class KelompokTaniModel extends Model
         $query2 = $db->query("SELECT count(id_poktan) as jum_poktan FROM tb_poktan where kode_kab ='$kode_kab'");
         $row2   = $query2->getRow();
         
-        $query3   = $db->query("select id_daerah, deskripsi, count(id_poktan) as jum 
+        $query3   = $db->query("select id_daerah, deskripsi, count(id_gap) as jum 
                                 from tbldaerah a
                                 left join tb_poktan b on a.id_daerah=b.kode_kec and b.kode_kab='$kode_kab'
                                 where id_dati2='$kode_kab'

@@ -28,12 +28,16 @@
                         <p class="text-xs font-weight-bold mb-0"><?= $i++ ?></p>
                     </td>
                     <td class="align-middle text-center text-sm">
-                        <p class="text-xs font-weight-bold mb-0"><a href="<?=base_url('/listkep2l?kode_kec='.$row['id_daerah'])?>"><?= $row['deskripsi'] ?></p>
+                        <p class="text-xs font-weight-bold mb-0"><?= $row['deskripsi'] ?></p>
                     </td>
                     <td class="align-middle text-center text-sm">
                         <p class="text-xs font-weight-bold mb-0"><?= $row['jum'] ?></p>
                   
-                       
+                        <td class="align-middle text-center text-sm">
+                        <a href="/gapoktan/list"></a><button type="button" class="btn btn-info btn-sm">
+                             Detail
+                        </button>
+                        </a>
                     </td>
                 </tr>
             <?php
@@ -47,13 +51,19 @@
                         <p class="text-xs font-weight-bold mb-0"></p>
                     </th>
                     <th class="align-middle text-center text-sm">
-                        <p class="text-xs font-weight-bold mb-0">JUMLAH POKTAN</p>
+                        <p class="text-xs font-weight-bold mb-0">JUMLAH</p>
                     </th>
                     <th class="align-middle text-center text-sm">
                         <p class="text-xs font-weight-bold mb-0"><?= $jum_poktan ?></p>
                     </th>
                 
 
+                    <th class="align-middle text-center text-sm">
+                        <button type="button" class="btn btn-info btn-sm">
+                             Detail
+                        </button>
+                        </a>
+                    </th>
                 </tr>
             </tfoot>
         </table>

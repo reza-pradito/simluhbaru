@@ -25,13 +25,8 @@ class GapoktanModel extends Model
     // protected $validationRules    = [];
     // protected $validationMessages = [];
     // protected $skipValidation     = false;
-    public function getDetailGapoktan($kode_kec)
-    {
-        $query = $this->db->query("SELECT * FROM tbldaerah WHERE id_daerah = '$kode_kec'");
-        $row   = $query->getRowArray();
-        return $row;
 
-    }
+
     public function getGapoktanTotal($kode_kab)
     {
         $db = Database::connect();

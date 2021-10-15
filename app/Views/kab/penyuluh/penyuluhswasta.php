@@ -23,7 +23,7 @@
                     <th class="text-uppercase text-secondary text-xxs font-weight-bolder" style="text-align: center;">Aksi</th>
                 </tr>
             </thead>
-            <tbody>
+            <tbody class="swastadata">
                 <?php
                 foreach ($tabel_data as $key => $row) {
                 ?>
@@ -38,7 +38,7 @@
                             <p class="text-xs font-weight-bold mb-0"><?= $row['nama']; ?></p>
                         </td>
                         <td class="align-middle text-center text-sm">
-                            <p class="text-xs font-weight-bold mb-0">Suhartono,SP</p>
+                            <p class="text-xs font-weight-bold mb-0"></p>
                         </td>
                         <td class="align-middle text-center text-sm">
                             <p class="text-xs font-weight-bold mb-0"><?= $row['tempat_lahir']; ?>, <?= $row['tgl_lahir']; ?>-<?= $row['bln_lahir']; ?>-<?= $row['thn_lahir']; ?></p>
@@ -48,14 +48,12 @@
                         </td>
                         <td class="align-middle text-center text-sm">
                             <a href="#">
-                                <button type="button" data-bs-toggle="modal" data-bs-target="#modal-edit" id="btn-edit" class="btn bg-gradient-warning btn-sm" data-id_swa="<?= $row['id_swa']; ?>" data-jenis_penyuluh="<?= $row['jenis_penyuluh']; ?>" data-noktp="<?= $row['noktp']; ?>" data-nama="<?= $row['nama']; ?>" data-tgl_lahir="<?= $row['tgl_lahir']; ?>" data-bln_lahir="<?= $row['bln_lahir']; ?>" data-thn_lahir="<?= $row['thn_lahir']; ?>" data-tempat_lahir="<?= $row['tempat_lahir']; ?>" data-jenis_kelamin="<?= $row['jenis_kelamin']; ?>" data-satminkal="<?= $row['satminkal']; ?>" data-lokasi_kerja="<?= $row['lokasi_kerja']; ?>" data-alamat="<?= $row['alamat']; ?>" data-dati2="<?= $row['dati2']; ?>" data-kodepos="<?= $row['kodepos']; ?>" data-kode_prop="<?= $row['kode_prop']; ?>" data-telp="<?= $row['telp']; ?>" data-email="<?= $row['email']; ?>" data-nama_perusahaan="<?= $row['nama_perusahaan']; ?>" data-alamat_perush="<?= $row['alamat_perush']; ?>" data-telp_perush="<?= $row['telp_perush']; ?>" data-jabatan_di_perush="<?= $row['jabatan_di_perush']; ?>" data-tempat_tugas="<?= $row['tempat_tugas']; ?>">
+                                <button type="button" id="btnEdit" data-id_swa="<?= $row['id_swa']; ?>" class="btn bg-gradient-warning btn-sm">
                                     <i class="fas fa-edit"></i> Ubah
                                 </button>
                             </a>
-                            <button type="button" class="btn bg-gradient-danger btn-sm">
-                                <i class="fas fa-trash"></i> Hapus
-                            </button>
-                            </a>
+                            <button class="btn bg-gradient-danger btn-sm" id="btnHapus" data-id_swa="<?= $row['id_swa']; ?>" type="submit" onclick="return confirm('Are you sure ?')">
+                                <i class="fas fa-trash"></i> Hapus</button>
                         </td>
                     </tr>
                 <?php
@@ -73,48 +71,49 @@
                                 <h4 class="font-weight-bolder text-warning text-gradient">Tambah Data</h4>
                             </div>
                             <div class="card-body">
-                                <form role="form text-left" action="<?= base_url('Penyuluh/PenyuluhSwasta/save'); ?>" method="post" enctype="multipart/form-data">
+                                <form method="POST" action="<?= base_url('Penyuluh/PenyuluhSwasta/save'); ?>">
                                     <? csrf_field(); ?>
                                     <div class="row">
                                         <div class="col">
-                                            <input type="hidden" name="jenis_penyuluh" class="form-control" value="4">
-                                            <input type="hidden" name="satminkal" class="form-control" value="<?= $row['kode'] ?>">
+                                            <input type="hidden" name="id_swa" id="id_swa" class="form-control id_swa">
+                                            <input type="hidden" name="jenis_penyuluh" id="jenis_penyuluh" class="form-control jenis_penyuluh" value="4">
+                                            <input type="hidden" name="satminkal" id="satminkal" class="form-control satminkal" value="<?= $row['kode'] ?>">
 
                                             <label>No. KTP</label>
                                             <div class="input-group mb-3">
-                                                <input type="text" name="noktp" class="form-control" placeholder="No. KTP" aria-label="Password" aria-describedby="password-addon">
+                                                <input type="text" name="noktp" id="noktp" class="form-control noktp" placeholder="No. KTP">
                                             </div>
-                                            <label>Nama Penyuluh</label>
+                                            <label>Nama Penyuluh</label> <span id="error_nama" class="text-danger ms-3"></span>
                                             <div class="input-group mb-3">
-                                                <input type="text" name="nama" class="form-control" placeholder="Nama" aria-label="Password" aria-describedby="password-addon">
+                                                <input type="text" name="nama" id="nama" class="form-control nama" placeholder="Nama">
                                             </div>
                                             <label>Tempat, Tanggal Lahir</label>
                                             <div class="input-group mb-3">
-                                                <input type="text" name="tempat_lahir" class="form-control" placeholder="Tempat Lahir">
-                                                <select id="year" name="thn_lahir" class="form-select" aria-label="Default select example">
+                                                <input type="text" name="tempat_lahir" id="tempat_lahir" class="form-control tempat_lahir" placeholder="Tempat Lahir">
+                                                <select id="year" name="thn_lahir" class="form-select thn_lahir" aria-label="Default select example">
                                                     <option value="">Tahun</option>
                                                 </select>
-                                                <select id="month" name="bln_lahir" class="form-select" aria-label="Default select example">
+                                                <select id="month" name="bln_lahir" class="form-select bln_lahir" aria-label="Default select example">
                                                     <option value="">Bulan</option>
                                                 </select>
-                                                <select id="day" name="tgl_lahir" class="form-select" aria-label="Default select example">
+                                                <select id="day" name="tgl_lahir" class="form-select tgl_lahir" aria-label="Default select example">
                                                     <option value="">Tanggal</option>
                                                 </select>
                                             </div>
                                             <label>Jenis Kelamin</label>
-                                            <div class="input-group mb-3">
-                                                <div class="form-check form-check-inline">
-                                                    <input class="form-check-input" type="radio" name="jenis_kelamin" id="inlineRadio1" value="1">
+                                            <div class="input-group mb-3" id="jenis_kelamin">
+                                                <div class="form-check form-check-inline" id="jenis_kelamin">
+                                                    <input class="form-check-input" type="radio" name="jenis_kelamin" id="jenis_kelamin" value="1">
                                                     <label class="form-check-label" for="inlineRadio1">Laki-laki</label>
                                                 </div>
-                                                <div class="form-check form-check-inline">
-                                                    <input class="form-check-input" type="radio" name="jenis_kelamin" id="inlineRadio2" value="2">
+                                                <div class="form-check form-check-inline" id="jenis_kelamin">
+                                                    <input class="form-check-input" type="radio" name="jenis_kelamin" id="jenis_kelamin" value="2">
                                                     <label class="form-check-label" for="inlineRadio2">Perempuan</label>
                                                 </div>
                                             </div>
                                             <label>Lokasi Kerja</label>
                                             <div class="input-group mb-3">
-                                                <select name="lokasi_kerja" class="form-select" aria-label="Default select example">
+                                                <select name="lokasi_kerja" id="lokasi_kerja" class="form-select lokasi_kerja" aria-label="Default select example">
                                                     <option selected>Pilih Lokasi Kerja</option>
                                                     <option value="3">Kabupaten/Kota</option>
                                                     <option value="4">Kecamatan</option>
@@ -124,7 +123,7 @@
                                         <div class="col">
                                             <label>Kecamatan Tempat Tugas</label>
                                             <div class="input-group mb-3">
-                                                <select name="tempat_tugas" id="tempat_tugas" class="form-control input-lg">
+                                                <select name="tempat_tugas" id="tempat_tugas" class="form-control input-lg tempat_tugas">
                                                     <option value="">Pilih Desa</option>
                                                     <?php
                                                     foreach ($tugas as $row2) {
@@ -135,17 +134,17 @@
                                             </div>
                                             <label>Alamat Rumah</label>
                                             <div class="input-group mb-3">
-                                                <textarea class="form-control" placeholder="Alamat Rumah" name="alamat" id="floatingTextarea"></textarea>
+                                                <textarea class="form-control alamat" placeholder="Alamat Rumah" name="alamat" id="alamat"></textarea>
                                             </div>
                                             <label>Kab./Kota dan Kode Pos</label>
                                             <div class="input-group mb-3">
-                                                <input type="text" class="form-control" name="dati2" placeholder="Kab./Kota">
+                                                <input type="text" class="form-control dati2" name="dati2" id="dati2" placeholder="Kab./Kota">
 
-                                                <input type="text" class="form-control" name="kodepos" placeholder="| Kode Pos">
+                                                <input type="text" class="form-control kodepos" name="kodepos" id="kodepos" placeholder="| Kode Pos">
                                             </div>
                                             <label>Provinsi</label>
                                             <div class="input-group mb-3">
-                                                <select name="kode_prop" id="kode_prop" class="form-control input-lg">
+                                                <select name="kode_prop" id="kode_prop" class="form-control input-lg kode_prop">
                                                     <option value="">Pilih Provinsi</option>
                                                     <?php
                                                     foreach ($namaprop as $row) {
@@ -156,11 +155,11 @@
                                             </div>
                                             <label>No.Telepon/HP</label>
                                             <div class="input-group mb-3">
-                                                <input type="number" name="telp" class="form-control" placeholder="No.Telepon/HP">
+                                                <input type="number" name="telp" id="telp" class="form-control telp" placeholder="No.Telepon/HP">
                                             </div>
                                             <label>Email</label>
                                             <div class="input-group mb-3">
-                                                <input type="email" name="email" class="form-control" placeholder="Email">
+                                                <input type="email" name="email" id="email" class="form-control email" placeholder="Email">
                                             </div>
                                         </div>
                                         <h5>Perusahaan</h5>
@@ -168,24 +167,24 @@
 
                                             <label>Nama Perusahaan</label>
                                             <div class="input-group mb-3">
-                                                <input type="text" name="nama_perusahaan" class="form-control" placeholder="Nama Perusahaan">
+                                                <input type="text" name="nama_perusahaan" id="nama_perusahaan" class="form-control nama_perusahaan" placeholder="Nama Perusahaan">
                                             </div>
                                             <label>
                                                 Jabatan Dalam Perusahaan</label>
                                             <div class="input-group mb-3">
-                                                <input type="text" name="jabatan_di_perush" class="form-control" placeholder="Jabatan Dalam Perusahaan">
+                                                <input type="text" name="jabatan_di_perush" id="jabatan_di_perush" class="form-control jabatan_di_perush" placeholder="Jabatan Dalam Perusahaan">
                                             </div>
                                             <label>Alamat Perusahaan</label>
                                             <div class="input-group mb-3">
-                                                <textarea class="form-control" name="alamat_perush" placeholder="Alamat Perusahaan" id="floatingTextarea"></textarea>
+                                                <textarea class="form-control alamat_perush" name="alamat_perush" id="alamat_perush" placeholder="Alamat Perusahaan" id="floatingTextarea"></textarea>
                                             </div>
                                             <label>No.Telepon</label>
                                             <div class="input-group mb-3">
-                                                <input type="text" name="telp_perush" class="form-control" placeholder="No.Telepon">
+                                                <input type="text" name="telp_perush" id="telp_perush" class="form-control telp_perush" placeholder="No.Telepon">
                                             </div>
                                         </div>
                                         <div class="text-center">
-                                            <center><button type="submit" class="btn btn-round bg-gradient-warning btn-lg">Simpan Data</button></center>
+                                            <center><button type="button" id="btnSave" class="btn btn-round bg-gradient-warning btn-lg ajax-save">Simpan Data</button></center>
                                         </div>
                                     </div>
                                 </form>
@@ -196,12 +195,422 @@
                 </div>
             </div>
         </div>
+
+
+
     </div>
 </div>
 
-</div>
-</div>
 
 
+
+
+<?= $this->endSection() ?>
+
+<?= $this->section('script') ?>
+
+<script>
+    $(document).ready(function() {
+
+        $(document).delegate('#btnSave', 'click', function() {
+
+            var jenis_penyuluh = $('#jenis_penyuluh').val();
+            var satminkal = $('#satminkal').val();
+            var noktp = $('#noktp').val();
+            var nama = $('#nama').val();
+            var tempat_lahir = $('#tempat_lahir').val();
+            var thn_lahir = $('#year').val();
+            var bln_lahir = $('#month').val();
+            var tgl_lahir = $('#day').val();
+            var jenis_kelamin = $('#jenis_kelamin').val();
+            var lokasi_kerja = $('#lokasi_kerja').val();
+            var tempat_tugas = $('#tempat_tugas').val();
+            var alamat = $('#alamat').val();
+            var dati2 = $('#dati2').val();
+            var kodepos = $('#kodepos').val();
+            var kode_prop = $('#kode_prop').val();
+            var telp = $('#telp').val();
+            var email = $('#email').val();
+            var nama_perusahaan = $('#nama_perusahaan').val();
+            var jabatan_di_perush = $('#jabatan_di_perush').val();
+            var alamat_perush = $('#alamat_perush').val();
+            var telp_perush = $('#telp_perush').val();
+
+            $.ajax({
+                url: '<?= base_url() ?>/Penyuluh/PenyuluhSwasta/save/',
+                type: 'POST',
+                data: {
+                    'jenis_penyuluh': jenis_penyuluh,
+                    'satminkal': satminkal,
+                    'noktp': noktp,
+                    'nama': nama,
+                    'tempat_lahir': tempat_lahir,
+                    'thn_lahir': thn_lahir,
+                    'bln_lahir': bln_lahir,
+                    'tgl_lahir': tgl_lahir,
+                    'jenis_kelamin': jenis_kelamin,
+                    'lokasi_kerja': lokasi_kerja,
+                    'tempat_tugas': tempat_tugas,
+                    'alamat': alamat,
+                    'dati2': dati2,
+                    'kodepos': kodepos,
+                    'kode_prop': kode_prop,
+                    'telp': telp,
+                    'email': email,
+                    'nama_perusahaan': nama_perusahaan,
+                    'jabatan_di_perush': jabatan_di_perush,
+                    'alamat_perush': alamat_perush,
+                    'telp_perush': telp_perush
+                },
+                success: function(result) {
+                    Swal.fire({
+                        title: 'Sukses',
+                        text: "Sukses tambah data",
+                        type: 'success',
+                    }).then((result) => {
+
+                        if (result.value) {
+                            location.reload();
+                        }
+                    });
+                },
+                error: function(jqxhr, status, exception) {
+                    Swal.fire({
+                        title: 'Error',
+                        text: "Gagal tambah data",
+                        type: 'error',
+                    }).then((result) => {
+                        if (result.value) {
+                            location.reload();
+                        }
+                    });
+                }
+            });
+        });
+
+        $(document).delegate('#btnHapus', 'click', function() {
+            var id_swa = $(this).data('id_swa');
+
+            $.ajax({
+                url: '<?= base_url() ?>/Penyuluh/PenyuluhSwasta/delete/' + id_swa,
+                type: 'POST',
+                success: function(result) {
+                    Swal.fire({
+                        title: 'Sukses',
+                        text: "Sukses Hapus data",
+                        type: 'success',
+                    }).then((result) => {
+
+                        if (result.value) {
+                            location.reload();
+                        }
+                    });
+                },
+                error: function(jqxhr, status, exception) {
+                    Swal.fire({
+                        title: 'Error',
+                        text: "Gagal Hapus data",
+                        type: 'error',
+                    }).then((result) => {
+                        if (result.value) {
+                            location.reload();
+                        }
+                    });
+                }
+
+            });
+        });
+
+
+        $(document).delegate('#btnEdit', 'click', function() {
+            $.ajax({
+                url: '<?= base_url() ?>/Penyuluh/PenyuluhSwasta/edit/' + $(this).data('id_swa'),
+                type: 'GET',
+                dataType: 'JSON',
+                success: function(result) {
+                    // console.log(result);
+
+                    $('#id_swa').val(result.id_swa);
+                    $('#jenis_penyuluh').val(result.jenis_penyuluh);
+                    $('#satminkal').val(result.satminkal);
+                    $('#noktp').val(result.noktp);
+                    $('#nama').val(result.nama);
+                    $('#tempat_lahir').val(result.tempat_lahir);
+                    $('#year').val(result.thn_lahir);
+                    $('#month').val(result.bln_lahir);
+                    $('#day').val(result.tgl_lahir);
+                    $('#jenis_kelamin').val(result.jenis_kelamin);
+                    $('#lokasi_kerja').val(result.lokasi_kerja);
+                    $('#tempat_tugas').val(result.tempat_tugas);
+                    $('#alamat').val(result.alamat);
+                    $('#dati2').val(result.dati2);
+                    $('#kodepos').val(result.kodepos);
+                    $('#kode_prop').val(result.kode_prop);
+                    $('#telp').val(result.telp);
+                    $('#email').val(result.email);
+                    $('#nama_perusahaan').val(result.nama_perusahaan);
+                    $('#jabatan_di_perush').val(result.jabatan_di_perush);
+                    $('#alamat_perush').val(result.alamat_perush);
+                    $('#telp_perush').val(result.telp_perush);
+
+                    $('#modal-form').modal('show');
+
+                    $("#btnSave").attr("id", "btnDoEdit");
+
+                    $(document).delegate('#btnDoEdit', 'click', function() {
+
+
+                        var id_swa = $('#id_swa').val();
+                        var jenis_penyuluh = $('#jenis_penyuluh').val();
+                        var satminkal = $('#satminkal').val();
+                        var noktp = $('#noktp').val();
+                        var nama = $('#nama').val();
+                        var tempat_lahir = $('#tempat_lahir').val();
+                        var thn_lahir = $('#year').val();
+                        var bln_lahir = $('#month').val();
+                        var tgl_lahir = $('#day').val();
+                        var jenis_kelamin = $('#jenis_kelamin').val();
+                        var lokasi_kerja = $('#lokasi_kerja').val();
+                        var tempat_tugas = $('#tempat_tugas').val();
+                        var alamat = $('#alamat').val();
+                        var dati2 = $('#dati2').val();
+                        var kodepos = $('#kodepos').val();
+                        var kode_prop = $('#kode_prop').val();
+                        var telp = $('#telp').val();
+                        var email = $('#email').val();
+                        var nama_perusahaan = $('#nama_perusahaan').val();
+                        var jabatan_di_perush = $('#jabatan_di_perush').val();
+                        var alamat_perush = $('#alamat_perush').val();
+                        var telp_perush = $('#telp_perush').val();
+
+                        let formData = new FormData();
+                        formData.append('id_swa', id_swa);
+                        formData.append('jenis_penyuluh', jenis_penyuluh);
+                        formData.append('satminkal', satminkal);
+                        formData.append('noktp', noktp);
+                        formData.append('nama', nama);
+                        formData.append('tempat_lahir', tempat_lahir);
+                        formData.append('thn_lahir', thn_lahir);
+                        formData.append('bln_lahir', bln_lahir);
+                        formData.append('tgl_lahir', tgl_lahir);
+                        formData.append('jenis_kelamin', jenis_kelamin);
+                        formData.append('lokasi_kerja', lokasi_kerja);
+                        formData.append('tempat_tugas', tempat_tugas);
+                        formData.append('alamat', alamat);
+                        formData.append('dati2', dati2);
+                        formData.append('kodepos', kodepos);
+                        formData.append('kode_prop', kode_prop);
+                        formData.append('telp', telp);
+                        formData.append('email', email);
+                        formData.append('nama_perusahaan', nama_perusahaan);
+                        formData.append('jabatan_di_perush', jabatan_di_perush);
+                        formData.append('alamat_perush', alamat_perush);
+                        formData.append('telp_perush', telp_perush);
+
+                        $.ajax({
+                            url: '<?= base_url() ?>/Penyuluh/PenyuluhSwasta/update/' + id_swa,
+                            type: "POST",
+                            data: formData,
+                            cache: false,
+                            processData: false,
+                            contentType: false,
+                            success: function(result) {
+                                $('#modal-form').modal('hide');
+                                Swal.fire({
+                                    title: 'Sukses',
+                                    text: "Sukses edit data",
+                                    type: 'success',
+                                }).then((result) => {
+
+                                    if (result.value) {
+                                        location.reload();
+                                    }
+                                });
+
+                            },
+                            error: function(jqxhr, status, exception) {
+
+                                Swal.fire({
+                                    title: 'Error',
+                                    text: "Gagal edit data",
+                                    type: 'Error',
+                                }).then((result) => {
+
+                                    if (result.value) {
+                                        location.reload();
+                                    }
+                                });
+
+                            }
+                        });
+                    });
+
+                }
+            });
+
+            $('.modal').on('hidden.bs.modal', function() {
+                $(this).find('form')[0].reset();
+            });
+
+        });
+    });
+</script>
+
+
+<!-- <script>
+    $(document).ready(function() {
+
+        $(document).on('click', '.ajax-save', function() {
+
+            if ($.trim($('.nama').val()).length == 0) {
+                error_nama = 'Nama wajib diisi';
+                $('#error_nama').text(error_nama);
+            } else {
+                error_nama = '';
+                $('#error_nama').text(error_nama);
+            }
+
+            if (error_nama != '') {
+                return false;
+            } else {
+                var data = {
+                    'jenis_penyuluh': $('.jenis_penyuluh').val(),
+                    'satminkal': $('.satminkal').val(),
+                    'noktp': $('.noktp').val(),
+                    'nama': $('.nama').val(),
+                    'tempat_lahir': $('.tempat_lahir').val(),
+                    'thn_lahir': $('.thn_lahir').val(),
+                    'bln_lahir': $('.bln_lahir').val(),
+                    'tgl_lahir': $('.tgl_lahir').val(),
+                    'jenis_kelamin': $('.jenis_kelamin').val(),
+                    'lokasi_kerja': $('.lokasi_kerja').val(),
+                    'tempat_tugas': $('.tempat_tugas').val(),
+                    'alamat': $('.alamat').val(),
+                    'dati2': $('.dati2').val(),
+                    'kodepos': $('.kodepos').val(),
+                    'kode_prop': $('.kode_prop').val(),
+                    'telp': $('.telp').val(),
+                    'email': $('.email').val(),
+                    'nama_perusahaan': $('.nama_perusahaan').val(),
+                    'jabatan_di_perush': $('.jabatan_di_perush').val(),
+                    'alamat_perush': $('.alamat_perush').val(),
+                    'telp_perush': $('.telp_perush').val(),
+
+                };
+                $.ajax({
+                    method: "POST",
+                    url: "Penyuluh/penyuluhswasta/save",
+                    data: data,
+                    success: function(response) {
+                        $('#modal-form').modal('hide');
+                        $('#modal-form').find('input').val('');
+
+                        alertify.set('notifier', 'position', 'top-right');
+                        alertify.success(response.status);
+                        location.reload();
+                    }
+                });
+            }
+
+        });
+    });
+</script> -->
+
+<!-- <script>
+    $(document).ready(function() {
+        $(document).delegate('#btn-edit', 'click', function() {
+            var myModal = new bootstrap.Modal(document.getElementById('modal-edit'), options);
+            var id = $(this).data('id_swa');
+            var coba = $(this).data('satminkal');
+            //var kp = $(this).data('kode_prop');
+            // alert(id);
+            $.ajax({
+                url: '<?= base_url() ?>/Penyuluh/penyuluhswasta/DetailEdit/' + id,
+                dataType: 'JSON',
+                success: function(res) {
+                    // $(".daftpos").html(res)
+
+                    alert(coba);
+                    //res = JSON.parse(res);
+
+                    $('#jenis_penyuluh').val(res[0].jenis_penyuluh);
+                    $('#noktp').val(res[0].noktp);
+                    $('#nama').val(res[0].nama);
+                    $('#tempat_lahir').val(res[0].tempat_lahir);
+                    $('#year').val(res[0].thn_lahir);
+                    $('#month').val(res[0].bln_lahir);
+                    $('#satminkal').val(res[0].satminkal);
+                    $('#kode_prop').val(res[0].kode_prop);
+                    $('#day').val(res[0].tgl_lahir);
+                    $('#jenis_kelamin').val(res[0].jenis_kelamin);
+                    $('#lokasi_kerja').val(res[0].lokasi_kerja);
+                    $('#tempat_tugas').val(res[0].tempat_tugas);
+                    $('#alamat').val(res[0].alamat);
+                    $('#dati2').val(res[0].dati2);
+                    $('#kodepos').val(res[0].kodepos);
+                    $('#telp').val(res[0].telp);
+                    $('#email').val(res[0].email);
+                    $('#kode_prop').val(res[0].id_prop);
+                    $('#nama_perusahaan').val(res[0].nama_perusahaan);
+                    $('#jabatan_di_perush').val(res[0].jabatan_di_perush);
+                    $('#alamat_perush').val(res[0].alamat_perush);
+                    $('#telp_perush').val(res[0].telp_perush);
+                    $('#judul_form').text("Edit Data");
+                    myModal.show();
+                }
+
+            })
+        })
+
+
+    })
+</script>
+
+<script>
+    $(document).ready(function() {
+
+        $(document).on('click', '.ajax-update', function() {
+            var data = {
+                'id': $('#id_swa').val(),
+                'jenis_penyuluh': $('#jenis_penyuluh').val(),
+                'satminkal': $('.#satminkal').val(),
+                'noktp': $('.#noktp').val(),
+                'nama': $('.#nama').val(),
+                'tempat_lahir': $('.#tempat_lahir').val(),
+                'thn_lahir': $('.#year2').val(),
+                'bln_lahir': $('.#month2').val(),
+                'tgl_lahir': $('.#day2').val(),
+                'jenis_kelamin': $('.#jenis_kelamin').val(),
+                'lokasi_kerja': $('.#lokasi_kerja').val(),
+                'tempat_tugas': $('.#tempat_tugas').val(),
+                'alamat': $('.#alamat').val(),
+                'dati2': $('.#dati2').val(),
+                'kodepos': $('.#kodepos').val(),
+                'kode_prop': $('.#kode_prop').val(),
+                'telp': $('.#telp').val(),
+                'email': $('.#email').val(),
+                'nama_perusahaan': $('.#nama_perusahaan').val(),
+                'jabatan_di_perush': $('.#jabatan_di_perush').val(),
+                'alamat_perush': $('.#alamat_perush').val(),
+                'telp_perush': $('.#telp_perush').val(),
+            };
+
+            $.ajax({
+                method: "POST",
+                url: "Penyuluh/penyuluhswasta/update",
+                data: data,
+                success: function(response) {
+                    $('#modal-edit').modal('hide');
+                    $('.swastadata').html("");
+
+
+                    alertify.set('notifier', 'position', 'top-right');
+                    alertify.success(response.status);
+                }
+            });
+        });
+
+    })
+</script> -->
 
 <?= $this->endSection() ?>

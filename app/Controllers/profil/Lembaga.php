@@ -4,7 +4,6 @@ namespace App\Controllers\profil;
 
 use App\Controllers\BaseController;
 use App\Models\LembagaModel;
-// use PharIo\Manifest\Library;
 
 class Lembaga extends BaseController
 {
@@ -14,25 +13,23 @@ class Lembaga extends BaseController
     {
         $this->session = \Config\Services::session();
         $this->session->start();
-        //helper('autentikasi');
-
+        helper('autentikasi');
     }
 
     public function index()
     {
-        //is_logged_in();
+
+
         if (session()->get('username') == "") {
             return redirect()->to('login');
         }
-        $lembagaModel = new LembagaModel();
 
-        if (session()->get('status_user') == '1') {
-            $dtlembaga = $lembagaModel->getProfil(session()->get('kodebakor'));
-        } elseif (session()->get('status_user') == '200') {
-            $dtlembaga = $lembagaModel->getProfil(session()->get('kodebapel'));
-        } elseif (session()->get('status_user') == '300') {
-            $dtlembaga = $lembagaModel->getProfil(session()->get('kodebpp'));
-        }
+        $lembagaModel = new LembagaModel();
+        // if (empty($this->session->get('kodebapel'))) {
+        //     return redirect()->to('login');
+        // } else {
+        $dtlembaga = $lembagaModel->getProfil(session()->get('kodebapel'));
+
 
         $data = [
 
@@ -40,7 +37,7 @@ class Lembaga extends BaseController
             'dt' => $dtlembaga
         ];
 
+        //dd($data);
         return view('profil/profillembaga', $data);
-        //}
     }
 }

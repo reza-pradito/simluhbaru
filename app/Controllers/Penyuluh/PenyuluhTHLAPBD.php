@@ -15,9 +15,6 @@ class PenyuluhTHLAPBD extends BaseController
         // $get_param = $this->request->getGet();
 
         // $kode_kab = $get_param['kode_kab'];
-        if (session()->get('username') == "") {
-            return redirect()->to('login');
-        }
         $penyuluh_model = new PenyuluhTHLAPBDModel();
         $thlapbd_data = $penyuluh_model->getPenyuluhTHLAPBDTotal(session()->get('kodebapel'));
 

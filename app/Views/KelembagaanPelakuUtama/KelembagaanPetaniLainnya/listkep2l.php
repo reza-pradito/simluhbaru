@@ -8,6 +8,7 @@
 <center>Data ditemukan <?= ucwords(strtolower($jum)) ?> </center>
 
 <button type="button" data-bs-toggle="modal" data-bs-target="#modal-form" class="btn bg-gradient-primary btn-sm">+ Tambah Data</button>
+
 <div class="card">
     <div class="table-responsive">
         <table class="table align-items-center mb-0">
