@@ -25,6 +25,7 @@ class KodeWilModel extends Model
 
         return $data;
     }
+
     public function getKodeWil2($kode_kab)
     {
         $db = Database::connect();
@@ -44,3 +45,6 @@ class KodeWilModel extends Model
         return $data;
     }
 }
+
+}
+
