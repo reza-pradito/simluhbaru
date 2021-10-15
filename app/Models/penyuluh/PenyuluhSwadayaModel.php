@@ -114,7 +114,23 @@ class PenyuluhSwadayaModel extends Model
     public function getTugas($kode_kab)
     {
         $query = $this->db->query("select * from tbldaerah a 
-    left join tbldasar_swa b on b.satminkal=a.id_dati2 where id_dati2='$kode_kab'");
+    left join tbldasar_swa b on b.kode_kab=a.id_dati2
+    where a.id_dati2='$kode_kab'");
+        $row   = $query->getResultArray();
+        return $row;
+    }
+
+    public function getUnitKerja($kode_kab)
+    {
+        $query = $this->db->query("select a.id, a.nama_bpp, a.satminkal, a.kecamatan, a.wil_kec1 
+        from tblbpp a where satminkal ='$kode_kab' order by nama_bpp");
+        $row   = $query->getResultArray();
+        return $row;
+    }
+
+    public function getDesa()
+    {
+        $query = $this->db->query("select * from tbldesa ORDER BY nm_desa ASC");
         $row   = $query->getResultArray();
         return $row;
     }

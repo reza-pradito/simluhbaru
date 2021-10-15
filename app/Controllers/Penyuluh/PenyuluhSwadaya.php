@@ -14,16 +14,19 @@ class PenyuluhSwadaya extends BaseController
             return redirect()->to('login');
         }
 
-        $get_param = $this->request->getGet();
 
         $penyuluh_model = new PenyuluhSwadayaModel();
         $swadaya_data = $penyuluh_model->getPenyuluhSwadayaTotal(session()->get('kodebapel'));
         $namaprop = $penyuluh_model->getPropvinsi();
+        $tugas = $penyuluh_model->getTugas(session()->get('kodebapel'));
+        $unitkerja = $penyuluh_model->getUnitKerja(session()->get('kodebapel'));
 
         $data = [
             'jml_data' => $swadaya_data['jum'],
             'nama_kabupaten' => $swadaya_data['nama_kab'],
             'tabel_data' => $swadaya_data['table_data'],
+            'tugas' => $tugas,
+            'unitkerja' => $unitkerja,
             'namaprop' => $namaprop,
             'title' => 'Penyuluh Swadaya',
             'name' => 'Swadaya'
@@ -35,15 +38,30 @@ class PenyuluhSwadaya extends BaseController
         return view('kab/penyuluh/penyuluhswadaya', $data);
     }
 
-    public function getWilKer($tempat_tugas = null)
+    function action()
     {
-        $wilker_model = new PenyuluhSwadayaModel();
-        $tabel_desa = $wilker_model->getPropvinsi();
-        $data = [
-            'tabel_data' => $tabel_desa,
-        ];
-        return json_encode($data);
+        if ($this->request->getVar('action')) {
+            $action = $this->request->getVar('action');
+
+            if ($action == 'get_wil_kerja') {
+                $penyuluh_model = new PenyuluhSwadayaModel();
+
+                $wilkerdata = $penyuluh_model->getDesa->where('id_daerah', $this->request->getVar('id_daerah'));
+
+                echo json_encode($wilkerdata);
+            }
+        }
     }
+
+    // public function getWilKer($tempat_tugas = null)
+    // {
+    //     $penyuluh_model = new PenyuluhSwadayaModel();
+    //     $tugas = $penyuluh_model->getTugas(session()->get('kodebapel'));
+    //     $data = [
+    //         'tugas' => $tugas
+    //     ];
+    //     return json_encode($data);
+    // }
 
     public function save()
     {
