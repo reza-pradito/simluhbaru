@@ -16,27 +16,13 @@
     <link href="<?= base_url(); ?>assets/css/nucleo-svg.css" rel="stylesheet" />
     <!-- Font Awesome Icons -->
 
-
-
-    <script src="https://kit.fontawesome.com/42d5adcbca.js" crossorigin="anonymous"></script>
-    <link href="<?= base_url('assets/css/nucleo-svg.css'); ?>" rel="stylesheet" />
-    <link id="pagestyle" href="<?= base_url('assets/css/soft-ui-dashboard.css?v=1.0.3'); ?>" rel="stylesheet" />
-
-    <!-- <link href="<?= base_url('assets/css/nucleo-svg.css'); ?>" rel="stylesheet" /> -->
-
     <!-- CSS Files -->
     <link id="pagestyle" href="<?= base_url('assets/css/soft-ui-dashboard.css'); ?>" rel="stylesheet" />
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.bundle.min.js"></script>
 
-    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.11.3/css/jquery.dataTables.css">
-
-
-
-
 </head>
-
 
 <body class="g-sidenav-show  bg-gray-100">
 
@@ -51,11 +37,6 @@
     <!-- config template -->
     <?php echo view('layout/config_template'); ?>
 
-    <script src="<?= base_url('assets/js/script.js'); ?>"></script>
-    <script src="<?= base_url('assets/js/plugins/perfect-scrollbar.min.js'); ?>"></script>
-    <script src="<?= base_url('assets/js/plugins/smooth-scrollbar.min.js'); ?>"></script>
-    <script src="<?= base_url('assets/js/plugins/chartjs.min.js'); ?>"></script>
-
     <!--   Core JS Files   -->
     <script src="<?= base_url('assets/js/core/popper.min.js'); ?>"></script>
     <script src="<?= base_url('assets/js/core/bootstrap.min.js'); ?>"></script>
@@ -64,17 +45,22 @@
     <!-- Third party plugin JS-->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-easing/1.4.1/jquery.easing.min.js"></script>
 
+    <script src="<?= base_url('assets/js/script.js'); ?>"></script>
+    <script src="<?= base_url('assets/js/plugins/perfect-scrollbar.min.js'); ?>"></script>
+    <script src="<?= base_url('assets/js/plugins/smooth-scrollbar.min.js'); ?>"></script>
+    <script src="<?= base_url('assets/js/plugins/chartjs.min.js'); ?>"></script>
+
+
+
     <!-- Resources -->
     <script src="https://cdn.amcharts.com/lib/4/core.js"></script>
     <script src="https://cdn.amcharts.com/lib/4/maps.js"></script>
     <script src="https://cdn.amcharts.com/lib/4/geodata/indonesiaLow.js"></script>
     <script src="https://cdn.amcharts.com/lib/4/themes/animated.js"></script>
 
-
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js" integrity="sha512-894YE6QWD5I59HgZOGReFYm4dnWc1Qt5NtvYSaNcOP+u1T9qYdvdihz0PPSiiqn/+/3e7Jo4EaG7TubfWGUrMQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
     <script src="https://code.jquery.com/jquery-3.6.0.js" integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk=" crossorigin="anonymous"></script>
     <script src="//cdn.jsdelivr.net/npm/alertifyjs@1.13.1/build/alertify.min.js"></script>
-
     <script>
         var win = navigator.platform.indexOf('Win') > -1;
         if (win && document.querySelector('#sidenav-scrollbar')) {
@@ -89,9 +75,6 @@
     <!-- Control Center for Soft Dashboard: parallax effects, scripts for the example pages etc -->
     <script src="<?= base_url(); ?>assets/js/soft-ui-dashboard.min.js?v=1.0.3"></script>
 
-    <script src="<?= base_url('assets/js/sweetalert2.all.min.js'); ?>"></script>
-
-
     <script src="https://code.jquery.com/jquery-3.6.0.js" integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk=" crossorigin="anonymous"></script>
     <script type="text/javascript">
         $('.common_class li').click(function() {
@@ -99,7 +82,6 @@
             $(this).addClass('active');
         })
     </script>
-
     <script>
         $(document).ready(function() {
             const monthNames = ["January", "February", "March", "April", "May", "June",
@@ -159,8 +141,8 @@
         });
     </script>
 
-    <?php $this->renderSection('script') ?>
 
+    <?= $this->renderSection('script') ?>
 
 </body>
 
