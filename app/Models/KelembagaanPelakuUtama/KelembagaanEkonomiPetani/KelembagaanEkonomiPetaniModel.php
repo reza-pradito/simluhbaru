@@ -25,13 +25,7 @@ class KelembagaanEkonomiPetaniModel extends Model
     // protected $validationRules    = [];
     // protected $validationMessages = [];
     // protected $skipValidation     = false;
-    public function getDetailKelembagaanEkonomiPetani($kode_kec)
-    {
-        $query = $this->db->query("SELECT * FROM tdldaerah WHERE id_daerah = '$kode_kec'");
-        $row   = $query->getRowArray();
-        return $row;
 
-    }
 
     public function getKelembagaanEkonomiPetaniTotal($kode_kab)
     {

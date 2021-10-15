@@ -11,9 +11,6 @@ class PenyuluhSwastaKec extends BaseController
 
     public function penyuluhswastakec()
     {
-        if (session()->get('username') == "") {
-            return redirect()->to('login');
-        }
         $get_param = $this->request->getGet();
 
         $kode_kec = $get_param['kode_kec'];
