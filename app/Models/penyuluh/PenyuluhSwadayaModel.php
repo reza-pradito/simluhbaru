@@ -7,7 +7,17 @@ use \Config\Database;
 
 class PenyuluhSwadayaModel extends Model
 {
-    protected $table      = 'simluhtan';
+    protected $table      = 'tbldasar_swa';
+    protected $primaryKey = 'id_swa';
+    protected $allowedFields = [
+        'id', 'jenis_penyuluh', 'noktp', 'nama', 'tgl_lahir', 'bln_lahir', 'thn_lahir', 'tempat_lahir', 'jenis_kelamin',
+        'status_kel', 'agama', 'ahli_tp', 'detail_tp', 'ahli_nak', 'detail_nak', 'ahli_bun', 'detail_bun', 'ahli_hor', 'detail_hor',
+        'ahli_lainnya', 'detail_lainnya', 'instansi_pembina', 'satminkal', 'prop_satminkal', 'unit_kerja', 'kode_kab', 'tempat_tugas',
+        'wil_kerja', 'alamat', 'dati2', 'kodepos', 'kode_prop', 'telp', 'email',
+        'no_sk_penetapan', 'pejabat_menetapkan', 'tingkat', 'tahun_pelatihan1', 'nm_pelatihan1', 'tahun_pelatihan2', 'nm_pelatihan2',
+        'tahun_pelatihan3', 'nm_pelatihan3', 'tahun_pelatihan4', 'nm_pelatihan4', 'tahun_pelatihan5', 'nm_pelatihan5', 'tahun_pelatihan6',
+        'nm_pelatihan6', 'tgl_update', 'wil_kerja2', 'wil_kerja3', 'wil_kerja4', 'wil_kerja5', 'kecamatan_tugas', 'mapping', 'kode_bp3k'
+    ];
     //protected $primaryKey = 'id';
 
 
@@ -70,7 +80,7 @@ class PenyuluhSwadayaModel extends Model
         $query = $db->query("select count(a.id) as jum, nama_dati2 as nama_kab from tbldasar_swa a left join tbldati2 b on b.id_dati2=a.satminkal where satminkal='$kode_kab'");
         $row   = $query->getRow();
 
-        $query   = $db->query("select a.noktp, a.nama, a.tgl_update, d.nm_desa as wil_ker, e.nm_desa as wil_ker2, 
+        $query   = $db->query("select a.noktp, a.nama, a.tgl_update, b.kode, d.nm_desa as wil_ker, e.nm_desa as wil_ker2, 
                                 f.nm_desa as wil_ker3, g.nm_desa as wil_ker4, h.nm_desa as wil_ker5, i.nama_bpp, 
                                 j.deskripsi from tbldasar_swa a
                                 left join tblsatminkal b on a.satminkal=b.kode
@@ -92,5 +102,20 @@ class PenyuluhSwadayaModel extends Model
         ];
 
         return $data;
+    }
+
+    public function getPropvinsi()
+    {
+        $query = $this->db->query("select * from tblpropinsi ORDER BY nama_prop ASC");
+        $row   = $query->getResultArray();
+        return $row;
+    }
+
+    public function getTugas($kode_kab)
+    {
+        $query = $this->db->query("select * from tbldaerah a 
+    left join tbldasar_swa b on b.satminkal=a.id_dati2 where id_dati2='$kode_kab'");
+        $row   = $query->getResultArray();
+        return $row;
     }
 }
