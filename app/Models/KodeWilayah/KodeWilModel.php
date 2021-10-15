@@ -46,5 +46,5 @@ class KodeWilModel extends Model
     }
 }
 
-}
+
 
