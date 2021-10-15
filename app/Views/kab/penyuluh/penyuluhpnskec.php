@@ -35,7 +35,7 @@
                                         <p class="text-xs font-weight-bold mb-0"><?= $i++ ?></p>
                                     </td>
                                     <td class="align-middle text-center text-sm">
-                                        <p class="text-xs font-weight-bold mb-0"><a href="<?= base_url('profil/penyuluhkec/detail/' . $row['nip']) ?>"><?= $row['nip'] ?> /<?= $row['nip_lama'] ?></p>
+                                        <p class="text-xs font-weight-bold mb-0"><?= $row['nip'] ?> /<?= $row['nip_lama'] ?></p>
                                     </td>
                                     <td class="align-middle text-center text-sm">
                                         <p class="text-xs font-weight-bold mb-0"><?= $row['gelar_dpn'] ?> <?= $row['nama'] ?> <?= $row['gelar_blk'] ?></p>

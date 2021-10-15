@@ -13,8 +13,6 @@ class PenyuluhSwadaya extends BaseController
         if (session()->get('username') == "") {
             return redirect()->to('login');
         }
-
-
         $penyuluh_model = new PenyuluhSwadayaModel();
         $swadaya_data = $penyuluh_model->getPenyuluhSwadayaTotal(session()->get('kodebapel'));
         $namaprop = $penyuluh_model->getPropvinsi();

@@ -30,7 +30,15 @@
                                         </div>
                                         <div class="d-flex flex-column justify-content-center">
                                             <h6 class="text-sm mb-1">
-                                                <a href="<?= base_url('lembaga'); ?>" class="nav-link text-body p-0"><span class="font-weight-bold"><?php echo session()->get('username'); ?></span> </a>
+                                                <?php
+                                                if (session()->get('status_user') == 2) {
+                                                ?>
+                                                    <a href="<?= base_url('profil/admin'); ?>" class="nav-link text-body p-0"><span class="font-weight-bold"><?php echo session()->get('username'); ?></span> </a>
+                                                <?php } else { ?>
+                                                    <a href="<?= base_url('lembaga'); ?>" class="nav-link text-body p-0"><span class="font-weight-bold"><?php echo session()->get('username'); ?></span> </a>
+                                                <?php
+                                                }
+                                                ?>
                                             </h6>
                                         </div>
                                     </div>

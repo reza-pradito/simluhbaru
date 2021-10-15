@@ -1,6 +1,7 @@
 <?= $this->extend('layout/main_template') ?>
 
 <?= $this->section('content') ?>
+
 <div class="container-fluid py-4">
     <div class="row">
         <!-- Page Heading -->
@@ -11,14 +12,14 @@
 
         <div class="row mt-3">
             <div class="col-lg-2">
-                <button type="button" class="btn bg-gradient-success btn-block mb-3" data-bs-toggle="modal" data-bs-target="#modalJab">Tambah</button>
+                <button type="button" class="btn bg-gradient-success btn-block mb-3" data-bs-toggle="modal" data-bs-target="#modalMenu">Tambah</button>
             </div>
-            <table id="tblJab" class="table">
+            <table id="tblMenu" class="table">
                 <thead>
                     <tr>
                         <th scope="col">#</th>
                         <th scope="col">id</th>
-                        <th scope="col">Jabatan</th>
+                        <th scope="col">Menu</th>
                         <th scope="col">Aksi</th>
                     </tr>
                 </thead>
@@ -28,11 +29,11 @@
                     foreach ($dt as $row) : ?>
                         <tr>
                             <th scope="row"><?= $no++; ?></th>
-                            <td><?= $row['id_jab']; ?></td>
-                            <td><?= $row['nama_jab']; ?></td>
+                            <td><?= $row['id']; ?></td>
+                            <td><?= $row['menu']; ?></td>
                             <td>
-                                <button type="button" id="btnEditJab" data-id="<?= $row['id_jab'] ?>" class=" btn btn-warning btn-sm">Edit</button>
-                                <button class="btn btn-danger btn-sm" id="btnHapusJab" data-id="<?= $row['id_jab'] ?>" type="button">Hapus</button>
+                                <button type="button" id="btnEditMenu" data-id="<?= $row['id'] ?>" class=" btn btn-warning btn-sm">Edit</button>
+                                <button class="btn btn-danger btn-sm" id="btnHapusMenu" data-id="<?= $row['id'] ?>" type="button">Hapus</button>
 
                             </td>
                         </tr>
@@ -42,26 +43,26 @@
 
         </div>
 
-        <?php echo view('layout/footer'); ?>
-
     </div>
+
 </div>
+
 <!-- Modal -->
-<div class="modal fade" id="modalJab" tabindex="-1" role="dialog" aria-labelledby="exampleModalMessageTitle" aria-hidden="true">
+<div class="modal fade" id="modalMenu" tabindex="-1" role="dialog" aria-labelledby="exampleModalMessageTitle" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel">Tambah Jabatan</h5>
+                <h5 class="modal-title" id="exampleModalLabel">Tambah Menu</h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">×</span>
                 </button>
             </div>
             <div class="modal-body">
-                <form method="POST" action="<?= base_url('master/jabatan/save'); ?>">
+                <form method="POST" action="<?= base_url('manage/menu/save'); ?>">
                     <div class="form-group">
-                        <label for="recipient-name" class="col-form-label">Jabatan:</label>
-                        <input type="text" class="form-control" name="jabatan" id="jabatan">
-                        <input type="hidden" class="form-control" name="idjab" id="idjab">
+                        <label for="recipient-name" class="col-form-label">Nama Menu:</label>
+                        <input type="text" class="form-control" name="menu" id="menu">
+                        <input type="hidden" class="form-control" name="idmenu" id="idmenu">
                     </div>
 
             </div>
@@ -73,6 +74,10 @@
         </div>
     </div>
 </div>
+<?php echo view('layout/footer'); ?>
+
+</div>
+</div>
 
 <?= $this->endSection() ?>
 
@@ -81,17 +86,18 @@
 <script>
     $(document).ready(function() {
 
-        $('#tblJab').DataTable();
+        $('#tblMenu').DataTable();
+
+        //save
 
         $(document).delegate('#btnSave', 'click', function() {
 
-            var jab = $('#jabatan').val();
-
+            var menu = $('#menu').val();
             $.ajax({
-                url: '<?= base_url() ?>/master/jabatan/save/',
+                url: '<?= base_url() ?>/manage/menu/save/',
                 type: 'POST',
                 data: {
-                    'jab': jab
+                    'menu': menu
                 },
                 success: function(result) {
                     Swal.fire({
@@ -124,41 +130,43 @@
 
         });
 
-        $(document).delegate('#btnEditJab', 'click', function() {
+        //Update
+
+        $(document).delegate('#btnEditMenu', 'click', function() {
             $.ajax({
-                url: '<?= base_url() ?>/master/jabatan/edit/' + $(this).data('id'),
+                url: '<?= base_url() ?>/manage/menu/edit/' + $(this).data('id'),
                 type: 'GET',
                 dataType: 'JSON',
                 success: function(result) {
                     // console.log(result);
 
-                    $('#idjab').val(result.id_jab);
-                    $('#jabatan').val(result.nama_jab);
+                    $('#idmenu').val(result.id);
+                    $('#menu').val(result.menu);
 
-                    $('#modalJab').modal('show');
+                    $('#modalMenu').modal('show');
 
                     $("#btnSave").attr("id", "btnDoEdit");
-                    $("#exampleModalLabel").text("Edit Jabatan");
+                    $("#exampleModalLabel").text("Edit Menu");
 
                     $(document).delegate('#btnDoEdit', 'click', function() {
                         console.log('ok');
 
-                        var idjab = $('#idjab').val();
-                        var jab = $('#jabatan').val();
+                        var idmenu = $('#idmenu').val();
+                        var menu = $('#menu').val();
 
                         let formData = new FormData();
-                        formData.append('idjab', idjab);
-                        formData.append('jab', jab);
+                        formData.append('idmenu', idmenu);
+                        formData.append('menu', menu);
 
                         $.ajax({
-                            url: '<?= base_url() ?>/master/jabatan/update/' + idjab,
+                            url: '<?= base_url() ?>/manage/menu/update/' + idmenu,
                             type: "POST",
                             data: formData,
                             cache: false,
                             processData: false,
                             contentType: false,
                             success: function(result) {
-                                $('#modalJab').modal('hide');
+                                $('#modalMenu').modal('hide');
                                 Swal.fire({
                                     title: 'Sukses',
                                     text: "Sukses edit data",
@@ -197,7 +205,7 @@
 
         });
 
-        $(document).delegate('#btnHapusJab', 'click', function() {
+        $(document).delegate('#btnHapusMenu', 'click', function() {
 
             Swal.fire({
                 title: 'Apakah anda yakin',
@@ -211,10 +219,10 @@
             }).then((result) => {
                 if (result.value) {
                     $.ajax({
-                        url: '<?= base_url() ?>/master/jabatan/delete/' + $(this).data('id'),
+                        url: '<?= base_url() ?>/manage/menu/delete/' + $(this).data('id'),
                         type: 'GET',
                         data: {
-                            'idjab': $(this).data('id')
+                            'idmenu': $(this).data('id')
                         },
                         success: function(result) {
                             Swal.fire({
@@ -243,10 +251,9 @@
                 }
             });
 
-        })
+        });
 
     });
 </script>
-
 
 <?= $this->endSection() ?>

@@ -18,11 +18,6 @@ class ListGapoktanModel extends Model
 
 
     protected $useTimestamps = false;
-    protected $table      = 'tb_gapoktan';
-    protected $primarykey = 'id_gapoktan';
-    protected $allowedFields = ['id_gap', 'id_gapber', 'no_reg', 'kode_prop', 'kode_kab',
-     'kode_kec', 'kode_desa', 'nama_gapoktan', 'ketua_gapoktan', 'simluh_sk_pengukuhan', 'simluh_tahun_bentuk', 'simluh_sekretaris', 'simluh_bendahara', 'alamat'];
-
     // protected $createdField  = 'created_at';
     // protected $updatedField  = 'updated_at';
     // protected $deletedField  = 'deleted_at';
@@ -31,8 +26,7 @@ class ListGapoktanModel extends Model
     // protected $validationMessages = [];
     // protected $skipValidation     = false;
 
-  
-   
+
     public function getListGapoktanTotal($kode_kec)
     {
         $db = Database::connect();
@@ -42,18 +36,14 @@ class ListGapoktanModel extends Model
         $query2 = $db->query("SELECT count(id_gap) as jum FROM tb_gapoktan where kode_kec ='$kode_kec'");
         $row2   = $query2->getRow();
         
-        $query4   = $db->query("select  a.id_gap,a.kode_desa,a.kode_kec,a.nama_gapoktan,a.ketua_gapoktan,a.simluh_bendahara,a.alamat,b.id_desa, b.nm_desa,c.jumpok,d.id_dati2,e.id_daerah,a.simluh_sk_pengukuhan
+        $query4   = $db->query("select a.id_gap,a.kode_desa,a.kode_kec,a.nama_gapoktan,a.ketua_gapoktan,a.simluh_bendahara,a.alamat, b.nm_desa,c.jumpok 
                                 from tb_gapoktan a
                                 left join tbldesa b on a.kode_desa=b.id_desa 
                                 left join (SELECT id_gap,kode_desa, COUNT(id_poktan) as jumpok from tb_poktan GROUP BY id_gap,kode_desa) c on a.id_gap=c.id_gap and b.id_desa=c.kode_desa and c.id_gap !=''
-                                left join tbldati2 d on a.kode_kab=d.id_dati2 
-                                left join tbldaerah e on a.kode_kec=e.id_daerah
                                 where kode_kec='$kode_kec'
                                 ORDER BY kode_desa");
 
         $results = $query4->getResultArray();
-
-        
 
     //  $query3 = $db->query("SELECT count(id_poktan) as jumpok FROM tb_poktan where id_gap ='id_gap'  and id_gap !=''");
      //  $row3   = $query3->getRow();
@@ -69,11 +59,5 @@ class ListGapoktanModel extends Model
         ];
 
         return $data;
-    }
-    public function getDesa($kode_kec)
-    {
-        $query = $this->db->query("select * from tbldesa where id_daerah LIKE '" . $kode_kec . "%' ORDER BY nm_desa ASC");
-        $row   = $query->getResultArray();
-        return $row;
     }
 }
