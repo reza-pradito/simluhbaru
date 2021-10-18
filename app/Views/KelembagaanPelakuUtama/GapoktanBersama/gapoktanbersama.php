@@ -52,7 +52,7 @@
                                 </button>
                             
                            
-                                <button class="btn btn-danger btn-sm" id="btnHapus" data-id_gapber=""="<?= $row['id_gapber'] ?>" type="submit" onclick="return confirm('Are you sure ?')">
+                                <button class="btn btn-danger btn-sm" id="btnHapus" data-id_gapber="<?= $row['id_gapber'] ?>" type="button" >
                                 <i class="fas fa-trash"></i> Hapus
                             </button>
                     </td>
@@ -210,36 +210,50 @@
 
         });
         $(document).delegate('#btnHapus', 'click', function() {
-            var id_gapber = $(this).data('id_gapber');
+            Swal.fire({
+                title: 'Apakah anda yakin',
+                text: "Data akan dihapus ?",
+                type: 'warning',
+                showCloseButton: true,
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                confirmButtonText: 'Hapus Data!'
+            }).then((result) => {
+                if (result.value) {
+                    var id_gapber = $(this).data('id_gapber');
 
-            $.ajax({
-                url: '<?= base_url() ?>/KelembagaanPelakuUtama/GapoktanBersama/GapoktanBersama/delete/' + id_gapber,
-                type: 'POST',
-                success: function(result) {
-                    Swal.fire({
-                        title: 'Sukses',
-                        text: "Sukses Hapus data",
-                        type: 'success',
-                    }).then((result) => {
+                    $.ajax({
+                        url: '<?= base_url() ?>/KelembagaanPelakuUtama/GapoktanBersama/GapoktanBersama/delete/' + id_gapber,
+                        type: 'POST',
 
-                        if (result.value) {
-                            location.reload();
-                        }
-                    });
-                },
-                error: function(jqxhr, status, exception) {
-                    Swal.fire({
-                        title: 'Error',
-                        text: "Gagal Hapus data",
-                        type: 'error',
-                    }).then((result) => {
-                        if (result.value) {
-                            location.reload();
+                        success: function(result) {
+                            Swal.fire({
+                                title: 'Sukses',
+                                text: "Sukses hapus data",
+                                type: 'success',
+                            }).then((result) => {
+
+                                if (result.value) {
+                                    location.reload();
+                                }
+                            });
+                        },
+                        error: function(jqxhr, status, exception) {
+                            Swal.fire({
+                                title: 'Error',
+                                text: "Gagal hapus data",
+                                type: 'error',
+                            }).then((result) => {
+                                if (result.value) {
+                                    location.reload();
+                                }
+                            });
                         }
                     });
                 }
-
             });
+
         });
         $(document).delegate('#btnEditGapber', 'click', function() {
             $.ajax({

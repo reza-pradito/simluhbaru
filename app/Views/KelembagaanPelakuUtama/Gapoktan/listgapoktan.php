@@ -56,7 +56,6 @@
                                     <i class="fas fa-edit"></i> Ubah
                                 </button>
                             
-                           
                                 <button class="btn btn-danger btn-sm" id="btnHapus" data-id_gap="<?= $row['id_gap'] ?>" type="button" >
                                 <i class="fas fa-trash"></i> Hapus
                             </button>
