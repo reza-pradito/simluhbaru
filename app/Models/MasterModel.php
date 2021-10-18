@@ -25,8 +25,8 @@ class MasterModel extends Model
     // protected $skipValidation     = false;
     public function getAllDataJab()
     {
-        $db = db_connect();
-        $query = $db->query("SELECT * FROM tbljabatan");
+        // $db = db_connect();
+        $query = $this->db->query("SELECT * FROM tbljabatan");
         $row = $query->getResultArray();
         return $row;
     }
