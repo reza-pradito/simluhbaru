@@ -74,9 +74,9 @@
                                     <i class="fas fa-edit"></i> Ubah
                                 </button>
                            
-                                <button class="btn btn-danger btn-sm" id="btnHapus" data-id_kep="<?= $row['id_kep'] ?>" type="submit" onclick="return confirm('Are you sure ?')">Hapus</button>
-                                <i class="fas fa-trash"></i> 
-                            </button>
+                                <button class="btn btn-danger btn-sm" id="btnHapus" data-id_kep="<?= $row['id_kep'] ?>" type="submit" onclick="return confirm('Are you sure ?')">
+                                <i class="fas fa-trash"></i> Hapus</button>
+                          
                         </td>
                 </tr>
             <?php

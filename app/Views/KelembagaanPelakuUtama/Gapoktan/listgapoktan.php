@@ -51,14 +51,14 @@
                     </td></a>
                     
                     <td class="align-middle text-center text-sm">
-                            
                            
-                          
-                            <button type="button"  data-id_gap="<?= $row['id_gap'] ?>" id="btnEditGap" class="btn bg-gradient-warning btn-sm">
+                    <button type="button"  data-id_gap="<?= $row['id_gap'] ?>" id="btnEditGap" class="btn bg-gradient-warning btn-sm">
                                     <i class="fas fa-edit"></i> Ubah
                                 </button>
-                                <button class="btn btn-danger btn-sm" id="btnHapus" data-id_gap="<?= $row['id_gap'] ?>" type="submit" onclick="return confirm('Are you sure ?')">Hapus</button>
-                                <i class="fas fa-trash"></i> 
+                            
+                           
+                                <button class="btn btn-danger btn-sm" id="btnHapus" data-id_gap="<?= $row['id_gap'] ?>" type="button" >
+                                <i class="fas fa-trash"></i> Hapus
                             </button>
                           
                         </td>
@@ -132,7 +132,7 @@
                                                 </select>
                                             </div>
                                             <input type="hidden" class="form-control" id="kode_kec" name="kode_kec" value="<?= $row['id_daerah'] ?>">
-                                                <input type="hidden" class="form-control" id="kode_kab" name="kode_kab" value="<?= $row['id_dati2'] ?>" >
+                                            <input type="hidden" id="kode_kab" name="kode_kab" value="<?= $row['id_dati2']; ?>">
                                                 <input type="hidden" class="form-control" id="id_gap" name="id_gap" value="<?= $row['id_gap'] ?>" >
                                              
                                                     <div class="text-center">
@@ -232,40 +232,54 @@
                     });
                 }
             });
-
         });
         $(document).delegate('#btnHapus', 'click', function() {
-            var id_gap = $(this).data('id_gap');
+            Swal.fire({
+                title: 'Apakah anda yakin',
+                text: "Data akan dihapus ?",
+                type: 'warning',
+                showCloseButton: true,
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                confirmButtonText: 'Hapus Data!'
+            }).then((result) => {
+                if (result.value) {
+                    var id_gap = $(this).data('id_gap');
 
-            $.ajax({
-                url: '<?= base_url() ?>/KelembagaanPelakuUtama/Gapoktan/ListGapoktan/delete/' + id_gap,
-                type: 'POST',
-                success: function(result) {
-                    Swal.fire({
-                        title: 'Sukses',
-                        text: "Sukses Hapus data",
-                        type: 'success',
-                    }).then((result) => {
+                    $.ajax({
+                        url: '<?= base_url() ?>/KelembagaanPelakuUtama/Gapoktan/ListGapoktan/delete/' + id_gap,
+                        type: 'POST',
 
-                        if (result.value) {
-                            location.reload();
-                        }
-                    });
-                },
-                error: function(jqxhr, status, exception) {
-                    Swal.fire({
-                        title: 'Error',
-                        text: "Gagal Hapus data",
-                        type: 'error',
-                    }).then((result) => {
-                        if (result.value) {
-                            location.reload();
+                        success: function(result) {
+                            Swal.fire({
+                                title: 'Sukses',
+                                text: "Sukses hapus data",
+                                type: 'success',
+                            }).then((result) => {
+
+                                if (result.value) {
+                                    location.reload();
+                                }
+                            });
+                        },
+                        error: function(jqxhr, status, exception) {
+                            Swal.fire({
+                                title: 'Error',
+                                text: "Gagal hapus data",
+                                type: 'error',
+                            }).then((result) => {
+                                if (result.value) {
+                                    location.reload();
+                                }
+                            });
                         }
                     });
                 }
-
             });
+
         });
+       
         $(document).delegate('#btnEditGap', 'click', function() {
             $.ajax({
                 url: '<?= base_url() ?>/KelembagaanPelakuUtama/Gapoktan/ListGapoktan/edit/' + $(this).data('id_gap'),
@@ -280,12 +294,11 @@
                     $('#kode_kab').val(result.kode_kab);
                     $('#nama_gapoktan').val(result.nama_gapoktan);
                     $('#ketua_gapoktan').val(result.ketua_gapoktan);
+                    $('#alamat').val(result.alamat);
+                    $('#year').val(result.simluh_tahun_bentuk);
                     $('#simluh_bendahara').val(result.simluh_bendahara);
                     $('#simluh_sekretaris').val(result.simluh_sekretaris);
                     $('#simluh_sk_pengukuhan').val(result.simluh_sk_pengukuhan);
-                    $('#alamat').val(result.alamat);
-                    $('#year').val(result.simluh_tahun_bentuk);
-                   
 
 
                     $('#modal-form').modal('show');
@@ -298,28 +311,26 @@
                         var kode_kec = $('#kode_kec').val();
                         var kode_kab = $('#kode_kab').val();
                         var kode_desa = $('#kode_desa').val();
-                        var nama_poktan = $('#nama_poktan').val();
-                        var ketua_poktan = $('#ketua_poktan').val();
-                        var simluh_sekretaris = $('#simluh_sekretaris').val();
-                        var simluh_bendahara = $('#simluh_bendahara').val();
-                        var simluh_sk_pengukuhan = $('#simluh_sk_pengukuhan').val();
+                        var nama_gapoktan = $('#nama_gapoktan').val();
+                        var ketua_gapoktan = $('#ketua_gapoktan').val();
                         var alamat = $('#alamat').val();
                         var simluh_tahun_bentuk = $('#year').val();
-                        
+                        var simluh_sk_pengukuhan = $('#simluh_sk_pengukuhan').val();
+                        var simluh_bendahara = $('#simluh_bendahara').val();
+                        var simluh_sekretaris = $('#simluh_sekretaris').val();
 
                         let formData = new FormData();
                         formData.append('id_gap', id_gap);
                         formData.append('kode_kec', kode_kec);
                         formData.append('kode_kab', kode_kab);
                         formData.append('kode_desa', kode_desa);
-                        formData.append('nama_poktan', nama_poktan);
-                        formData.append('ketua_poktan', ketua_poktan);
-                        formData.append('simluh_sekretaris', simluh_sekretaris);
-                        formData.append('simluh_bendahara', simluh_bendahara);
-                        formData.append('simluh_sk_pengukuhan', simluh_sk_pengukuhan);
+                        formData.append('nama_gapoktan', nama_gapoktan);
+                        formData.append('ketua_gapoktan', ketua_gapoktan);
                         formData.append('alamat', alamat);
                         formData.append('simluh_tahun_bentuk', simluh_tahun_bentuk);
-                       
+                        formData.append('simluh_sk_pengukuhan', simluh_sk_pengukuhan);
+                        formData.append('simluh_bendahara', simluh_bendahara);
+                        formData.append('simluh_sekretaris', simluh_sekretaris);
 
                         $.ajax({
                             url: '<?= base_url() ?>/KelembagaanPelakuUtama/Gapoktan/ListGapoktan/update/' + id_gap,
@@ -361,14 +372,11 @@
 
                 }
             });
-      
+
             $('.modal').on('hidden.bs.modal', function() {
                 $(this).find('form')[0].reset();
             });
-        });
-        });
-    
-        </script>
-
-
+    });
+});
+</script>
 <?php $this->endSection() ?>

@@ -44,6 +44,7 @@ class KodeWilModel extends Model
 
         return $data;
     }
+    
 }
 
 

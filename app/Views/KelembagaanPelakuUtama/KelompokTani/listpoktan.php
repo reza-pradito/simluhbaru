@@ -5,6 +5,7 @@
 
 <center><h2> Daftar Kelompok di Tani Kecamatan <?= ucwords(strtolower($nama_kecamatan)) ?> </h2></center>
 
+<center><h4>Data ditemukan <?= ucwords(strtolower($jum)) ?> </h2></center>
 <button type="button" data-bs-toggle="modal" data-bs-target="#modal-form" class="btn bg-gradient-primary btn-sm">+ Tambah Data</button>
 <div class="card">
     <div class="table-responsive">
@@ -57,12 +58,13 @@
                                 </button>
                             
                            
-                                <button class="btn btn-danger btn-sm" id="btnHapus" data-id_poktan="<?= $row['id_poktan'] ?>" type="submit" onclick="return confirm('Are you sure ?')">Hapus</button>
-                                <i class="fas fa-trash"></i> 
+                                <button class="btn btn-danger btn-sm" id="btnHapus" data-id_poktan="<?= $row['id_poktan'] ?>" type="button" >
+                                <i class="fas fa-trash"></i> Hapus
                             </button>
                            
                             
                             <button type="button" class="btn bg-gradient-primary btn-sm">
+                            <a href="<?= base_url('/listpoktananggota?ip=' . $row['id_poktan']) ?>">
                                 <i class="ni ni-fat-add"></i> +Tambah Anggota
                             </button>
                          
@@ -136,9 +138,8 @@
                                             </div>
                                             <input type="hidden" id="kode_kec" name="kode_kec" value="<?= $row['id_daerah'] ?>" >
                                                 <input type="hidden" id="kode_kab" name="kode_kab" value="<?= $row['id_dati2'] ?>">
-                                                
                                                 <input type="hidden" id="id_poktan" name="id_poktan" >
-                                                <!-- <input type="hidden" name="kode_desa" value="<?= $row['id_desa'] ?>" class="form-control" placeholder="" aria-label="Email" aria-describedby="email-addon" disabled> -->
+                                               
                                                     <div class="text-center">
                                                         <button type="button" id="btnSave" class="btn btn-round bg-gradient-warning btn-sm">Simpan Data</button>
                                                     </div>
@@ -232,36 +233,50 @@
 
         });
         $(document).delegate('#btnHapus', 'click', function() {
-            var id_poktan = $(this).data('id_poktan');
+            Swal.fire({
+                title: 'Apakah anda yakin',
+                text: "Data akan dihapus ?",
+                type: 'warning',
+                showCloseButton: true,
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                confirmButtonText: 'Hapus Data!'
+            }).then((result) => {
+                if (result.value) {
+                    var id = $(this).data('id_poktan');
 
-            $.ajax({
-                url: '<?= base_url() ?>/KelembagaanPelakuUtama/KelompokTani/ListPokTan/delete/' + id_poktan,
-                type: 'POST',
-                success: function(result) {
-                    Swal.fire({
-                        title: 'Sukses',
-                        text: "Sukses Hapus data",
-                        type: 'success',
-                    }).then((result) => {
+                    $.ajax({
+                        url: '<?= base_url() ?>/KelembagaanPelakuUtama/KelompokTani/ListPokTan/delete/' + id,
+                        type: 'POST',
 
-                        if (result.value) {
-                            location.reload();
-                        }
-                    });
-                },
-                error: function(jqxhr, status, exception) {
-                    Swal.fire({
-                        title: 'Error',
-                        text: "Gagal Hapus data",
-                        type: 'error',
-                    }).then((result) => {
-                        if (result.value) {
-                            location.reload();
+                        success: function(result) {
+                            Swal.fire({
+                                title: 'Sukses',
+                                text: "Sukses hapus data",
+                                type: 'success',
+                            }).then((result) => {
+
+                                if (result.value) {
+                                    location.reload();
+                                }
+                            });
+                        },
+                        error: function(jqxhr, status, exception) {
+                            Swal.fire({
+                                title: 'Error',
+                                text: "Gagal hapus data",
+                                type: 'error',
+                            }).then((result) => {
+                                if (result.value) {
+                                    location.reload();
+                                }
+                            });
                         }
                     });
                 }
-
             });
+
         });
         $(document).delegate('#btnEditPok', 'click', function() {
             $.ajax({

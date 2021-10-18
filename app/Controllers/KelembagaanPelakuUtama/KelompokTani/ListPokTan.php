@@ -14,9 +14,8 @@ class ListPoktan extends BaseController
     }
     public function listpoktan()
     {
-        if (session()->get('username') == "") {
-            return redirect()->to('login');
-        }
+       
+        
         $get_param = $this->request->getGet();
 
         $kode_kec = $get_param['kode_kec'];
@@ -28,7 +27,6 @@ class ListPoktan extends BaseController
 
             'nama_kecamatan' => $listpoktan_data['nama_kec'],
             'jum' => $listpoktan_data['jum'],
-           
             'tabel_data' => $listpoktan_data['table_data'],
             'title' => 'List Kelompok Tani',
             'name' => 'List Kelompok Tani',
