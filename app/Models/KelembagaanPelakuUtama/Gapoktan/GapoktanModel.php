@@ -7,24 +7,15 @@ use \Config\Database;
 
 class GapoktanModel extends Model
 {
-    //protected $table      = 'penyuluh';
-    //protected $primaryKey = 'id';
+    
 
-
-    //protected $returnType     = 'array';
-    //protected $useSoftDeletes = true;
-
-    //protected $allowedFields = ['nama', 'alamat', 'telpon'];
-
+    protected $table      = 'tb_gap';
+    protected $primaryKey = 'id_gap';
+    protected $allowedFields = [ 'kode_prop', 'kode_kab', 'id_gapber',
+     'kode_kec', 'kode_desa', 'nama_gapoktan', 'ketua_gapoktan', 'alamat', 'simluh_sk_pengukuhan','simluh_tahun_bentuk','status', 'simluh_bendahara', 'simluh_sekretaris'];
 
     protected $useTimestamps = false;
-    // protected $createdField  = 'created_at';
-    // protected $updatedField  = 'updated_at';
-    // protected $deletedField  = 'deleted_at';
-
-    // protected $validationRules    = [];
-    // protected $validationMessages = [];
-    // protected $skipValidation     = false;
+  
 
 
     public function getGapoktanTotal($kode_kab)
