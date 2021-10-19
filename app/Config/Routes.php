@@ -36,6 +36,7 @@ $routes->get('/login', 'auth/Login::index');
 $routes->get('/logout', 'auth/Login::logout');
 $routes->get('/dashboard', 'Page::dashboard');
 $routes->get('/lembaga', 'profil/Lembaga::index');
+$routes->get('/master/jabatan', 'master/Jabatan::index');
 
 $routes->get('/penyuluhpns', 'Penyuluh/PenyuluhPns::penyuluhpns');
 $routes->get('/penyuluhcpns', 'Penyuluh/PenyuluhCpns::penyuluhcpns');

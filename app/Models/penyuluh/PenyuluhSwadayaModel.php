@@ -80,7 +80,14 @@ class PenyuluhSwadayaModel extends Model
         $query = $db->query("select count(a.id) as jum, nama_dati2 as nama_kab from tbldasar_swa a left join tbldati2 b on b.id_dati2=a.satminkal where satminkal='$kode_kab'");
         $row   = $query->getRow();
 
-        $query   = $db->query("select a.noktp, a.nama, a.tgl_update, b.kode, d.nm_desa as wil_ker, e.nm_desa as wil_ker2, 
+        $query   = $db->query("select a.id_swa, a.id, a.jenis_penyuluh, a.noktp, a.nama, a.tgl_lahir, a.bln_lahir, a.thn_lahir, a.tempat_lahir, a.jenis_kelamin,
+a.status_kel, a.agama, a.ahli_tp, a.detail_tp, a.ahli_nak, a.detail_nak, a.ahli_bun, a.detail_bun, a.ahli_hor, a.detail_hor,
+a.ahli_lainnya, a.detail_lainnya, a.instansi_pembina, a.satminkal, a.prop_satminkal, a.unit_kerja, a.kode_kab, a.tempat_tugas,
+a.wil_kerja, a.alamat, a.dati2, a.kodepos, a.kode_prop, a.telp, a.email,
+a.no_sk_penetapan, a.pejabat_menetapkan, a.tingkat, a.tahun_pelatihan1, a.nm_pelatihan1, a.tahun_pelatihan2, a.nm_pelatihan2,
+a.tahun_pelatihan3, a.nm_pelatihan3, a.tahun_pelatihan4, a.nm_pelatihan4, a.tahun_pelatihan5, a.nm_pelatihan5, a.tahun_pelatihan6,
+a.nm_pelatihan6, a.tgl_update, a.wil_kerja2, a.wil_kerja3, a.wil_kerja4, a.wil_kerja5, a.kecamatan_tugas, a.mapping, a.kode_bp3k,
+ b.kode, d.nm_desa as wil_ker, e.nm_desa as wil_ker2, 
                                 f.nm_desa as wil_ker3, g.nm_desa as wil_ker4, h.nm_desa as wil_ker5, i.nama_bpp, 
                                 j.deskripsi from tbldasar_swa a
                                 left join tblsatminkal b on a.satminkal=b.kode
@@ -128,10 +135,36 @@ class PenyuluhSwadayaModel extends Model
         return $row;
     }
 
-    public function getDesa()
+    public function getDesa($kode_kec)
     {
-        $query = $this->db->query("select * from tbldesa ORDER BY nm_desa ASC");
+        $query = $this->db->query("select * from tbldesa where id_daerah ='$kode_kec' ORDER BY nm_desa ASC");
         $row   = $query->getResultArray();
         return $row;
+    }
+
+    public function getDetailEdit($id_swa)
+    {
+        $query = $this->db->query("select a.id_swa, a.id, a.jenis_penyuluh, a.noktp, a.nama, a.tgl_lahir, a.bln_lahir, a.thn_lahir, a.tempat_lahir, a.jenis_kelamin,
+        a.status_kel, a.agama, a.ahli_tp, a.detail_tp, a.ahli_nak, a.detail_nak, a.ahli_bun, a.detail_bun, a.ahli_hor, a.detail_hor,
+        a.ahli_lainnya, a.detail_lainnya, a.instansi_pembina, a.satminkal, a.prop_satminkal, a.unit_kerja, a.kode_kab, a.tempat_tugas,
+        a.wil_kerja, a.alamat, a.dati2, a.kodepos, a.kode_prop, a.telp, a.email,
+        a.no_sk_penetapan, a.pejabat_menetapkan, a.tingkat, a.tahun_pelatihan1, a.nm_pelatihan1, a.tahun_pelatihan2, a.nm_pelatihan2,
+        a.tahun_pelatihan3, a.nm_pelatihan3, a.tahun_pelatihan4, a.nm_pelatihan4, a.tahun_pelatihan5, a.nm_pelatihan5, a.tahun_pelatihan6,
+        a.nm_pelatihan6, a.tgl_update, a.wil_kerja2, a.wil_kerja3, a.wil_kerja4, a.wil_kerja5, a.kecamatan_tugas, a.mapping, a.kode_bp3k,
+         b.kode, d.nm_desa as wil_ker, e.nm_desa as wil_ker2, 
+                                        f.nm_desa as wil_ker3, g.nm_desa as wil_ker4, h.nm_desa as wil_ker5, i.nama_bpp, 
+                                        j.deskripsi from tbldasar_swa a
+                                        left join tblsatminkal b on a.satminkal=b.kode
+                                        left join tblstatus_penyuluh c on a.status_kel=c.kode
+                                        left join tbldesa d on a.wil_kerja=d.id_desa
+                                        left join tbldesa e on a.wil_kerja2=e.id_desa
+                                        left join tbldesa f on a.wil_kerja3=f.id_desa
+                                        left join tbldesa g on a.wil_kerja4=g.id_desa
+                                        left join tbldesa h on a.wil_kerja5=h.id_desa
+                                        left join tblbpp i on a.unit_kerja=i.id
+                                        left join tbldaerah j on a.kecamatan_tugas=j.id_daerah
+        where id_swa = '" . $id_swa . "'");
+        $row = $query->getRow();
+        return json_encode($row);
     }
 }
