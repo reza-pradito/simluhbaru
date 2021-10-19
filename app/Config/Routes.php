@@ -36,7 +36,9 @@ $routes->get('/login', 'auth/Login::index');
 $routes->get('/logout', 'auth/Login::logout');
 $routes->get('/dashboard', 'Page::dashboard');
 $routes->get('/lembaga', 'profil/Lembaga::index');
-$routes->get('/master/jabatan', 'master/Jabatan::index');
+$routes->get('/jabatan', 'master/Jabatan::index');
+$routes->get('/prov', 'Master/Wilayah::showProv');
+
 
 $routes->get('/penyuluhpns', 'Penyuluh/PenyuluhPns::penyuluhpns');
 $routes->get('/penyuluhcpns', 'Penyuluh/PenyuluhCpns::penyuluhcpns');
@@ -65,7 +67,7 @@ $routes->post('/listgapoktan/save', 'KelembagaanPelakuUtama/Gapoktan/ListGapokta
 
 $routes->get('/gapoktanbersama', 'KelembagaanPelakuUtama/GapoktanBersama/GapoktanBersama::gapoktanbersama');
 
-$routes->get('/kelembagaanekonomipetani', 'KelembagaanPelakuUtama/KelembagaanEkonomiPetani::kelembagaanekonomipetani');
+$routes->get('/kelembagaanekonomipetani', 'KelembagaanPelakuUtama/KelembagaanEkonomiPetani\KelembagaanEkonomiPetani::kelembagaanekonomipetani');
 $routes->get('/listkep', 'KelembagaanPelakuUtama/KelembagaanEkonomiPetani/ListKEP::listkep');
 
 $routes->get('/kelompoktani', 'KelembagaanPelakuUtama/KelompokTani/KelompokTani::kelompoktani');
