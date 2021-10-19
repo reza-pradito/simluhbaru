@@ -4,16 +4,21 @@ namespace App\Controllers\profil;
 
 use App\Controllers\BaseController;
 use App\Models\LembagaModel;
+use App\Models\WilayahModel;
 
 class Lembaga extends BaseController
 {
     protected $session;
+    protected $modelLembaga;
+    protected $modelProv;
 
     function __construct()
     {
         $this->session = \Config\Services::session();
         $this->session->start();
         helper('autentikasi');
+        $this->modelLembaga = new LembagaModel();
+        $this->modelProv = new WilayahModel();
     }
 
     public function index()
@@ -24,7 +29,7 @@ class Lembaga extends BaseController
             return redirect()->to('login');
         }
 
-        $lembagaModel = new LembagaModel();
+
         // if (empty($this->session->get('kodebapel'))) {
         //     return redirect()->to('login');
         // } else {
@@ -41,13 +46,15 @@ class Lembaga extends BaseController
         }
         //  d($kode);
 
-        $dtlembaga = $lembagaModel->getProfil($kode);
+        $dtlembaga = $this->modelLembaga->getProfil($kode);
+        $dtprov = $this->modelProv->getProv();
         //dd($dtlembaga);
 
         $data = [
 
             'title' => 'Profil Lembaga',
-            'dt' => $dtlembaga
+            'dt' => $dtlembaga,
+            'prov' => $dtprov
         ];
 
 

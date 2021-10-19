@@ -408,7 +408,23 @@ $data = $json[0];
                                     <div class="row">
                                         <h1 class="h3 mb-4 text-gray-800">Wilayah Kerja</h1>
                                         <div class="col-lg-8">
+                                            <select name="prov" id="prov" class="form-control">
+                                                <?php
+                                                foreach ($prov as $dtProv) {
 
+                                                    echo '<option value="' . $dtProv['id_prop'] . '">' . $dtProv['nama_prop'] . '</option>';
+                                                }
+                                                ?>
+                                            </select>
+
+                                            <select name="kab" id="kab" class="form-control">
+                                            </select>
+
+                                            <select name="kec" id="kec" class="form-control">
+                                            </select>
+
+                                            <select name="desa" id="desa" class="form-control">
+                                            </select>
 
 
                                         </div>
@@ -508,5 +524,70 @@ $data = $json[0];
 
 </div>
 </div>
+
+<?= $this->endSection() ?>
+
+<?= $this->section('script') ?>
+
+<script type="text/javascript">
+    function loadingproses() {
+        $('.backDrop').show();
+        $('.backDrop_content').fadeIn('slow');
+    }
+
+    function loadingproses_close() {
+        $('.backDrop').hide();
+        $('.backDrop_content').fadeOut('slow');
+    }
+
+    $('#prov').on('change', function() {
+        $('#kec').html('');
+        $('#desa').html('');
+        const id = $('#prov').val();
+        var kdprov = id.substring(0, 2);
+
+        $.ajax({
+            url: "<?= base_url() ?>/master/wilayah/showKab/" + kdprov + "",
+            success: function(response) {
+                console.log(response);
+                $("#kab").html(response);
+            },
+            dataType: "html"
+        });
+        return false;
+    });
+
+
+    $('#kab').on('change', function() {
+        $('#desa').html('');
+        const id = $('#kab').val();
+        var kdkab = id.substring(0, 4);
+
+        $.ajax({
+            url: "<?= base_url() ?>/master/wilayah/showKec/" + kdkab + "",
+            success: function(response) {
+                console.log(response);
+                $("#kec").html(response);
+            },
+            dataType: "html"
+        });
+        return false;
+    });
+
+    $('#kec').on('change', function() {
+
+        const id = $('#kec').val();
+        var kdkec = id.substring(0, 6);
+
+        $.ajax({
+            url: "<?= base_url() ?>/master/wilayah/showDesa/" + kdkec + "",
+            success: function(response) {
+                $("#desa").html(response);
+            },
+            dataType: "html"
+        });
+        return false;
+    });
+</script>
 
 <?= $this->endSection() ?>

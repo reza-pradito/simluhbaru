@@ -52,7 +52,7 @@
                                     <i class="fas fa-edit"></i> Ubah
                                 </button>
                             </a>
-                            <button class="btn bg-gradient-danger btn-sm" id="btnHapus" data-id_swa="<?= $row['id_swa']; ?>" type="submit" onclick="return confirm('Are you sure ?')">
+                            <button class="btn bg-gradient-danger btn-sm" id="btnHapus" data-id_swa="<?= $row['id_swa']; ?>" type="button">
                                 <i class="fas fa-trash"></i> Hapus</button>
                         </td>
                     </tr>
