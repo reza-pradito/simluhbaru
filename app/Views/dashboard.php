@@ -2,13 +2,7 @@
 
  <?= $this->section('content') ?>
  <!-- Styles -->
- <style>
-     #chartdiv {
-         width: 100%;
-         height: 300px;
-         overflow: hidden;
-     }
- </style>
+
  <div class="container-fluid py-4">
      <div class="row">
          <!-- Map -->
@@ -119,7 +113,13 @@
      </div>
      <?php echo view('layout/footer'); ?>
  </div>
-
+ <style>
+     #chartdiv {
+         width: 100%;
+         height: 300px;
+         overflow: hidden;
+     }
+ </style>
  <?= $this->endSection() ?>
 
  <?= $this->section('script') ?>
