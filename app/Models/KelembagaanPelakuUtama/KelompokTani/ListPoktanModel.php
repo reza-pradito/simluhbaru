@@ -7,24 +7,16 @@ use \Config\Database;
 
 class ListPoktanModel extends Model
 {
-    protected $table      = 'penyuluh';
-    //protected $primaryKey = 'id';
-
-
-    //protected $returnType     = 'array';
-    //protected $useSoftDeletes = true;
-
-    //protected $allowedFields = ['nama', 'alamat', 'telpon'];
+    protected $table      = 'tb_poktan';
+    protected $primaryKey = 'id_poktan';
+    protected $allowedFields = ['no_reg', 'kode_prop', 'kode_kab',
+     'kode_kec', 'kode_desa', 'nama_poktan', 'ketua_poktan', 'alamat', 'jum_anggota','simluh_tahun_bentuk','status'];
 
 
     protected $useTimestamps = false;
-    // protected $createdField  = 'created_at';
-    // protected $updatedField  = 'updated_at';
-    // protected $deletedField  = 'deleted_at';
+    
 
-    // protected $validationRules    = [];
-    // protected $validationMessages = [];
-    // protected $skipValidation     = false;
+   
 
 
     public function getKelompokTaniTotal($kode_kec)
@@ -36,9 +28,11 @@ class ListPoktanModel extends Model
         $query2 = $db->query("SELECT count(id_poktan) as jum FROM tb_poktan where kode_kec ='$kode_kec'");
         $row2   = $query2->getRow();
         
-        $query3   = $db->query("select id_poktan,id_gap,kode_desa,kode_kec,nama_poktan,ketua_poktan,alamat,jum_anggota,b.nm_desa
+        $query3   = $db->query("select *, a.id_poktan,a.alamat,a.id_gap,a.kode_desa,a.kode_kec,a.kode_kab,a.nama_poktan,a.ketua_poktan,b.nm_desa,c.id_daerah,d.id_dati2,a.status,a.simluh_tahun_bentuk
                                 from tb_poktan a
                                 left join tbldesa b on a.kode_desa=b.id_desa 
+                                left join tbldaerah c on a.kode_kec=c.id_daerah
+                                left join tbldati2 d on a.kode_kab=d.id_dati2
                                 where kode_kec='$kode_kec' and simluh_jenis_kelompok !='P2L'
                                 ORDER BY kode_desa, nama_poktan");
 
@@ -59,5 +53,21 @@ class ListPoktanModel extends Model
         ];
 
         return $data;
+    }
+     public function getDesa($kode_kec)
+    {
+        $query = $this->db->query("select * from tbldesa where id_daerah LIKE '" . $kode_kec . "%' ORDER BY nm_desa ASC");
+        $row   = $query->getResultArray();
+        return $row;
+    }
+    public function getDataById($id_poktan)
+    {
+        $query = $this->db->query("select * , b.deskripsi
+                                from tb_poktan a
+                                left join tbldaerah b on a.kode_kec=b.id_daerah
+                                where id_poktan= '" . $id_poktan . "' 
+                                ORDER BY nama_poktan ");
+                                $row = $query->getRow();
+                                return json_encode($row);
     }
 }

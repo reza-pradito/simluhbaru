@@ -7,26 +7,15 @@ use \Config\Database;
 
 class ListPoktanAnggotaModel extends Model
 {
-   // protected $table      = 'penyuluh';
-    //protected $primaryKey = 'id';
-
-
-    //protected $returnType     = 'array';
-    //protected $useSoftDeletes = true;
-
-    //protected $allowedFields = ['nama', 'alamat', 'telpon'];
+    protected $table      = 'tb_poktan_anggota';
+    protected $primaryKey = 'id_anggota';
+    protected $allowedFields = ['kode_prop', 'kode_kab','id_poktan',
+     'kode_kec', 'kode_desa', 'nama_anggota', 'nama_ktp', 'alamat', 'tgl_lahir','bln_lahir', 'thn_lahir', 'jenis_kelamin', 'no_hp', 'status_anggota', 'kode_komoditas','kode_komoditas2','kode_komoditas3', 
+     'volume', 'volume2', 'volume3', 'lainnya', 'luas_lahan_ternak_diusahakan','luas_lahan_ternak_dimiliki','titik_koordinat_lahan','kategori_petani_penggarap'];
 
 
     protected $useTimestamps = false;
-    // protected $createdField  = 'created_at';
-    // protected $updatedField  = 'updated_at';
-    // protected $deletedField  = 'deleted_at';
-
-    // protected $validationRules    = [];
-    // protected $validationMessages = [];
-    // protected $skipValidation     = false;
-
-
+ 
     public function getListPoktanAnggotaTotal($ip)
     {
         $db = Database::connect();
@@ -74,5 +63,30 @@ class ListPoktanAnggotaModel extends Model
         ];
 
         return $data;
+    }
+    public function getDataById($ip)
+    {
+        $query = $this->db->query("select * from tb_poktan_anggota where id_poktan= '" . $ip . "' 
+                                ORDER BY nama_anggota ");
+                                $row = $query->getRow();
+                                return json_encode($row);
+    }
+    public function getKomoditas()
+    {
+        $query = $this->db->query("select * from tb_komoditas order by id_sub_sektor,id_komoditas");
+        $row2   = $query->getResultArray();
+        return $row2;
+    }
+    public function getKomoditas2()
+    {
+        $query = $this->db->query("select * from tb_komoditas order by id_sub_sektor,id_komoditas");
+        $row3   = $query->getResultArray();
+        return $row3;
+    }
+    public function getKomoditas3()
+    {
+        $query = $this->db->query("select * from tb_komoditas order by id_sub_sektor,id_komoditas");
+        $row4   = $query->getResultArray();
+        return $row4;
     }
 }

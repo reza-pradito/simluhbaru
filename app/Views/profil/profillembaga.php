@@ -18,11 +18,21 @@ $result = file_get_contents($api, false);
 $json = json_decode($result, true);
 $data = $json[0];
 ?>
+
+
 <div class="container-fluid py-4">
     <div class="row">
         <!-- Page Heading -->
         <div class="row mt-3 mb-4">
+            <?php
+            if ($validation->hasError('foto')) {
 
+            ?>
+                <div class="alert alert-danger" role="alert">
+                    <?= $validation->listErrors(); ?>
+                </div>
+
+            <?php } ?>
             <div class="col-xl-3 col-sm-6 mb-xl-0 mb-4">
                 <div class="card">
                     <div class="card-body p-3">
@@ -200,7 +210,7 @@ $data = $json[0];
             <nav class="col-lg-12">
                 <div class="nav nav-tabs" id="nav-tab" role="tablist">
                     <button class="nav-link active" id="nav-home-tab" data-bs-toggle="tab" data-bs-target="#nav-home" type="button" role="tab" aria-controls="nav-home" aria-selected="true">Profil</button>
-                    <button class="nav-link" id="nav-penyuluh-tab" data-bs-toggle="tab" data-bs-target="#nav-penyuluh" type="button" role="tab" aria-controls="nav-penyuluh" aria-selected="false">Daftar Penyuluh</button>
+                    <button class="nav-link" id="nav-penyuluh-tab" data-bs-toggle="tab" data-bs-target="#nav-penyuluh" type="button" role="tab" aria-controls="nav-penyuluh" aria-selected="false">Wilayah Kerja</button>
                     <button class="nav-link" id="nav-lahancth-tab" data-bs-toggle="tab" data-bs-target="#nav-kegiatan" type="button" role="tab" aria-controls="nav-kegiatan" aria-selected="false">Kegiatan</button>
                     <!-- <button class="nav-link" id="nav-sarpras-tab" data-bs-toggle="tab" data-bs-target="#nav-sarpras" type="button" role="tab" aria-controls="nav-sarpras" aria-selected="false">Sarana & Prasarana</button>
                     <button class="nav-link" id="nav-pokom-tab" data-bs-toggle="tab" data-bs-target="#nav-pokom" type="button" role="tab" aria-controls="nav-pokom" aria-selected="false">Potensi Ekonomi</button>
@@ -216,6 +226,7 @@ $data = $json[0];
                                     <div class="row">
                                         <h1 class="h3 mb-4 text-gray-800"><?= $title; ?><i class="fas fa-edit" style="float: right;" data-bs-toggle="modal" data-bs-target="#modal-form" id="btn-edit" data-id_gapoktan="<?= $dt['id_gapoktan']; ?>"></i></a></h1>
                                         <div class="col-lg-12">
+
 
                                             <table class="table">
 
@@ -277,6 +288,173 @@ $data = $json[0];
                                                 </tbody>
 
                                             </table>
+
+                                            <?php if (session()->get('status_user') == '1') { ?>
+                                                <table class="table">
+
+                                                    <tbody>
+                                                        <tr>
+                                                            <td>Nama Kelembagaan</td>
+                                                            <td>:</td>
+                                                            <td><?= $dt['deskripsi_lembaga_lain']; ?> <?= $sessnama; ?></td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td>Tanggal Pembentukan</td>
+                                                            <td>:</td>
+                                                            <td><?= $dt['tgl_berdiri'] . '-' . $dt['bln_berdiri'] . '-' . $dt['thn_berdiri']; ?></td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td>Alamat</td>
+                                                            <td>:</td>
+                                                            <td> <?= $dt['alamat']; ?></td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td>Provinsi</td>
+                                                            <td>:</td>
+                                                            <td><?= $dt['kode_prop']; ?></td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td>No Telepon/Fax</td>
+                                                            <td>:</td>
+                                                            <td><?= $dt['telp_kantor']; ?></td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td>Alamat Email</td>
+                                                            <td>:</td>
+                                                            <td><?= $dt['email']; ?></td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td>Alamat Website</td>
+                                                            <td>:</td>
+                                                            <td><?= $dt['website']; ?></td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td>Nama Pimpinan</td>
+                                                            <td>:</td>
+                                                            <td><?= $dt['ketua']; ?></td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td>No HP Pimpinan</td>
+                                                            <td>:</td>
+                                                            <td><?= $dt['hp_kabid']; ?></td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td>Nama Koordinator PP</td>
+                                                            <td>:</td>
+                                                            <td><?= $dt['nama_koord_penyuluh']; ?></td>
+                                                        </tr>
+                                                    </tbody>
+                                                </table>
+                                            <?php } elseif (session()->get('status_user') == '200') { ?>
+                                                <table class="table">
+
+                                                    <tbody>
+                                                        <tr>
+                                                            <td>Nama Kelembagaan</td>
+                                                            <td>:</td>
+                                                            <td><?= $dt['deskripsi_lembaga_lain']; ?> <?= $sessnama; ?></td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td>Tanggal Pembentukan</td>
+                                                            <td>:</td>
+                                                            <td><?= $dt['tgl_berdiri'] . '-' . $dt['bln_berdiri'] . '-' . $dt['thn_berdiri']; ?></td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td>Alamat</td>
+                                                            <td>:</td>
+                                                            <td> <?= $dt['alamat']; ?></td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td>Provinsi</td>
+                                                            <td>:</td>
+                                                            <td><?= $dt['kode_prop']; ?></td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td>No Telepon/Fax</td>
+                                                            <td>:</td>
+                                                            <td><?= $dt['telp_kantor']; ?></td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td>Alamat Email</td>
+                                                            <td>:</td>
+                                                            <td><?= $dt['email']; ?></td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td>Alamat Website</td>
+                                                            <td>:</td>
+                                                            <td><?= $dt['website']; ?></td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td>Nama Pimpinan</td>
+                                                            <td>:</td>
+                                                            <td><?= $dt['ketua']; ?></td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td>No HP Pimpinan</td>
+                                                            <td>:</td>
+                                                            <td><?= $dt['hp_kabid']; ?></td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td>Nama Koordinator PP</td>
+                                                            <td>:</td>
+                                                            <td><?= $dt['nama_koord_penyuluh']; ?></td>
+                                                        </tr>
+                                                    </tbody>
+                                                </table>
+                                            <?php } elseif (session()->get('status_user') == '300') { ?>
+
+                                                <table class="table">
+
+                                                    <tbody>
+                                                        <tr>
+                                                            <td>Nama BPP</td>
+                                                            <td>:</td>
+                                                            <td><?= $dt['nama_bpp']; ?> </td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td>Klasifikasi BPP</td>
+                                                            <td>:</td>
+                                                            <td><?= $dt['klasifikasi']; ?> </td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td>Alamat</td>
+                                                            <td>:</td>
+                                                            <td> <?= $dt['alamat']; ?>, Kec: , Kab/Kota: , Provinsi: </td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td>Tanggal Pembentukan</td>
+                                                            <td>:</td>
+                                                            <td><?= $dt['tgl_berdiri'] . '-' . $dt['bln_berdiri'] . '-' . $dt['thn_berdiri']; ?></td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td>Status Bangunan</td>
+                                                            <td>:</td>
+                                                            <td><?= $dt['status_gedung']; ?></td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td>Kondisi Bangunan</td>
+                                                            <td>:</td>
+                                                            <td><?= $dt['kondisi_bangunan']; ?></td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td>Nama Kepala/Koordinator</td>
+                                                            <td>:</td>
+                                                            <td><?= $dt['ketua']; ?></td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td>Nomor HP</td>
+                                                            <td>:</td>
+                                                            <td><?= $dt['telp_hp']; ?></td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td>Email</td>
+                                                            <td>:</td>
+                                                            <td><?= $dt['email']; ?></td>
+                                                        </tr>
+                                                    </tbody>
+                                                </table>
+                                            <?php } ?>
+
                                         </div>
 
                                     </div>
@@ -288,9 +466,13 @@ $data = $json[0];
                             <div class="card">
                                 <div class="card-body p-3 ">
                                     <img src="<?= base_url('assets/img/logo.png'); ?>" width="150px" class="img-thumbnail" alt="profil">
+
                                 </div>
+                                <!-- <a href="<?= base_url('profil/lembaga/editfoto') ?>" class="btn btn-primary btn-lg w-100 btn-sm">Upload</a> -->
+                                <button type="button" class="btn btn-primary btn-lg w-100 btn-sm" id="uploadbtn">Upload</button>
                             </div>
                         </div>
+
 
                     </div>
                 </div>
@@ -302,28 +484,26 @@ $data = $json[0];
                             <div class="card">
                                 <div class="card-body p-3">
                                     <div class="row">
-                                        <h1 class="h3 mb-4 text-gray-800">Daftar Penyuluh yang bertugas di Kab/Kota</h1>
+                                        <h1 class="h3 mb-4 text-gray-800">Wilayah Kerja</h1>
                                         <div class="col-lg-8">
+                                            <select name="prov" id="prov" class="form-control">
+                                                <?php
+                                                foreach ($prov as $dtProv) {
 
-                                            <table class="table">
-                                                <tbody>
-                                                    <tr>
-                                                        <td>Penyuluh PNS</td>
-                                                        <td>:</td>
-                                                        <td>dadasas</td>
-                                                    </tr>
-                                                    <tr>
-                                                        <td>THL-TBPP (APBN)</td>
-                                                        <td>:</td>
-                                                        <td>dadasas</td>
-                                                    </tr>
-                                                    <tr>
-                                                        <td>THL-TB PP (APBD)</td>
-                                                        <td>:</td>
-                                                        <td>dadasas</td>
-                                                    </tr>
-                                                </tbody>
-                                            </table>
+                                                    echo '<option value="' . $dtProv['id_prop'] . '">' . $dtProv['nama_prop'] . '</option>';
+                                                }
+                                                ?>
+                                            </select>
+
+                                            <select name="kab" id="kab" class="form-control">
+                                            </select>
+
+                                            <select name="kec" id="kec" class="form-control">
+                                            </select>
+
+                                            <select name="desa" id="desa" class="form-control">
+                                            </select>
+
 
                                         </div>
 
@@ -346,6 +526,7 @@ $data = $json[0];
                                     <div class="row">
                                         <h1 class="h3 mb-4 text-gray-800">Kegiatan yang dilakukan <i class="fas fa-edit" style="float: right;" data-bs-toggle="modal" data-bs-target="#modal-fk" id="btn-add-fas"></i></h1>
                                         <div class="col-lg-12">
+
 
                                             <table class="table align-items-center mb-0">
                                                 <thead>
@@ -386,6 +567,7 @@ $data = $json[0];
                                                     ?>
                                                 </tbody>
                                             </table>
+
                                         </div>
 
                                     </div>
@@ -451,6 +633,10 @@ $data = $json[0];
             </div>
 
         </div>
+    </div>
+
+</div>
+
 
         <?php
         $i = 1;
@@ -734,9 +920,41 @@ $data = $json[0];
             </div>
         </div>
 
+<div class="modal fade" id="modalFoto" tabindex="-1" role="dialog" aria-labelledby="exampleModalMessageTitle" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Ubah Foto Profil</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">×</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form method="POST" enctype="multipart/form-data" action="<?= base_url('profil/lembaga/saveProfil'); ?>">
 
+
+                    <div class="col-lg-3 mb-lg-0 text-center">
+                        <div class="card">
+                            <div class="card-body p-3">
+                                <img src="<?= base_url('assets/img/logo.png'); ?>" width="150px" class="img-thumbnail" alt="profil">
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="input-group mb-3">
+                        <input type="file" class="form-control" id="foto" name="foto">
+                        <label class="input-group-text" for="foto">Pilih Foto</label>
+                    </div>
+
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn bg-gradient-secondary" data-bs-dismiss="modal">Close</button>
+                <button type="submit" id="btnSave" class="btn bg-gradient-primary">Simpan</button>
+            </div>
+            </form>
+
+        </div>
     </div>
-
 </div>
 <?php echo view('layout/footer'); ?>
 
@@ -1163,6 +1381,71 @@ $data = $json[0];
             }
         });
 
+=======
+<?= $this->section('script') ?>
+
+<script type="text/javascript">
+    $('#uploadbtn').on('click', function() {
+        $('#modalFoto').modal('show');
+    });
+
+    function loadingproses() {
+        $('.backDrop').show();
+        $('.backDrop_content').fadeIn('slow');
+    }
+
+    function loadingproses_close() {
+        $('.backDrop').hide();
+        $('.backDrop_content').fadeOut('slow');
+    }
+
+    $('#prov').on('change', function() {
+        $('#kec').html('');
+        $('#desa').html('');
+        const id = $('#prov').val();
+        var kdprov = id.substring(0, 2);
+
+        $.ajax({
+            url: "<?= base_url() ?>/master/wilayah/showKab/" + kdprov + "",
+            success: function(response) {
+                console.log(response);
+                $("#kab").html(response);
+            },
+            dataType: "html"
+        });
+        return false;
+    });
+
+
+    $('#kab').on('change', function() {
+        $('#desa').html('');
+        const id = $('#kab').val();
+        var kdkab = id.substring(0, 4);
+
+        $.ajax({
+            url: "<?= base_url() ?>/master/wilayah/showKec/" + kdkab + "",
+            success: function(response) {
+                console.log(response);
+                $("#kec").html(response);
+            },
+            dataType: "html"
+        });
+        return false;
+    });
+
+    $('#kec').on('change', function() {
+
+        const id = $('#kec').val();
+        var kdkec = id.substring(0, 6);
+
+        $.ajax({
+            url: "<?= base_url() ?>/master/wilayah/showDesa/" + kdkec + "",
+            success: function(response) {
+                $("#desa").html(response);
+            },
+            dataType: "html"
+        });
+        return false;
     });
 </script>
 

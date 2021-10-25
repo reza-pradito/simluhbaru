@@ -45,6 +45,7 @@ class KodeWilModel extends Model
         return $data;
     }
 
+
     public function getNamaWil($kode_kab)
     {
         $query = $this->db->query("select a.id_dati2, b.nama_prop as namaprov 
@@ -66,4 +67,5 @@ class KodeWilModel extends Model
 
         return $data;
     }
+
 }

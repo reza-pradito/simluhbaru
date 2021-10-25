@@ -64,7 +64,6 @@
                         <input type="text" class="form-control" name="menu" id="menu">
                         <input type="hidden" class="form-control" name="idmenu" id="idmenu">
                     </div>
-
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn bg-gradient-secondary" data-bs-dismiss="modal">Close</button>
