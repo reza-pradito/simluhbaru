@@ -44,19 +44,15 @@ class PenyuluhSwadaya extends BaseController
         return view('kab/penyuluh/penyuluhswadaya', $data);
     }
 
-    function action()
+    public function showDesa($id_swa)
     {
-        // if ($this->request->getVar('action')) {
-        //     $action = $this->request->getVar('action');
 
-        //     if ($action == 'get_wil_kerja') {
-        //         $penyuluh_model = new PenyuluhSwadayaModel();
+        $data['q'] = $this->model->getDesa($id_swa);
 
-        //         $wilkerdata = $penyuluh_model->getDesa->where('id_daerah', $this->request->getVar('id_daerah'));
+        foreach ($data['q'] as $dtDesa) {
 
-        //         echo json_encode($wilkerdata);
-        //     }
-        // }
+            echo '<option value="' . $dtDesa['id_desa'] . '">' . $dtDesa['nm_desa'] . '</option>';
+        }
     }
 
     // public function getWilKer($tempat_tugas = null)
@@ -73,6 +69,7 @@ class PenyuluhSwadaya extends BaseController
     {
         try {
             $res = $this->model->save([
+                'id' => $this->request->getPost('id'),
                 'jenis_penyuluh' => $this->request->getPost('jenis_penyuluh'),
                 'noktp' => $this->request->getPost('noktp'),
                 'nama' => $this->request->getPost('nama'),
@@ -165,6 +162,7 @@ class PenyuluhSwadaya extends BaseController
     public function update($id_swa)
     {
         //$id = $this->request->getVar('idjab');
+        $id = $this->request->getPost('id');
         $jenis_penyuluh = $this->request->getPost('jenis_penyuluh');
         $noktp = $this->request->getPost('noktp');
         $nama = $this->request->getPost('nama');
@@ -223,6 +221,7 @@ class PenyuluhSwadaya extends BaseController
 
         $this->model->save([
             'id_swa' => $id_swa,
+            'id' => $id,
             'jenis_penyuluh' => $jenis_penyuluh,
             'noktp' => $noktp,
             'nama' => $nama,

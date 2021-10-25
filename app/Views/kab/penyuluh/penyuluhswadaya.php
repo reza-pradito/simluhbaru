@@ -331,7 +331,7 @@
                                                 <label>Unit Kerja (BPP Kecamatan)</label>
                                                 <div class="input-group mb-3">
                                                     <select name="unit_kerja" id="unit_kerja" class="form-control input-lg unit_kerja">
-                                                        <option value="">Pilih Desa</option>
+                                                        <option value="">Pilih Unit Kerja</option>
                                                         <?php
                                                         foreach ($unitkerja as $row3) {
                                                             echo '<option value="' . $row3["id"] . '">' . $row3["nama_bpp"] . '</option>';
@@ -342,7 +342,7 @@
                                                 <label>Tempat Tugas</label>
                                                 <div class="input-group mb-3">
                                                     <select name="tempat_tugas" id="tempat_tugas" class="form-control input-lg tempat_tugas">
-                                                        <option value="">Pilih Desa</option>
+                                                        <option value="">Pilih Kecamatan</option>
                                                         <?php
                                                         foreach ($tugas as $row2) {
                                                             echo '<option value="' . $row2["id_daerah"] . '">' . $row2["deskripsi"] . '</option>';
@@ -358,7 +358,7 @@
                                                 </div>
                                                 <label>Wilayah Kerja 2</label>
                                                 <div class="input-group mb-3">
-                                                    <select class="form-select" aria-label="Default select example">
+                                                    <select class="form-select" id="wil_kerja2" name="wil_kerja2" aria-label="Default select example">
                                                         <option selected>Pilih Desa</option>
                                                     </select>
                                                 </div>
@@ -367,19 +367,19 @@
 
                                                 <label>Wilayah Kerja 3</label>
                                                 <div class="input-group mb-3">
-                                                    <select class="form-select" aria-label="Default select example">
+                                                    <select class="form-select" id="wil_kerja3" name="wil_kerja3" aria-label="Default select example">
                                                         <option selected>Pilih Desa</option>
                                                     </select>
                                                 </div>
                                                 <label>Wilayah Kerja 4</label>
                                                 <div class="input-group mb-3">
-                                                    <select class="form-select" aria-label="Default select example">
+                                                    <select class="form-select" id="wil_kerja4" name="wil_kerja4" aria-label="Default select example">
                                                         <option selected>Pilih Desa</option>
                                                     </select>
                                                 </div>
                                                 <label>Wilayah Kerja 5</label>
                                                 <div class="input-group mb-3">
-                                                    <select class="form-select" aria-label="Default select example">
+                                                    <select class="form-select" id="wil_kerja5" name="wil_kerja5" aria-label="Default select example">
                                                         <option selected>Pilih Desa</option>
                                                     </select>
                                                 </div>
@@ -458,8 +458,9 @@
                                                 <div class="input-group mb-3">
                                                     <input type="text" id="nm_pelatihan6" name="nm_pelatihan6" class="form-control">
                                                 </div>
-                                                <input type="hidden" id="kecamatan_tugas" name="kecamatan_tugas" value="<?= $cek['tempat_tugas'] ?>" class="form-control">
+                                                <input type="hidden" name="kecamatan_tugas" class="form-control">
                                                 <input type="hidden" id="tgl_update" name="tgl_update" class="form-control">
+                                                <input type="hidden" id="id" name="id">
                                             </div>
 
                                             <div class="text-center">
@@ -489,6 +490,7 @@
 
         $(document).delegate('#btnSave', 'click', function() {
 
+            var id = $('#id').val();
             var jenis_penyuluh = $('#jenis_penyuluh').val();
             var noktp = $('#noktp').val();
             var nama = $('#nama').val();
@@ -542,13 +544,14 @@
             var wil_kerja3 = $('#wil_kerja3').val();
             var wil_kerja4 = $('#wil_kerja4').val();
             var wil_kerja5 = $('#wil_kerja5').val();
-            var kecamatan_tugas = $('#kecamatan_tugas').val();
+            var kecamatan_tugas = $('#tempat_tugas').val();
             var mapping = $('#mapping').val();
 
             $.ajax({
                 url: '<?= base_url() ?>/Penyuluh/PenyuluhSwadaya/save/',
                 type: 'POST',
                 data: {
+                    'id': id,
                     'jenis_penyuluh': jenis_penyuluh,
                     'noktp': noktp,
                     'nama': nama,
@@ -674,6 +677,7 @@
                     // console.log(result);
 
                     $('#id_swa').val(result.id_swa);
+                    $('#id').val(result.id);
                     $('#jenis_penyuluh').val(result.jenis_penyuluh);
                     $('#noktp').val(result.noktp);
                     $('#nama').val(result.nama);
@@ -727,7 +731,7 @@
                     $('#wil_kerja3').val(result.wil_kerja3);
                     $('#wil_kerja4').val(result.wil_kerja4);
                     $('#wil_kerja5').val(result.wil_kerja5);
-                    $('#kecamatan_tugas').val(result.kecamatan_tugas);
+                    $('#tempat_tugas').val(result.kecamatan_tugas);
                     $('#mapping').val(result.mapping);
 
                     $('#modal-form').modal('show');
@@ -738,6 +742,7 @@
 
 
                         var id_swa = $('#id_swa').val();
+                        var id = $('#id').val();
                         var jenis_penyuluh = $('#jenis_penyuluh').val();
                         var noktp = $('#noktp').val();
                         var nama = $('#nama').val();
@@ -791,11 +796,12 @@
                         var wil_kerja3 = $('#wil_kerja3').val();
                         var wil_kerja4 = $('#wil_kerja4').val();
                         var wil_kerja5 = $('#wil_kerja5').val();
-                        var kecamatan_tugas = $('#kecamatan_tugas').val();
+                        var kecamatan_tugas = $('#tempat_tugas').val();
                         var mapping = $('#mapping').val();
 
                         let formData = new FormData();
                         formData.append('id_swa', id_swa);
+                        formData.append('id', id);
                         formData.append('jenis_penyuluh', jenis_penyuluh);
                         formData.append('noktp', noktp);
                         formData.append('nama', nama);
@@ -899,36 +905,23 @@
 
         });
 
-        $(document).delegate('#tempat_tugas', 'change', function() {
-            var id_daerah = $('#tempat_tugas').val();
+        $('#tempat_tugas').on('change', function() {
 
-            var action = 'get_wil_kerja';
+            const id = $('#tempat_tugas').val();
+            var kdtempat_tugas = id.substring(0, 6);
 
-            if (id_daerah != '') {
-                $.ajax({
-                    url: "<?php echo base_url('/Penyuluh/PenyuluhSwadaya/action'); ?>",
-                    method: "POST",
-                    data: {
-                        id_daerah: id_daerah,
-                        action: action
-                    },
-                    dataType: "JSON",
-                    success: function(data) {
-                        var html = '<option value="">Select Wilayah Kerja</option>';
-
-                        for (var count = 0; count < data.length; count++) {
-
-                            html += '<option value="' + data[count].id_desa + '">' + data[count].nm_desa + '</option>';
-
-                        }
-
-                        $('#wil_kerja').html(html);
-                    }
-                });
-            } else {
-                $('#wil_kerja').val('');
-            }
-            // $('#city').val('');
+            $.ajax({
+                url: "<?= base_url() ?>/Penyuluh/PenyuluhSwadaya/showDesa/" + kdtempat_tugas + "",
+                success: function(response) {
+                    $("#wil_kerja").html(response);
+                    $("#wil_kerja2").html(response);
+                    $("#wil_kerja3").html(response);
+                    $("#wil_kerja4").html(response);
+                    $("#wil_kerja5").html(response);
+                },
+                dataType: "html"
+            });
+            return false;
         });
     });
 </script>
@@ -942,6 +935,21 @@
         month: 'long',
         year: 'numeric'
     }).split(' ').join(' ');
+</script>
+
+<script>
+    function makeid(length) {
+        var result = '';
+        var characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789';
+        var charactersLength = characters.length;
+        for (var i = 0; i < length; i++) {
+            result += characters.charAt(Math.floor(Math.random() *
+                charactersLength));
+        }
+        return result;
+    }
+    var ack = makeid(12);
+    document.getElementById("id").value = ack
 </script>
 
 <?= $this->endSection() ?>
