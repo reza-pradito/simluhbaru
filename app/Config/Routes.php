@@ -71,6 +71,7 @@ $routes->get('/kelompoktani', 'KelembagaanPelakuUtama/KelompokTani/KelompokTani:
 $routes->get('/kelompoktanikec', 'KelembagaanPelakuUtama/KelompokTani/KelompokTaniKec::kelompoktanikec');
 $routes->get('/listpoktan', 'KelembagaanPelakuUtama/KelompokTani/ListPokTan::listpoktan');
 $routes->get('/listpoktananggota', 'KelembagaanPelakuUtama/KelompokTani/ListPoktanAnggota::listpoktananggota');
+$routes->get('/listbantu', 'KelembagaanPelakuUtama/KelompokTani/ListBantu::listbantu');
 
 $routes->get('/tambahkelompoktani', 'KelembagaanPelakuUtama/KelompokTani/TambahKelompokTani::tambahkelompoktani');
 $routes->post('/listpoktan/save', 'KelembagaanPelakuUtama/Gapoktan/ListGapoktan::save');
