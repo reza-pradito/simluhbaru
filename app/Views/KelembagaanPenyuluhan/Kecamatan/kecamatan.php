@@ -40,7 +40,7 @@
                             <p class="text-xs font-weight-bold mb-0"><?= $i++ ?></p>
                         </td>
                         <td>
-                            <a href="<?= base_url('/profillembaga?kode_kec=' . $row['id_daerah']) ?>">
+                            <a href="<?= base_url('/detail_kecamatan?kode_kec=' . $row['id_daerah']) ?>">
                                 <p class="text-xs font-weight-bold mb-0"><?= $row['nama_bpp'] ?></p>
                             </a>
                         </td>
@@ -75,11 +75,6 @@
                             <p class="text-xs font-weight-bold mb-0"><?= $row['tgl_update'] ?></p>
                         </td>
                         <td class="align-middle text-center text-sm">
-                            <a href="#">
-                                <button type="button" data-bs-toggle="modal" data-bs-target="#edit-modal-form" class="btn bg-gradient-warning btn-sm">
-                                    <i class="fas fa-edit"></i> Ubah
-                                </button>
-                            </a>
                             <button type="button" class="btn bg-gradient-danger btn-sm">
                                 <i class="fas fa-trash"></i> Hapus
                             </button>
@@ -90,7 +85,7 @@
                 }
                 ?>
 
-                <!-- Modal -->
+                <!-- Modal form -->
                 <div class="modal fade" id="modal-form" tabindex="-1" role="dialog" aria-labelledby="modal-form" aria-hidden="true">
                     <div class="modal-dialog modal-dialog-centered modal-xl" role="document">
                         <div class="modal-content">
@@ -100,65 +95,72 @@
                                         <h4 class="font-weight-bolder text-warning text-gradient">Tambah Data</h4>
                                     </div>
                                     <div class="card-body">
-                                        <form role="form text-left">
-                                            <div class="row">
+                                        <form role="form text-left" action="<?= base_url('KelembagaanPenyuluhan/Kecamatan/Kecamatan/save'); ?>">
+                                            <? csrf_field(); ?>
+                                            <div class=" row">
                                                 <div class="col">
+                                                    <input type="hidden" name="kode_prop" id="kode_prop" value="<?= $kode_prop; ?>">
+                                                    <input type="hidden" name="satminkal" id="satminkal" value="<?= $kode_kab; ?>">
                                                     <label>Upload Foto BPP</label>
                                                     <div class="input-group mb-3">
-                                                        <input type="file" class="form-control-file" id="exampleFormControlFile1">
-                                                        <label>Tipe file yang diizinkan diupload adalah .JPEG</label>
+                                                        <div class="col-lg-4">
+                                                            <img src="/assets/img/logo.png" class="img-thumbnail img-preview">
+                                                        </div>
+                                                        <input type="file" class="form-control-file" id="foto" name="foto" onchange="previewImg()">
+                                                        <label class="custom-file-label" for="foto">Tipe file yang diizinkan diupload adalah .JPEG</label>
                                                     </div>
                                                     <label>Bentuk Kelembagaan</label>
                                                     <div class="input-group mb-3">
-                                                        <select class="form-select" aria-label="Default select example">
+                                                        <select class="form-select" name="bentuk_lembaga" id="bentuk_lembaga" aria-label="Default select example">
                                                             <option selected>Pilih Bentuk Kelembagaan</option>
-                                                            <option value="bpp">Balai Penyuluhan Pertanian</option>
-                                                            <option value="uptd">UPTD</option>
+                                                            <option value="20">Balai Penyuluhan Pertanian</option>
+                                                            <option value="40">UPTD</option>
                                                         </select>
                                                     </div>
                                                     <label>Nama Kelembagaan</label>
                                                     <div class="input-group mb-3">
-                                                        <input type="text" class="form-control" placeholder="Nama Kelembagaan" aria-label="Nama" aria-describedby="nama-addon">
+                                                        <input type="text" class="form-control" placeholder="Nama Kelembagaan" name="nama_bpp" id="nama_bpp" aria-label="Nama" aria-describedby="nama-addon">
                                                     </div>
                                                     <label>Alamat Kantor</label>
                                                     <div class="input-group mb-3">
-                                                        <textarea class="form-control" placeholder="Alamat Kantor" id="floatingTextarea"></textarea>
+                                                        <textarea class="form-control" placeholder="Alamat Kantor" id="alamat" name="alamat"></textarea>
                                                     </div>
                                                     <label>Kecamatan (lokasi BPP)</label>
                                                     <div class="input-group mb-3">
-                                                        <select class="form-select" aria-label="Default select example">
-                                                            <option selected>Pilih Kecamatan</option>
-                                                            <option value="arjosari">Kec. Arjosari</option>
-                                                            <option value="banjar">Kec. Banjar</option>
-                                                            <option value="donorejo">Kec. Donorejo</option>
+                                                        <select name="kecamatan" id="kecamatan" class="form-control input-lg">
+                                                            <option value="">Pilih Kecamatan</option>
+                                                            <?php
+                                                            foreach ($kec as $row) {
+                                                                echo '<option value="' . $row["id_daerah"] . '">' . 'Kec. ' . $row["deskripsi"] . '</option>';
+                                                            }
+                                                            ?>
                                                         </select>
                                                     </div>
-                                                    <label>Wilayah Kecamatan</label>
+                                                    <label for="ketua">Tanggal Pembentukan</label>
                                                     <div class="input-group mb-3">
-                                                        <input type="text" class="form-control" placeholder="No. SK Penetapan" aria-label="Password" aria-describedby="password-addon">
-                                                    </div>
-                                                    <label>Tanggal Pembentukan</label>
-                                                    <div class="input-group mb-3">
-                                                        <input type="date" class="form-control" placeholder="Password" aria-label="Password" aria-describedby="password-addon">
-                                                    </div>
-                                                    <label>Klasifikasi BPP</label>
-                                                    <div class="input-group mb-3">
-                                                        <input type="text" class="form-control" placeholder="No. SK Penetapan" aria-label="Password" aria-describedby="password-addon">
+                                                        <select id="day" name="tgl_berdiri" class="form-select tgl_berdiri" aria-label="Default select example">
+                                                            <option value=""></option>
+                                                        </select>
+                                                        <select id="month" name="bln_berdiri" class="form-select bln_berdiri" aria-label="Default select example">
+                                                            <option value=""></option>
+                                                        </select>
+                                                        <select id="year" name="thn_berdiri" class="form-select thn_berdiri" aria-label="Default select example">
+                                                            <option value=""></option>
+                                                        </select>
                                                     </div>
                                                     <label>Status Gedung</label>
                                                     <div class="input-group mb-3">
-                                                        <select class="form-select" aria-label="Default select example">
+                                                        <select class="form-select" name="status_gedung" id="status_gedung" aria-label="Default select example">
                                                             <option selected>Pilih Status</option>
-                                                            <option value="milik">Milik sendiri</option>
-                                                            <option value="pinjam">Sewa/Pinjam</option>
+                                                            <option value="milik sendiri">Milik sendiri</option>
+                                                            <option value="sewa/pinjam">Sewa/Pinjam</option>
                                                         </select>
                                                     </div>
-
                                                 </div>
                                                 <div class="col">
                                                     <label>kondisi Bangunan</label>
                                                     <div class="input-group mb-3">
-                                                        <select class="form-select" aria-label="Default select example">
+                                                        <select class="form-select" name="kondisi_bangunan" id="kondisi_bangunan" aria-label="Default select example">
                                                             <option selected>Pilih Kondisi</option>
                                                             <option value="baik">Baik</option>
                                                             <option value="rusak">Rusak</option>
@@ -166,179 +168,193 @@
                                                     </div>
                                                     <label>GPS Point</label>
                                                     <div class="input-group mb-3">
-                                                        <input type="text" class="form-control" placeholder="GPS Point" aria-label="gps" aria-describedby="nama-addon">
-                                                        <select class="form-select" aria-label="Default select example">
-                                                            <option selected value="lu">LU</option>
-                                                            <option value="ls">LS</option>
+                                                        <input type="text" class="form-control" placeholder="GPS Point" name="koord_lu_ls" id="koord_lu_ls" aria-label="gps" aria-describedby="nama-addon">
+                                                        <select class="form-select" name="lu_ls" id="lu_ls" aria-label="Default select example">
+                                                            <option selected value="LU">LU</option>
+                                                            <option value="LS">LS</option>
                                                         </select>
-                                                        <input type="text" class="form-control" placeholder="GPS Point" aria-label="gps" aria-describedby="nama-addon">
-                                                        &nbsp; &nbsp;<label>BT</label>&nbsp; &nbsp;
+                                                        <input type="text" class="form-control" name="koord_bt" id="koord_bt" placeholder="GPS Point" aria-label="gps" aria-describedby="nama-addon">
+                                                        &nbsp; &nbsp;<label style="margin-top: 10px;">BT</label>&nbsp; &nbsp;
                                                     </div>
                                                     <label>No.Telepon/Fax</label>
                                                     <div class="input-group mb-3">
-                                                        <input type="text" class="form-control" placeholder="No. SK Penetapan" aria-label="Password" aria-describedby="password-addon">
+                                                        <input type="text" class="form-control" placeholder="No. Telepon" name="telp_bpp" id="telp_bpp">
                                                     </div>
                                                     <label>Alamat Email</label>
                                                     <div class="input-group mb-3">
-                                                        <input type="text" class="form-control" placeholder="No. SK Penetapan" aria-label="Password" aria-describedby="password-addon">
+                                                        <input type="text" class="form-control" placeholder="Email" name="email" id="email">
                                                     </div>
                                                     <label>Alamat Website/Blog</label>
                                                     <div class="input-group mb-3">
-                                                        <input type="text" class="form-control" placeholder="No. SK Penetapan" aria-label="Password" aria-describedby="password-addon">
+                                                        <input type="text" class="form-control" placeholder="Website" name="website" id="website" value="http://">
                                                     </div>
                                                     <label>Nama Pimpinan</label>
                                                     <div class="input-group mb-3">
-                                                        <input type="text" class="form-control" placeholder="No. SK Penetapan" aria-label="Password" aria-describedby="password-addon">
+                                                        <input type="text" class="form-control" placeholder="Nama" name="ketua" id="ketua">
+                                                        &nbsp; &nbsp;<label style="margin-top: 10px;">No. HP</label>&nbsp; &nbsp;
+                                                        <input type="text" class="form-control" name="telp_hp" id="telp_hp" placeholder="No. HP">
                                                     </div>
                                                     <label>Koordinator Penyuluh</label>
                                                     <div class="input-group mb-3">
                                                         <div class="form-check form-check-inline">
-                                                            <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio1" value="option1">
+                                                            <input class="form-check-input pen" type="radio" name="kode_koord_penyuluh" id="inlineRadio1" value="1">
                                                             <label class="form-check-label" for="inlineRadio1">PNS</label>
                                                         </div>
                                                         <div class="form-check form-check-inline">
-                                                            <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio2" value="option2">
+                                                            <input class="form-check-input pen" type="radio" name="kode_koord_penyuluh" id="inlineRadio2" value="2">
                                                             <label class="form-check-label" for="inlineRadio2">THL</label>
                                                         </div>
                                                         <div class="form-check form-check-inline">
-                                                            <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio2" value="option2">
+                                                            <input class="form-check-input pen" type="radio" name="kode_koord_penyuluh" id="inlineRadio3" value="3">
                                                             <label class="form-check-label" for="inlineRadio2">Struktural</label>
-                                                        </div>
+                                                        </div><br>
                                                     </div>
-                                                </div>
-
-                                                <div class="text-center">
-                                                    <center><button type="button" class="btn btn-round bg-gradient-warning btn-lg w-100 mt-4 mb-0">Simpan Data</button></center>
-                                                </div>
-                                            </div>
-                                        </form>
-                                    </div>
-
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Modal edit -->
-                <div class="modal fade" id="edit-modal-form" tabindex="-1" role="dialog" aria-labelledby="modal-form" aria-hidden="true">
-                    <div class="modal-dialog modal-dialog-centered modal-xl" role="document">
-                        <div class="modal-content">
-                            <div class="modal-body p-0">
-                                <div class="card card-plain">
-                                    <div class="card-header pb-0 text-left">
-                                        <h4 class="font-weight-bolder text-warning text-gradient">Ubah Data</h4>
-                                    </div>
-                                    <div class="card-body">
-                                        <form role="form text-left">
-                                            <div class="row">
-                                                <div class="col">
-                                                    <label>Upload Foto BPP</label>
-                                                    <div class="input-group mb-3">
-                                                        <input type="file" class="form-control-file" id="exampleFormControlFile1">
-                                                        <label>Tipe file yang diizinkan diupload adalah .JPEG</label>
-                                                    </div>
-                                                    <label>Bentuk Kelembagaan</label>
-                                                    <div class="input-group mb-3">
-                                                        <select class="form-select" aria-label="Default select example">
-                                                            <option selected>Pilih Bentuk Kelembagaan</option>
-                                                            <option value="bpp">Balai Penyuluhan Pertanian</option>
-                                                            <option value="uptd">UPTD</option>
+                                                    <div class="input-group mb-3" id="divPNS">
+                                                        <label style="margin-top: 10px;">PNS:</label>
+                                                        <select name="nama_koord_penyuluh" id="nama_koord_penyuluh" class="form-control input-lg" style="margin-left: 15px;">
+                                                            <option value="">-</option>
+                                                            <?php
+                                                            foreach ($penyuluhPNS as $row) {
+                                                                echo '<option value="' . $row["nip"] . '">' . $row["nip"] . ' - ' . $row["nama"] . '</option>';
+                                                            }
+                                                            ?>
                                                         </select>
                                                     </div>
-                                                    <label>Nama Kelembagaan</label>
-                                                    <div class="input-group mb-3">
-                                                        <input type="text" class="form-control" placeholder="Nama Kelembagaan" aria-label="Nama" aria-describedby="nama-addon">
-                                                    </div>
-                                                    <label>Alamat Kantor</label>
-                                                    <div class="input-group mb-3">
-                                                        <textarea class="form-control" placeholder="Alamat Kantor" id="floatingTextarea"></textarea>
-                                                    </div>
-                                                    <label>Kecamatan (lokasi BPP)</label>
-                                                    <div class="input-group mb-3">
-                                                        <select class="form-select" aria-label="Default select example">
-                                                            <option selected>Pilih Kecamatan</option>
-                                                            <option value="arjosari">Kec. Arjosari</option>
-                                                            <option value="banjar">Kec. Banjar</option>
-                                                            <option value="donorejo">Kec. Donorejo</option>
+                                                    <div class="input-group mb-3" id="divTHL">
+                                                        <label>THL:</label>
+                                                        <select name="nama_koord_penyuluh_thl" id="nama_koord_penyuluh_thl" class="form-control input-lg" style="margin-left: 5px;">
+                                                            <option value="">-</option>
+                                                            <?php
+                                                            foreach ($penyuluhTHL as $row2) {
+                                                                echo '<option value="' . $row2["noktp"] . '">' . $row2["noktp"] . ' - ' . $row2["nama"] . '</option>';
+                                                            }
+                                                            ?>
                                                         </select>
                                                     </div>
-                                                    <label>Wilayah Kecamatan</label>
-                                                    <div class="input-group mb-3">
-                                                        <input type="text" class="form-control" placeholder="No. SK Penetapan" aria-label="Password" aria-describedby="password-addon">
+                                                    <div class="input-group mb-3" id="divST">
+                                                        <label style="margin-top: 10px;">NIP:</label>
+                                                        <input type="text" class="form-control" style="margin-left: 10px;" id="koord_lainya_nip" placeholder="ketua" name="koord_lainya_nip">
+                                                        <label style="margin-top: 10px;">Nama</label>
+                                                        <input type="text" class="form-control" style="margin-left: 10px;" id="koord_lainya_nama" placeholder="ketua" name="koord_lainya_nama">
                                                     </div>
-                                                    <label>Tanggal Pembentukan</label>
-                                                    <div class="input-group mb-3">
-                                                        <input type="date" class="form-control" placeholder="Password" aria-label="Password" aria-describedby="password-addon">
-                                                    </div>
-                                                    <label>Klasifikasi BPP</label>
-                                                    <div class="input-group mb-3">
-                                                        <input type="text" class="form-control" placeholder="No. SK Penetapan" aria-label="Password" aria-describedby="password-addon">
-                                                    </div>
-                                                    <label>Status Gedung</label>
-                                                    <div class="input-group mb-3">
-                                                        <select class="form-select" aria-label="Default select example">
-                                                            <option selected>Pilih Status</option>
-                                                            <option value="milik">Milik sendiri</option>
-                                                            <option value="pinjam">Sewa/Pinjam</option>
-                                                        </select>
-                                                    </div>
-
                                                 </div>
                                                 <div class="col">
-                                                    <label>kondisi Bangunan</label>
+                                                    <h5>Sarana & Prasarana</h5>
+                                                    <label>Kendaraan Roda 4</label>
                                                     <div class="input-group mb-3">
-                                                        <select class="form-select" aria-label="Default select example">
-                                                            <option selected>Pilih Kondisi</option>
-                                                            <option value="baik">Baik</option>
-                                                            <option value="rusak">Rusak</option>
-                                                        </select>
+                                                        <label style="margin-top: 10px;">APBN</label>
+                                                        <input type="text" style="margin-left: 10px;" class="form-control" name="roda_4_apbn" id="roda_4_apbn" placeholder="" aria-label="gps" aria-describedby="nama-addon">
+                                                        &nbsp; &nbsp;<label style="margin-top: 10px;">Unit</label>&nbsp; &nbsp;
+                                                        <label style="margin-top: 10px;">APBD</label>
+                                                        <input type="text" style="margin-left: 10px;" class="form-control" name="roda_4_apbd" id="roda_4_apbd" placeholder="" aria-label="gps" aria-describedby="nama-addon">
+                                                        &nbsp; &nbsp;<label style="margin-top: 10px;">Unit</label>&nbsp; &nbsp;
                                                     </div>
-                                                    <label>GPS Point</label>
+                                                    <label>Kendaraan Roda 2</label>
                                                     <div class="input-group mb-3">
-                                                        <input type="text" class="form-control" placeholder="GPS Point" aria-label="gps" aria-describedby="nama-addon">
-                                                        <select class="form-select" aria-label="Default select example">
-                                                            <option selected value="lu">LU</option>
-                                                            <option value="ls">LS</option>
-                                                        </select>
-                                                        <input type="text" class="form-control" placeholder="GPS Point" aria-label="gps" aria-describedby="nama-addon">
-                                                        &nbsp; &nbsp;<label>BT</label>&nbsp; &nbsp;
+                                                        <label style="margin-top: 10px;">APBN</label>
+                                                        <input type="text" style="margin-left: 10px;" class="form-control" name="roda_2_apbn" id="roda_2_apbn" placeholder="" aria-label="gps" aria-describedby="nama-addon">
+                                                        &nbsp; &nbsp;<label style="margin-top: 10px;">Unit</label>&nbsp; &nbsp;
+                                                        <label style="margin-top: 10px;">APBD</label>
+                                                        <input type="text" style="margin-left: 10px;" class="form-control" name="roda_2_apbd" id="roda_2_apbd" placeholder="" aria-label="gps" aria-describedby="nama-addon">
+                                                        &nbsp; &nbsp;<label style="margin-top: 10px;">Unit</label>&nbsp; &nbsp;
                                                     </div>
-                                                    <label>No.Telepon/Fax</label>
+                                                    <label>Alat Pengolah Data (PC)</label>
                                                     <div class="input-group mb-3">
-                                                        <input type="text" class="form-control" placeholder="No. SK Penetapan" aria-label="Password" aria-describedby="password-addon">
+                                                        <label style="margin-top: 10px;">APBN</label>
+                                                        <input type="text" style="margin-left: 10px;" class="form-control" name="pc_apbn" id="pc_apbn" placeholder="" aria-label="gps" aria-describedby="nama-addon">
+                                                        &nbsp; &nbsp;<label style="margin-top: 10px;">Unit</label>&nbsp; &nbsp;
+                                                        <label style="margin-top: 10px;">APBD</label>
+                                                        <input type="text" style="margin-left: 10px;" class="form-control" name="pc_apbd" id="pc_apbd" placeholder="" aria-label="gps" aria-describedby="nama-addon">
+                                                        &nbsp; &nbsp;<label style="margin-top: 10px;">Unit</label>&nbsp; &nbsp;
                                                     </div>
-                                                    <label>Alamat Email</label>
+                                                    <label>Alat Pengolah Data (Laptop)</label>
                                                     <div class="input-group mb-3">
-                                                        <input type="text" class="form-control" placeholder="No. SK Penetapan" aria-label="Password" aria-describedby="password-addon">
+                                                        <label style="margin-top: 10px;">APBN</label>
+                                                        <input type="text" style="margin-left: 10px;" class="form-control" name="laptop_apbn" id="laptop_apbn" placeholder="" aria-label="gps" aria-describedby="nama-addon">
+                                                        &nbsp; &nbsp;<label style="margin-top: 10px;">Unit</label>&nbsp; &nbsp;
+                                                        <label style="margin-top: 10px;">APBD</label>
+                                                        <input type="text" style="margin-left: 10px;" class="form-control" name="laptop_apbd" id="laptop_apbd" placeholder="" aria-label="gps" aria-describedby="nama-addon">
+                                                        &nbsp; &nbsp;<label style="margin-top: 10px;">Unit</label>&nbsp; &nbsp;
                                                     </div>
-                                                    <label>Alamat Website/Blog</label>
+                                                    <label>Alat Pengolah Data (Printer)</label>
                                                     <div class="input-group mb-3">
-                                                        <input type="text" class="form-control" placeholder="No. SK Penetapan" aria-label="Password" aria-describedby="password-addon">
+                                                        <label style="margin-top: 10px;">APBN</label>
+                                                        <input type="text" style="margin-left: 10px;" class="form-control" name="printer_apbn" id="printer_apbn" placeholder="" aria-label="gps" aria-describedby="nama-addon">
+                                                        &nbsp; &nbsp;<label style="margin-top: 10px;">Unit</label>&nbsp; &nbsp;
+                                                        <label style="margin-top: 10px;">APBD</label>
+                                                        <input type="text" style="margin-left: 10px;" class="form-control" name="printer_apbd" id="printer_apbd" placeholder="" aria-label="gps" aria-describedby="nama-addon">
+                                                        &nbsp; &nbsp;<label style="margin-top: 10px;">Unit</label>&nbsp; &nbsp;
                                                     </div>
-                                                    <label>Nama Pimpinan</label>
+                                                    <label>Alat Pengolah Data (Modem)</label>
                                                     <div class="input-group mb-3">
-                                                        <input type="text" class="form-control" placeholder="No. SK Penetapan" aria-label="Password" aria-describedby="password-addon">
+                                                        <label style="margin-top: 10px;">APBN</label>
+                                                        <input type="text" style="margin-left: 10px;" class="form-control" name="modem_apbn" id="modem_apbn" placeholder="" aria-label="gps" aria-describedby="nama-addon">
+                                                        &nbsp; &nbsp;<label style="margin-top: 10px;">Unit</label>&nbsp; &nbsp;
+                                                        <label style="margin-top: 10px;">APBD</label>
+                                                        <input type="text" style="margin-left: 10px;" class="form-control" name="modem_apbd" id="modem_apbd" placeholder="" aria-label="gps" aria-describedby="nama-addon">
+                                                        &nbsp; &nbsp;<label style="margin-top: 10px;">Unit</label>&nbsp; &nbsp;
                                                     </div>
-                                                    <label>Koordinator Penyuluh</label>
+                                                    <label>LCD Proyektor</label>
                                                     <div class="input-group mb-3">
-                                                        <div class="form-check form-check-inline">
-                                                            <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio1" value="option1">
-                                                            <label class="form-check-label" for="inlineRadio1">PNS</label>
-                                                        </div>
-                                                        <div class="form-check form-check-inline">
-                                                            <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio2" value="option2">
-                                                            <label class="form-check-label" for="inlineRadio2">THL</label>
-                                                        </div>
-                                                        <div class="form-check form-check-inline">
-                                                            <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio2" value="option2">
-                                                            <label class="form-check-label" for="inlineRadio2">Struktural</label>
-                                                        </div>
+                                                        <label style="margin-top: 10px;">APBN</label>
+                                                        <input type="text" style="margin-left: 10px;" class="form-control" name="lcd_apbn" id="lcd_apbn" placeholder="" aria-label="gps" aria-describedby="nama-addon">
+                                                        &nbsp; &nbsp;<label style="margin-top: 10px;">Unit</label>&nbsp; &nbsp;
+                                                        <label style="margin-top: 10px;">APBD</label>
+                                                        <input type="text" style="margin-left: 10px;" class="form-control" name="lcd_apbd" id="lcd_apbd" placeholder="" aria-label="gps" aria-describedby="nama-addon">
+                                                        &nbsp; &nbsp;<label style="margin-top: 10px;">Unit</label>&nbsp; &nbsp;
+                                                    </div>
+                                                    <label>Soil Tester</label>
+                                                    <div class="input-group mb-3">
+                                                        <label style="margin-top: 10px;">APBN</label>
+                                                        <input type="text" style="margin-left: 10px;" class="form-control" name="soil_apbn" id="soil_apbn" placeholder="" aria-label="gps" aria-describedby="nama-addon">
+                                                        &nbsp; &nbsp;<label style="margin-top: 10px;">Unit</label>&nbsp; &nbsp;
+                                                        <label style="margin-top: 10px;">APBD</label>
+                                                        <input type="text" style="margin-left: 10px;" class="form-control" name="soil_apbd" id="soil_apbd" placeholder="" aria-label="gps" aria-describedby="nama-addon">
+                                                        &nbsp; &nbsp;<label style="margin-top: 10px;">Unit</label>&nbsp; &nbsp;
                                                     </div>
                                                 </div>
-
-                                                <div class="text-center">
-                                                    <center><button type="button" class="btn btn-round bg-gradient-warning btn-lg w-100 mt-4 mb-0">Simpan Data</button></center>
+                                                <div class="col">
+                                                    <h5>Potensi Ekonomi</h5>
+                                                    <label>Kios saprotan</label>
+                                                    <div class="input-group mb-3">
+                                                        <input type="text" style="margin-left: 10px;" class="form-control" name="kios_saprotan" id="kios_saprotan" placeholder="" aria-label="gps" aria-describedby="nama-addon">
+                                                        &nbsp; &nbsp;<label style="margin-top: 10px;">Unit</label>&nbsp; &nbsp;
+                                                    </div>
+                                                    <label>Pedagang pengepul</label>
+                                                    <div class="input-group mb-3">
+                                                        <input type="text" style="margin-left: 10px;" class="form-control" name="pedagang_pengepul" id="pedagang_pengepul" placeholder="" aria-label="gps" aria-describedby="nama-addon">
+                                                        &nbsp; &nbsp;<label style="margin-top: 10px;">Unit</label>&nbsp; &nbsp;
+                                                    </div>
+                                                    <label>Gudang pangan</label>
+                                                    <div class="input-group mb-3">
+                                                        <input type="text" style="margin-left: 10px;" class="form-control" name="gudang_pangan" id="gudang_pangan" placeholder="" aria-label="gps" aria-describedby="nama-addon">
+                                                        &nbsp; &nbsp;<label style="margin-top: 10px;">Unit</label>&nbsp; &nbsp;
+                                                    </div>
+                                                    <label>Perbankan</label>
+                                                    <div class="input-group mb-3">
+                                                        <input type="text" style="margin-left: 10px;" class="form-control" name="perbankan" id="perbankan" placeholder="" aria-label="gps" aria-describedby="nama-addon">
+                                                        &nbsp; &nbsp;<label style="margin-top: 10px;">Unit</label>&nbsp; &nbsp;
+                                                    </div>
+                                                    <label>Industri Pertanian</label>
+                                                    <div class="input-group mb-3">
+                                                        <input type="text" style="margin-left: 10px;" class="form-control" name="industri_penyuluhan" id="industri_penyuluhan" placeholder="" aria-label="gps" aria-describedby="nama-addon">
+                                                        &nbsp; &nbsp;<label style="margin-top: 10px;">Unit</label>&nbsp; &nbsp;
+                                                    </div>
+                                                    <h5>Lahan Percontohan</h5>
+                                                    <label>Di BPP</label>
+                                                    <div class="input-group mb-3">
+                                                        <input type="text" style="margin-left: 10px;" class="form-control" name="luas_lahan_bp3k" id="luas_lahan_bp3k" placeholder="" aria-label="gps" aria-describedby="nama-addon">
+                                                        &nbsp; &nbsp;<label style="margin-top: 10px;">Ha</label>&nbsp; &nbsp;
+                                                    </div>
+                                                    <label>Di Petani</label>
+                                                    <div class="input-group mb-3">
+                                                        <input type="text" style="margin-left: 10px;" class="form-control" name="luas_lahan_petani" id="luas_lahan_petani" placeholder="" aria-label="gps" aria-describedby="nama-addon">
+                                                        &nbsp; &nbsp;<label style="margin-top: 10px;">Ha</label>&nbsp; &nbsp;
+                                                    </div>
+                                                </div>
+                                                <div class="modal-footer">
+                                                    <button type="button" class="btn bg-gradient-secondary" data-bs-dismiss="modal">Close</button>
+                                                    <button type="submit" id="btnSave" class="btn bg-gradient-primary">Simpan Data</button>
                                                 </div>
                                             </div>
                                         </form>
@@ -401,5 +417,58 @@
 </table>
 </div>
 </div>
+
+<?= $this->endSection() ?>
+
+<?= $this->section('script') ?>
+<script>
+    function previewImg() {
+        const sampul = document.querySelector('#foto');
+        const sampulLabel = document.querySelector('.custom-file-label');
+        const imgPreview = document.querySelector('.img-preview');
+
+        sampulLabel.textContent = foto.files[0].name;
+
+        const fileSampul = new FileReader();
+        fileSampul.readAsDataURL(foto.files[0]);
+
+        fileSampul.onload = function(e) {
+            imgPreview.src = e.target.result;
+        }
+    }
+</script>
+<script>
+    function loadNamaKoordinator() {
+        if ($('#inlineRadio1').is(':checked')) {
+            $("#divPNS").show();
+        } else {
+            $("#divPNS").hide();
+        }
+        if ($('#inlineRadio2').is(':checked')) {
+            $("#divTHL").show();
+        } else {
+            $("#divTHL").hide();
+        }
+        if ($('#inlineRadio3').is(':checked')) {
+            $("#divST").show();
+        } else {
+            $("#divST").hide();
+        }
+    }
+
+    $(document).ready(function() {
+        loadNamaKoordinator();
+
+        $(document).delegate('#inlineRadio1', 'click', function() {
+            loadNamaKoordinator();
+        });
+        $(document).delegate('#inlineRadio2', 'click', function() {
+            loadNamaKoordinator();
+        });
+        $(document).delegate('#inlineRadio3', 'click', function() {
+            loadNamaKoordinator();
+        });
+    });
+</script>
 
 <?= $this->endSection() ?>
