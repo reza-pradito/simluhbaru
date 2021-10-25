@@ -77,6 +77,7 @@ $routes->get('/daftar_posluhdes', 'KelembagaanPenyuluhan/Desa/Desa::listdesa');
 $routes->get('/kabupaten_kota', 'KelembagaanPenyuluhan/Kabupaten/Kabupaten::kab');
 $routes->get('/prov', 'KelembagaanPenyuluhan/Provinsi/Provinsi::prov');
 $routes->get('/kecamatan', 'KelembagaanPenyuluhan/Kecamatan/Kecamatan::kecamatan');
+$routes->get('/detail_kecamatan', 'KelembagaanPenyuluhan/Kecamatan/Kecamatan::profilkec');
 $routes->get('/kecamatankec', 'KelembagaanPenyuluhan/Kecamatan/KecamatanKec::kecamatan');
 $routes->get('/desakec', 'KelembagaanPenyuluhan/Desa/DesaKec::Desa');
 $routes->get('/daftar_posluhdes_kec', 'KelembagaanPenyuluhan/Desa/DesaKec::listdesa');

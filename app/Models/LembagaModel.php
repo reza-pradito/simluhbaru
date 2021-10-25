@@ -15,12 +15,10 @@ class LembagaModel extends Model
     public function getProfil($id)
     {
 
-        $query = $this->db->query("select *, a.alamat, a.ketua, a.tgl_update, a.nama_bapel, a.email, b.nama, c.nama_prop, d.nama_dati2
+        $query = $this->db->query("select *, a.id_gapoktan, a.alamat, a.ketua, a.tgl_update, a.nama_bapel, a.email, b.nama
                                 from tblbapel a
                                 left join tbldasar b on a.nama_koord_penyuluh 
                                 =b.nip and nip !=''
-                                left join tblpropinsi c on a.kode_prop=c.id_prop
-                                left join tbldati2 d on a.kabupaten=d.id_dati2
                                 where kabupaten='$id'
                                 ");
 

@@ -88,99 +88,101 @@ if (empty(session()->get('status_user')) || session()->get('status_user') == '2'
                 <?php
                 }
                 ?>
+            </tbody>
+        </table>
 
 
-                <!-- Modal Add  -->
+        <!-- Modal Add  -->
 
-                <div class="modal fade" id="modal-form" tabindex="-1" role="dialog" aria-labelledby="modal-form" aria-hidden="true">
-                    <div class="modal-dialog modal-dialog-centered modal-xl" role="document">
-                        <div class="modal-content">
-                            <div class="modal-body p-0">
-                                <div class="card card-plain">
-                                    <div class="card-header pb-0 text-left">
-                                        <h4 class="font-weight-bolder text-warning text-gradient" id="judul_form">Tambah Data</h4>
-                                    </div>
-                                    <div class="card-body">
-
-                                        <form role="form text-left" action="<?= base_url('KelembagaanPenyuluhan/Desa/desa/save'); ?>">
-                                            <div class="row">
-                                                <div class="col">
-                                                    <label for="deskripsi">Kecamatan</label>
-                                                    <input type="hidden" name="idpos" id="idpos">
-                                                    <div class="input-group mb-3">
-                                                        <input type="text" class="form-control" name="deskripsi" placeholder="Kecamatan" value="<?= $nama_kecamatan; ?>" disabled>
-                                                    </div>
-                                                    <label for="kode_desa">Desa</label>
-                                                    <div class="input-group mb-3">
-                                                        <select name="kode_desa" id="kode_desa" class="form-control input-lg">
-                                                            <option value="">Pilih Desa</option>
-                                                            <?php
-                                                            foreach ($desa as $row2) {
-                                                                echo '<option value="' . $row2["id_desa"] .  '">' . $row2["nm_desa"] . '</option>';
-                                                            }
-                                                            ?>
-                                                        </select>
-                                                    </div>
-                                                    <label for="nama">Nama Posluhdes</label>
-                                                    <div class="input-group mb-3">
-                                                        <input type="text" class="form-control" id="nama" placeholder="nama posluhdes" name="nama">
-                                                    </div>
-                                                    <label for="alamat">Alamat</label>
-                                                    <div class="input-group mb-3">
-                                                        <textarea type="text" class="form-control" id="alamat" placeholder="alamat" name="alamat"></textarea>
-                                                    </div>
-                                                    <label for="ketua">Ketua</label>
-                                                    <div class="input-group mb-3">
-                                                        <input type="text" class="form-control" id="ketua" placeholder="ketua" name="ketua">
-                                                    </div>
-                                                </div>
-                                                <div class="col">
-                                                    <label for="sekretaris">Sekretaris</label>
-                                                    <div class="input-group mb-3">
-                                                        <input type="text" class="form-control" id="sekretaris" placeholder="sekretaris" name="sekretaris">
-                                                    </div>
-                                                    <label for="bendahara">Bendahara</label>
-                                                    <div class="input-group mb-3">
-                                                        <input type="text" class="form-control" id="bendahara" placeholder="bendahara" name="bendahara">
-                                                    </div>
-                                                    <label for="tahun_beridiri">tahun Berdiri</label>
-                                                    <div class="input-group mb-3">
-                                                        <select name="tahun_berdiri" id="year" class="form-control input-lg">
-                                                            <option value="">Tahun</option>
-                                                        </select>
-                                                    </div>
-                                                    <label for="jum_anggota">Jumlah Anggota</label>
-                                                    <div class="input-group mb-3">
-                                                        <input type="text" class="form-control" id="jum_anggota" placeholder="jumlah anggota" name="jum_anggota">
-                                                    </div>
-                                                    <label for="penyuluh_swadaya">Penyuluh Swadaya</label>
-                                                    <div class="input-group mb-3">
-                                                        <select name="penyuluh_swadaya" id="penyuluh_swadaya" class="form-control input-lg">
-                                                            <option value="">Penyuluh Swadaya</option>
-                                                            <?php
-                                                            foreach ($pen_swa as $row3) {
-                                                                echo '<option value="' . $row3["id_swa"] . '">' . $row3["nama"] . '</option>';
-                                                            }
-                                                            ?>
-                                                        </select>
-                                                    </div>
-                                                    <input type="hidden" name="kode_kab" id="kode_kab" value="<?= $kode; ?>">
-                                                    <input type="hidden" name="kode_prop" id="kode_prop" value="<?= $kode_prop; ?>">
-                                                    <input type="hidden" name="kode_kec" id="kode_kec" value="<?= $kode_kec; ?>">
-                                                </div>
-                                                <div class="modal-footer">
-                                                    <button type="button" class="btn bg-gradient-secondary" data-bs-dismiss="modal">Close</button>
-                                                    <button type="button" id="btnSave" class="btn bg-gradient-primary">Simpan Data</button>
-                                                </div>
-                                            </div>
-                                        </form>
-                                    </div>
-
-                                </div>
+        <div class="modal fade" id="modal-form" tabindex="-1" role="dialog" aria-labelledby="modal-form" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered modal-xl" role="document">
+                <div class="modal-content">
+                    <div class="modal-body p-0">
+                        <div class="card card-plain">
+                            <div class="card-header pb-0 text-left">
+                                <h4 class="font-weight-bolder text-warning text-gradient" id="judul_form">Tambah Data</h4>
                             </div>
+                            <div class="card-body">
+
+                                <form role="form text-left" action="<?= base_url('KelembagaanPenyuluhan/Desa/desa/save'); ?>">
+                                    <div class="row">
+                                        <div class="col">
+                                            <label for="deskripsi">Kecamatan</label>
+                                            <input type="hidden" name="idpos" id="idpos">
+                                            <div class="input-group mb-3">
+                                                <input type="text" class="form-control" name="deskripsi" placeholder="Kecamatan" value="<?= $nama_kecamatan; ?>" disabled>
+                                            </div>
+                                            <label for="kode_desa">Desa</label>
+                                            <div class="input-group mb-3">
+                                                <select name="kode_desa" id="kode_desa" class="form-control input-lg">
+                                                    <option value="">Pilih Desa</option>
+                                                    <?php
+                                                    foreach ($desa as $row2) {
+                                                        echo '<option value="' . $row2["id_desa"] .  '">' . $row2["nm_desa"] . '</option>';
+                                                    }
+                                                    ?>
+                                                </select>
+                                            </div>
+                                            <label for="nama">Nama Posluhdes</label>
+                                            <div class="input-group mb-3">
+                                                <input type="text" class="form-control" id="nama" placeholder="nama posluhdes" name="nama">
+                                            </div>
+                                            <label for="alamat">Alamat</label>
+                                            <div class="input-group mb-3">
+                                                <textarea type="text" class="form-control" id="alamat" placeholder="alamat" name="alamat"></textarea>
+                                            </div>
+                                            <label for="ketua">Ketua</label>
+                                            <div class="input-group mb-3">
+                                                <input type="text" class="form-control" id="ketua" placeholder="ketua" name="ketua">
+                                            </div>
+                                        </div>
+                                        <div class="col">
+                                            <label for="sekretaris">Sekretaris</label>
+                                            <div class="input-group mb-3">
+                                                <input type="text" class="form-control" id="sekretaris" placeholder="sekretaris" name="sekretaris">
+                                            </div>
+                                            <label for="bendahara">Bendahara</label>
+                                            <div class="input-group mb-3">
+                                                <input type="text" class="form-control" id="bendahara" placeholder="bendahara" name="bendahara">
+                                            </div>
+                                            <label for="tahun_beridiri">tahun Berdiri</label>
+                                            <div class="input-group mb-3">
+                                                <select name="tahun_berdiri" id="year" class="form-control input-lg">
+                                                    <option value="">Tahun</option>
+                                                </select>
+                                            </div>
+                                            <label for="jum_anggota">Jumlah Anggota</label>
+                                            <div class="input-group mb-3">
+                                                <input type="text" class="form-control" id="jum_anggota" placeholder="jumlah anggota" name="jum_anggota">
+                                            </div>
+                                            <label for="penyuluh_swadaya">Penyuluh Swadaya</label>
+                                            <div class="input-group mb-3">
+                                                <select name="penyuluh_swadaya" id="penyuluh_swadaya" class="form-control input-lg">
+                                                    <option value="">Penyuluh Swadaya</option>
+                                                    <?php
+                                                    foreach ($pen_swa as $row3) {
+                                                        echo '<option value="' . $row3["id_swa"] . '">' . $row3["nama"] . '</option>';
+                                                    }
+                                                    ?>
+                                                </select>
+                                            </div>
+                                            <input type="hidden" name="kode_kab" id="kode_kab" value="<?= $kode; ?>">
+                                            <input type="hidden" name="kode_prop" id="kode_prop" value="<?= $kode_prop; ?>">
+                                            <input type="hidden" name="kode_kec" id="kode_kec" value="<?= $kode_kec; ?>">
+                                        </div>
+                                        <div class="modal-footer">
+                                            <button type="button" class="btn bg-gradient-secondary" data-bs-dismiss="modal">Close</button>
+                                            <button type="button" id="btnSave" class="btn bg-gradient-primary">Simpan Data</button>
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+
                         </div>
                     </div>
                 </div>
+            </div>
+        </div>
 
     </div>
 </div>

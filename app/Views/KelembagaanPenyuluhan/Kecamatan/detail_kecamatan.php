@@ -13,7 +13,7 @@ if (empty(session()->get('status_user')) || session()->get('status_user') == '2'
     $kode = session()->get('kodebpp');
 }
 
-$api = 'https://api.pertanian.go.id/api/simantap/dashboard/list?&api-key=f13914d292b53b10936b7a7d1d6f2406&kode=' . $kode;
+$api = 'https://api.pertanian.go.id/api/simantap/dashboard/list?&api-key=f13914d292b53b10936b7a7d1d6f2406&kode=' . $kode_kec;
 $result = file_get_contents($api, false);
 $json = json_decode($result, true);
 $data = $json[0];
@@ -201,7 +201,15 @@ $data = $json[0];
                 <div class="nav nav-tabs" id="nav-tab" role="tablist">
                     <button class="nav-link active" id="nav-home-tab" data-bs-toggle="tab" data-bs-target="#nav-home" type="button" role="tab" aria-controls="nav-home" aria-selected="true">Profil</button>
                     <button class="nav-link" id="nav-penyuluh-tab" data-bs-toggle="tab" data-bs-target="#nav-penyuluh" type="button" role="tab" aria-controls="nav-penyuluh" aria-selected="false">Daftar Penyuluh</button>
-                    <button class="nav-link" id="nav-lahancth-tab" data-bs-toggle="tab" data-bs-target="#nav-kegiatan" type="button" role="tab" aria-controls="nav-kegiatan" aria-selected="false">Kegiatan</button>
+                    <button class="nav-link" id="nav-wilkec-tab" data-bs-toggle="tab" data-bs-target="#nav-wilkec" type="button" role="tab" aria-controls="nav-wilkec" aria-selected="false">Wilayah Kecamatan</button>
+                    <button class="nav-link" id="nav-klas-tab" data-bs-toggle="tab" data-bs-target="#nav-klas" type="button" role="tab" aria-controls="nav-klas" aria-selected="false">Klasifikasi BPP</button>
+                    <button class="nav-link" id="nav-kegiatan-tab" data-bs-toggle="tab" data-bs-target="#nav-kegiatan" type="button" role="tab" aria-controls="nav-kegiatan" aria-selected="false">Kegiatan</button>
+                    <button class="nav-link" id="nav-lahan-tab" data-bs-toggle="tab" data-bs-target="#nav-lahan" type="button" role="tab" aria-controls="nav-lahan" aria-selected="false">Lahan</button>
+                    <button class="nav-link" id="nav-penghargaan-tab" data-bs-toggle="tab" data-bs-target="#nav-penghargaan" type="button" role="tab" aria-controls="nav-penghargaan" aria-selected="false">Penghargaan</button>
+                    <button class="nav-link" id="nav-dana-tab" data-bs-toggle="tab" data-bs-target="#nav-dana" type="button" role="tab" aria-controls="nav-dana" aria-selected="false">Dana Alokasi Khusus</button>
+                    <button class="nav-link" id="nav-sarpras-tab" data-bs-toggle="tab" data-bs-target="#nav-sarpras" type="button" role="tab" aria-controls="nav-sarpras" aria-selected="false">Sarana & Prasarana</button>
+                    <button class="nav-link" id="nav-pokom-tab" data-bs-toggle="tab" data-bs-target="#nav-pokom" type="button" role="tab" aria-controls="nav-pokom" aria-selected="false">Potensi Ekonomi</button>
+                    <button class="nav-link" id="nav-powil-tab" data-bs-toggle="tab" data-bs-target="#nav-powil" type="button" role="tab" aria-controls="nav-powil" aria-selected="false">Potensi Wilayah</button>
                     <!-- <button class="nav-link" id="nav-sarpras-tab" data-bs-toggle="tab" data-bs-target="#nav-sarpras" type="button" role="tab" aria-controls="nav-sarpras" aria-selected="false">Sarana & Prasarana</button>
                     <button class="nav-link" id="nav-pokom-tab" data-bs-toggle="tab" data-bs-target="#nav-pokom" type="button" role="tab" aria-controls="nav-pokom" aria-selected="false">Potensi Ekonomi</button>
                     <button class="nav-link" id="nav-powil-tab" data-bs-toggle="tab" data-bs-target="#nav-powil" type="button" role="tab" aria-controls="nav-powil" aria-selected="false">Potensi Wilayah</button> -->
@@ -214,22 +222,22 @@ $data = $json[0];
                             <div class="card">
                                 <div class="card-body p-3">
                                     <div class="row">
-                                        <h1 class="h3 mb-4 text-gray-800"><?= $title; ?><i class="fas fa-edit" style="float: right;" data-bs-toggle="modal" data-bs-target="#modal-form" id="btn-edit" data-id_gapoktan="<?= $dt['id_gapoktan']; ?>"></i></a></h1>
+                                        <h1 class="h3 mb-4 text-gray-800"><?= $title; ?><i class="fas fa-edit" style="float: right;" data-bs-toggle="modal" data-bs-target="#modal-form" id="btn-edit" data-id="<?= $dt['id']; ?>"></i></a></h1>
                                         <div class="col-lg-12">
 
                                             <table class="table">
 
                                                 <tbody>
-                                                    <input type="hidden" name="id_gapoktan" value="<?= $dt['id_gapoktan']; ?>">
+                                                    <input type="hidden" name="id" value="<?= $dt['id']; ?>">
                                                     <tr>
                                                         <td>Nama Kelembagaan</td>
                                                         <td>:</td>
-                                                        <td><?= $dt['deskripsi_lembaga_lain']; ?> <?= $sessnama; ?></td>
+                                                        <td><?= $dt['nama_bpp']; ?></td>
                                                     </tr>
                                                     <tr>
-                                                        <td>Tanggal Pembentukan</td>
+                                                        <td>Klasifikasi BP3K</td>
                                                         <td>:</td>
-                                                        <td><?= $dt['tgl_berdiri'] . '-' . $dt['bln_berdiri'] . '-' . $dt['thn_berdiri']; ?></td>
+                                                        <td><?= $dt['klasifikasi']; ?></td>
                                                     </tr>
                                                     <tr>
                                                         <td>Alamat</td>
@@ -237,41 +245,49 @@ $data = $json[0];
                                                         <td> <?= $dt['alamat']; ?></td>
                                                     </tr>
                                                     <tr>
+                                                        <td>Kecamatan</td>
+                                                        <td>:</td>
+                                                        <td><?= $dt['deskripsi']; ?></td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>Kabupaten/Kota</td>
+                                                        <td>:</td>
+                                                        <td><?= $namakab; ?></td>
+                                                    </tr>
+                                                    <tr>
                                                         <td>Provinsi</td>
                                                         <td>:</td>
                                                         <td><?= $namaprov; ?></td>
                                                     </tr>
                                                     <tr>
-                                                        <td>No Telepon/Fax</td>
+                                                        <td>Status Bangunan</td>
                                                         <td>:</td>
-                                                        <td><?= $dt['telp_kantor']; ?></td>
+                                                        <td><?= $dt['status_gedung']; ?></td>
                                                     </tr>
                                                     <tr>
-                                                        <td>Alamat Email</td>
+                                                        <td>Kondisi Bangunan</td>
                                                         <td>:</td>
-                                                        <td><?= $dt['email']; ?></td>
+                                                        <td><?= $dt['kondisi_bangunan']; ?></td>
                                                     </tr>
                                                     <tr>
-                                                        <td>Alamat Website</td>
-                                                        <td>:</td>
-                                                        <td><?= $dt['website']; ?></td>
-                                                    </tr>
-                                                    <tr>
-                                                        <td>Nama Pimpinan</td>
+                                                        <td>Nama Kepala / Koordinator</td>
                                                         <td>:</td>
                                                         <td><?= $dt['ketua']; ?></td>
                                                     </tr>
                                                     <tr>
                                                         <td>No HP Pimpinan</td>
                                                         <td>:</td>
-                                                        <td><?= $dt['hp_kabid']; ?></td>
+                                                        <td><?= $dt['telp_hp']; ?></td>
                                                     </tr>
                                                     <tr>
-                                                        <td>Nama Koordinator PP</td>
+                                                        <td>Email</td>
                                                         <td>:</td>
-
-                                                        <td><?= $dt['nama_koord_penyuluh']; ?></td>
-
+                                                        <td><?= $dt['email']; ?></td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>Kecamatan wilayah Kerja</td>
+                                                        <td>:</td>
+                                                        <td>- <?= $dt['deskripsi'];  ?></td>
                                                     </tr>
 
                                                 </tbody>
@@ -332,77 +348,82 @@ $data = $json[0];
                                 </div>
                             </div>
                         </div>
-
-
-
                     </div>
                 </div>
 
-                <div class="tab-pane fade" id="nav-kegiatan" role="tabpanel" aria-labelledby="nav-home-tab">
+                <div class="tab-pane fade" id="nav-wilkec" role="tabpanel" aria-labelledby="nav-wilkec-tab">
                     <div class="row">
-                        <div class="col-lg-9 mb-lg-0 mb-4">
+                        <div class="col-lg-12 mb-lg-0 mb-4">
                             <div class="card">
                                 <div class="card-body p-3">
                                     <div class="row">
-                                        <h1 class="h3 mb-4 text-gray-800">Kegiatan yang dilakukan <i class="fas fa-edit" style="float: right;" data-bs-toggle="modal" data-bs-target="#modal-fk" id="btn-add-fas"></i></h1>
-                                        <div class="col-lg-12">
-
-                                            <table class="table align-items-center mb-0">
-                                                <thead>
-                                                    <tr>
-                                                        <td width="5" class="text-uppercase text-secondary text-xxs font-weight-bolder">Tahun</td>
-                                                        <td width="100" class="text-uppercase text-secondary text-xxs font-weight-bolder">Fasilitasi</td>
-                                                        <td width="100" class="text-uppercase text-secondary text-xxs font-weight-bolder">Nama Kegiatan</td>
-                                                        <td width="100" class="text-secondary opacity-7"></td>
-                                                    </tr>
-                                                </thead>
-                                                <tbody>
-                                                    <?php
-                                                    foreach ($fasdata as $row => $value) {
-                                                    ?>
-                                                        <tr>
-                                                            <td width="50">
-                                                                <p class="text-xs font-weight-bold mb-0"><?= $value['tahun'] ?></p>
-                                                            </td>
-                                                            <td class="align-middle text-sm">
-                                                                <p class="text-xs font-weight-bold mb-0"><?= $value['nama_fasilitasi'] ?></p>
-                                                            </td>
-                                                            <td class="align-middle text-sm">
-                                                                <p class="text-xs font-weight-bold mb-0"><?= $value['kegiatan'] ?></p>
-                                                            </td>
-                                                            <td class="align-middle text-center text-sm">
-                                                                <a href="#">
-                                                                    <button type="button" id="btn-edit-fas" data-bs-toggle="modal" data-bs-target="#modal-fk" class="btn bg-gradient-warning btn-sm" data-id="<?= $value['id'] ?>">
-                                                                        <i class="fas fa-edit"></i> Ubah
-                                                                    </button>
-                                                                </a>
-                                                                <button type="button" id="btn-hapus" data-id="<?= $value['id'] ?>" class="btn bg-gradient-danger btn-sm">
-                                                                    <i class="fas fa-trash"></i> Hapus
-                                                                </button>
-                                                            </td>
-                                                        </tr>
-                                                    <?php
-                                                    }
-                                                    ?>
-                                                </tbody>
-                                            </table>
-                                        </div>
-
+                                        <h1 class="h3 mb-4 text-gray-800">Wilayah Kecamatan<i class="fas fa-edit" style="float: right;" data-bs-toggle="modal" data-bs-target="#modal-wilkec" id="btn-edit" data-id="<?= $dt['id']; ?>"></i></a></h1>
                                     </div>
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
-
-                <div class="tab-pane fade" id="nav-lahancth" role="tabpanel" aria-labelledby="nav-lahancth-tab">
+                <div class="tab-pane fade" id="nav-klas" role="tabpanel" aria-labelledby="nav-klas-tab">
                     <div class="row">
                         <div class="col-lg-12 mb-lg-0 mb-4">
                             <div class="card">
                                 <div class="card-body p-3">
-                                    <a href="#">
-                                        <button type="button" data-bs-toggle="modal" data-bs-target="#modal-lahancth" class="btn bg-gradient-primary">+ Tambah Data</button>
-                                    </a>
+                                    <div class="row">
+                                        <h1 class="h3 mb-4 text-gray-800">Klasifikasi BPP<i class="fas fa-edit" style="float: right;" data-bs-toggle="modal" data-bs-target="#modal-form" id="btn-edit" data-id="<?= $dt['id']; ?>"></i></a></h1>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="tab-pane fade" id="nav-kegiatan" role="tabpanel" aria-labelledby="nav-kegiatan-tab">
+                    <div class="row">
+                        <div class="col-lg-12 mb-lg-0 mb-4">
+                            <div class="card">
+                                <div class="card-body p-3">
+                                    <div class="row">
+                                        <h1 class="h3 mb-4 text-gray-800">Kegiatan yang dilaksanakan oleh BPP<i class="fas fa-edit" style="float: right;" data-bs-toggle="modal" data-bs-target="#modal-form" id="btn-edit" data-id="<?= $dt['id']; ?>"></i></a></h1>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="tab-pane fade" id="nav-lahan" role="tabpanel" aria-labelledby="nav-lahan-tab">
+                    <div class="row">
+                        <div class="col-lg-12 mb-lg-0 mb-4">
+                            <div class="card">
+                                <div class="card-body p-3">
+                                    <div class="row">
+                                        <h1 class="h3 mb-4 text-gray-800">Lahan Percontohan<i class="fas fa-edit" style="float: right;" data-bs-toggle="modal" data-bs-target="#modal-form" id="btn-edit" data-id="<?= $dt['id']; ?>"></i></a></h1>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="tab-pane fade" id="nav-penghargaan" role="tabpanel" aria-labelledby="nav-penghargaan-tab">
+                    <div class="row">
+                        <div class="col-lg-12 mb-lg-0 mb-4">
+                            <div class="card">
+                                <div class="card-body p-3">
+                                    <div class="row">
+                                        <h1 class="h3 mb-4 text-gray-800">Penghargaan yang pernah diterima<i class="fas fa-edit" style="float: right;" data-bs-toggle="modal" data-bs-target="#modal-form" id="btn-edit" data-id="<?= $dt['id']; ?>"></i></a></h1>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="tab-pane fade" id="nav-dana" role="tabpanel" aria-labelledby="nav-dana-tab">
+                    <div class="row">
+                        <div class="col-lg-12 mb-lg-0 mb-4">
+                            <div class="card">
+                                <div class="card-body p-3">
+                                    <div class="row">
+                                        <h1 class="h3 mb-4 text-gray-800">Mendapatkan Dana Alokasi Khusus (DAK)<i class="fas fa-edit" style="float: right;" data-bs-toggle="modal" data-bs-target="#modal-form" id="btn-edit" data-id="<?= $dt['id']; ?>"></i></a></h1>
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -413,9 +434,9 @@ $data = $json[0];
                         <div class="col-lg-12 mb-lg-0 mb-4">
                             <div class="card">
                                 <div class="card-body p-3">
-                                    <a href="#">
-                                        <button type="button" data-bs-toggle="modal" data-bs-target="#modal-sarpras" class="btn bg-gradient-primary">+ Tambah Data</button>
-                                    </a>
+                                    <div class="row">
+                                        <h1 class="h3 mb-4 text-gray-800">Sarana & Prasarana<i class="fas fa-edit" style="float: right;" data-bs-toggle="modal" data-bs-target="#modal-form" id="btn-edit" data-id="<?= $dt['id']; ?>"></i></a></h1>
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -426,9 +447,9 @@ $data = $json[0];
                         <div class="col-lg-12 mb-lg-0 mb-4">
                             <div class="card">
                                 <div class="card-body p-3">
-                                    <a href="#">
-                                        <button type="button" data-bs-toggle="modal" data-bs-target="#modal-sarpras" class="btn bg-gradient-primary">+ Tambah Data</button>
-                                    </a>
+                                    <div class="row">
+                                        <h1 class="h3 mb-4 text-gray-800">Potensi Ekonomi<i class="fas fa-edit" style="float: right;" data-bs-toggle="modal" data-bs-target="#modal-form" id="btn-edit" data-id="<?= $dt['id']; ?>"></i></a></h1>
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -439,9 +460,9 @@ $data = $json[0];
                         <div class="col-lg-12 mb-lg-0 mb-4">
                             <div class="card">
                                 <div class="card-body p-3">
-                                    <a href="#">
-                                        <button type="button" data-bs-toggle="modal" data-bs-target="#modal-lahancth" class="btn bg-gradient-primary">+ Tambah Data</button>
-                                    </a>
+                                    <div class="row">
+                                        <h1 class="h3 mb-4 text-gray-800">Potensi Wilayah<i class="fas fa-edit" style="float: right;" data-bs-toggle="modal" data-bs-target="#modal-form" id="btn-edit" data-id="<?= $dt['id']; ?>"></i></a></h1>
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -452,239 +473,9 @@ $data = $json[0];
 
         </div>
 
-        <?php
-        $i = 1;
-        foreach ($tabel_data as $row => $item)
-            foreach ($bapel as $row => $val) {
-        ?>
-            <div class="modal fade" id="modal-form" tabindex="-1" role="dialog" aria-labelledby="modal-form" aria-hidden="true">
-                <div class="modal-dialog modal-dialog-centered modal-xl" role="document">
-                    <div class="modal-content">
-                        <div class="modal-body p-0">
-                            <div class="card card-plain">
-                                <div class="card-header pb-0 text-left">
-                                    <h4 class="font-weight-bolder text-warning text-gradient" id="judul_form">Edit Data</h4>
-                                </div>
-                                <div class="card-body">
 
-                                    <form method="POST" role="form text-left">
-                                        <div class="row">
-                                            <div class="col">
-                                                <input type="hidden" name="id_gapoktan" id="id_gapoktan">
-                                                <label for="prov">Propinsi</label>
-                                                <div class="input-group mb-3">
-                                                    <input type="text" class="form-control" name="prov" value="<?= $item['nama_prop']; ?>" disabled>
-                                                </div>
-                                                <label for="prov">Kabupaten</label>
-                                                <div class="input-group mb-3">
-                                                    <input type="text" class="form-control" name="kab" value="<?= $item['nama_dati2']; ?>" disabled>
-                                                </div>
-                                                <label for="kode_desa">Jenis Kelembagaan</label>
-                                                <div class="input-group mb-3">
-                                                    <select name="nama_bapel" id="nama_bapel" class="form-control input-lg">
-                                                        <option value=""></option>
-                                                        <OPTION value="31">Badan<BR>
-                                                        <OPTION value="32">Dinas<BR>
-                                                    </select>
-                                                </div>
-                                                <div class="input-group mb-3">
-                                                    <label style="margin-top: 10px;">Nomenklatur :
-                                                        <input type="text" class="form-control" id="deskripsi_lembaga_lain" placeholder="" name="deskripsi_lembaga_lain">
-                                                        <label>Pilih Sesuai nomenklatur :</label>
-                                                        <div class="form-check">
-                                                            <input class="form-check-input" type="checkbox" id="jenis_pertanian" name="jenis_pertanian" value="1">
-                                                            <label class="form-check-label" for="flexCheckDefault">
-                                                                Pertanian
-                                                            </label>
-                                                        </div>
-                                                        <div class="form-check">
-                                                            <input class="form-check-input" type="checkbox" id="jenis_tp" name="jenis_tp" value="2">
-                                                            <label class="form-check-label" for="flexCheckDefault">
-                                                                Tanaman Pangan
-                                                            </label>
-                                                        </div>
-                                                        <div class="form-check">
-                                                            <input class="form-check-input" type="checkbox" id="jenis_hor" name="jenis_hor" value="3">
-                                                            <label class="form-check-label" for="flexCheckDefault">
-                                                                Hortikultura
-                                                            </label>
-                                                        </div>
-                                                        <div class="form-check">
-                                                            <input class="form-check-input" type="checkbox" id="jenis_bun" name="jenis_bun" value="4">
-                                                            <label class="form-check-label" for="flexCheckDefault">
-                                                                Perkebunan
-                                                            </label>
-                                                        </div>
-                                                        <div class="form-check">
-                                                            <input class="form-check-input" type="checkbox" id="jenis_nak" name="jenis_nak" value="5">
-                                                            <label class="form-check-label" for="flexCheckDefault">
-                                                                Peternakan
-                                                            </label>
-                                                        </div>
-                                                        <div class="form-check">
-                                                            <input class="form-check-input" type="checkbox" id="jenis_ketahanan_pangan" name="jenis_ketahanan_pangan" value="6">
-                                                            <label class="form-check-label" for="flexCheckDefault">
-                                                                Kesehatan Pangan
-                                                            </label>
-                                                        </div>
-                                                        <div class="form-check">
-                                                            <input class="form-check-input" type="checkbox" id="jenis_pkh" name="jenis_pkh" value="7">
-                                                            <label class="form-check-label" for="flexCheckDefault">
-                                                                Kesehatan Hewan
-                                                            </label>
-                                                        </div>
-                                                        <div class="form-check">
-                                                            <input class="form-check-input" type="checkbox" id="jenis_pangan" name="jenis_pangan" value="8">
-                                                            <label class="form-check-label" for="flexCheckDefault">
-                                                                Pangan
-                                                            </label>
-                                                        </div>
-                                                    </label>
-                                                </div>
-                                                <label for="alamat">Dasar Hukum Pembentukan</label>
-                                                <select name="dasar_hukum" id="dasar_hukum" class="form-control input-lg">
-                                                    <option value=""></option>
-                                                    <option value="Perda">Perda</option>
-                                                </select>
-                                                <label for="ketua">No Peraturan</label>
-                                                <div class="input-group mb-3">
-                                                    <input type="text" class="form-control" id="no_peraturan" placeholder="Nomor Peraturan" name="no_peraturan">
-                                                </div>
-                                                <label for="ketua">Tanggal Pembentukan</label>
-                                                <div class="input-group mb-3">
-                                                    <select id="day" name="tgl_berdiri" class="form-select tgl_berdiri" aria-label="Default select example">
-                                                        <option value=""></option>
-                                                    </select>
-                                                    <select id="month" name="bln_berdiri" class="form-select bln_berdiri" aria-label="Default select example">
-                                                        <option value=""></option>
-                                                    </select>
-                                                    <select id="year" name="thn_berdiri" class="form-select thn_berdiri" aria-label="Default select example">
-                                                        <option value=""></option>
-                                                    </select>
-                                                </div>
-                                                <label for="bendahara">Nama Pimpinan</label>
-                                                <div class="input-group mb-3">
-                                                    <input type="text" class="form-control" id="ketua" placeholder="Nama Pimpinan" name="ketua">
-                                                    <label style="margin-top: 10px;">No.HP</label>
-                                                    <input type="text" style="margin-left: 5px;" class="form-control" id="telp_hp" placeholder="No. HP" name="telp_hp">
-                                                </div>
-                                                <label> Nama Koordinator Penyuluh</label>
-                                                <div class="input-group mb-3">
-                                                    <div class="form-check form-check-inline">
-                                                        <input class="form-check-input pen" type="radio" name="kode_koord_penyuluh" id="inlineRadio1" value="1" <?php echo ($val["kode_koord_penyuluh"] == "1" ? 'checked="checked"' : '') ?>>
-                                                        <label class="form-check-label" for="inlineRadio1">PNS</label>
-                                                    </div>
-                                                    <div class="form-check form-check-inline">
-                                                        <input class="form-check-input pen" type="radio" name="kode_koord_penyuluh" id="inlineRadio2" value="2" <?php echo ($val["kode_koord_penyuluh"] == "2" ? 'checked="checked"' : '') ?>>
-                                                        <label class="form-check-label" for="inlineRadio2">THL</label>
-                                                    </div>
-                                                    <div class="form-check form-check-inline">
-                                                        <input class="form-check-input" type="radio" name="kode_koord_penyuluh" id="inlineRadio3" value="3" <?php echo ($val["kode_koord_penyuluh"] != "1" && $val["kode_koord_penyuluh"] != "2" ? 'checked="checked"' : '') ?>>
-                                                        <label class="form-check-label" for="inlineRadio2">Struktural</label>
-                                                    </div><br>
-                                                </div>
-                                                <div class="input-group mb-3" id="divPNS">
-                                                    <label style="margin-top: 10px;">PNS:</label>
-                                                    <select name="nama_koord_penyuluh pen" id="nama_koord_penyuluh" class="form-control input-lg" style="margin-left: 15px;">
-                                                        <option value="<?= $val['jenis_penyuluh']; ?>"><?= $val['nip']; ?> - <?= $val['nama']; ?></option>
-                                                        <?php
-                                                        foreach ($penyuluhPNS as $row) {
-                                                            echo '<option value="' . $row["nip"] . '">' . $row["nip"] . '-' . $row["nama"] . '</option>';
-                                                        }
-                                                        ?>
-                                                    </select>
-                                                </div>
-                                                <div class="input-group mb-3" id="divTHL">
-                                                    <label>THL:</label>
-                                                    <select name="nama_koord_penyuluh_thl" id="nama_koord_penyuluh_thl" class="form-control input-lg" style="margin-left: 5px;">
-                                                        <option value="<?= $val['jenis_pen_thl']; ?>"><?= $val['noktp']; ?> - <?= $val['namathl']; ?></option>
-                                                        <?php
-                                                        foreach ($penyuluhTHL as $row2) {
-                                                            echo '<option value="' . $row2["noktp"] . '">' . $row2["noktp"] . '-' . $row2["nama"] . '</option>';
-                                                        }
-                                                        ?>
-                                                    </select>
-                                                </div>
-                                                <div class="input-group mb-3" id="divST">
-                                                    <label style="margin-top: 10px;">NIP:</label>
-                                                    <input type="text" class="form-control" style="margin-left: 10px;" id="koord_lainya_nip" placeholder="ketua" name="koord_lainya_nip">
-                                                    <label style="margin-top: 10px;">Nama</label>
-                                                    <input type="text" class="form-control" style="margin-left: 10px;" id="koord_lainya_nama" placeholder="ketua" name="koord_lainya_nama">
-                                                </div>
-                                            </div>
-                                            <div class="col">
-                                                <label for="ketua">Bidang yang menangani fungsi penyuluhan</label>
-                                                <div class="input-group mb-3">
-                                                    <input type="text" class="form-control" id="bidang_luh" placeholder="Bidang" name="bidang_luh">
-                                                </div>
-                                                <label for="ketua">Nama kepala bidang</label>
-                                                <div class="input-group mb-3">
-                                                    <input type="text" class="form-control" id="nama_kabid" placeholder="Nama Kabid" name="nama_kabid">
-                                                    <label style="margin-top: 10px;">No.HP</label>
-                                                    <input type="text" style="margin-left: 5px;" class="form-control" id="hp_kabid" placeholder="No. HP" name="hp_kabid">
-                                                </div>
-                                                <label for="ketua">Seksi yang menangani penyuluhan</label>
-                                                <div class="input-group mb-3">
-                                                    <input type="text" class="form-control" id="seksi_luh" placeholder="Seksi" name="seksi_luh">
-                                                </div>
-                                                <label for=" ketua">Nama kepala seksi</label>
-                                                <div class="input-group mb-3">
-                                                    <input type="text" class="form-control" id="nama_kasie" name="nama_kasie" placeholder="Nama Kepala Seksi">
-                                                    <label style="margin-top: 10px;">No.HP</label>
-                                                    <input type="text" style="margin-left: 5px;" class="form-control" id="hp_kasie" name="hp_kasie" placeholder="No. HP">
-                                                </div>
-                                                <label for="ketua">UPTD yang menangani fungsi penyuluhan</label>
-                                                <div class="input-group mb-3">
-                                                    <input type="text" class="form-control" id="uptd_luh" placeholder="ketua" name="uptd_luh">
-                                                </div>
-                                                <label for="ketua">Nama kepala UPTD</label>
-                                                <div class="input-group mb-3">
-                                                    <input type="text" class="form-control" id="nama_kauptd" name="nama_kauptd" placeholder="Nama Kepala UPTD">
-                                                    <label style="margin-top: 10px;">No.HP</label>
-                                                    <input type="text" style="margin-left: 5px;" class="form-control" id="hp_kauptd" name="hp_kauptd" placeholder="No. HP">
-                                                </div>
-                                                <label for="alamat">Alamat Kantor</label>
-                                                <div class="input-group mb-3">
-                                                    <textarea type="text" class="form-control" id="alamat" placeholder="alamat" name="alamat"></textarea>
-                                                </div>
-                                                <div class="input-group mb-3">
-                                                    <label for="jum_anggota">Titik koordinat (GPS POint)
-                                                        <input type="text" class="form-control" id="koord" name="koord"><br>
-                                                        <label>Format titik koordinat adalah Decimal Degree, contoh : -6.2924034,106.820540</label>
-                                                    </label>
-                                                </div>
-                                                <label for="ketua">No.Telepon/Fax</label>
-                                                <div class="input-group mb-3">
-                                                    <input type="text" class="form-control" id="telp_kantor" placeholder="No Telp Kantor" name="telp_kantor">
-                                                </div>
-                                                <label for="ketua">Alamat Email</label>
-                                                <div class="input-group mb-3">
-                                                    <input type="text" class="form-control" id="email" placeholder="email" name="email">
-                                                </div>
-                                                <label for="ketua">Alamat Website/Blog</label>
-                                                <div class="input-group mb-3">
-                                                    <input type="text" class="form-control" id="website" placeholder="Alamat website" name="website">
-                                                </div>
-                                            </div>
-                                            <div class="modal-footer">
-                                                <button type="button" class="btn bg-gradient-secondary" data-bs-dismiss="modal">Close</button>
-                                                <button type="button" id="btnSave" class="btn bg-gradient-primary">Simpan Data</button>
-                                            </div>
-                                        </div>
-                                    </form>
-                                </div>
-
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        <?php
-            } ?>
-
-
-        <div class="modal fade" id="modal-fk" tabindex="-1" role="dialog" aria-labelledby="modal-fk" aria-hidden="true">
-            <div class="modal-dialog modal-dialog-centered modal-l" role="document">
+        <div class="modal fade" id="modal-form" tabindex="-1" role="dialog" aria-labelledby="modal-form" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered modal-xl" role="document">
                 <div class="modal-content">
                     <div class="modal-body p-0">
                         <div class="card card-plain">
@@ -693,31 +484,238 @@ $data = $json[0];
                             </div>
                             <div class="card-body">
 
-                                <form role="form text-left" action="<?= base_url('profil/Lembaga/save'); ?>">
+                                <form method="POST" role="form text-left">
                                     <div class="row">
                                         <div class="col">
-                                            <input type="hidden" name="id" id="id">
-                                            <input type="hidden" name="id_bapel" id="id_bapel" value="<?= $idgap; ?>">
-                                            <label for="tahun_beridiri">Tahun</label>
+                                            <label for="prov">Propinsi</label>
                                             <div class="input-group mb-3">
-                                                <select id="tahun" name="tahun" class="form-select tahun" aria-label="Default select example">
+                                                <input type="text" class="form-control" name="prov" value="" disabled>
+                                            </div>
+                                            <label for="prov">Kabupaten</label>
+                                            <div class="input-group mb-3">
+                                                <input type="text" class="form-control" name="kab" value="" disabled>
+                                            </div>
+                                            <label for="kode_desa">Jenis Kelembagaan</label>
+                                            <div class="input-group mb-3">
+                                                <select name="nama_bapel" id="nama_bapel" class="form-control input-lg">
+                                                    <option value=""></option>
+                                                    <OPTION value="31">Badan<BR>
+                                                    <OPTION value="32">Dinas<BR>
+                                                </select>
+                                            </div>
+                                            <div class="input-group mb-3">
+                                                <label style="margin-top: 10px;">Nomenklatur :
+                                                    <input type="text" class="form-control" id="deskripsi_lembaga_lain" placeholder="" name="deskripsi_lembaga_lain">
+                                                    <label>Pilih Sesuai nomenklatur :</label>
+                                                    <div class="form-check">
+                                                        <input class="form-check-input" type="checkbox" id="jenis_pertanian" name="jenis_pertanian" value="1">
+                                                        <label class="form-check-label" for="flexCheckDefault">
+                                                            Pertanian
+                                                        </label>
+                                                    </div>
+                                                    <div class="form-check">
+                                                        <input class="form-check-input" type="checkbox" id="jenis_tp" name="jenis_tp" value="2">
+                                                        <label class="form-check-label" for="flexCheckDefault">
+                                                            Tanaman Pangan
+                                                        </label>
+                                                    </div>
+                                                    <div class="form-check">
+                                                        <input class="form-check-input" type="checkbox" id="jenis_hor" name="jenis_hor" value="3">
+                                                        <label class="form-check-label" for="flexCheckDefault">
+                                                            Hortikultura
+                                                        </label>
+                                                    </div>
+                                                    <div class="form-check">
+                                                        <input class="form-check-input" type="checkbox" id="jenis_bun" name="jenis_bun" value="4">
+                                                        <label class="form-check-label" for="flexCheckDefault">
+                                                            Perkebunan
+                                                        </label>
+                                                    </div>
+                                                    <div class="form-check">
+                                                        <input class="form-check-input" type="checkbox" id="jenis_nak" name="jenis_nak" value="5">
+                                                        <label class="form-check-label" for="flexCheckDefault">
+                                                            Peternakan
+                                                        </label>
+                                                    </div>
+                                                    <div class="form-check">
+                                                        <input class="form-check-input" type="checkbox" id="jenis_ketahanan_pangan" name="jenis_ketahanan_pangan" value="6">
+                                                        <label class="form-check-label" for="flexCheckDefault">
+                                                            Kesehatan Pangan
+                                                        </label>
+                                                    </div>
+                                                    <div class="form-check">
+                                                        <input class="form-check-input" type="checkbox" id="jenis_pkh" name="jenis_pkh" value="7">
+                                                        <label class="form-check-label" for="flexCheckDefault">
+                                                            Kesehatan Hewan
+                                                        </label>
+                                                    </div>
+                                                    <div class="form-check">
+                                                        <input class="form-check-input" type="checkbox" id="jenis_pangan" name="jenis_pangan" value="8">
+                                                        <label class="form-check-label" for="flexCheckDefault">
+                                                            Pangan
+                                                        </label>
+                                                    </div>
+                                                </label>
+                                            </div>
+                                            <label for="alamat">Dasar Hukum Pembentukan</label>
+                                            <select name="dasar_hukum" id="dasar_hukum" class="form-control input-lg">
+                                                <option value=""></option>
+                                                <option value="Perda">Perda</option>
+                                            </select>
+                                            <label for="ketua">No Peraturan</label>
+                                            <div class="input-group mb-3">
+                                                <input type="text" class="form-control" id="no_peraturan" placeholder="Nomor Peraturan" name="no_peraturan">
+                                            </div>
+                                            <label for="ketua">Tanggal Pembentukan</label>
+                                            <div class="input-group mb-3">
+                                                <select id="day" name="tgl_berdiri" class="form-select tgl_berdiri" aria-label="Default select example">
+                                                    <option value=""></option>
+                                                </select>
+                                                <select id="month" name="bln_berdiri" class="form-select bln_berdiri" aria-label="Default select example">
+                                                    <option value=""></option>
+                                                </select>
+                                                <select id="year" name="thn_berdiri" class="form-select thn_berdiri" aria-label="Default select example">
                                                     <option value=""></option>
                                                 </select>
                                             </div>
-                                            <label for="penyuluh_swadaya">Fasilitasi</label>
+                                            <label for="bendahara">Nama Pimpinan</label>
                                             <div class="input-group mb-3">
-                                                <select name="fasilitasi" id="fasilitasi" class="form-control input-lg">
-                                                    <option value=""></option>
+                                                <input type="text" class="form-control" id="ketua" placeholder="Nama Pimpinan" name="ketua">
+                                                <label style="margin-top: 10px;">No.HP</label>
+                                                <input type="text" style="margin-left: 5px;" class="form-control" id="telp_hp" placeholder="No. HP" name="telp_hp">
+                                            </div>
+                                            <label> Nama Koordinator Penyuluh</label>
+                                            <div class="input-group mb-3">
+                                                <div class="form-check form-check-inline">
+                                                    <input class="form-check-input" type="radio" name="jenis_penyuluh" id="inlineRadio1" value="1">
+                                                    <label class="form-check-label" for="inlineRadio1">PNS</label>
+                                                </div>
+                                                <div class="form-check form-check-inline">
+                                                    <input class="form-check-input" type="radio" name="jenis_penyuluh" id="inlineRadio2" value="2">
+                                                    <label class="form-check-label" for="inlineRadio2">THL</label>
+                                                </div>
+                                                <div class="form-check form-check-inline">
+                                                    <input class="form-check-input" type="radio" name="jenis_penyuluh" id="inlineRadio3" value="3">
+                                                    <label class="form-check-label" for="inlineRadio2">Struktural</label>
+                                                </div><br>
+                                            </div>
+                                            <div class="input-group mb-3" id="divPNS">
+                                                <label style="margin-top: 10px;">PNS:</label>
+                                                <select name="nama_koord_penyuluh" id="nama_koord_penyuluh" class="form-control input-lg" style="margin-left: 15px;">
+
+                                                </select>
+                                            </div>
+                                            <div class="input-group mb-3" id="divTHL">
+                                                <label>THL:</label>
+                                                <select name="nama_koord_penyuluh_thl" id="nama_koord_penyuluh_thl" class="form-control input-lg" style="margin-left: 5px;">
+
+                                                </select>
+                                            </div>
+                                            <div class="input-group mb-3" id="divST">
+                                                <label style="margin-top: 10px;">NIP:</label>
+                                                <input type="text" class="form-control" style="margin-left: 10px;" id="koord_lainya_nip" placeholder="ketua" name="koord_lainya_nip">
+                                                <label style="margin-top: 10px;">Nama</label>
+                                                <input type="text" class="form-control" style="margin-left: 10px;" id="koord_lainya_nama" placeholder="ketua" name="koord_lainya_nama">
+                                            </div>
+                                        </div>
+                                        <div class="col">
+                                            <label for="ketua">Bidang yang menangani fungsi penyuluhan</label>
+                                            <div class="input-group mb-3">
+                                                <input type="text" class="form-control" id="bidang_luh" placeholder="Bidang" name="bidang_luh">
+                                            </div>
+                                            <label for="ketua">Nama kepala bidang</label>
+                                            <div class="input-group mb-3">
+                                                <input type="text" class="form-control" id="nama_kabid" placeholder="Nama Kabid" name="nama_kabid">
+                                                <label style="margin-top: 10px;">No.HP</label>
+                                                <input type="text" style="margin-left: 5px;" class="form-control" id="hp_kabid" placeholder="No. HP" name="hp_kabid">
+                                            </div>
+                                            <label for="ketua">Seksi yang menangani penyuluhan</label>
+                                            <div class="input-group mb-3">
+                                                <input type="text" class="form-control" id="seksi_luh" placeholder="Seksi" name="seksi_luh">
+                                            </div>
+                                            <label for=" ketua">Nama kepala seksi</label>
+                                            <div class="input-group mb-3">
+                                                <input type="text" class="form-control" id="nama_kasie" name="nama_kasie" placeholder="Nama Kepala Seksi">
+                                                <label style="margin-top: 10px;">No.HP</label>
+                                                <input type="text" style="margin-left: 5px;" class="form-control" id="hp_kasie" name="hp_kasie" placeholder="No. HP">
+                                            </div>
+                                            <label for="ketua">UPTD yang menangani fungsi penyuluhan</label>
+                                            <div class="input-group mb-3">
+                                                <input type="text" class="form-control" id="uptd_luh" placeholder="ketua" name="uptd_luh">
+                                            </div>
+                                            <label for="ketua">Nama kepala UPTD</label>
+                                            <div class="input-group mb-3">
+                                                <input type="text" class="form-control" id="nama_kauptd" name="nama_kauptd" placeholder="Nama Kepala UPTD">
+                                                <label style="margin-top: 10px;">No.HP</label>
+                                                <input type="text" style="margin-left: 5px;" class="form-control" id="hp_kauptd" name="hp_kauptd" placeholder="No. HP">
+                                            </div>
+                                            <label for="alamat">Alamat Kantor</label>
+                                            <div class="input-group mb-3">
+                                                <textarea type="text" class="form-control" id="alamat" placeholder="alamat" name="alamat"></textarea>
+                                            </div>
+                                            <div class="input-group mb-3">
+                                                <label for="jum_anggota">Titik koordinat (GPS POint)
+                                                    <input type="text" class="form-control" id="koord" name="koord"><br>
+                                                    <label>Format titik koordinat adalah Decimal Degree, contoh : -6.2924034,106.820540</label>
+                                                </label>
+                                            </div>
+                                            <label for="ketua">No.Telepon/Fax</label>
+                                            <div class="input-group mb-3">
+                                                <input type="text" class="form-control" id="telp_kantor" placeholder="No Telp Kantor" name="telp_kantor">
+                                            </div>
+                                            <label for="ketua">Alamat Email</label>
+                                            <div class="input-group mb-3">
+                                                <input type="text" class="form-control" id="email" placeholder="email" name="email">
+                                            </div>
+                                            <label for="ketua">Alamat Website/Blog</label>
+                                            <div class="input-group mb-3">
+                                                <input type="text" class="form-control" id="website" placeholder="Alamat website" name="website">
+                                            </div>
+                                        </div>
+                                        <div class="modal-footer">
+                                            <button type="button" class="btn bg-gradient-secondary" data-bs-dismiss="modal">Close</button>
+                                            <button type="button" id="btnSave" class="btn bg-gradient-primary">Simpan Data</button>
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="modal fade" id="modal-wilkec" tabindex="-1" role="dialog" aria-labelledby="modal-wilkec" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered modal-l" role="document">
+                <div class="modal-content">
+                    <div class="modal-body p-0">
+                        <div class="card card-plain">
+                            <div class="card-header pb-0 text-left">
+                                <h4 class="font-weight-bolder text-warning text-gradient" id="judul_form">Tambah Data</h4>
+                            </div>
+                            <div class="card-body">
+
+                                <form role="form text-left" action="<?= base_url('profil/Lembaga/save'); ?>">
+                                    <div class="row">
+                                        <div class="col">
+                                            <input type="hidden" name="kode_prop" id="kode_prop" value="<?= $dt['kode_prop']; ?>">
+                                            <input type="hidden" name="satminkal" id="satminkal" value="<?= $dt['satminkal']; ?>">
+
+                                            <label for="penyuluh_swadaya">Nama Kecamatan</label>
+                                            <div class="input-group mb-3">
+                                                <select name="kecamatan" id="kecamatan" class="form-control input-lg">
+                                                    <option value="">Pilih Kecamatan</option>
                                                     <?php
-                                                    foreach ($fasilitasi as $row3) {
-                                                        echo '<option value="' . $row3["idfasilitasi"] . '">' . $row3["fasilitasi"] . '</option>';
+                                                    foreach ($kec as $row) {
+                                                        echo '<option value="' . $row["id_daerah"] . '">' . 'Kec. ' . $row["deskripsi"] . '</option>';
                                                     }
                                                     ?>
                                                 </select>
                                             </div>
-                                            <label for="alamat">Kegiatan</label>
+                                            <label for="alamat">Jumlah Petani</label>
                                             <div class="input-group mb-3">
-                                                <textarea type="text" class="form-control" id="kegiatan" placeholder="kegiatan" name="kegiatan"></textarea>
+                                                <input type="number" class="form-control" id="jum_petani" placeholder="Jumlah Petani" name="jum_petani">
                                             </div>
                                         </div>
                                         <div class="modal-footer">
@@ -748,53 +746,6 @@ $data = $json[0];
 
 
 <?= $this->section('script') ?>
-<script>
-    function loadNamaKoordinator() {
-        if ($('#inlineRadio1').is(':checked')) {
-            $("#divPNS").show();
-        } else {
-            $("#divPNS").hide();
-        }
-        if ($('#inlineRadio2').is(':checked')) {
-            $("#divTHL").show();
-        } else {
-            $("#divTHL").hide();
-        }
-        if ($('#inlineRadio3').is(':checked')) {
-            $("#divST").show();
-        } else {
-            $("#divST").hide();
-        }
-    }
-
-    $(document).ready(function() {
-        loadNamaKoordinator();
-
-        $(document).delegate('#inlineRadio1', 'click', function() {
-            loadNamaKoordinator();
-        });
-        $(document).delegate('#inlineRadio2', 'click', function() {
-            loadNamaKoordinator();
-        });
-        $(document).delegate('#inlineRadio3', 'click', function() {
-            loadNamaKoordinator();
-        });
-    });
-</script>
-<script>
-    var min = 2017,
-        max = 2050,
-        select = document.getElementById('tahun');
-
-    for (var i = min; i <= max; i++) {
-        var opt = document.createElement('option');
-        opt.value = i;
-        opt.innerHTML = i;
-        select.appendChild(opt);
-    }
-
-    select.value = new Date().getFullYear();
-</script>
 <script>
     $(document).ready(function() {
         $(document).delegate('#btn-edit', 'click', function() {
@@ -844,7 +795,7 @@ $data = $json[0];
                     $('#nama_kauptd').val(res[0].nama_kauptd);
                     $('#hp_kauptd').val(res[0].hp_kauptd);
                     $('#nama_koord_penyuluh').val(res[0].nama_koord_penyuluh);
-                    $('#nama_koord_penyuluh_thl').val(res[0].nama_koord_penyuluh_thl);
+                    $('#nama_koord_penyuluh_thp').val(res[0].nama_koord_penyuluh_thp);
                     $('#koord_lainya_nip').val(res[0].koord_lainya_nip);
                     $('#koord_lainya_nama').val(res[0].koord_lainya_nama);
                     $('#kode_koord_penyuluh').val(res[0].kode_koord_penyuluh);
@@ -893,7 +844,7 @@ $data = $json[0];
                         var nama_koord_penyuluh_thl = $('#nama_koord_penyuluh_thl').val();
                         var koord_lainya_nip = $('#koord_lainya_nip').val();
                         var koord_lainya_nama = $('#koord_lainya_nama').val();
-                        var kode_koord_penyuluh = $('.pen:checked').val();
+                        var kode_koord_penyuluh = $('#kode_koord_penyuluh').val();
 
                         let formData = new FormData();
                         formData.append('id_gapoktan', id_gapoktan);
@@ -1163,6 +1114,38 @@ $data = $json[0];
             }
         });
 
+    });
+
+    function loadNamaKoordinator() {
+        if ($('#inlineRadio1').is(':checked')) {
+            $("#divPNS").show();
+        } else {
+            $("#divPNS").hide();
+        }
+        if ($('#inlineRadio2').is(':checked')) {
+            $("#divTHL").show();
+        } else {
+            $("#divTHL").hide();
+        }
+        if ($('#inlineRadio3').is(':checked')) {
+            $("#divST").show();
+        } else {
+            $("#divST").hide();
+        }
+    }
+
+    $(document).ready(function() {
+        loadNamaKoordinator();
+
+        $(document).delegate('#inlineRadio1', 'click', function() {
+            loadNamaKoordinator();
+        });
+        $(document).delegate('#inlineRadio2', 'click', function() {
+            loadNamaKoordinator();
+        });
+        $(document).delegate('#inlineRadio3', 'click', function() {
+            loadNamaKoordinator();
+        });
     });
 </script>
 
