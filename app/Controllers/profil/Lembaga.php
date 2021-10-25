@@ -24,11 +24,11 @@ class Lembaga extends BaseController
     public function index()
     {
 
+        session();
 
         if (session()->get('username') == "") {
             return redirect()->to('login');
         }
-
 
         // if (empty($this->session->get('kodebapel'))) {
         //     return redirect()->to('login');
@@ -54,10 +54,59 @@ class Lembaga extends BaseController
 
             'title' => 'Profil Lembaga',
             'dt' => $dtlembaga,
-            'prov' => $dtprov
+            'prov' => $dtprov,
+            'validation' => \Config\Services::validation()
         ];
 
-
         return view('profil/profillembaga', $data);
+    }
+
+    function editFoto()
+    {
+
+        $data = [
+
+            'title' => 'Ganti Foto',
+            'validation' => \Config\Services::validation()
+        ];
+
+        return view('profil/changefoto', $data);
+    }
+
+    function saveProfil()
+    {
+
+        if (!$this->validate([
+            // 'nameTxt' => 'required|min_length[10]'
+            'foto' => [
+                'rules' => 'uploaded[foto]|max_size[foto,1024]|is_image[foto]|mime_in[foto,image/png,image/jpg,image/jpeg]',
+                'errors' => [
+                    'uploaded' => 'pilih gambar dulu',
+                    'max_size' => 'ukuran gambar terlalu besar',
+                    'is_image' => 'bukan gambar',
+                    'mime_in' => 'bukan gambar',
+                ]
+            ]
+        ])) {
+
+            return redirect()->to('/profil/lembaga/')->withInput();
+        }
+
+        //ambil gambar
+        $foto =  $this->request->getFile('foto');
+
+        //pindahkan gambar 
+        $foto->move('assets/img');
+        $namafoto = $foto->getName();
+
+        //simpan ke database
+        $data = [
+            'foto' => $namafoto
+        ];
+
+        $this->modelLembaga->saveProfil($data);
+        // dd($a);
+
+        return redirect()->to('/profil/lembaga/');
     }
 }

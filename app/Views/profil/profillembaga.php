@@ -18,11 +18,21 @@ $result = file_get_contents($api, false);
 $json = json_decode($result, true);
 $data = $json[0];
 ?>
+
+
 <div class="container-fluid py-4">
     <div class="row">
         <!-- Page Heading -->
         <div class="row mt-3 mb-4">
+            <?php
+            if ($validation->hasError('foto')) {
 
+            ?>
+                <div class="alert alert-danger" role="alert">
+                    <?= $validation->listErrors(); ?>
+                </div>
+
+            <?php } ?>
             <div class="col-xl-3 col-sm-6 mb-xl-0 mb-4">
                 <div class="card">
                     <div class="card-body p-3">
@@ -392,9 +402,13 @@ $data = $json[0];
                             <div class="card">
                                 <div class="card-body p-3 ">
                                     <img src="<?= base_url('assets/img/logo.png'); ?>" width="150px" class="img-thumbnail" alt="profil">
+
                                 </div>
+                                <!-- <a href="<?= base_url('profil/lembaga/editfoto') ?>" class="btn btn-primary btn-lg w-100 btn-sm">Upload</a> -->
+                                <button type="button" class="btn btn-primary btn-lg w-100 btn-sm" id="uploadbtn">Upload</button>
                             </div>
                         </div>
+
 
                     </div>
                 </div>
@@ -514,11 +528,44 @@ $data = $json[0];
             </div>
 
         </div>
-
-
-
     </div>
 
+</div>
+
+<div class="modal fade" id="modalFoto" tabindex="-1" role="dialog" aria-labelledby="exampleModalMessageTitle" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Ubah Foto Profil</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">×</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form method="POST" enctype="multipart/form-data" action="<?= base_url('profil/lembaga/saveProfil'); ?>">
+
+                    <div class="col-lg-3 mb-lg-0 text-center">
+                        <div class="card">
+                            <div class="card-body p-3">
+                                <img src="<?= base_url('assets/img/logo.png'); ?>" width="150px" class="img-thumbnail" alt="profil">
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="input-group mb-3">
+                        <input type="file" class="form-control" id="foto" name="foto">
+                        <label class="input-group-text" for="foto">Pilih Foto</label>
+                    </div>
+
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn bg-gradient-secondary" data-bs-dismiss="modal">Close</button>
+                <button type="submit" id="btnSave" class="btn bg-gradient-primary">Simpan</button>
+            </div>
+            </form>
+
+        </div>
+    </div>
 </div>
 <?php echo view('layout/footer'); ?>
 
@@ -530,6 +577,10 @@ $data = $json[0];
 <?= $this->section('script') ?>
 
 <script type="text/javascript">
+    $('#uploadbtn').on('click', function() {
+        $('#modalFoto').modal('show');
+    });
+
     function loadingproses() {
         $('.backDrop').show();
         $('.backDrop_content').fadeIn('slow');
