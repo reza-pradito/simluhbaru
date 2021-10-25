@@ -3,9 +3,8 @@
 <?= $this->section('content') ?>
 
 
-<center><h2> Daftar Kelompok di Tani Kecamatan <?= ucwords(strtolower($nama_kecamatan)) ?> </h2></center>
+<center><h2> Daftar Bantuan Kegiatan yang di peroleh Kelompok KWT Sekar Tanjung <?= ucwords(strtolower($nama_poktan)) ?> </h2></center>
 
-<center><h4>Data ditemukan <?= ucwords(strtolower($jum)) ?> </h2></center>
 <button type="button" data-bs-toggle="modal" data-bs-target="#modal-form" class="btn bg-gradient-primary btn-sm">+ Tambah Data</button>
 <div class="card">
     <div class="table-responsive">
@@ -13,14 +12,9 @@
             <thead>
                 <tr>
                     <th class="text-uppercase text-secondary text-xxs font-weight-bolder" style="text-align: center;">No</th>
-                    <th class="text-uppercase text-secondary text-xxs font-weight-bolder" style="text-align: center;">Nama Desa</th>
-                    
-                    <th class="text-uppercase text-secondary text-xxs font-weight-bolder" style="text-align: center;">ID Poktan</th>
-                    
-                    <th class="text-uppercase text-secondary text-xxs font-weight-bolder" style="text-align: center;">Nama Poktan</th>
-                    <th class="text-uppercase text-secondary text-xxs font-weight-bolder" style="text-align: center;">Nama Ketua</th>
-                   
-                    <th class="text-uppercase text-secondary text-xxs font-weight-bolder" style="text-align: center;">Alamat Sekretariat</th>
+                    <th class="text-uppercase text-secondary text-xxs font-weight-bolder" style="text-align: center;">Kegiatan</th>
+                    <th class="text-uppercase text-secondary text-xxs font-weight-bolder" style="text-align: center;">Volume</th>
+                    <th class="text-uppercase text-secondary text-xxs font-weight-bolder" style="text-align: center;">Tahun</th>
                    
                     <th class="text-secondary opacity-7"></th>
                 </tr>
@@ -30,37 +24,28 @@
             $i = 1;
             foreach ($tabel_data as $row) {
             ?>
-            
                 <tr>
                     <td class="align-middle text-center text-sm">
                         <p class="text-xs font-weight-bold mb-0"><?= $i++ ?></p>
                     </td>
                     
                     <td class="align-middle text-center text-sm">
-                        <p class="text-xs font-weight-bold mb-0"><?= $row['nm_desa'] ?></p>
+                        <p class="text-xs font-weight-bold mb-0"><?= $row['kegiatan'] ?></p>
                     </td>
                     <td class="align-middle text-center text-sm">
-                        <p class="text-xs font-weight-bold mb-0"><?= $row['id_poktan'] ?></p>
+                        <p class="text-xs font-weight-bold mb-0"><?= $row['volume'] ?></p>
                     </td>
                     <td class="align-middle text-center text-sm">
-                        <p class="text-xs font-weight-bold mb-0"><?= $row['nama_poktan'] ?></p>
-                    </td>
-                    <td class="align-middle text-center text-sm">
-                        <p class="text-xs font-weight-bold mb-0"><?= $row['ketua_poktan'] ?></p>
-                    </td>
-                    <td class="align-middle text-center text-sm">
-                        <p class="text-xs font-weight-bold mb-0"><?= $row['alamat'] ?></p>
+                        <p class="text-xs font-weight-bold mb-0"><?= $row['tahun'] ?></p>
                     </td>
                     <td class="align-middle text-center text-sm">
                             
                                 <button type="button"  data-id_poktan="<?= $row['id_poktan'] ?>" id="btnEditPok" class="btn bg-gradient-warning btn-sm">
                                     <i class="fas fa-edit"></i> Ubah
                                 </button>
-                            
-                           
                                 <button class="btn btn-danger btn-sm" id="btnHapus" data-id_poktan="<?= $row['id_poktan'] ?>" type="button" >
-                                <i class="fas fa-trash"></i> Hapus
-                            </button>
+                                    <i class="fas fa-trash"></i> Hapus
+                                </button>
                            
                             
                             <button type="button" class="btn bg-gradient-primary btn-sm">
@@ -70,7 +55,7 @@
                          
                             
                             <button type="button" class="btn bg-gradient-info btn-sm">
-                            <a href="<?= base_url('/listbantu?ip=' . $row['id_poktan']) ?>"> <i class="fas fa-trash"></i>
+                                <i class="fas fa-trash"></i>
                                  +Tambah Bantuan
                             </button>
                             
@@ -91,51 +76,33 @@
                                             <h4 class="font-weight-bolder text-warning text-gradient">Tambah Data</h4>
                                         </div>
                                         <div class="card-body">
-                                        <form role="form text-left" action="<?= base_url('/KelembagaanPelakuUtama/KelompokTani/ListPokTan/save'); ?>" method="post" enctype="multipart/form-data">
+                                        <form role="form text-left" action="<?= base_url('/KelembagaanPelakuUtama/KelompokTani/ListBantu/save'); ?>" method="post" enctype="multipart/form-data">
                                             <? csrf_field(); ?>
                                     <div class="row">
                                         <div class="col-5" mt-5>
-                                            <label>Kecamatan</label>
                                             <div class="input-group mb-3">
-                                            <input type="text" class="form-control" id="deskripsi" name="deskripsi" placeholder="Kecamatan" value="<?= $nama_kecamatan; ?>" disabled>
-                                            </div>
                                             <label>Desa</label>
                                             <div class="input-group mb-3">
-                                               <select name="kode_desa" id="kode_desa"  class="form-control input-lg">
-                                                            <option value="">Pilih Desa</option>
+                                               <select name="idkeg" id="idkeg"  class="form-control input-lg">
+                                                            <option value="">Pilih Kegiatan</option>
                                                             <?php
-                                                            foreach ($desa as $row2) {
-                                                                echo '<option value="' . $row2["id_desa"] . '">' . $row2["nm_desa"] . '</option>';
+                                                            foreach ($kegiatan as $row2) {
+                                                                echo '<option value="' . $row2["iditem"] . '"' . $row2["desckeg"] .  $row2["subitem"] . '</option>';
                                                             }
                                                             ?>
                                                         </select>
                                             </div>
-                                            <label>Nama Poktan</label>
+                                            <label>Volume</label>
                                             <div class="input-group mb-3">
-                                                <input type="text" class="form-control" id="nama_poktan" name="nama_poktan" placeholder="Nama Poktan" aria-label="Password" aria-describedby="password-addon">
+                                                <input type="text" class="form-control" id="volume" name="volume" >
                                             </div>
-                                            <label>Nama Ketua</label>
-                                            <div class="input-group mb-3">
-                                                <input type="text" class="form-control" id="ketua_poktan" name="ketua_poktan" placeholder="Nama Ketua" aria-label="Password" aria-describedby="password-addon">
-                                            </div>
-                                            <label>Alamat Lengkap Sekretariat</label>
-                                                <textarea class="form-control" id="alamat" placeholder="Alamat" name="alamat" aria-label="Password" aria-describedby="password-addon"></textarea>
                                             <label>Tahun Pembentukan</label>
                                             <div class="input-group mb-3">
                                                 <select id="year" class="form-select"  aria-label="Default select example" name="simluh_tahun_bentuk">
                                                     <option selected>Pilih Tahun</option>
-                                                    
                                                 </select>
                                             </div>
-                                            <label>Status</label>
-                                            <div class="input-group mb-3">
-                                                <select class="form-select" id="status" name="status" aria-label="Default select example">
-                                                    <option selected>Pilih  </option>
-                                                    <option value="1">Aktif</option>
-                                                    <option value="2">Tidak aktif</option>
-                                                    <option value="3">Bergabung Dengan Kelompok Lain</option>
-                                                </select>
-                                            </div>
+                                         
                                             <input type="hidden" id="kode_kec" name="kode_kec" value="<?= $row['id_daerah'] ?>" >
                                                 <input type="hidden" id="kode_kab" name="kode_kab" value="<?= $row['id_dati2'] ?>">
                                                 <input type="hidden" id="id_poktan" name="id_poktan" >
