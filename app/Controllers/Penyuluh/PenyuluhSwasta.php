@@ -68,7 +68,8 @@ class PenyuluhSwasta extends BaseController
                 'alamat_perush' => $this->request->getPost('alamat_perush'),
                 'telp_perush' => $this->request->getPost('telp_perush'),
                 'jabatan_di_perush' => $this->request->getPost('jabatan_di_perush'),
-                'tempat_tugas' => $this->request->getPost('tempat_tugas')
+                'tempat_tugas' => $this->request->getPost('tempat_tugas'),
+                'tgl_update' => $this->request->getPost('tgl_update')
             ]);
 
             if ($res == false) {
@@ -127,6 +128,7 @@ class PenyuluhSwasta extends BaseController
         $telp_perush = $this->request->getPost('telp_perush');
         $jabatan_di_perush = $this->request->getPost('jabatan_di_perush');
         $tempat_tugas = $this->request->getPost('tempat_tugas');
+        $tgl_update = $this->request->getPost('tgl_update');
 
         $this->model->save([
             'id_swa' => $id_swa,
@@ -150,7 +152,8 @@ class PenyuluhSwasta extends BaseController
             'alamat_perush' => $alamat_perush,
             'telp_perush' => $telp_perush,
             'jabatan_di_perush' => $jabatan_di_perush,
-            'tempat_tugas' => $tempat_tugas
+            'tempat_tugas' => $tempat_tugas,
+            'tgl_update' => $tgl_update
         ]);
 
         //session()->setFlashdata('pesan', 'Data berhasil diubah');
