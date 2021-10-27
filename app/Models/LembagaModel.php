@@ -8,19 +8,21 @@ use CodeIgniter\Model;
 class LembagaModel extends Model
 {
 
-    //protected $table = 'tblbapel';
+    // protected $table = 'tblbapel';
 
     //  protected $db = \Config\Database::connect();
 
     public function getProfil($id)
     {
 
-        // $query = $this->db->query("select *, a.alamat, a.ketua, a.tgl_update, a.nama_bapel, a.email, b.nama
-        //                         from tblbapel a
-        //                         left join tbldasar b on a.nama_koord_penyuluh 
-        //                         =b.nip and nip !=''
-        //                         where kabupaten='$id'
-        //                         ");
+
+        $query = $this->db->query("select *, a.id_gapoktan, a.alamat, a.ketua, a.tgl_update, a.nama_bapel, a.email, b.nama
+                                from tblbapel a
+                                left join tbldasar b on a.nama_koord_penyuluh 
+                                =b.nip and nip !=''
+                                where kabupaten='$id'
+                                ");
+
 
         if (session()->get('status_user') == '1') {
             $query = $this->db->query("SELECT * FROM tblbakor where kode_prop = $id");
@@ -34,5 +36,13 @@ class LembagaModel extends Model
 
         $row   = $query->getRowArray();
         return $row;
+    }
+
+    public function saveProfil($data)
+    {
+
+        $db = db_connect();
+        $builder = $db->table('tblbpp');
+        $builder->where('kecamatan', session()->get('kodebpp'))->update($data);
     }
 }

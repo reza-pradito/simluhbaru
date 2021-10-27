@@ -1,7 +1,7 @@
 <?= $this->extend('layout/main_template') ?>
 
 <?= $this->section('content') ?>
-
+<?php $seskab = session()->get('kodebapel'); ?>
 
 
 
@@ -38,7 +38,7 @@
                             <p class="text-xs font-weight-bold mb-0"><?= $row['nama']; ?></p>
                         </td>
                         <td class="align-middle text-center text-sm">
-                            <p class="text-xs font-weight-bold mb-0"></p>
+                            <p class="text-xs font-weight-bold mb-0"><?= $row['kelompok']; ?>.<?= $row['namasat']; ?></p>
                         </td>
                         <td class="align-middle text-center text-sm">
                             <p class="text-xs font-weight-bold mb-0"><?= $row['tempat_lahir']; ?>, <?= $row['tgl_lahir']; ?>-<?= $row['bln_lahir']; ?>-<?= $row['thn_lahir']; ?></p>
@@ -52,7 +52,7 @@
                                     <i class="fas fa-edit"></i> Ubah
                                 </button>
                             </a>
-                            <button class="btn bg-gradient-danger btn-sm" id="btnHapus" data-id_swa="<?= $row['id_swa']; ?>" type="submit" onclick="return confirm('Are you sure ?')">
+                            <button class="btn bg-gradient-danger btn-sm" id="btnHapus" data-id_swa="<?= $row['id_swa']; ?>" type="button">
                                 <i class="fas fa-trash"></i> Hapus</button>
                         </td>
                     </tr>
@@ -77,7 +77,7 @@
                                         <div class="col">
                                             <input type="hidden" name="id_swa" id="id_swa" class="form-control id_swa">
                                             <input type="hidden" name="jenis_penyuluh" id="jenis_penyuluh" class="form-control jenis_penyuluh" value="4">
-                                            <input type="hidden" name="satminkal" id="satminkal" class="form-control satminkal" value="<?= $row['kode'] ?>">
+                                            <input type="hidden" name="satminkal" id="satminkal" class="form-control satminkal" value="<?= $seskab; ?>">
 
                                             <label>No. KTP</label>
                                             <div class="input-group mb-3">
@@ -101,12 +101,12 @@
                                                 </select>
                                             </div>
                                             <label>Jenis Kelamin</label>
-                                            <div class="input-group mb-3" id="jenis_kelamin">
-                                                <div class="form-check form-check-inline" id="jenis_kelamin">
+                                            <div class="input-group mb-3">
+                                                <div class="form-check form-check-inline">
                                                     <input class="form-check-input" type="radio" name="jenis_kelamin" id="jenis_kelamin" value="1">
                                                     <label class="form-check-label" for="inlineRadio1">Laki-laki</label>
                                                 </div>
-                                                <div class="form-check form-check-inline" id="jenis_kelamin">
+                                                <div class="form-check form-check-inline">
                                                     <input class="form-check-input" type="radio" name="jenis_kelamin" id="jenis_kelamin" value="2">
                                                     <label class="form-check-label" for="inlineRadio2">Perempuan</label>
                                                 </div>
@@ -181,6 +181,8 @@
                                             <label>No.Telepon</label>
                                             <div class="input-group mb-3">
                                                 <input type="text" name="telp_perush" id="telp_perush" class="form-control telp_perush" placeholder="No.Telepon">
+                                                <input type="hidden" id="tgl_update" name="tgl_update">
+
                                             </div>
                                         </div>
                                         <div class="text-center">
@@ -231,6 +233,7 @@
             var jabatan_di_perush = $('#jabatan_di_perush').val();
             var alamat_perush = $('#alamat_perush').val();
             var telp_perush = $('#telp_perush').val();
+            var tgl_update = $('#tgl_update').val();
 
             $.ajax({
                 url: '<?= base_url() ?>/Penyuluh/PenyuluhSwasta/save/',
@@ -256,7 +259,8 @@
                     'nama_perusahaan': nama_perusahaan,
                     'jabatan_di_perush': jabatan_di_perush,
                     'alamat_perush': alamat_perush,
-                    'telp_perush': telp_perush
+                    'telp_perush': telp_perush,
+                    'tgl_update': tgl_update
                 },
                 success: function(result) {
                     Swal.fire({
@@ -348,6 +352,7 @@
                     $('#jabatan_di_perush').val(result.jabatan_di_perush);
                     $('#alamat_perush').val(result.alamat_perush);
                     $('#telp_perush').val(result.telp_perush);
+                    $('#tgl_update').val(result.tgl_update);
 
                     $('#modal-form').modal('show');
 
@@ -378,6 +383,7 @@
                         var jabatan_di_perush = $('#jabatan_di_perush').val();
                         var alamat_perush = $('#alamat_perush').val();
                         var telp_perush = $('#telp_perush').val();
+                        var tgl_update = $('#tgl_update').val();
 
                         let formData = new FormData();
                         formData.append('id_swa', id_swa);
@@ -402,6 +408,7 @@
                         formData.append('jabatan_di_perush', jabatan_di_perush);
                         formData.append('alamat_perush', alamat_perush);
                         formData.append('telp_perush', telp_perush);
+                        formData.append('tgl_update', tgl_update);
 
                         $.ajax({
                             url: '<?= base_url() ?>/Penyuluh/PenyuluhSwasta/update/' + id_swa,
@@ -450,6 +457,17 @@
 
         });
     });
+</script>
+
+<script>
+    var d = new Date();
+
+    // Set the value of the "date" field
+    document.getElementById("tgl_update").value = d.toLocaleString('id-ID', {
+        day: 'numeric',
+        month: 'long',
+        year: 'numeric'
+    }).split(' ').join(' ');
 </script>
 
 <?= $this->endSection() ?>

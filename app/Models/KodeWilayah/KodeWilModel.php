@@ -44,8 +44,28 @@ class KodeWilModel extends Model
 
         return $data;
     }
-    
+
+
+    public function getNamaWil($kode_kab)
+    {
+        $query = $this->db->query("select a.id_dati2, b.nama_prop as namaprov 
+                                    from tbldesa a
+                                    left join tblpropinsi b on a.id_prop=b.id_prop
+                                    where id_dati2='$kode_kab'");
+        $row   = $query->getRow();
+
+        $query2 = $this->db->query("select nama_dati2 as namakab 
+                                    from tbldati2 
+                                    where id_dati2='$kode_kab'");
+        $row2   = $query2->getRow();
+
+
+        $data = [
+            'namaprov' => $row->namaprov,
+            'namakab' => $row2->namakab
+        ];
+
+        return $data;
+    }
+
 }
-
-
-
