@@ -19,9 +19,7 @@ class PenyuluhSwasta extends BaseController
     public function penyuluhswasta()
     {
 
-        // $get_param = $this->request->getGet();
-
-        // $kode_kab = $get_param['kode_kab'];
+      
         if (session()->get('username') == "") {
             return redirect()->to('login');
         }

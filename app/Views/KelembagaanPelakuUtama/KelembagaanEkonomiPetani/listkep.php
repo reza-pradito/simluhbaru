@@ -2,7 +2,8 @@
 
 <?= $this->section('content') ?>
 
-
+<?php $seskab = session()->get('kodebapel'); ?>
+<?php $seskec = session()->get('kodebpp'); ?>
 <center><h2> Daftar Kelembagaan Ekonomi Petani di Kecamatan <?= ucwords(strtolower($nama_kecamatan)) ?> </h2></center>
 
 

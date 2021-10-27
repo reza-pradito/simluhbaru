@@ -3,7 +3,7 @@
 <?= $this->section('content') ?>
 
 
-<center><h2> Daftar Kelompok Binaan BP3K (<?= ucwords(strtolower($nama_bp3k)) ?>) </h2></center>
+<center><h2> Dafta Kelompok P2L Binaan BP3K (<?= ucwords(strtolower($nama_bp3k)) ?>) </h2></center>
 <div class="card">
     <div class="table-responsive">
         <table class="table align-items-center mb-0">
@@ -11,9 +11,7 @@
                 <tr>
                     <th class="text-uppercase text-secondary text-xxs font-weight-bolder" style="text-align: center;">No</th>
                     <th class="text-uppercase text-secondary text-xxs font-weight-bolder" style="text-align: center;">Nama Kecamatan</th>
-                   
                     <th class="text-uppercase text-secondary text-xxs font-weight-bolder" style="text-align: center;">Jumlah<br>Poktan</th>
-                   
                     <th class="text-secondary opacity-7"></th>
                 </tr>
             </thead>
@@ -28,7 +26,7 @@
                         <p class="text-xs font-weight-bold mb-0"><?= $i++ ?></p>
                     </td>
                     <td class="align-middle text-center text-sm">
-                    <a href="<?= base_url('/listpoktan?kode_kec=' . $row['id_daerah']) ?>">
+                    <a href="<?= base_url('/listkep?kode_kec=' . $row['id_daerah']) ?>">
                         <p class="text-xs font-weight-bold mb-0"><?= $row['deskripsi'] ?></p>
                     </td></a>
                     <td class="align-middle text-center text-sm">
