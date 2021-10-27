@@ -24,7 +24,7 @@ class PenyuluhSwastaModel extends Model
 
         $query   = $db->query("select a.id_swa, a.jenis_penyuluh, a.noktp, a.nama, a.tgl_lahir, a.bln_lahir, a.thn_lahir, a.tempat_lahir, a.jenis_kelamin,
 a.satminkal, a.prop_satminkal, a.lokasi_kerja, a.alamat, a.dati2, a.kodepos, a.kode_prop, a.telp, a.email,
-a.nama_perusahaan, a.jabatan_di_perush, a.tgl_update, a.alamat_perush, a.telp_perush, a.tempat_tugas, b.kode, c.nama_prop,
+a.nama_perusahaan, a.jabatan_di_perush, a.tgl_update, a.alamat_perush, a.telp_perush, a.tempat_tugas, b.kode, b.kelompok, b.nama as namasat, c.nama_prop,
                                 j.deskripsi,
                                 z.nama_prop,
                                 z.id_prop,
