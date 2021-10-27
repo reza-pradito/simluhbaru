@@ -88,6 +88,7 @@ class PenyuluhSwasta extends BaseController
             return json_encode($data);
         }
     }
+    
 
     public function delete($id)
     {
