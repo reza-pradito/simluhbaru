@@ -165,11 +165,10 @@
                                                 <div class="input-group mb-3">
                                                      <input type="text" class="form-control" id="jum_gapoktan" name="jum_gapoktan" placeholder="Jumlah Gapoktan" aria-label="Password" aria-describedby="password-addon">
                                                 </div>
-                                            <input type="hidden" id="kode_kec" name="kode_kec" value="<?= $row['id_daerah'] ?>" >
-                                                <input type="hidden" id="kode_kab" name="kode_kab" value="<?= $row['id_dati2'] ?>">
+                                            <input type="hidden" id="kode_kec" name="kode_kec" value="<?= $seskec; ?>" >
+                                                <input type="hidden" id="kode_kab" name="kode_kab" value="<?= $seskab; ?>">
                                                 
                                                 <input type="hidden" id="id_kep" name="id_kep" >
-                                                <input type="hidden" name="kode_desa" value="<?= $row['id_desa'] ?>"> 
                                                     <div class="text-center">
                                                         <button type="button" id="btnSave" class="btn btn-round bg-gradient-warning btn-sm">Simpan Data</button>
                                                     </div>
