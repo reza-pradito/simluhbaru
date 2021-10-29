@@ -10,15 +10,11 @@ class ListPoktanModel extends Model
     protected $table      = 'tb_poktan';
     protected $primaryKey = 'id_poktan';
     protected $allowedFields = ['no_reg', 'kode_prop', 'kode_kab',
-     'kode_kec', 'kode_desa', 'nama_poktan', 'ketua_poktan', 'alamat', 'jum_anggota','simluh_tahun_bentuk','status'];
+     'kode_kec', 'kode_desa', 'nama_poktan', 'ketua_poktan', 'alamat', 'jum_anggota','simluh_tahun_bentuk','status','simluh_tahun_tap_kelas','simluh_kelas_kemampuan'];
 
 
     protected $useTimestamps = false;
     
-
-   
-
-
     public function getKelompokTaniTotal($kode_kec)
     {
         $db = Database::connect();
@@ -38,11 +34,7 @@ class ListPoktanModel extends Model
 
         $results = $query3->getResultArray();
 
-       // $query4 = $db->query("SELECT count(distinct no_ktp) as jumangg FROM tb_poktan_anggota where id_poktan ='id_poktan'");
-        //$row3   = $query4->getRow();
-
-        //$query5 = $db->query("SELECT count(distinct nik) as jup from tb_rdkk_upload where kode_poktan='id_poktan'");
-       // $row4   = $query5->getRow();
+      
 
         $data =  [
             'jum' => $row2->jum,

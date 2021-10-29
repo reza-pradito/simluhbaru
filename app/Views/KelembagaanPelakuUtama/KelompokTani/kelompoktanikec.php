@@ -3,7 +3,7 @@
 <?= $this->section('content') ?>
 
 
-<center><h2> Daftar Kelompok Binaan BP3K (<?= ucwords(strtolower($nama_kec)) ?>) </h2></center>
+<center><h2> Daftar Kelompok Binaan BP3K (<?= ucwords(strtolower($nama_bp3k)) ?>) </h2></center>
 <div class="card">
     <div class="table-responsive">
         <table class="table align-items-center mb-0">
@@ -19,30 +19,27 @@
             </thead>
             <tbody>
             <?php
-           // $i = 1;
-           // foreach ($tabel_data as $row) {
-           // ?>
+            $i = 1;
+           foreach ($tabel_data as $row) {
+               ?>
             
-                <tr>
+               <tr>
                     <td class="align-middle text-center text-sm">
-                        <p class="text-xs font-weight-bold mb-0"></p>
+                        <p class="text-xs font-weight-bold mb-0"><?= $i++ ?></p>
                     </td>
                     <td class="align-middle text-center text-sm">
-                        <p class="text-xs font-weight-bold mb-0"></p>
-                    </td>
+                    <a href="<?= base_url('/listpoktan?kode_kec=' . $row['id_daerah']) ?>">
+                        <p class="text-xs font-weight-bold mb-0"><?= $row['deskripsi'] ?></p>
+                    </td></a>
                     <td class="align-middle text-center text-sm">
-                        <p class="text-xs font-weight-bold mb-0"></p>
+                        <p class="text-xs font-weight-bold mb-0"><?= $row['jum'] ?></p>
                   
-                        <td class="align-middle text-center text-sm">
-                        <a href="/gapoktan/list"></a><button type="button" class="btn btn-info btn-sm">
-                             Detail
-                        </button>
-                        </a>
+                    
                     </td>
                 </tr>
-         //   <?php
-         //   }
-            //?>
+           <?php
+           }
+            ?>
 
             </tbody>
            

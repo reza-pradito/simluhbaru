@@ -18,21 +18,11 @@ $result = file_get_contents($api, false);
 $json = json_decode($result, true);
 $data = $json[0];
 ?>
-
-
 <div class="container-fluid py-4">
     <div class="row">
         <!-- Page Heading -->
         <div class="row mt-3 mb-4">
-            <?php
-            if ($validation->hasError('foto')) {
 
-            ?>
-                <div class="alert alert-danger" role="alert">
-                    <?= $validation->listErrors(); ?>
-                </div>
-
-            <?php } ?>
             <div class="col-xl-3 col-sm-6 mb-xl-0 mb-4">
                 <div class="card">
                     <div class="card-body p-3">
@@ -165,7 +155,7 @@ $data = $json[0];
                         <div class="row">
                             <div class="col-8">
                                 <div class="numbers">
-                                    <p class="text-sm mb-0 text-capitalize font-weight-bold">Jumlah Penyuluh Swatahuna</p>
+                                    <p class="text-sm mb-0 text-capitalize font-weight-bold">Jumlah Penyuluh Swadaya</p>
                                     <h5 class="font-weight-bolder mb-0">
                                         <?= number_format($data['jumpenyuluhswadaya']); ?>
                                     </h5>
@@ -224,6 +214,9 @@ $data = $json[0];
                             <div class="card">
                                 <div class="card-body p-3">
                                     <div class="row">
+
+                                        <h1 class="h3 mb-4 text-gray-800"><?= $title; ?> <a href="/editbapel"><i class="fas fa-edit" style="float: right;"></i></a></h1>
+
                                         <h1 class="h3 mb-4 text-gray-800"><?= $title; ?><i class="fas fa-edit" style="float: right;" data-bs-toggle="modal" data-bs-target="#modal-form" id="btn-edit" data-id_gapoktan="<?php
                                                                                                                                                                                                                             if (session()->get('status_user') == '200') {
                                                                                                                                                                                                                                 echo $dt['id_gapoktan'];
@@ -232,6 +225,7 @@ $data = $json[0];
                                                                                                                                                                                                                             }
 
                                                                                                                                                                                                                             ?>"></i></a></h1>
+
                                         <div class="col-lg-12">
                                             <?php if (session()->get('status_user') == '1') { ?>
                                                 <table class="table">
@@ -398,7 +392,6 @@ $data = $json[0];
                                                     </tbody>
                                                 </table>
                                             <?php } ?>
-
                                         </div>
 
                                     </div>
@@ -409,6 +402,7 @@ $data = $json[0];
                         <div class="col-lg-3 mb-lg-0 mb-4 text-center">
                             <div class="card">
                                 <div class="card-body p-3 ">
+
                                     <img src="<?php if ($fotoprofil == '') {
                                                     echo base_url('assets/img/logo.png');
                                                 } else {
@@ -418,9 +412,9 @@ $data = $json[0];
                                 </div>
                                 <!-- <a href="<?= base_url('profil/lembaga/editfoto') ?>" class="btn btn-primary btn-lg w-100 btn-sm">Upload</a> -->
                                 <button type="button" class="btn btn-primary btn-lg w-100 btn-sm" id="uploadbtn">Change Picture</button>
+
                             </div>
                         </div>
-
 
                     </div>
                 </div>
@@ -472,49 +466,8 @@ $data = $json[0];
                             <div class="card">
                                 <div class="card-body p-3">
                                     <div class="row">
-                                        <h1 class="h3 mb-4 text-gray-800">Kegiatan yang dilakukan <i class="fas fa-edit" style="float: right;" data-bs-toggle="modal" data-bs-target="#modal-fk" id="btn-add-fas"></i></h1>
+                                        <h1 class="h3 mb-4 text-gray-800">Kegiatan yang dilakukan <a href="/editkegiatan"><i class="fas fa-edit" style="float: right;"></i></a></h1>
                                         <div class="col-lg-12">
-
-
-                                            <table class="table align-items-center mb-0">
-                                                <thead>
-                                                    <tr>
-                                                        <td width="5" class="text-uppercase text-secondary text-xxs font-weight-bolder">Tahun</td>
-                                                        <td width="100" class="text-uppercase text-secondary text-xxs font-weight-bolder">Fasilitasi</td>
-                                                        <td width="100" class="text-uppercase text-secondary text-xxs font-weight-bolder">Nama Kegiatan</td>
-                                                        <td width="100" class="text-secondary opacity-7"></td>
-                                                    </tr>
-                                                </thead>
-                                                <tbody>
-                                                    <?php
-                                                    foreach ($fasdata as $row => $value) {
-                                                    ?>
-                                                        <tr>
-                                                            <td width="50">
-                                                                <p class="text-xs font-weight-bold mb-0"><?= $value['tahun'] ?></p>
-                                                            </td>
-                                                            <td class="align-middle text-sm">
-                                                                <p class="text-xs font-weight-bold mb-0"><?= $value['nama_fasilitasi'] ?></p>
-                                                            </td>
-                                                            <td class="align-middle text-sm">
-                                                                <p class="text-xs font-weight-bold mb-0"><?= $value['kegiatan'] ?></p>
-                                                            </td>
-                                                            <td class="align-middle text-center text-sm">
-                                                                <a href="#">
-                                                                    <button type="button" id="btn-edit-fas" data-bs-toggle="modal" data-bs-target="#modal-fk" class="btn bg-gradient-warning btn-sm" data-id="<?= $value['id'] ?>">
-                                                                        <i class="fas fa-edit"></i> Ubah
-                                                                    </button>
-                                                                </a>
-                                                                <button type="button" id="btn-hapus" data-id="<?= $value['id'] ?>" class="btn bg-gradient-danger btn-sm">
-                                                                    <i class="fas fa-trash"></i> Hapus
-                                                                </button>
-                                                            </td>
-                                                        </tr>
-                                                    <?php
-                                                    }
-                                                    ?>
-                                                </tbody>
-                                            </table>
 
                                         </div>
 
@@ -581,9 +534,8 @@ $data = $json[0];
             </div>
 
         </div>
-    </div>
 
-</div>
+
 
 
 <?php
@@ -906,7 +858,9 @@ foreach ($tabel_data as $row => $item)
             </form>
 
         </div>
+
     </div>
+
 </div>
 <?php echo view('layout/footer'); ?>
 
@@ -916,6 +870,7 @@ foreach ($tabel_data as $row => $item)
 <?= $this->endSection() ?>
 
 <?= $this->section('script') ?>
+
 <script type="text/javascript">
     function loadNamaKoordinator() {
         if ($('#inlineRadio1').is(':checked')) {
@@ -1333,11 +1288,8 @@ foreach ($tabel_data as $row => $item)
 </script>
 
 
-<script type="text/javascript">
-    $('#uploadbtn').on('click', function() {
-        $('#modalFoto').modal('show');
-    });
 
+<script type="text/javascript">
     function loadingproses() {
         $('.backDrop').show();
         $('.backDrop_content').fadeIn('slow');

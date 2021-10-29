@@ -8,18 +8,16 @@ class KelompokTaniKec extends BaseController
 {
     public function kelompoktanikec()
     {
-        $get_param = $this->request->getGet();
-
-        $nama_kec = $get_param['nama_kec'];
+       
         $kelompoktanikec_model = new KelompokTaniKecModel();
-        $kelompoktanikec_data = $kelompoktanikec_model->getKelompokTaniKecTotal($nama_kec);
+        $kelompoktanikec_data = $kelompoktanikec_model->getKelompokTaniKecTotal(session()->get('kodebpp'));
 
         $data = [
-            
-            'nama_kec' => $kelompoktanikec_data['nama_kec'],
-           // 'tabel_data' => $kelompoktanikec_data['table_data'],
-            'title' => 'Kelompok Tani',
-            'name' => 'Kelompok Tani'
+            'jum' => $kelompoktanikec_data['jum'],
+            'nama_bp3k' => $kelompoktanikec_data['nama_bpp'],
+           'tabel_data' => $kelompoktanikec_data['table_data'],
+            'title' => 'Kelompok Tani Kecamatan',
+            'name' => 'Kelompok Tani Kecamatan' 
         ];
 
         return view('KelembagaanPelakuUtama/KelompokTani/kelompoktanikec', $data);
