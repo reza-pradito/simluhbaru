@@ -198,30 +198,17 @@
 
          var colorSet = new am4core.ColorSet();
 
-         imageSeries.data = [{
-                 "title": "BPP Jombang",
-                 "latitude": -6.2893272,
-                 "longitude": 106.6944967,
-                 "color": colorSet.next()
-             },
-             {
-                 "title": "BPP Ragunan",
-                 "latitude": -6.2956309,
-                 "longitude": 106.8160762,
-                 "color": colorSet.next()
-             },
-             {
-                 "title": "BPPK Lembang",
-                 "latitude": -6.5130159,
-                 "longitude": 106.8843142,
-                 "color": colorSet.next()
-             },
-             {
-                 "title": "BPP Rantau Pauh",
-                 "latitude": 4.302686,
-                 "longitude": 98.0829409,
-                 "color": colorSet.next()
-             }
+         imageSeries.data = [
+             <?php
+                foreach ($profilbpp as $row) {
+                    $koordinat = explode(',', $row['koordinat_lokasi_bpp']);
+                ?> {
+                     "title": "<?= $row['nama_bpp'] ?>",
+                     "latitude": <?= $koordinat[0]; ?>,
+                     "longitude": <?= $koordinat[1]; ?>,
+                     "color": colorSet.next()
+                 },
+             <?php } ?>
          ];
 
          // Zoom control

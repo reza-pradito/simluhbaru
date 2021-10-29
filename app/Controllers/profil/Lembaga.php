@@ -26,7 +26,6 @@ class Lembaga extends BaseController
 
         $this->modelLembaga = new LembagaModel();
         $this->modelProv = new WilayahModel();
-
     }
 
     public function index()
@@ -88,12 +87,14 @@ class Lembaga extends BaseController
             'bapel' => $bapel['bapel_data'],
             'fasdata' => $fasdata['fasdata'],
             'idgap' => $id_gap['idgap'],
-            'fasilitasi' => $query->getResultArray()
-
+            'fasilitasi' => $query->getResultArray(),
             'prov' => $dtprov,
+            'fotoprofil' => $dtlembaga['foto'],
             'validation' => \Config\Services::validation()
 
         ];
+
+        // dd($data);
 
         return view('profil/profillembaga', $data);
     }
@@ -248,7 +249,7 @@ class Lembaga extends BaseController
     {
         $this->fasmodel->delete($id);
         return redirect()->to('/lembaga');
-
+    }
     function editFoto()
     {
 
@@ -263,7 +264,6 @@ class Lembaga extends BaseController
 
     function saveProfil()
     {
-
         if (!$this->validate([
             // 'nameTxt' => 'required|min_length[10]'
             'foto' => [
@@ -293,9 +293,7 @@ class Lembaga extends BaseController
         ];
 
         $this->modelLembaga->saveProfil($data);
-        // dd($a);
 
         return redirect()->to('/profil/lembaga/');
-
     }
 }

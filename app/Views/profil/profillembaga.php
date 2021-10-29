@@ -224,71 +224,15 @@ $data = $json[0];
                             <div class="card">
                                 <div class="card-body p-3">
                                     <div class="row">
-                                        <h1 class="h3 mb-4 text-gray-800"><?= $title; ?><i class="fas fa-edit" style="float: right;" data-bs-toggle="modal" data-bs-target="#modal-form" id="btn-edit" data-id_gapoktan="<?= $dt['id_gapoktan']; ?>"></i></a></h1>
+                                        <h1 class="h3 mb-4 text-gray-800"><?= $title; ?><i class="fas fa-edit" style="float: right;" data-bs-toggle="modal" data-bs-target="#modal-form" id="btn-edit" data-id_gapoktan="<?php
+                                                                                                                                                                                                                            if (session()->get('status_user') == '200') {
+                                                                                                                                                                                                                                echo $dt['id_gapoktan'];
+                                                                                                                                                                                                                            } elseif (session()->get('status_user') == '300') {
+                                                                                                                                                                                                                                echo $dt['id'];
+                                                                                                                                                                                                                            }
+
+                                                                                                                                                                                                                            ?>"></i></a></h1>
                                         <div class="col-lg-12">
-
-
-                                            <table class="table">
-
-                                                <tbody>
-                                                    <input type="hidden" name="id_gapoktan" value="<?= $dt['id_gapoktan']; ?>">
-                                                    <tr>
-                                                        <td>Nama Kelembagaan</td>
-                                                        <td>:</td>
-                                                        <td><?= $dt['deskripsi_lembaga_lain']; ?> <?= $sessnama; ?></td>
-                                                    </tr>
-                                                    <tr>
-                                                        <td>Tanggal Pembentukan</td>
-                                                        <td>:</td>
-                                                        <td><?= $dt['tgl_berdiri'] . '-' . $dt['bln_berdiri'] . '-' . $dt['thn_berdiri']; ?></td>
-                                                    </tr>
-                                                    <tr>
-                                                        <td>Alamat</td>
-                                                        <td>:</td>
-                                                        <td> <?= $dt['alamat']; ?></td>
-                                                    </tr>
-                                                    <tr>
-                                                        <td>Provinsi</td>
-                                                        <td>:</td>
-                                                        <td><?= $namaprov; ?></td>
-                                                    </tr>
-                                                    <tr>
-                                                        <td>No Telepon/Fax</td>
-                                                        <td>:</td>
-                                                        <td><?= $dt['telp_kantor']; ?></td>
-                                                    </tr>
-                                                    <tr>
-                                                        <td>Alamat Email</td>
-                                                        <td>:</td>
-                                                        <td><?= $dt['email']; ?></td>
-                                                    </tr>
-                                                    <tr>
-                                                        <td>Alamat Website</td>
-                                                        <td>:</td>
-                                                        <td><?= $dt['website']; ?></td>
-                                                    </tr>
-                                                    <tr>
-                                                        <td>Nama Pimpinan</td>
-                                                        <td>:</td>
-                                                        <td><?= $dt['ketua']; ?></td>
-                                                    </tr>
-                                                    <tr>
-                                                        <td>No HP Pimpinan</td>
-                                                        <td>:</td>
-                                                        <td><?= $dt['hp_kabid']; ?></td>
-                                                    </tr>
-                                                    <tr>
-                                                        <td>Nama Koordinator PP</td>
-                                                        <td>:</td>
-
-                                                        <td><?= $dt['nama_koord_penyuluh']; ?></td>
-
-                                                    </tr>
-
-                                                </tbody>
-
-                                            </table>
-
                                             <?php if (session()->get('status_user') == '1') { ?>
                                                 <table class="table">
 
@@ -465,11 +409,15 @@ $data = $json[0];
                         <div class="col-lg-3 mb-lg-0 mb-4 text-center">
                             <div class="card">
                                 <div class="card-body p-3 ">
-                                    <img src="<?= base_url('assets/img/logo.png'); ?>" width="150px" class="img-thumbnail" alt="profil">
+                                    <img src="<?php if ($fotoprofil == '') {
+                                                    echo base_url('assets/img/logo.png');
+                                                } else {
+                                                    echo base_url('assets/img/' . $fotoprofil);
+                                                }  ?>" width="150px" class="img-thumbnail" alt="profil">
 
                                 </div>
                                 <!-- <a href="<?= base_url('profil/lembaga/editfoto') ?>" class="btn btn-primary btn-lg w-100 btn-sm">Upload</a> -->
-                                <button type="button" class="btn btn-primary btn-lg w-100 btn-sm" id="uploadbtn">Upload</button>
+                                <button type="button" class="btn btn-primary btn-lg w-100 btn-sm" id="uploadbtn">Change Picture</button>
                             </div>
                         </div>
 
@@ -638,287 +586,287 @@ $data = $json[0];
 </div>
 
 
-        <?php
-        $i = 1;
-        foreach ($tabel_data as $row => $item)
-            foreach ($bapel as $row => $val) {
-        ?>
-            <div class="modal fade" id="modal-form" tabindex="-1" role="dialog" aria-labelledby="modal-form" aria-hidden="true">
-                <div class="modal-dialog modal-dialog-centered modal-xl" role="document">
-                    <div class="modal-content">
-                        <div class="modal-body p-0">
-                            <div class="card card-plain">
-                                <div class="card-header pb-0 text-left">
-                                    <h4 class="font-weight-bolder text-warning text-gradient" id="judul_form">Edit Data</h4>
-                                </div>
-                                <div class="card-body">
-
-                                    <form method="POST" role="form text-left">
-                                        <div class="row">
-                                            <div class="col">
-                                                <input type="hidden" name="id_gapoktan" id="id_gapoktan">
-                                                <label for="prov">Propinsi</label>
-                                                <div class="input-group mb-3">
-                                                    <input type="text" class="form-control" name="prov" value="<?= $item['nama_prop']; ?>" disabled>
-                                                </div>
-                                                <label for="prov">Kabupaten</label>
-                                                <div class="input-group mb-3">
-                                                    <input type="text" class="form-control" name="kab" value="<?= $item['nama_dati2']; ?>" disabled>
-                                                </div>
-                                                <label for="kode_desa">Jenis Kelembagaan</label>
-                                                <div class="input-group mb-3">
-                                                    <select name="nama_bapel" id="nama_bapel" class="form-control input-lg">
-                                                        <option value=""></option>
-                                                        <OPTION value="31">Badan<BR>
-                                                        <OPTION value="32">Dinas<BR>
-                                                    </select>
-                                                </div>
-                                                <div class="input-group mb-3">
-                                                    <label style="margin-top: 10px;">Nomenklatur :
-                                                        <input type="text" class="form-control" id="deskripsi_lembaga_lain" placeholder="" name="deskripsi_lembaga_lain">
-                                                        <label>Pilih Sesuai nomenklatur :</label>
-                                                        <div class="form-check">
-                                                            <input class="form-check-input" type="checkbox" id="jenis_pertanian" name="jenis_pertanian" value="1">
-                                                            <label class="form-check-label" for="flexCheckDefault">
-                                                                Pertanian
-                                                            </label>
-                                                        </div>
-                                                        <div class="form-check">
-                                                            <input class="form-check-input" type="checkbox" id="jenis_tp" name="jenis_tp" value="2">
-                                                            <label class="form-check-label" for="flexCheckDefault">
-                                                                Tanaman Pangan
-                                                            </label>
-                                                        </div>
-                                                        <div class="form-check">
-                                                            <input class="form-check-input" type="checkbox" id="jenis_hor" name="jenis_hor" value="3">
-                                                            <label class="form-check-label" for="flexCheckDefault">
-                                                                Hortikultura
-                                                            </label>
-                                                        </div>
-                                                        <div class="form-check">
-                                                            <input class="form-check-input" type="checkbox" id="jenis_bun" name="jenis_bun" value="4">
-                                                            <label class="form-check-label" for="flexCheckDefault">
-                                                                Perkebunan
-                                                            </label>
-                                                        </div>
-                                                        <div class="form-check">
-                                                            <input class="form-check-input" type="checkbox" id="jenis_nak" name="jenis_nak" value="5">
-                                                            <label class="form-check-label" for="flexCheckDefault">
-                                                                Peternakan
-                                                            </label>
-                                                        </div>
-                                                        <div class="form-check">
-                                                            <input class="form-check-input" type="checkbox" id="jenis_ketahanan_pangan" name="jenis_ketahanan_pangan" value="6">
-                                                            <label class="form-check-label" for="flexCheckDefault">
-                                                                Kesehatan Pangan
-                                                            </label>
-                                                        </div>
-                                                        <div class="form-check">
-                                                            <input class="form-check-input" type="checkbox" id="jenis_pkh" name="jenis_pkh" value="7">
-                                                            <label class="form-check-label" for="flexCheckDefault">
-                                                                Kesehatan Hewan
-                                                            </label>
-                                                        </div>
-                                                        <div class="form-check">
-                                                            <input class="form-check-input" type="checkbox" id="jenis_pangan" name="jenis_pangan" value="8">
-                                                            <label class="form-check-label" for="flexCheckDefault">
-                                                                Pangan
-                                                            </label>
-                                                        </div>
-                                                    </label>
-                                                </div>
-                                                <label for="alamat">Dasar Hukum Pembentukan</label>
-                                                <select name="dasar_hukum" id="dasar_hukum" class="form-control input-lg">
-                                                    <option value=""></option>
-                                                    <option value="Perda">Perda</option>
-                                                </select>
-                                                <label for="ketua">No Peraturan</label>
-                                                <div class="input-group mb-3">
-                                                    <input type="text" class="form-control" id="no_peraturan" placeholder="Nomor Peraturan" name="no_peraturan">
-                                                </div>
-                                                <label for="ketua">Tanggal Pembentukan</label>
-                                                <div class="input-group mb-3">
-                                                    <select id="day" name="tgl_berdiri" class="form-select tgl_berdiri" aria-label="Default select example">
-                                                        <option value=""></option>
-                                                    </select>
-                                                    <select id="month" name="bln_berdiri" class="form-select bln_berdiri" aria-label="Default select example">
-                                                        <option value=""></option>
-                                                    </select>
-                                                    <select id="year" name="thn_berdiri" class="form-select thn_berdiri" aria-label="Default select example">
-                                                        <option value=""></option>
-                                                    </select>
-                                                </div>
-                                                <label for="bendahara">Nama Pimpinan</label>
-                                                <div class="input-group mb-3">
-                                                    <input type="text" class="form-control" id="ketua" placeholder="Nama Pimpinan" name="ketua">
-                                                    <label style="margin-top: 10px;">No.HP</label>
-                                                    <input type="text" style="margin-left: 5px;" class="form-control" id="telp_hp" placeholder="No. HP" name="telp_hp">
-                                                </div>
-                                                <label> Nama Koordinator Penyuluh</label>
-                                                <div class="input-group mb-3">
-                                                    <div class="form-check form-check-inline">
-                                                        <input class="form-check-input pen" type="radio" name="kode_koord_penyuluh" id="inlineRadio1" value="1" <?php echo ($val["kode_koord_penyuluh"] == "1" ? 'checked="checked"' : '') ?>>
-                                                        <label class="form-check-label" for="inlineRadio1">PNS</label>
-                                                    </div>
-                                                    <div class="form-check form-check-inline">
-                                                        <input class="form-check-input pen" type="radio" name="kode_koord_penyuluh" id="inlineRadio2" value="2" <?php echo ($val["kode_koord_penyuluh"] == "2" ? 'checked="checked"' : '') ?>>
-                                                        <label class="form-check-label" for="inlineRadio2">THL</label>
-                                                    </div>
-                                                    <div class="form-check form-check-inline">
-                                                        <input class="form-check-input" type="radio" name="kode_koord_penyuluh" id="inlineRadio3" value="3" <?php echo ($val["kode_koord_penyuluh"] != "1" && $val["kode_koord_penyuluh"] != "2" ? 'checked="checked"' : '') ?>>
-                                                        <label class="form-check-label" for="inlineRadio2">Struktural</label>
-                                                    </div><br>
-                                                </div>
-                                                <div class="input-group mb-3" id="divPNS">
-                                                    <label style="margin-top: 10px;">PNS:</label>
-                                                    <select name="nama_koord_penyuluh pen" id="nama_koord_penyuluh" class="form-control input-lg" style="margin-left: 15px;">
-                                                        <option value="<?= $val['jenis_penyuluh']; ?>"><?= $val['nip']; ?> - <?= $val['nama']; ?></option>
-                                                        <?php
-                                                        foreach ($penyuluhPNS as $row) {
-                                                            echo '<option value="' . $row["nip"] . '">' . $row["nip"] . '-' . $row["nama"] . '</option>';
-                                                        }
-                                                        ?>
-                                                    </select>
-                                                </div>
-                                                <div class="input-group mb-3" id="divTHL">
-                                                    <label>THL:</label>
-                                                    <select name="nama_koord_penyuluh_thl" id="nama_koord_penyuluh_thl" class="form-control input-lg" style="margin-left: 5px;">
-                                                        <option value="<?= $val['jenis_pen_thl']; ?>"><?= $val['noktp']; ?> - <?= $val['namathl']; ?></option>
-                                                        <?php
-                                                        foreach ($penyuluhTHL as $row2) {
-                                                            echo '<option value="' . $row2["noktp"] . '">' . $row2["noktp"] . '-' . $row2["nama"] . '</option>';
-                                                        }
-                                                        ?>
-                                                    </select>
-                                                </div>
-                                                <div class="input-group mb-3" id="divST">
-                                                    <label style="margin-top: 10px;">NIP:</label>
-                                                    <input type="text" class="form-control" style="margin-left: 10px;" id="koord_lainya_nip" placeholder="ketua" name="koord_lainya_nip">
-                                                    <label style="margin-top: 10px;">Nama</label>
-                                                    <input type="text" class="form-control" style="margin-left: 10px;" id="koord_lainya_nama" placeholder="ketua" name="koord_lainya_nama">
-                                                </div>
-                                            </div>
-                                            <div class="col">
-                                                <label for="ketua">Bidang yang menangani fungsi penyuluhan</label>
-                                                <div class="input-group mb-3">
-                                                    <input type="text" class="form-control" id="bidang_luh" placeholder="Bidang" name="bidang_luh">
-                                                </div>
-                                                <label for="ketua">Nama kepala bidang</label>
-                                                <div class="input-group mb-3">
-                                                    <input type="text" class="form-control" id="nama_kabid" placeholder="Nama Kabid" name="nama_kabid">
-                                                    <label style="margin-top: 10px;">No.HP</label>
-                                                    <input type="text" style="margin-left: 5px;" class="form-control" id="hp_kabid" placeholder="No. HP" name="hp_kabid">
-                                                </div>
-                                                <label for="ketua">Seksi yang menangani penyuluhan</label>
-                                                <div class="input-group mb-3">
-                                                    <input type="text" class="form-control" id="seksi_luh" placeholder="Seksi" name="seksi_luh">
-                                                </div>
-                                                <label for=" ketua">Nama kepala seksi</label>
-                                                <div class="input-group mb-3">
-                                                    <input type="text" class="form-control" id="nama_kasie" name="nama_kasie" placeholder="Nama Kepala Seksi">
-                                                    <label style="margin-top: 10px;">No.HP</label>
-                                                    <input type="text" style="margin-left: 5px;" class="form-control" id="hp_kasie" name="hp_kasie" placeholder="No. HP">
-                                                </div>
-                                                <label for="ketua">UPTD yang menangani fungsi penyuluhan</label>
-                                                <div class="input-group mb-3">
-                                                    <input type="text" class="form-control" id="uptd_luh" placeholder="ketua" name="uptd_luh">
-                                                </div>
-                                                <label for="ketua">Nama kepala UPTD</label>
-                                                <div class="input-group mb-3">
-                                                    <input type="text" class="form-control" id="nama_kauptd" name="nama_kauptd" placeholder="Nama Kepala UPTD">
-                                                    <label style="margin-top: 10px;">No.HP</label>
-                                                    <input type="text" style="margin-left: 5px;" class="form-control" id="hp_kauptd" name="hp_kauptd" placeholder="No. HP">
-                                                </div>
-                                                <label for="alamat">Alamat Kantor</label>
-                                                <div class="input-group mb-3">
-                                                    <textarea type="text" class="form-control" id="alamat" placeholder="alamat" name="alamat"></textarea>
-                                                </div>
-                                                <div class="input-group mb-3">
-                                                    <label for="jum_anggota">Titik koordinat (GPS POint)
-                                                        <input type="text" class="form-control" id="koord" name="koord"><br>
-                                                        <label>Format titik koordinat adalah Decimal Degree, contoh : -6.2924034,106.820540</label>
-                                                    </label>
-                                                </div>
-                                                <label for="ketua">No.Telepon/Fax</label>
-                                                <div class="input-group mb-3">
-                                                    <input type="text" class="form-control" id="telp_kantor" placeholder="No Telp Kantor" name="telp_kantor">
-                                                </div>
-                                                <label for="ketua">Alamat Email</label>
-                                                <div class="input-group mb-3">
-                                                    <input type="text" class="form-control" id="email" placeholder="email" name="email">
-                                                </div>
-                                                <label for="ketua">Alamat Website/Blog</label>
-                                                <div class="input-group mb-3">
-                                                    <input type="text" class="form-control" id="website" placeholder="Alamat website" name="website">
-                                                </div>
-                                            </div>
-                                            <div class="modal-footer">
-                                                <button type="button" class="btn bg-gradient-secondary" data-bs-dismiss="modal">Close</button>
-                                                <button type="button" id="btnSave" class="btn bg-gradient-primary">Simpan Data</button>
-                                            </div>
-                                        </div>
-                                    </form>
-                                </div>
-
-                            </div>
+<?php
+$i = 1;
+foreach ($tabel_data as $row => $item)
+    foreach ($bapel as $row => $val) {
+?>
+    <div class="modal fade" id="modal-form" tabindex="-1" role="dialog" aria-labelledby="modal-form" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered modal-xl" role="document">
+            <div class="modal-content">
+                <div class="modal-body p-0">
+                    <div class="card card-plain">
+                        <div class="card-header pb-0 text-left">
+                            <h4 class="font-weight-bolder text-warning text-gradient" id="judul_form">Edit Data</h4>
                         </div>
-                    </div>
-                </div>
-            </div>
-        <?php
-            } ?>
+                        <div class="card-body">
 
-
-        <div class="modal fade" id="modal-fk" tabindex="-1" role="dialog" aria-labelledby="modal-fk" aria-hidden="true">
-            <div class="modal-dialog modal-dialog-centered modal-l" role="document">
-                <div class="modal-content">
-                    <div class="modal-body p-0">
-                        <div class="card card-plain">
-                            <div class="card-header pb-0 text-left">
-                                <h4 class="font-weight-bolder text-warning text-gradient" id="judul_form">Edit Data</h4>
-                            </div>
-                            <div class="card-body">
-
-                                <form role="form text-left" action="<?= base_url('profil/Lembaga/save'); ?>">
-                                    <div class="row">
-                                        <div class="col">
-                                            <input type="hidden" name="id" id="id">
-                                            <input type="hidden" name="id_bapel" id="id_bapel" value="<?= $idgap; ?>">
-                                            <label for="tahun_beridiri">Tahun</label>
-                                            <div class="input-group mb-3">
-                                                <select id="tahun" name="tahun" class="form-select tahun" aria-label="Default select example">
-                                                    <option value=""></option>
-                                                </select>
-                                            </div>
-                                            <label for="penyuluh_swadaya">Fasilitasi</label>
-                                            <div class="input-group mb-3">
-                                                <select name="fasilitasi" id="fasilitasi" class="form-control input-lg">
-                                                    <option value=""></option>
-                                                    <?php
-                                                    foreach ($fasilitasi as $row3) {
-                                                        echo '<option value="' . $row3["idfasilitasi"] . '">' . $row3["fasilitasi"] . '</option>';
-                                                    }
-                                                    ?>
-                                                </select>
-                                            </div>
-                                            <label for="alamat">Kegiatan</label>
-                                            <div class="input-group mb-3">
-                                                <textarea type="text" class="form-control" id="kegiatan" placeholder="kegiatan" name="kegiatan"></textarea>
-                                            </div>
+                            <form method="POST" role="form text-left">
+                                <div class="row">
+                                    <div class="col">
+                                        <input type="hidden" name="id_gapoktan" id="id_gapoktan">
+                                        <label for="prov">Propinsi</label>
+                                        <div class="input-group mb-3">
+                                            <input type="text" class="form-control" name="prov" value="<?= $item['nama_prop']; ?>" disabled>
                                         </div>
-                                        <div class="modal-footer">
-                                            <button type="button" class="btn bg-gradient-secondary" data-bs-dismiss="modal">Close</button>
-                                            <button type="button" id="btnSimpan" class="btn bg-gradient-primary">Simpan Data</button>
+                                        <label for="prov">Kabupaten</label>
+                                        <div class="input-group mb-3">
+                                            <input type="text" class="form-control" name="kab" value="<?= $item['nama_dati2']; ?>" disabled>
+                                        </div>
+                                        <label for="kode_desa">Jenis Kelembagaan</label>
+                                        <div class="input-group mb-3">
+                                            <select name="nama_bapel" id="nama_bapel" class="form-control input-lg">
+                                                <option value=""></option>
+                                                <OPTION value="31">Badan<BR>
+                                                <OPTION value="32">Dinas<BR>
+                                            </select>
+                                        </div>
+                                        <div class="input-group mb-3">
+                                            <label style="margin-top: 10px;">Nomenklatur :
+                                                <input type="text" class="form-control" id="deskripsi_lembaga_lain" placeholder="" name="deskripsi_lembaga_lain">
+                                                <label>Pilih Sesuai nomenklatur :</label>
+                                                <div class="form-check">
+                                                    <input class="form-check-input" type="checkbox" id="jenis_pertanian" name="jenis_pertanian" value="1">
+                                                    <label class="form-check-label" for="flexCheckDefault">
+                                                        Pertanian
+                                                    </label>
+                                                </div>
+                                                <div class="form-check">
+                                                    <input class="form-check-input" type="checkbox" id="jenis_tp" name="jenis_tp" value="2">
+                                                    <label class="form-check-label" for="flexCheckDefault">
+                                                        Tanaman Pangan
+                                                    </label>
+                                                </div>
+                                                <div class="form-check">
+                                                    <input class="form-check-input" type="checkbox" id="jenis_hor" name="jenis_hor" value="3">
+                                                    <label class="form-check-label" for="flexCheckDefault">
+                                                        Hortikultura
+                                                    </label>
+                                                </div>
+                                                <div class="form-check">
+                                                    <input class="form-check-input" type="checkbox" id="jenis_bun" name="jenis_bun" value="4">
+                                                    <label class="form-check-label" for="flexCheckDefault">
+                                                        Perkebunan
+                                                    </label>
+                                                </div>
+                                                <div class="form-check">
+                                                    <input class="form-check-input" type="checkbox" id="jenis_nak" name="jenis_nak" value="5">
+                                                    <label class="form-check-label" for="flexCheckDefault">
+                                                        Peternakan
+                                                    </label>
+                                                </div>
+                                                <div class="form-check">
+                                                    <input class="form-check-input" type="checkbox" id="jenis_ketahanan_pangan" name="jenis_ketahanan_pangan" value="6">
+                                                    <label class="form-check-label" for="flexCheckDefault">
+                                                        Kesehatan Pangan
+                                                    </label>
+                                                </div>
+                                                <div class="form-check">
+                                                    <input class="form-check-input" type="checkbox" id="jenis_pkh" name="jenis_pkh" value="7">
+                                                    <label class="form-check-label" for="flexCheckDefault">
+                                                        Kesehatan Hewan
+                                                    </label>
+                                                </div>
+                                                <div class="form-check">
+                                                    <input class="form-check-input" type="checkbox" id="jenis_pangan" name="jenis_pangan" value="8">
+                                                    <label class="form-check-label" for="flexCheckDefault">
+                                                        Pangan
+                                                    </label>
+                                                </div>
+                                            </label>
+                                        </div>
+                                        <label for="alamat">Dasar Hukum Pembentukan</label>
+                                        <select name="dasar_hukum" id="dasar_hukum" class="form-control input-lg">
+                                            <option value=""></option>
+                                            <option value="Perda">Perda</option>
+                                        </select>
+                                        <label for="ketua">No Peraturan</label>
+                                        <div class="input-group mb-3">
+                                            <input type="text" class="form-control" id="no_peraturan" placeholder="Nomor Peraturan" name="no_peraturan">
+                                        </div>
+                                        <label for="ketua">Tanggal Pembentukan</label>
+                                        <div class="input-group mb-3">
+                                            <select id="day" name="tgl_berdiri" class="form-select tgl_berdiri" aria-label="Default select example">
+                                                <option value=""></option>
+                                            </select>
+                                            <select id="month" name="bln_berdiri" class="form-select bln_berdiri" aria-label="Default select example">
+                                                <option value=""></option>
+                                            </select>
+                                            <select id="year" name="thn_berdiri" class="form-select thn_berdiri" aria-label="Default select example">
+                                                <option value=""></option>
+                                            </select>
+                                        </div>
+                                        <label for="bendahara">Nama Pimpinan</label>
+                                        <div class="input-group mb-3">
+                                            <input type="text" class="form-control" id="ketua" placeholder="Nama Pimpinan" name="ketua">
+                                            <label style="margin-top: 10px;">No.HP</label>
+                                            <input type="text" style="margin-left: 5px;" class="form-control" id="telp_hp" placeholder="No. HP" name="telp_hp">
+                                        </div>
+                                        <label> Nama Koordinator Penyuluh</label>
+                                        <div class="input-group mb-3">
+                                            <div class="form-check form-check-inline">
+                                                <input class="form-check-input pen" type="radio" name="kode_koord_penyuluh" id="inlineRadio1" value="1" <?php echo ($val["kode_koord_penyuluh"] == "1" ? 'checked="checked"' : '') ?>>
+                                                <label class="form-check-label" for="inlineRadio1">PNS</label>
+                                            </div>
+                                            <div class="form-check form-check-inline">
+                                                <input class="form-check-input pen" type="radio" name="kode_koord_penyuluh" id="inlineRadio2" value="2" <?php echo ($val["kode_koord_penyuluh"] == "2" ? 'checked="checked"' : '') ?>>
+                                                <label class="form-check-label" for="inlineRadio2">THL</label>
+                                            </div>
+                                            <div class="form-check form-check-inline">
+                                                <input class="form-check-input" type="radio" name="kode_koord_penyuluh" id="inlineRadio3" value="3" <?php echo ($val["kode_koord_penyuluh"] != "1" && $val["kode_koord_penyuluh"] != "2" ? 'checked="checked"' : '') ?>>
+                                                <label class="form-check-label" for="inlineRadio2">Struktural</label>
+                                            </div><br>
+                                        </div>
+                                        <div class="input-group mb-3" id="divPNS">
+                                            <label style="margin-top: 10px;">PNS:</label>
+                                            <select name="nama_koord_penyuluh pen" id="nama_koord_penyuluh" class="form-control input-lg" style="margin-left: 15px;">
+                                                <option value="<?= $val['jenis_penyuluh']; ?>"><?= $val['nip']; ?> - <?= $val['nama']; ?></option>
+                                                <?php
+                                                foreach ($penyuluhPNS as $row) {
+                                                    echo '<option value="' . $row["nip"] . '">' . $row["nip"] . '-' . $row["nama"] . '</option>';
+                                                }
+                                                ?>
+                                            </select>
+                                        </div>
+                                        <div class="input-group mb-3" id="divTHL">
+                                            <label>THL:</label>
+                                            <select name="nama_koord_penyuluh_thl" id="nama_koord_penyuluh_thl" class="form-control input-lg" style="margin-left: 5px;">
+                                                <option value="<?= $val['jenis_pen_thl']; ?>"><?= $val['noktp']; ?> - <?= $val['namathl']; ?></option>
+                                                <?php
+                                                foreach ($penyuluhTHL as $row2) {
+                                                    echo '<option value="' . $row2["noktp"] . '">' . $row2["noktp"] . '-' . $row2["nama"] . '</option>';
+                                                }
+                                                ?>
+                                            </select>
+                                        </div>
+                                        <div class="input-group mb-3" id="divST">
+                                            <label style="margin-top: 10px;">NIP:</label>
+                                            <input type="text" class="form-control" style="margin-left: 10px;" id="koord_lainya_nip" placeholder="ketua" name="koord_lainya_nip">
+                                            <label style="margin-top: 10px;">Nama</label>
+                                            <input type="text" class="form-control" style="margin-left: 10px;" id="koord_lainya_nama" placeholder="ketua" name="koord_lainya_nama">
                                         </div>
                                     </div>
-                                </form>
-                            </div>
-
+                                    <div class="col">
+                                        <label for="ketua">Bidang yang menangani fungsi penyuluhan</label>
+                                        <div class="input-group mb-3">
+                                            <input type="text" class="form-control" id="bidang_luh" placeholder="Bidang" name="bidang_luh">
+                                        </div>
+                                        <label for="ketua">Nama kepala bidang</label>
+                                        <div class="input-group mb-3">
+                                            <input type="text" class="form-control" id="nama_kabid" placeholder="Nama Kabid" name="nama_kabid">
+                                            <label style="margin-top: 10px;">No.HP</label>
+                                            <input type="text" style="margin-left: 5px;" class="form-control" id="hp_kabid" placeholder="No. HP" name="hp_kabid">
+                                        </div>
+                                        <label for="ketua">Seksi yang menangani penyuluhan</label>
+                                        <div class="input-group mb-3">
+                                            <input type="text" class="form-control" id="seksi_luh" placeholder="Seksi" name="seksi_luh">
+                                        </div>
+                                        <label for=" ketua">Nama kepala seksi</label>
+                                        <div class="input-group mb-3">
+                                            <input type="text" class="form-control" id="nama_kasie" name="nama_kasie" placeholder="Nama Kepala Seksi">
+                                            <label style="margin-top: 10px;">No.HP</label>
+                                            <input type="text" style="margin-left: 5px;" class="form-control" id="hp_kasie" name="hp_kasie" placeholder="No. HP">
+                                        </div>
+                                        <label for="ketua">UPTD yang menangani fungsi penyuluhan</label>
+                                        <div class="input-group mb-3">
+                                            <input type="text" class="form-control" id="uptd_luh" placeholder="ketua" name="uptd_luh">
+                                        </div>
+                                        <label for="ketua">Nama kepala UPTD</label>
+                                        <div class="input-group mb-3">
+                                            <input type="text" class="form-control" id="nama_kauptd" name="nama_kauptd" placeholder="Nama Kepala UPTD">
+                                            <label style="margin-top: 10px;">No.HP</label>
+                                            <input type="text" style="margin-left: 5px;" class="form-control" id="hp_kauptd" name="hp_kauptd" placeholder="No. HP">
+                                        </div>
+                                        <label for="alamat">Alamat Kantor</label>
+                                        <div class="input-group mb-3">
+                                            <textarea type="text" class="form-control" id="alamat" placeholder="alamat" name="alamat"></textarea>
+                                        </div>
+                                        <div class="input-group mb-3">
+                                            <label for="jum_anggota">Titik koordinat (GPS POint)
+                                                <input type="text" class="form-control" id="koord" name="koord"><br>
+                                                <label>Format titik koordinat adalah Decimal Degree, contoh : -6.2924034,106.820540</label>
+                                            </label>
+                                        </div>
+                                        <label for="ketua">No.Telepon/Fax</label>
+                                        <div class="input-group mb-3">
+                                            <input type="text" class="form-control" id="telp_kantor" placeholder="No Telp Kantor" name="telp_kantor">
+                                        </div>
+                                        <label for="ketua">Alamat Email</label>
+                                        <div class="input-group mb-3">
+                                            <input type="text" class="form-control" id="email" placeholder="email" name="email">
+                                        </div>
+                                        <label for="ketua">Alamat Website/Blog</label>
+                                        <div class="input-group mb-3">
+                                            <input type="text" class="form-control" id="website" placeholder="Alamat website" name="website">
+                                        </div>
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn bg-gradient-secondary" data-bs-dismiss="modal">Close</button>
+                                        <button type="button" id="btnSave" class="btn bg-gradient-primary">Simpan Data</button>
+                                    </div>
+                                </div>
+                            </form>
                         </div>
+
                     </div>
                 </div>
             </div>
         </div>
+    </div>
+<?php
+    } ?>
+
+
+<div class="modal fade" id="modal-fk" tabindex="-1" role="dialog" aria-labelledby="modal-fk" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-l" role="document">
+        <div class="modal-content">
+            <div class="modal-body p-0">
+                <div class="card card-plain">
+                    <div class="card-header pb-0 text-left">
+                        <h4 class="font-weight-bolder text-warning text-gradient" id="judul_form">Edit Data</h4>
+                    </div>
+                    <div class="card-body">
+
+                        <form role="form text-left" action="<?= base_url('profil/Lembaga/save'); ?>">
+                            <div class="row">
+                                <div class="col">
+                                    <input type="hidden" name="id" id="id">
+                                    <input type="hidden" name="id_bapel" id="id_bapel" value="<?= $idgap; ?>">
+                                    <label for="tahun_beridiri">Tahun</label>
+                                    <div class="input-group mb-3">
+                                        <select id="tahun" name="tahun" class="form-select tahun" aria-label="Default select example">
+                                            <option value=""></option>
+                                        </select>
+                                    </div>
+                                    <label for="penyuluh_swadaya">Fasilitasi</label>
+                                    <div class="input-group mb-3">
+                                        <select name="fasilitasi" id="fasilitasi" class="form-control input-lg">
+                                            <option value=""></option>
+                                            <?php
+                                            foreach ($fasilitasi as $row3) {
+                                                echo '<option value="' . $row3["idfasilitasi"] . '">' . $row3["fasilitasi"] . '</option>';
+                                            }
+                                            ?>
+                                        </select>
+                                    </div>
+                                    <label for="alamat">Kegiatan</label>
+                                    <div class="input-group mb-3">
+                                        <textarea type="text" class="form-control" id="kegiatan" placeholder="kegiatan" name="kegiatan"></textarea>
+                                    </div>
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn bg-gradient-secondary" data-bs-dismiss="modal">Close</button>
+                                    <button type="button" id="btnSimpan" class="btn bg-gradient-primary">Simpan Data</button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
 
 <div class="modal fade" id="modalFoto" tabindex="-1" role="dialog" aria-labelledby="exampleModalMessageTitle" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered" role="document">
@@ -936,7 +884,11 @@ $data = $json[0];
                     <div class="col-lg-3 mb-lg-0 text-center">
                         <div class="card">
                             <div class="card-body p-3">
-                                <img src="<?= base_url('assets/img/logo.png'); ?>" width="150px" class="img-thumbnail" alt="profil">
+                                <img src="<?php if ($fotoprofil == '') {
+                                                echo base_url('assets/img/logo.png');
+                                            } else {
+                                                echo base_url('assets/img/' . $fotoprofil);
+                                            }  ?>" width="150px" class="img-thumbnail" alt="profil">
                             </div>
                         </div>
                     </div>
@@ -963,10 +915,8 @@ $data = $json[0];
 
 <?= $this->endSection() ?>
 
-
-
 <?= $this->section('script') ?>
-<script>
+<script type="text/javascript">
     function loadNamaKoordinator() {
         if ($('#inlineRadio1').is(':checked')) {
             $("#divPNS").show();
@@ -998,8 +948,7 @@ $data = $json[0];
             loadNamaKoordinator();
         });
     });
-</script>
-<script>
+
     var min = 2017,
         max = 2050,
         select = document.getElementById('tahun');
@@ -1012,8 +961,7 @@ $data = $json[0];
     }
 
     select.value = new Date().getFullYear();
-</script>
-<script>
+
     $(document).ready(function() {
         $(document).delegate('#btn-edit', 'click', function() {
             //var myModal = new bootstrap.Modal(document.getElementById('modal-edit'), options);
@@ -1335,54 +1283,55 @@ $data = $json[0];
             });
 
         });
-    });
-    $(document).delegate('#btn-hapus', 'click', function() {
-        Swal.fire({
-            title: 'Apakah anda yakin',
-            text: "Data akan dihapus ?",
-            type: 'warning',
-            showCloseButton: true,
-            showCancelButton: true,
-            confirmButtonColor: '#3085d6',
-            cancelButtonColor: '#d33',
-            confirmButtonText: 'Hapus Data!'
-        }).then((result) => {
-            if (result.value) {
-                var id = $(this).data('id');
 
-                $.ajax({
-                    url: '<?= base_url() ?>/profil/Lembaga/delete/' + id,
-                    type: 'POST',
+        $(document).delegate('#btn-hapus', 'click', function() {
+            Swal.fire({
+                title: 'Apakah anda yakin',
+                text: "Data akan dihapus ?",
+                type: 'warning',
+                showCloseButton: true,
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                confirmButtonText: 'Hapus Data!'
+            }).then((result) => {
+                if (result.value) {
+                    var id = $(this).data('id');
 
-                    success: function(result) {
-                        Swal.fire({
-                            title: 'Sukses',
-                            text: "Sukses hapus data",
-                            type: 'success',
-                        }).then((result) => {
+                    $.ajax({
+                        url: '<?= base_url() ?>/profil/Lembaga/delete/' + id,
+                        type: 'POST',
 
-                            if (result.value) {
-                                location.reload();
-                            }
-                        });
-                    },
-                    error: function(jqxhr, status, exception) {
-                        Swal.fire({
-                            title: 'Error',
-                            text: "Gagal hapus data",
-                            type: 'error',
-                        }).then((result) => {
-                            if (result.value) {
-                                location.reload();
-                            }
-                        });
-                    }
-                });
-            }
+                        success: function(result) {
+                            Swal.fire({
+                                title: 'Sukses',
+                                text: "Sukses hapus data",
+                                type: 'success',
+                            }).then((result) => {
+
+                                if (result.value) {
+                                    location.reload();
+                                }
+                            });
+                        },
+                        error: function(jqxhr, status, exception) {
+                            Swal.fire({
+                                title: 'Error',
+                                text: "Gagal hapus data",
+                                type: 'error',
+                            }).then((result) => {
+                                if (result.value) {
+                                    location.reload();
+                                }
+                            });
+                        }
+                    });
+                }
+            });
         });
+    });
+</script>
 
-=======
-<?= $this->section('script') ?>
 
 <script type="text/javascript">
     $('#uploadbtn').on('click', function() {

@@ -15,7 +15,6 @@ class LembagaModel extends Model
     public function getProfil($id)
     {
 
-
         $query = $this->db->query("select *, a.id_gapoktan, a.alamat, a.ketua, a.tgl_update, a.nama_bapel, a.email, b.nama
                                 from tblbapel a
                                 left join tbldasar b on a.nama_koord_penyuluh 
@@ -40,9 +39,23 @@ class LembagaModel extends Model
 
     public function saveProfil($data)
     {
-
         $db = db_connect();
-        $builder = $db->table('tblbpp');
-        $builder->where('kecamatan', session()->get('kodebpp'))->update($data);
+
+        if (session()->get('status_user') == '200') {
+            $builder = $db->table('tblbapel');
+            $builder->where('kabupaten', session()->get('kodebapel'))->update($data);
+        } elseif (session()->get('status_user') == '300') {
+            $builder = $db->table('tblbpp');
+            $builder->where('kecamatan', session()->get('kodebpp'))->update($data);
+        }
+    }
+
+    public function getKoordinatBpp()
+    {
+
+        $query = $this->db->query("SELECT id, kecamatan, nama_bpp, alamat, ketua, email, koordinat_lokasi_bpp FROM tblbpp WHERE koordinat_lokasi_bpp <> '' ORDER BY id");
+
+        $row   = $query->getResultArray();
+        return $row;
     }
 }
