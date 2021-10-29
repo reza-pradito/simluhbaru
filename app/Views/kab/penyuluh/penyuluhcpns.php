@@ -54,7 +54,7 @@
                             </p>
                         </td>
                         <td class="align-middle text-center text-sm">
-                            <p class="text-xs font-weight-bold mb-0"><?= $row['status_kel'] ?></p>
+                            <p class="text-xs font-weight-bold mb-0"><?= $row['status'] ?></p>
                         </td>
                         <td class="align-middle text-center text-sm">
                             <p class="text-xs font-weight-bold mb-0"><?= $row['gol_ruang'] ?></p>
