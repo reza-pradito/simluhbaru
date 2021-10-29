@@ -7,23 +7,32 @@ use App\Models\KelembagaanPenyuluhan\Kabupaten\FasilitasiBapelModel;
 use App\Models\KelembagaanPenyuluhan\Kabupaten\KabupatenModel;
 use App\Models\KodeWilayah\KodeWilModel;
 use App\Models\LembagaModel;
+use App\Models\WilayahModel;
 
 class Lembaga extends BaseController
 {
     protected $session;
+    protected $modelLembaga;
+    protected $modelProv;
 
     function __construct()
     {
         $this->session = \Config\Services::session();
         $this->session->start();
         helper('autentikasi');
+
         $this->model = new KabupatenModel();
         $this->fasmodel = new FasilitasiBapelModel();
+
+        $this->modelLembaga = new LembagaModel();
+        $this->modelProv = new WilayahModel();
+
     }
 
     public function index()
     {
 
+        session();
 
         if (session()->get('username') == "") {
             return redirect()->to('login');
@@ -31,6 +40,7 @@ class Lembaga extends BaseController
         $db = \Config\Database::connect();
         $query = $db->query('SELECT * FROM reff_fasilitasi_bpp');
         $query->getResultArray();
+
 
 
         $lembagaModel = new LembagaModel();
@@ -49,10 +59,28 @@ class Lembaga extends BaseController
         $namawil = $wilModel->getNamaWil(session()->get('kodebapel'));
 
 
+        if (empty(session()->get('status_user')) || session()->get('status_user') == '2') {
+            $kode = '00';
+        } elseif (session()->get('status_user') == '1') {
+            $kode = session()->get('kodebakor');
+        } elseif (session()->get('status_user') == '4') {
+            $kode = session()->get('kodebapel');
+        } elseif (session()->get('status_user') == '200') {
+            $kode = session()->get('kodebapel');
+        } elseif (session()->get('status_user') == '300') {
+            $kode = session()->get('kodebpp');
+        }
+
+
+        $dtlembaga = $this->modelLembaga->getProfil($kode);
+        $dtprov = $this->modelProv->getProv();
+        //dd($dtlembaga);
+
 
         $data = [
             'title' => 'Profil Lembaga',
             'dt' => $dtlembaga,
+
             'penyuluhPNS' => $penyuluhPNS,
             'penyuluhTHL' => $penyuluhTHL,
             'namaprov' => $namawil['namaprov'],
@@ -61,11 +89,15 @@ class Lembaga extends BaseController
             'fasdata' => $fasdata['fasdata'],
             'idgap' => $id_gap['idgap'],
             'fasilitasi' => $query->getResultArray()
+
+            'prov' => $dtprov,
+            'validation' => \Config\Services::validation()
+
         ];
 
-        //dd($data);
         return view('profil/profillembaga', $data);
     }
+
 
     public function detailKab($id)
     {
@@ -216,5 +248,54 @@ class Lembaga extends BaseController
     {
         $this->fasmodel->delete($id);
         return redirect()->to('/lembaga');
+
+    function editFoto()
+    {
+
+        $data = [
+
+            'title' => 'Ganti Foto',
+            'validation' => \Config\Services::validation()
+        ];
+
+        return view('profil/changefoto', $data);
+    }
+
+    function saveProfil()
+    {
+
+        if (!$this->validate([
+            // 'nameTxt' => 'required|min_length[10]'
+            'foto' => [
+                'rules' => 'uploaded[foto]|max_size[foto,1024]|is_image[foto]|mime_in[foto,image/png,image/jpg,image/jpeg]',
+                'errors' => [
+                    'uploaded' => 'pilih gambar dulu',
+                    'max_size' => 'ukuran gambar terlalu besar',
+                    'is_image' => 'bukan gambar',
+                    'mime_in' => 'bukan gambar',
+                ]
+            ]
+        ])) {
+
+            return redirect()->to('/profil/lembaga/')->withInput();
+        }
+
+        //ambil gambar
+        $foto =  $this->request->getFile('foto');
+
+        //pindahkan gambar 
+        $foto->move('assets/img');
+        $namafoto = $foto->getName();
+
+        //simpan ke database
+        $data = [
+            'foto' => $namafoto
+        ];
+
+        $this->modelLembaga->saveProfil($data);
+        // dd($a);
+
+        return redirect()->to('/profil/lembaga/');
+
     }
 }
