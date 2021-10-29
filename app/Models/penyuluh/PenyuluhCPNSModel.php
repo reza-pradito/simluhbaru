@@ -48,7 +48,7 @@ class PenyuluhCPNSModel extends Model
                                 case a.status
                                 when '0' then 'Aktif'
                                 when '6' then 'Tugas Belajar'
-                                else '' end status_kel,
+                                else '' end status,
                                 j.deskripsi as kecamatan_tugas
                                 from tbldasar a
                                 left join tblsatminkal b on a.satminkal=b.kode

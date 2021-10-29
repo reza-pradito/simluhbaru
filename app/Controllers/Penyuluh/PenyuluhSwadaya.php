@@ -55,16 +55,6 @@ class PenyuluhSwadaya extends BaseController
         }
     }
 
-    // public function getWilKer($tempat_tugas = null)
-    // {
-    //     $penyuluh_model = new PenyuluhSwadayaModel();
-    //     $tugas = $penyuluh_model->getTugas(session()->get('kodebapel'));
-    //     $data = [
-    //         'tugas' => $tugas
-    //     ];
-    //     return json_encode($data);
-    // }
-
     public function save()
     {
         try {

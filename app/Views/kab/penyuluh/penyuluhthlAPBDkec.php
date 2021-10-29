@@ -3,7 +3,6 @@
 <?= $this->section('content') ?>
 
 
-<button type="button" class="btn bg-gradient-primary btn-sm">+ Tambah Data</button><br>
 <b>Daftar Penyuluh THL APBD Kab <?= ucwords(strtolower($nama_kecamatan)) ?></b>
 <p>Ditemukan <?= $jml_data ?> data</p>
 <div class="card">
@@ -12,13 +11,12 @@
             <thead>
                 <tr>
                     <th class="text-uppercase text-secondary text-xxs font-weight-bolder" style="text-align: center;">No</th>
-                    <th class="text-uppercase text-secondary text-xxs font-weight-bolder" style="text-align: center;">No Peserta</th>
+                    <th class="text-uppercase text-secondary text-xxs font-weight-bolder" style="text-align: center;">NIK</th>
                     <th class="text-uppercase text-secondary text-xxs font-weight-bolder" style="text-align: center;">Nama</th>
                     <th class="text-uppercase text-secondary text-xxs font-weight-bolder" style="text-align: center;">Nama Unit Kerja</th>
                     <th class="text-uppercase text-secondary text-xxs font-weight-bolder" style="text-align: center;">Tempat Tugas<br>(Kecamatan)</th>
                     <th class="text-uppercase text-secondary text-xxs font-weight-bolder" style="text-align: center;">Wilayah Kerja</th>
                     <th class="text-uppercase text-secondary text-xxs font-weight-bolder" style="text-align: center;">Terakhir<br>Update</th>
-                    <th class="text-uppercase text-secondary text-xxs font-weight-bolder" style="text-align: center;">Aksi</th>
                 </tr>
             </thead>
             <tbody>
@@ -31,7 +29,7 @@
                             <p class="text-xs font-weight-bold mb-8"><?= $i++ ?></p>
                         </td>
                         <td class="align-middle text-center text-sm">
-                            <p class="text-xs font-weight-bold mb-8"><?= $row['no_peserta'] ?></p>
+                            <p class="text-xs font-weight-bold mb-8"><a href="<?= base_url('profil/penyuluhthlapbdkec/detail/' . $row['noktp']) ?>"><?= $row['noktp'] ?></p>
                         </td>
                         <td class="align-middle text-center text-sm">
                             <p class="text-xs font-weight-bold mb-8"><?= $row['nama'] ?></p>
@@ -57,17 +55,6 @@
                         <td class="align-middle text-center text-sm">
                             <p class="text-xs font-weight-bold mb-8"><?= $row['tgl_update'] ?></p>
                         </td>
-                        </td>
-                        <td class="align-middle text-center text-sm">
-                            <a href="#">
-                                <button type="button" data-bs-toggle="modal" data-bs-target="#modal-form" class="btn bg-gradient-warning btn-sm">
-                                    <i class="fas fa-edit"></i> Ubah
-                                </button>
-                            </a>
-                            <button type="button" class="btn bg-gradient-danger btn-sm">
-                                <i class="fas fa-trash"></i> Hapus
-                            </button>
-                            </a>
                         </td>
                     </tr>
                 <?php
