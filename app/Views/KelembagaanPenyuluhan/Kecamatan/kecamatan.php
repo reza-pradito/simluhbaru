@@ -162,7 +162,7 @@
                                                     <label>Status Gedung</label>
                                                     <div class="input-group mb-3">
                                                         <select class="form-select" name="status_gedung" id="status_gedung" aria-label="Default select example">
-                                                            <option selected>Pilih Status</option>
+                                                            <option value="">Pilih Status</option>
                                                             <option value="milik sendiri">Milik sendiri</option>
                                                             <option value="sewa/pinjam">Sewa/Pinjam</option>
                                                         </select>
@@ -172,20 +172,14 @@
                                                     <label>kondisi Bangunan</label>
                                                     <div class="input-group mb-3">
                                                         <select class="form-select" name="kondisi_bangunan" id="kondisi_bangunan" aria-label="Default select example">
-                                                            <option selected>Pilih Kondisi</option>
+                                                            <option value="">Pilih Kondisi</option>
                                                             <option value="baik">Baik</option>
                                                             <option value="rusak">Rusak</option>
                                                         </select>
                                                     </div>
-                                                    <label>GPS Point</label>
+                                                    <label>Koordinat BPP</label>
                                                     <div class="input-group mb-3">
-                                                        <input type="text" class="form-control" placeholder="GPS Point" name="koord_lu_ls" id="koord_lu_ls" aria-label="gps" aria-describedby="nama-addon">
-                                                        <select class="form-select" name="lu_ls" id="lu_ls" aria-label="Default select example">
-                                                            <option selected value="LU">LU</option>
-                                                            <option value="LS">LS</option>
-                                                        </select>
-                                                        <input type="text" class="form-control" name="koord_bt" id="koord_bt" placeholder="GPS Point" aria-label="gps" aria-describedby="nama-addon">
-                                                        &nbsp; &nbsp;<label style="margin-top: 10px;">BT</label>&nbsp; &nbsp;
+                                                        <input type="text" class="form-control" placeholder="Koordinat BPP" name="koordinat_lokasi_bpp" id="koordinat_lokasi_bpp" aria-label="gps" aria-describedby="nama-addon">
                                                     </div>
                                                     <label>No.Telepon/Fax</label>
                                                     <div class="input-group mb-3">

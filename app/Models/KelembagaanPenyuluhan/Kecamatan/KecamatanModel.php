@@ -16,7 +16,7 @@ class KecamatanModel extends Model
 
     protected $allowedFields = [
         'kode_prop', 'satminkal', 'bentuk_lembaga', 'nama_bpp', 'kecamatan', 'alamat', 'tgl_berdiri', 'bln_berdiri', 'foto',
-        'thn_berdiri', 'status_gedung', 'kondisi_bangunan', 'koord_lu_ls', 'lu_ls', 'koord_bt', 'telp_bpp', 'email', 'website', 'ketua',
+        'thn_berdiri', 'status_gedung', 'kondisi_bangunan', 'koordinat_lokasi_bpp', 'telp_bpp', 'email', 'website', 'ketua',
         'roda_4_apbn', 'roda_4_apbd', 'roda_2_apbn', 'roda_2_apbd', 'pc_apbn', 'pc_apbd', 'laptop_apbn', 'laptop_apbd', 'printer_apbn', 'printer_apbd',
         'modem_apbn', 'modem_apbd', 'lcd_apbn', 'lcd_apbd', 'kios_saprotan', 'pedagang_pengepul', 'gudang_pangan', 'perbankan', 'industri_penyuluhan',
         'luas_lahan_bp3k', 'luas_lahan_petani', 'kode_koord_penyuluh', 'nama_koord_penyuluh', 'nama_koord_penyuluh_thl', 'koord_lainya_nip', 'koord_lainya_nama'
@@ -66,7 +66,7 @@ class KecamatanModel extends Model
     public function getProfilKec($kode_kec)
     {
         $db = Database::connect();
-        $query  = $db->query("select * , b.nama, c.deskripsi, a.tgl_update, a.alamat,f.jumgap,f.kode_bp3k,g.jumkep,d.jumpok,e.jumthl,h.jumpns,i.unit_kerja
+        $query  = $db->query("select * , a.id, a.email, a.roda_4_apbn, a.tgl_update, a.alamat,  b.nama, c.deskripsi, f.jumgap,f.kode_bp3k,g.jumkep,d.jumpok,e.jumthl,h.jumpns,i.unit_kerja
                                 from tblbpp a
                                 left join tbldasar b on a.nama_koord_penyuluh=b.nip
                                 left join tbldaerah c on a.kecamatan=c.id_daerah  

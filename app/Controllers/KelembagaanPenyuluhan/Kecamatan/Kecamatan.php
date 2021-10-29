@@ -113,9 +113,7 @@ class Kecamatan extends BaseController
             'thn_berdiri' => $this->request->getVar('thn_berdiri'),
             'status_gedung' => $this->request->getVar('status_gedung'),
             'kondisi_bangunan' => $this->request->getVar('kondisi_bangunan'),
-            'koord_lu_ls' => $this->request->getVar('koord_lu_ls'),
-            'lu_ls' => $this->request->getVar('lu_ls'),
-            'koord_bt' => $this->request->getVar('koord_bt'),
+            'koordinat_lokasi_bpp' => $this->request->getVar('koordinat_lokasi_bpp'),
             'telp_bpp' => $this->request->getVar('telp_bpp'),
             'email' => $this->request->getVar('email'),
             'website' => $this->request->getVar('website'),
@@ -180,9 +178,7 @@ class Kecamatan extends BaseController
             'thn_berdiri' => $this->request->getVar('thn_berdiri'),
             'status_gedung' => $this->request->getVar('status_gedung'),
             'kondisi_bangunan' => $this->request->getVar('kondisi_bangunan'),
-            'koord_lu_ls' => $this->request->getVar('koord_lu_ls'),
-            'lu_ls' => $this->request->getVar('lu_ls'),
-            'koord_bt' => $this->request->getVar('koord_bt'),
+            'koordinat_lokasi_bpp' => $this->request->getVar('koordinat_lokasi_bpp'),
             'telp_bpp' => $this->request->getVar('telp_bpp'),
             'email' => $this->request->getVar('email'),
             'website' => $this->request->getVar('website'),
@@ -219,7 +215,7 @@ class Kecamatan extends BaseController
 
         //session()->setFlashdata('pesan', 'Edit data berhasil.');
 
-        return redirect()->to('/kecamatan');
+        return redirect()->to('/detail_kecamatan?kode_kec=' . $this->request->getVar('kecamatan'));
         // dd($this->request->getVar());
     }
 

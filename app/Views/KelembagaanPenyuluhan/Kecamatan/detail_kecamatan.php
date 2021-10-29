@@ -457,7 +457,7 @@ $data = $json[0];
                                 <h4 class="font-weight-bolder text-warning text-gradient">Edit Data</h4>
                             </div>
                             <div class="card-body">
-                                <form role="form text-left" action="<?= base_url('KelembagaanPenyuluhan/Kecamatan/Kecamatan/edit'); ?>" method="post" enctype="multipart/form-data">
+                                <form role="form text-left" action="<?= base_url('KelembagaanPenyuluhan/Kecamatan/Kecamatan/update/' . $dt['id']) ?>" method="post" enctype="multipart/form-data">
                                     <? csrf_field(); ?>
                                     <div class=" row">
                                         <div class="col">
@@ -560,16 +560,9 @@ $data = $json[0];
                                                     <option value="rusak">Rusak</option>
                                                 </select>
                                             </div>
-                                            <label>GPS Point</label>
+                                            <label>Koordinat BPP</label>
                                             <div class="input-group mb-3">
-                                                <input type="text" class="form-control" name="koord_lu_ls" id="koord_lu_ls" value="<?= $dt['koord_lu_ls']; ?>">
-                                                <select class="form-select" name="lu_ls" id="lu_ls" aria-label="Default select example">
-                                                    <option selected value="<?= $dt['lu_ls']; ?>"><?= $dt['lu_ls']; ?></option>
-                                                    <option value="LU">LU</option>
-                                                    <option value="LS">LS</option>
-                                                </select>
-                                                <input type="text" class="form-control" name="koord_bt" id="koord_bt" value="<?= $dt['koord_bt']; ?>">
-                                                &nbsp; &nbsp;<label style="margin-top: 10px;">BT</label>&nbsp; &nbsp;
+                                                <input type="text" class="form-control" name="koordinat_lokasi_bpp" id="koordinat_lokasi_bpp" value="<?= $dt['koordinat_lokasi_bpp']; ?>">
                                             </div>
                                             <label>No.Telepon/Fax</label>
                                             <div class="input-group mb-3">
@@ -607,7 +600,7 @@ $data = $json[0];
                                             <div class="input-group mb-3" id="divPNS">
                                                 <label style="margin-top: 10px;">PNS:</label>
                                                 <select name="nama_koord_penyuluh" id="nama_koord_penyuluh" class="form-control input-lg" style="margin-left: 15px;">
-                                                    <option value="">-</option>
+                                                    <option value="<?= $dt['nama_koord_penyuluh']; ?>"><?= $dt['nip']; ?> - <?= $dt['nama']; ?></option>
                                                     <?php
                                                     foreach ($penyuluhPNS as $row) {
                                                         echo '<option value="' . $row["nip"] . '">' . $row["nip"] . ' - ' . $row["nama"] . '</option>';
@@ -618,7 +611,7 @@ $data = $json[0];
                                             <div class="input-group mb-3" id="divTHL">
                                                 <label>THL:</label>
                                                 <select name="nama_koord_penyuluh_thl" id="nama_koord_penyuluh_thl" class="form-control input-lg" style="margin-left: 5px;">
-                                                    <option value="">-</option>
+                                                    <option value="<?= $dt['nama_koord_penyuluh_thl']; ?>"><?= $dt['noktp']; ?> - <?= $dt['nama']; ?></option>
                                                     <?php
                                                     foreach ($penyuluhTHL as $row2) {
                                                         echo '<option value="' . $row2["noktp"] . '">' . $row2["noktp"] . ' - ' . $row2["nama"] . '</option>';
@@ -638,7 +631,7 @@ $data = $json[0];
                                             <label>Kendaraan Roda 4</label>
                                             <div class="input-group mb-3">
                                                 <label style="margin-top: 10px;">APBN</label>
-                                                <input type="text" style="margin-left: 10px;" class="form-control" name="roda_4_apbn" id="roda_4_apbn" placeholder="" avalue="<?= $dt['roda_4_apbn']; ?>">
+                                                <input type="text" style="margin-left: 10px;" class="form-control" name="roda_4_apbn" id="roda_4_apbn" placeholder="" value="<?= $dt['roda_4_apbn']; ?>">
                                                 &nbsp; &nbsp;<label style="margin-top: 10px;">Unit</label>&nbsp; &nbsp;
                                                 <label style="margin-top: 10px;">APBD</label>
                                                 <input type="text" style="margin-left: 10px;" class="form-control" name="roda_4_apbd" id="roda_4_apbd" placeholder="" value="<?= $dt['roda_4_apbd']; ?>">
@@ -822,375 +815,22 @@ $data = $json[0];
 
 <?= $this->section('script') ?>
 <script>
-    $(document).ready(function() {
-        $(document).delegate('#btn-edit', 'click', function() {
-            //var myModal = new bootstrap.Modal(document.getElementById('modal-edit'), options);
-            // alert(id);
-            $.ajax({
-                url: '<?= base_url() ?>/profil/Lembaga/detailKab/' + $(this).data('id_gapoktan'),
-                type: 'GET',
-                dataType: 'JSON',
-                success: function(res) {
-                    // $(".daftpos").html(res)
-                    //console.log(res);
-                    //res = JSON.parse(res);
+    function previewImg() {
+        const sampul = document.querySelector('#foto');
+        const sampulLabel = document.querySelector('.custom-file-label');
+        const imgPreview = document.querySelector('.img-preview');
 
-                    $('#id_gapoktan').val(res[0].id_gapoktan);
-                    $('#nama_bapel').val(res[0].nama_bapel);
-                    $('#dasar_hukum').val(res[0].dasar_hukum);
-                    $('#no_peraturan').val(res[0].no_peraturan);
-                    $('#day').val(res[0].tgl_berdiri);
-                    $('#month').val(res[0].bln_berdiri);
-                    $('#year').val(res[0].thn_berdiri);
-                    $('#alamat').val(res[0].alamat);
-                    $('#deskripsi_lembaga_lain').val(res[0].deskripsi_lembaga_lain);
-                    $('#telp_kantor').val(res[0].telp_kantor);
-                    $('#email').val(res[0].email);
-                    $('#website').val(res[0].website);
-                    $('#ketua').val(res[0].ketua);
-                    $('#koord').val(res[0].koord);
-                    $('#telp_hp').val(res[0].telp_hp);
-                    $('#telp_hp_koord').val(res[0].telp_hp_koord);
-                    $('#email_koord').val(res[0].email_koord);
-                    $('#jenis_pertanian').val(res[0].jenis_pertanian);
-                    $('#jenis_tp').val(res[0].jenis_tp);
-                    $('#jenis_hor').val(res[0].jenis_hor);
-                    $('#jenis_bun').val(res[0].jenis_bun);
-                    $('#jenis_nak').val(res[0].jenis_nak);
-                    $('#jenis_pkh').val(res[0].jenis_pkh);
-                    $('#jenis_ketahanan_pangan').val(res[0].jenis_ketahanan_pangan);
-                    $('#jenis_pangan').val(res[0].jenis_pangan);
-                    $('#bidang_luh').val(res[0].bidang_luh);
-                    $('#nama_kabid').val(res[0].nama_kabid);
-                    $('#hp_kabid').val(res[0].hp_kabid);
-                    $('#seksi_luh').val(res[0].seksi_luh);
-                    $('#nama_kasie').val(res[0].nama_kasie);
-                    $('#hp_kasie').val(res[0].hp_kasie);
-                    $('#uptd_luh').val(res[0].uptd_luh);
-                    $('#nama_kauptd').val(res[0].nama_kauptd);
-                    $('#hp_kauptd').val(res[0].hp_kauptd);
-                    $('#nama_koord_penyuluh').val(res[0].nama_koord_penyuluh);
-                    $('#nama_koord_penyuluh_thp').val(res[0].nama_koord_penyuluh_thp);
-                    $('#koord_lainya_nip').val(res[0].koord_lainya_nip);
-                    $('#koord_lainya_nama').val(res[0].koord_lainya_nama);
-                    $('#kode_koord_penyuluh').val(res[0].kode_koord_penyuluh);
-                    $("#btnSave").attr("id", "btnDoEdit");
+        sampulLabel.textContent = foto.files[0].name;
 
-                    $(document).delegate('#btnDoEdit', 'click', function() {
-                        console.log('ok');
+        const fileSampul = new FileReader();
+        fileSampul.readAsDataURL(foto.files[0]);
 
-                        var id_gapoktan = $('#id_gapoktan').val();
-                        var deskripsi_lembaga_lain = $('#deskripsi_lembaga_lain').val();
-                        var nama_bapel = $('#nama_bapel').val();
-                        var dasar_hukum = $('#dasar_hukum').val();
-                        var no_peraturan = $('#no_peraturan').val();
-                        var tgl_berdiri = $('#day').val();
-                        var bln_berdiri = $('#month').val();
-                        var thn_berdiri = $('#year').val();
-                        var alamat = $('#alamat').val();
-                        var telp_kantor = $('#telp_kantor').val();
-                        var email = $('#email').val();
-                        var website = $('#website').val();
-                        var ketua = $('#ketua').val();
-                        var telp_hp = $('#telp_hp').val();
-                        var koord = $('#koord').val();
-
-                        var telp_hp_koord = $('#telp_hp_koord').val();
-                        var email_koord = $('#email_koord').val();
-                        var jenis_pertanian = $('#jenis_pertanian').val();
-                        var jenis_tp = $('#jenis_tp').val();
-                        var jenis_hor = $('#jenis_hor').val();
-                        var jenis_bun = $('#jenis_bun').val();
-                        var jenis_nak = $('#jenis_nak').val();
-                        var jenis_pkh = $('#jenis_pkh').val();
-                        var jenis_ketahanan_pangan = $('#jenis_ketahanan_pangan').val();
-                        var jenis_pangan = $('#jenis_pangan').val();
-
-                        var bidang_luh = $('#bidang_luh').val();
-                        var nama_kabid = $('#nama_kabid').val();
-                        var hp_kabid = $('#hp_kabid').val();
-                        var seksi_luh = $('#seksi_luh').val();
-                        var nama_kasie = $('#nama_kasie').val();
-                        var hp_kasie = $('#hp_kasie').val();
-                        var uptd_luh = $('#uptd_luh').val();
-                        var nama_kauptd = $('#nama_kauptd').val();
-                        var hp_kauptd = $('#hp_kauptd').val();
-                        var nama_koord_penyuluh = $('#nama_koord_penyuluh').val();
-                        var nama_koord_penyuluh_thl = $('#nama_koord_penyuluh_thl').val();
-                        var koord_lainya_nip = $('#koord_lainya_nip').val();
-                        var koord_lainya_nama = $('#koord_lainya_nama').val();
-                        var kode_koord_penyuluh = $('#kode_koord_penyuluh').val();
-
-                        let formData = new FormData();
-                        formData.append('id_gapoktan', id_gapoktan);
-                        formData.append('nama_bapel', nama_bapel);
-                        formData.append('deskripsi_lembaga_lain', deskripsi_lembaga_lain);
-                        formData.append('dasar_hukum', dasar_hukum);
-                        formData.append('no_peraturan', no_peraturan);
-                        formData.append('tgl_berdiri', tgl_berdiri);
-                        formData.append('bln_berdiri', bln_berdiri);
-                        formData.append('thn_berdiri', thn_berdiri);
-                        formData.append('alamat', alamat);
-                        formData.append('telp_kantor', telp_kantor);
-                        formData.append('email', email);
-                        formData.append('website', website);
-                        formData.append('ketua', ketua);
-                        formData.append('koord', koord);
-                        formData.append('telp_hp', telp_hp);
-                        formData.append('telp_hp_koord', telp_hp_koord);
-                        formData.append('email_koord', email_koord);
-                        formData.append('jenis_pertanian', jenis_pertanian);
-                        formData.append('jenis_tp', jenis_tp);
-                        formData.append('jenis_hor', jenis_hor);
-                        formData.append('jenis_bun', jenis_bun);
-                        formData.append('jenis_nak', jenis_nak);
-                        formData.append('jenis_pkh', jenis_pkh);
-                        formData.append('jenis_ketahanan_pangan', jenis_ketahanan_pangan);
-                        formData.append('jenis_pangan', jenis_pangan);
-                        formData.append('bidang_luh', bidang_luh);
-                        formData.append('nama_kabid', nama_kabid);
-                        formData.append('hp_kabid', hp_kabid);
-                        formData.append('seksi_luh', seksi_luh);
-                        formData.append('nama_kasie', nama_kasie);
-                        formData.append('hp_kasie', hp_kasie);
-                        formData.append('uptd_luh', uptd_luh);
-                        formData.append('nama_kauptd', nama_kauptd);
-                        formData.append('hp_kauptd', hp_kauptd);
-                        formData.append('nama_koord_penyuluh', nama_koord_penyuluh);
-                        formData.append('nama_koord_penyuluh_thl', nama_koord_penyuluh_thl);
-                        formData.append('koord_lainya_nip', koord_lainya_nip);
-                        formData.append('koord_lainya_nama', koord_lainya_nama);
-                        formData.append('kode_koord_penyuluh', kode_koord_penyuluh);
-
-                        $.ajax({
-                            url: '<?= base_url() ?>/profil/Lembaga/update/' + id_gapoktan,
-                            type: "POST",
-                            data: formData,
-                            cache: false,
-                            processData: false,
-                            contentType: false,
-                            success: function(result) {
-                                $('#modal-form').modal('hide');
-                                Swal.fire({
-                                    title: 'Sukses',
-                                    text: "Sukses edit data",
-                                    type: 'success',
-                                }).then((result) => {
-
-                                    if (result.value) {
-                                        location.reload();
-                                    }
-                                });
-
-                            },
-                            error: function(jqxhr, status, exception) {
-
-                                Swal.fire({
-                                    title: 'Error',
-                                    text: "Gagal edit data",
-                                    type: 'Error',
-                                }).then((result) => {
-
-                                    if (result.value) {
-                                        location.reload();
-                                    }
-                                });
-
-                            }
-                        });
-                    });
-
-                }
-            });
-
-            $('.modal').on('hidden.bs.modal', function() {
-                $(this).find('form')[0].reset();
-            });
-
-        });
-
-
-        $(document).delegate('#btnSimpan', 'click', function() {
-            var id_bapel = $('#id_bapel').val();
-            var tahun = $('#tahun').val();
-            var fasilitasi = $('#fasilitasi').val();
-            var kegiatan = $('#kegiatan').val();
-
-            $.ajax({
-                url: '<?= base_url() ?>/profil/Lembaga/save/',
-                type: 'POST',
-                data: {
-                    'id_bapel': id_bapel,
-                    'tahun': tahun,
-                    'fasilitasi': fasilitasi,
-                    'kegiatan': kegiatan,
-                },
-                success: function(result) {
-                    result = JSON.parse(result);
-                    if (result.value) {
-                        Swal.fire({
-                            title: 'Sukses',
-                            text: "Sukses tambah data",
-                            type: 'success',
-                        }).then((result) => {
-
-                            if (result.value) {
-                                location.reload();
-                            }
-                        });
-                    } else {
-                        Swal.fire({
-                            title: 'Error',
-                            text: "Gagal tambah data. " + result.message,
-                            type: 'error',
-                        }).then((result) => {
-
-                        });
-                    }
-                },
-                error: function(jqxhr, status, exception) {
-                    Swal.fire({
-                        title: 'Error',
-                        text: "Gagal tambah data",
-                        type: 'error',
-                    }).then((result) => {
-                        if (result.value) {
-                            location.reload();
-                        }
-                    });
-                }
-            });
-        });
-
-
-        $(document).delegate('#btn-edit-fas', 'click', function() {
-            //var myModal = new bootstrap.Modal(document.getElementById('modal-edit'), options);
-            // alert(id);
-            $.ajax({
-                url: '<?= base_url() ?>/profil/Lembaga/fasilitas/' + $(this).data('id'),
-                type: 'GET',
-                dataType: 'JSON',
-                success: function(res) {
-                    // $(".daftpos").html(res)
-                    //console.log(res);
-                    //res = JSON.parse(res);
-
-                    $('#id').val(res[0].id);
-                    $('#id_bapel').val(res[0].id_bapel);
-                    $('#fasilitasi').val(res[0].fasilitasi);
-                    $('#kegiatan').val(res[0].kegiatan);
-                    $('#tahun').val(res[0].tahun);
-                    $("#btnSimpan").attr("id", "btnUbah");
-
-                    $(document).delegate('#btnUbah', 'click', function() {
-                        console.log('ok');
-
-                        var id = $('#id').val();
-                        var id_bapel = $('#id_bapel').val();
-                        var fasilitasi = $('#fasilitasi').val();
-                        var kegiatan = $('#kegiatan').val();
-                        var tahun = $('#tahun').val();
-
-                        let formData = new FormData();
-                        formData.append('id', id);
-                        formData.append('fasilitasi', fasilitasi);
-                        formData.append('id_bapel', id_bapel);
-                        formData.append('kegiatan', kegiatan);
-                        formData.append('tahun', tahun);
-                        $.ajax({
-                            url: '<?= base_url() ?>/profil/Lembaga/updatefas/' + id,
-                            type: "POST",
-                            data: formData,
-                            cache: false,
-                            processData: false,
-                            contentType: false,
-                            success: function(result) {
-                                $('#modal-form').modal('hide');
-                                Swal.fire({
-                                    title: 'Sukses',
-                                    text: "Sukses edit data",
-                                    type: 'success',
-                                }).then((result) => {
-
-                                    if (result.value) {
-                                        location.reload();
-                                    }
-                                });
-
-                            },
-                            error: function(jqxhr, status, exception) {
-
-                                Swal.fire({
-                                    title: 'Error',
-                                    text: "Gagal edit data",
-                                    type: 'Error',
-                                }).then((result) => {
-
-                                    if (result.value) {
-                                        location.reload();
-                                    }
-                                });
-
-                            }
-                        });
-                    });
-
-                }
-            });
-
-            $('.modal').on('hidden.bs.modal', function() {
-                $(this).find('form')[0].reset();
-            });
-
-        });
-    });
-    $(document).delegate('#btn-hapus', 'click', function() {
-        Swal.fire({
-            title: 'Apakah anda yakin',
-            text: "Data akan dihapus ?",
-            type: 'warning',
-            showCloseButton: true,
-            showCancelButton: true,
-            confirmButtonColor: '#3085d6',
-            cancelButtonColor: '#d33',
-            confirmButtonText: 'Hapus Data!'
-        }).then((result) => {
-            if (result.value) {
-                var id = $(this).data('id');
-
-                $.ajax({
-                    url: '<?= base_url() ?>/profil/Lembaga/delete/' + id,
-                    type: 'POST',
-
-                    success: function(result) {
-                        Swal.fire({
-                            title: 'Sukses',
-                            text: "Sukses hapus data",
-                            type: 'success',
-                        }).then((result) => {
-
-                            if (result.value) {
-                                location.reload();
-                            }
-                        });
-                    },
-                    error: function(jqxhr, status, exception) {
-                        Swal.fire({
-                            title: 'Error',
-                            text: "Gagal hapus data",
-                            type: 'error',
-                        }).then((result) => {
-                            if (result.value) {
-                                location.reload();
-                            }
-                        });
-                    }
-                });
-            }
-        });
-
-    });
-
+        fileSampul.onload = function(e) {
+            imgPreview.src = e.target.result;
+        }
+    }
+</script>
+<script>
     function loadNamaKoordinator() {
         if ($('#inlineRadio1').is(':checked')) {
             $("#divPNS").show();
