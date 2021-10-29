@@ -7,12 +7,13 @@ use App\Models\LembagaModel;
 class Page extends BaseController
 {
     protected $session;
-
+    protected $modelLembaga;
 
     function __construct()
     {
         $this->session = \Config\Services::session();
         $this->session->start();
+        $this->modelLembaga = new LembagaModel();
     }
 
     public function dashboard()
@@ -20,9 +21,18 @@ class Page extends BaseController
         if (session()->get('username') == "") {
             return redirect()->to('login');
         }
+
+        $lembagaModel = new LembagaModel();
+
+        $profilAllBpp = $lembagaModel->getKoordinatBpp();
+        // $lat = explode(',', $profilAllBpp[0]['koordinat_lokasi_bpp']);
+        // echo $lat[0];
+        // dd($profilAllBpp);
+
         $data = [
             'title' => 'Dashboard',
-            'name' => 'dashboard'
+            'name' => 'dashboard',
+            'profilbpp' => $profilAllBpp
         ];
 
         return view('dashboard', $data);
