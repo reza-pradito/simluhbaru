@@ -3,9 +3,9 @@
 namespace App\Controllers\profil;
 
 use App\Controllers\BaseController;
-use App\Models\penyuluh\PenyuluhPNSKecModel;
+use App\Models\penyuluh\PenyuluhTHLAPBDKecModel;
 
-class PenyuluhKec extends BaseController
+class PenyuluhTHLAPBDKec extends BaseController
 {
     protected $session;
     function __construct()
@@ -14,10 +14,10 @@ class PenyuluhKec extends BaseController
         $this->session->start();
     }
 
-    public function detail($nip)
+    public function detail($nik)
     {
-        $penyuluhmodel = new PenyuluhPNSKecModel();
-        $dtpenyuluh = $penyuluhmodel->getDetailPenyuluhPNSKecByNIK($nip);
+        $penyuluhmodel = new PenyuluhTHLAPBDKecModel();
+        $dtpenyuluh = $penyuluhmodel->getDetailPenyuluhTHLAPBDKecByNIK($nik);
         $data = [
             'title' => 'Profil penyuluh',
             'dt' => $dtpenyuluh
@@ -25,6 +25,6 @@ class PenyuluhKec extends BaseController
 
         //dd($data);
 
-        return view('profil/profilpenyuluhkec', $data);
+        return view('profil/profilpenyuluhthlapbn', $data);
     }
 }

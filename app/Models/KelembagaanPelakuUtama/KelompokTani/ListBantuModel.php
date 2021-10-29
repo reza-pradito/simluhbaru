@@ -22,9 +22,7 @@ class ListBantuModel extends Model
         
         
         
-        $query3   = $db->query(" select * 
-                                from tb_bantuan 
-                                where id_poktan= $ip");
+        $query3   = $db->query(" select * from tb_bantuan where idban= $ip");
 
         $results = $query3->getResultArray();
 
@@ -41,7 +39,7 @@ class ListBantuModel extends Model
     }
     public function getDataById($ip)
     {
-        $query = $this->db->query("select * from tb_bantuan where id_poktan= '" . $ip . "' 
+        $query = $this->db->query("select * from tb_bantuan where idban= '" . $ip . "' 
                                 ORDER BY tahun ");
                                 $row = $query->getRow();
                                 return json_encode($row);
@@ -49,8 +47,8 @@ class ListBantuModel extends Model
    public function getKegiatan()
    {
         $query = $this->db->query("select * from mast_kegiatan");
-                                $row2= $query->getRow();
-                                return json_encode($row2);
+                                $row2= $query->getResultArray();
+                                return($row2);
     }
    }
 

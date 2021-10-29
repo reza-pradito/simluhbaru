@@ -5,17 +5,22 @@ namespace App\Controllers\KelembagaanPelakuUtama\kelompoktani;
 use App\Controllers\BaseController;
 use App\Models\KelembagaanPelakuUtama\KelompokTani\ListPoktanModel;
 
-class ListPoktan extends BaseController
+class ListPokTan extends BaseController
 {
     protected $model;
     public function __construct()
     {
+        $this->session = service('session');
+        $this->config = config('Auth');
+        $this->auth = service('authentication');
         $this->model = new ListPoktanModel();
     }
     public function listpoktan()
     {
        
-        
+        if (session()->get('username') == "") {
+            return redirect()->to('login');
+        }
         $get_param = $this->request->getGet();
 
         $kode_kec = $get_param['kode_kec'];

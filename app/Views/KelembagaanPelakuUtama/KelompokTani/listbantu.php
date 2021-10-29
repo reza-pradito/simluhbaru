@@ -3,7 +3,7 @@
 <?= $this->section('content') ?>
 
 
-<center><h2> Daftar Bantuan Kegiatan yang di peroleh Kelompok KWT Sekar Tanjung <?= ucwords(strtolower($nama_poktan)) ?> </h2></center>
+<center><h2> Daftar Bantuan Kegiatan yang di peroleh Kelompok <?= ucwords(strtolower($nama_poktan)) ?> </h2></center>
 
 <button type="button" data-bs-toggle="modal" data-bs-target="#modal-form" class="btn bg-gradient-primary btn-sm">+ Tambah Data</button>
 <div class="card">
@@ -40,24 +40,15 @@
                     </td>
                     <td class="align-middle text-center text-sm">
                             
-                                <button type="button"  data-id_poktan="<?= $row['id_poktan'] ?>" id="btnEditPok" class="btn bg-gradient-warning btn-sm">
+                                <button type="button"  data-idban="<?= $row['idban'] ?>" id="btnEditBan" class="btn bg-gradient-warning btn-sm">
                                     <i class="fas fa-edit"></i> Ubah
                                 </button>
-                                <button class="btn btn-danger btn-sm" id="btnHapus" data-id_poktan="<?= $row['id_poktan'] ?>" type="button" >
+                                <button class="btn btn-danger btn-sm" id="btnHapus" data-idban="<?= $row['idban'] ?>" type="button" >
                                     <i class="fas fa-trash"></i> Hapus
                                 </button>
                            
                             
-                            <button type="button" class="btn bg-gradient-primary btn-sm">
-                            <a href="<?= base_url('/listpoktananggota?ip=' . $row['id_poktan']) ?>">
-                                <i class="ni ni-fat-add"></i> +Tambah Anggota
-                            </button>
-                         
-                            
-                            <button type="button" class="btn bg-gradient-info btn-sm">
-                                <i class="fas fa-trash"></i>
-                                 +Tambah Bantuan
-                            </button>
+                        
                             
                         </td>
                 </tr>
@@ -81,13 +72,13 @@
                                     <div class="row">
                                         <div class="col-5" mt-5>
                                             <div class="input-group mb-3">
-                                            <label>Desa</label>
+                                            <label>Kegiatan</label>
                                             <div class="input-group mb-3">
-                                               <select name="idkeg" id="idkeg"  class="form-control input-lg">
+                                               <select name="kegiatan" id="kegiatan"  class="form-control input-lg">
                                                             <option value="">Pilih Kegiatan</option>
                                                             <?php
                                                             foreach ($kegiatan as $row2) {
-                                                                echo '<option value="' . $row2["iditem"] . '"' . $row2["desckeg"] .  $row2["subitem"] . '</option>';
+                                                                echo '<option value="' . $row2["idmast"] . '">' . $row2["desckeg"] . '-' . $row2["subitem"] . '</option>';
                                                             }
                                                             ?>
                                                         </select>
@@ -96,15 +87,14 @@
                                             <div class="input-group mb-3">
                                                 <input type="text" class="form-control" id="volume" name="volume" >
                                             </div>
-                                            <label>Tahun Pembentukan</label>
+                                            <label>Tahun</label>
                                             <div class="input-group mb-3">
-                                                <select id="year" class="form-select"  aria-label="Default select example" name="simluh_tahun_bentuk">
-                                                    <option selected>Pilih Tahun</option>
+                                                <select id="year" class="form-select"  aria-label="Default select example" name="tahun">
+                                                    <option value="">Pilih Tahun</option>
                                                 </select>
                                             </div>
                                          
-                                            <input type="hidden" id="kode_kec" name="kode_kec" value="<?= $row['id_daerah'] ?>" >
-                                                <input type="hidden" id="kode_kab" name="kode_kab" value="<?= $row['id_dati2'] ?>">
+                                           
                                                 <input type="hidden" id="id_poktan" name="id_poktan" >
                                                
                                                     <div class="text-center">
@@ -140,27 +130,20 @@
 
         $(document).delegate('#btnSave', 'click', function() {
 
-            var kode_kec = $('#kode_kec').val();
-            var kode_kab = $('#kode_kab').val();
-            var kode_desa = $('#kode_desa').val();
-            var nama_poktan = $('#nama_poktan').val();
-            var ketua_poktan = $('#ketua_poktan').val();
-            var alamat = $('#alamat').val();
-            var simluh_tahun_bentuk = $('#year').val();
-            var status = $('#status').val();
+         
+            var kegiatan = $('#kegiatan').val();
+            var volume = $('#volume').val();
+            var tahun = $('#year').val();
+           
 
             $.ajax({
-                url: '<?= base_url() ?>/KelembagaanPelakuUtama/KelompokTani/ListPokTan/save/',
+                url: '<?= base_url() ?>/KelembagaanPelakuUtama/KelompokTani/ListBantu/save/',
                 type: 'POST',
                 data: {
-                    'kode_kec': kode_kec,
-                    'kode_kab': kode_kab,
-                    'kode_desa': kode_desa,
-                    'nama_poktan': nama_poktan,
-                    'ketua_poktan': ketua_poktan,
-                    'alamat': alamat,
-                    'simluh_tahun_bentuk': simluh_tahun_bentuk,
-                    'status': status,
+                    
+                    'kegiatan': kegiatan, 
+                    'volume': volume,
+                    'tahun': tahun,
                 },
                 success: function(result) {
                     result = JSON.parse(result);
@@ -211,10 +194,10 @@
                 confirmButtonText: 'Hapus Data!'
             }).then((result) => {
                 if (result.value) {
-                    var id = $(this).data('id_poktan');
+                    var id = $(this).data('idban');
 
                     $.ajax({
-                        url: '<?= base_url() ?>/KelembagaanPelakuUtama/KelompokTani/ListPokTan/delete/' + id,
+                        url: '<?= base_url() ?>/KelembagaanPelakuUtama/KelompokTani/ListBantu/delete/' + id,
                         type: 'POST',
 
                         success: function(result) {
@@ -245,23 +228,18 @@
             });
 
         });
-        $(document).delegate('#btnEditPok', 'click', function() {
+        $(document).delegate('#btnEditBan', 'click', function() {
             $.ajax({
-                url: '<?= base_url() ?>/KelembagaanPelakuUtama/KelompokTani/ListPokTan/edit/' + $(this).data('id_poktan'),
+                url: '<?= base_url() ?>/KelembagaanPelakuUtama/KelompokTani/ListBantu/edit/' + $(this).data('idban'),
                 type: 'GET',
                 dataType: 'JSON',
                 success: function(result) {
                     // console.log(result);
 
-                    $('#id_poktan').val(result.id_poktan);
-                    $('#kode_kec').val(result.kode_kec);
-                    $('#kode_desa').val(result.kode_desa);
-                    $('#kode_kab').val(result.kode_kab);
-                    $('#nama_poktan').val(result.nama_poktan);
-                    $('#ketua_poktan').val(result.ketua_poktan);
-                    $('#alamat').val(result.alamat);
-                    $('#year').val(result.simluh_tahun_bentuk);
-                    $('#status').val(result.status);
+                    $('#idban').val(result.idban);
+                    $('#kegiatan').val(result.kegiatan);
+                    $('#volume').val(result.volume);
+                       $('#year').val(result.tahun);
 
 
                     $('#modal-form').modal('show');
@@ -270,29 +248,19 @@
                     $(document).delegate('#btnDoEdit', 'click', function() {
                      
 
-                        var id_poktan = $('#id_poktan').val();
-                        var kode_kec = $('#kode_kec').val();
-                        var kode_kab = $('#kode_kab').val();
-                        var kode_desa = $('#kode_desa').val();
-                        var nama_poktan = $('#nama_poktan').val();
-                        var ketua_poktan = $('#ketua_poktan').val();
-                        var alamat = $('#alamat').val();
-                        var simluh_tahun_bentuk = $('#year').val();
-                        var status = $('#status').val();
+                        var idban = $('#idban').val();
+                        var kegiatan = $('#kegiatan').val();
+                        var volume = $('#volume').val();
+                        var tahun = $('#year').val();
 
                         let formData = new FormData();
-                        formData.append('id_poktan', id_poktan);
-                        formData.append('kode_kec', kode_kec);
-                        formData.append('kode_kab', kode_kab);
-                        formData.append('kode_desa', kode_desa);
-                        formData.append('nama_poktan', nama_poktan);
-                        formData.append('ketua_poktan', ketua_poktan);
-                        formData.append('alamat', alamat);
-                        formData.append('simluh_tahun_bentuk', simluh_tahun_bentuk);
-                        formData.append('status', status);
+                        formData.append('idban', idban);
+                        formData.append('kegiatan', kegiatan);
+                        formData.append('volume', volume);
+                        formData.append('tahun', tahun);
 
                         $.ajax({
-                            url: '<?= base_url() ?>/KelembagaanPelakuUtama/KelompokTani/ListPokTan/update/' + id_poktan,
+                            url: '<?= base_url() ?>/KelembagaanPelakuUtama/KelompokTani/ListBantu/update/' + idban,
                             type: "POST",
                             data: formData,
                             cache: false,

@@ -6,6 +6,10 @@ use App\Models\KelembagaanPelakuUtama\KelompokTani\ListBantuModel;
 
 class ListBantu extends BaseController
 {
+    public function __construct()
+    {
+        $this->model = new ListBantuModel();
+    }
     public function listbantu()
     {
         $get_param = $this->request->getGet();
