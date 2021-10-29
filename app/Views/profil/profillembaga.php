@@ -217,12 +217,81 @@ $data = $json[0];
 
                                         <h1 class="h3 mb-4 text-gray-800"><?= $title; ?> <a href="/editbapel"><i class="fas fa-edit" style="float: right;"></i></a></h1>
 
+
+                                            <table class="table">
+
+                                                <tbody>
+                                                    <input type="hidden" name="id_gapoktan" value="<?= $dt['id_gapoktan']; ?>">
+                                                    <tr>
+                                                        <td>Nama Kelembagaan</td>
+                                                        <td>:</td>
+                                                        <td><?= $dt['deskripsi_lembaga_lain']; ?> <?= $sessnama; ?></td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>Tanggal Pembentukan</td>
+                                                        <td>:</td>
+                                                        <td><?= $dt['tgl_berdiri'] . '-' . $dt['bln_berdiri'] . '-' . $dt['thn_berdiri']; ?></td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>Alamat</td>
+                                                        <td>:</td>
+                                                        <td> <?= $dt['alamat']; ?></td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>Provinsi</td>
+                                                        <td>:</td>
+                                                        <td><?= $namaprov; ?></td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>No Telepon/Fax</td>
+                                                        <td>:</td>
+                                                        <td><?= $dt['telp_kantor']; ?></td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>Alamat Email</td>
+                                                        <td>:</td>
+                                                        <td><?= $dt['email']; ?></td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>Alamat Website</td>
+                                                        <td>:</td>
+                                                        <td><?= $dt['website']; ?></td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>Nama Pimpinan</td>
+                                                        <td>:</td>
+                                                        <td><?= $dt['ketua']; ?></td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>No HP Pimpinan</td>
+                                                        <td>:</td>
+                                                        <td><?= $dt['hp_kabid']; ?></td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>Nama Koordinator PP</td>
+                                                        <td>:</td>
+
+                                                        <td><?php if ($dt['kode_koord_penyuluh'] == "1") {
+                                                                echo $dt['nama_koord_penyuluh'];
+                                                            } elseif ($dt['kode_koord_penyuluh'] == "2") {
+                                                                echo $dt['nama_koord_penyuluh_thl'];
+                                                            } elseif ($dt['kode_koord_penyuluh'] == "3") {
+                                                                echo $dt['koord_lainnya_nama'];
+                                                            } ?></td>
+
+                                                    </tr>
+
+                                                </tbody>
+
+                                            </table>
+
                                         <h1 class="h3 mb-4 text-gray-800"><?= $title; ?><i class="fas fa-edit" style="float: right;" data-bs-toggle="modal" data-bs-target="#modal-form" id="btn-edit" data-id_gapoktan="<?php
                                                                                                                                                                                                                             if (session()->get('status_user') == '200') {
                                                                                                                                                                                                                                 echo $dt['id_gapoktan'];
                                                                                                                                                                                                                             } elseif (session()->get('status_user') == '300') {
                                                                                                                                                                                                                                 echo $dt['id'];
                                                                                                                                                                                                                             }
+
 
                                                                                                                                                                                                                             ?>"></i></a></h1>
 
@@ -279,7 +348,13 @@ $data = $json[0];
                                                         <tr>
                                                             <td>Nama Koordinator PP</td>
                                                             <td>:</td>
-                                                            <td><?= $dt['nama_koord_penyuluh']; ?></td>
+                                                            <<td><?php if ($dt['kode_koord_penyuluh'] == "1") {
+                                                                        echo $dt['nama_koord_penyuluh'];
+                                                                    } elseif ($dt['kode_koord_penyuluh'] == "2") {
+                                                                        echo $dt['nama_koord_penyuluh_thl'];
+                                                                    } elseif ($dt['kode_koord_penyuluh'] == "3") {
+                                                                        echo $dt['koord_lainnya_nama'];
+                                                                    } ?></td>
                                                         </tr>
                                                     </tbody>
                                                 </table>
@@ -335,7 +410,13 @@ $data = $json[0];
                                                         <tr>
                                                             <td>Nama Koordinator PP</td>
                                                             <td>:</td>
-                                                            <td><?= $dt['nama_koord_penyuluh']; ?></td>
+                                                            <td><?php if ($dt['kode_koord_penyuluh'] == "1") {
+                                                                    echo $dt['namapns'];
+                                                                } elseif ($dt['kode_koord_penyuluh'] == "2") {
+                                                                    echo $dt['namathl'];
+                                                                } elseif ($dt['kode_koord_penyuluh'] == "3") {
+                                                                    echo $dt['koord_lainnya_nama'];
+                                                                } ?></td>
                                                         </tr>
                                                     </tbody>
                                                 </table>
@@ -672,7 +753,11 @@ foreach ($tabel_data as $row => $item)
                                         <div class="input-group mb-3" id="divPNS">
                                             <label style="margin-top: 10px;">PNS:</label>
                                             <select name="nama_koord_penyuluh pen" id="nama_koord_penyuluh" class="form-control input-lg" style="margin-left: 15px;">
+
+                                                <option value="<?= $val['nama_koord_penyuluh']; ?>"><?= $val['nip']; ?> - <?= $val['nama']; ?></option>
+
                                                 <option value="<?= $val['jenis_penyuluh']; ?>"><?= $val['nip']; ?> - <?= $val['nama']; ?></option>
+
                                                 <?php
                                                 foreach ($penyuluhPNS as $row) {
                                                     echo '<option value="' . $row["nip"] . '">' . $row["nip"] . '-' . $row["nama"] . '</option>';
@@ -683,7 +768,11 @@ foreach ($tabel_data as $row => $item)
                                         <div class="input-group mb-3" id="divTHL">
                                             <label>THL:</label>
                                             <select name="nama_koord_penyuluh_thl" id="nama_koord_penyuluh_thl" class="form-control input-lg" style="margin-left: 5px;">
+
+                                                <option value="<?= $val['nama_koord_penyuluh_thl']; ?>"><?= $val['noktp']; ?> - <?= $val['namathl']; ?></option>
+
                                                 <option value="<?= $val['jenis_pen_thl']; ?>"><?= $val['noktp']; ?> - <?= $val['namathl']; ?></option>
+
                                                 <?php
                                                 foreach ($penyuluhTHL as $row2) {
                                                     echo '<option value="' . $row2["noktp"] . '">' . $row2["noktp"] . '-' . $row2["nama"] . '</option>';
@@ -696,6 +785,7 @@ foreach ($tabel_data as $row => $item)
                                             <input type="text" class="form-control" style="margin-left: 10px;" id="koord_lainya_nip" placeholder="ketua" name="koord_lainya_nip">
                                             <label style="margin-top: 10px;">Nama</label>
                                             <input type="text" class="form-control" style="margin-left: 10px;" id="koord_lainya_nama" placeholder="ketua" name="koord_lainya_nama">
+
                                         </div>
                                     </div>
                                     <div class="col">
@@ -723,6 +813,35 @@ foreach ($tabel_data as $row => $item)
                                         <div class="input-group mb-3">
                                             <input type="text" class="form-control" id="uptd_luh" placeholder="ketua" name="uptd_luh">
                                         </div>
+
+                                        </div>
+                                    </div>
+                                    <div class="col">
+                                        <label for="ketua">Bidang yang menangani fungsi penyuluhan</label>
+                                        <div class="input-group mb-3">
+                                            <input type="text" class="form-control" id="bidang_luh" placeholder="Bidang" name="bidang_luh">
+                                        </div>
+                                        <label for="ketua">Nama kepala bidang</label>
+                                        <div class="input-group mb-3">
+                                            <input type="text" class="form-control" id="nama_kabid" placeholder="Nama Kabid" name="nama_kabid">
+                                            <label style="margin-top: 10px;">No.HP</label>
+                                            <input type="text" style="margin-left: 5px;" class="form-control" id="hp_kabid" placeholder="No. HP" name="hp_kabid">
+                                        </div>
+                                        <label for="ketua">Seksi yang menangani penyuluhan</label>
+                                        <div class="input-group mb-3">
+                                            <input type="text" class="form-control" id="seksi_luh" placeholder="Seksi" name="seksi_luh">
+                                        </div>
+                                        <label for=" ketua">Nama kepala seksi</label>
+                                        <div class="input-group mb-3">
+                                            <input type="text" class="form-control" id="nama_kasie" name="nama_kasie" placeholder="Nama Kepala Seksi">
+                                            <label style="margin-top: 10px;">No.HP</label>
+                                            <input type="text" style="margin-left: 5px;" class="form-control" id="hp_kasie" name="hp_kasie" placeholder="No. HP">
+                                        </div>
+                                        <label for="ketua">UPTD yang menangani fungsi penyuluhan</label>
+                                        <div class="input-group mb-3">
+                                            <input type="text" class="form-control" id="uptd_luh" placeholder="ketua" name="uptd_luh">
+                                        </div>
+
                                         <label for="ketua">Nama kepala UPTD</label>
                                         <div class="input-group mb-3">
                                             <input type="text" class="form-control" id="nama_kauptd" name="nama_kauptd" placeholder="Nama Kepala UPTD">
@@ -800,11 +919,19 @@ foreach ($tabel_data as $row => $item)
                                             }
                                             ?>
                                         </select>
+
                                     </div>
                                     <label for="alamat">Kegiatan</label>
                                     <div class="input-group mb-3">
                                         <textarea type="text" class="form-control" id="kegiatan" placeholder="kegiatan" name="kegiatan"></textarea>
                                     </div>
+
+                                    </div>
+                                    <label for="alamat">Kegiatan</label>
+                                    <div class="input-group mb-3">
+                                        <textarea type="text" class="form-control" id="kegiatan" placeholder="kegiatan" name="kegiatan"></textarea>
+                                    </div>
+
                                 </div>
                                 <div class="modal-footer">
                                     <button type="button" class="btn bg-gradient-secondary" data-bs-dismiss="modal">Close</button>
@@ -1286,6 +1413,7 @@ foreach ($tabel_data as $row => $item)
         });
     });
 </script>
+
 
 
 

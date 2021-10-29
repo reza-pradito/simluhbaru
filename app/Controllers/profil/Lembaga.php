@@ -230,6 +230,7 @@ class Lembaga extends BaseController
         $this->fasmodel->delete($id);
         return redirect()->to('/lembaga');
     }
+
     function editFoto()
     {
 
@@ -275,6 +276,5 @@ class Lembaga extends BaseController
         $this->modelLembaga->saveProfil($data);
 
         return redirect()->to('/profil/lembaga/');
-
     }
 }
