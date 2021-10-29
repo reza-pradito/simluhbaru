@@ -207,8 +207,6 @@ $data = $json[0];
                     <button class="nav-link" id="nav-lahan-tab" data-bs-toggle="tab" data-bs-target="#nav-lahan" type="button" role="tab" aria-controls="nav-lahan" aria-selected="false">Lahan</button>
                     <button class="nav-link" id="nav-penghargaan-tab" data-bs-toggle="tab" data-bs-target="#nav-penghargaan" type="button" role="tab" aria-controls="nav-penghargaan" aria-selected="false">Penghargaan</button>
                     <button class="nav-link" id="nav-dana-tab" data-bs-toggle="tab" data-bs-target="#nav-dana" type="button" role="tab" aria-controls="nav-dana" aria-selected="false">Dana Alokasi Khusus</button>
-                    <button class="nav-link" id="nav-sarpras-tab" data-bs-toggle="tab" data-bs-target="#nav-sarpras" type="button" role="tab" aria-controls="nav-sarpras" aria-selected="false">Sarana & Prasarana</button>
-                    <button class="nav-link" id="nav-pokom-tab" data-bs-toggle="tab" data-bs-target="#nav-pokom" type="button" role="tab" aria-controls="nav-pokom" aria-selected="false">Potensi Ekonomi</button>
                     <button class="nav-link" id="nav-powil-tab" data-bs-toggle="tab" data-bs-target="#nav-powil" type="button" role="tab" aria-controls="nav-powil" aria-selected="false">Potensi Wilayah</button>
                     <!-- <button class="nav-link" id="nav-sarpras-tab" data-bs-toggle="tab" data-bs-target="#nav-sarpras" type="button" role="tab" aria-controls="nav-sarpras" aria-selected="false">Sarana & Prasarana</button>
                     <button class="nav-link" id="nav-pokom-tab" data-bs-toggle="tab" data-bs-target="#nav-pokom" type="button" role="tab" aria-controls="nav-pokom" aria-selected="false">Potensi Ekonomi</button>
@@ -303,7 +301,7 @@ $data = $json[0];
                         <div class="col-lg-3 mb-lg-0 mb-4 text-center">
                             <div class="card">
                                 <div class="card-body p-3 ">
-                                    <img src="<?= base_url('assets/img/logo.png'); ?>" width="150px" class="img-thumbnail" alt="profil">
+                                    <img src="<?= base_url('assets/img/' . $dt['foto']) ?>" width="150px" class="img-thumbnail" alt="profil">
                                 </div>
                             </div>
                         </div>
@@ -429,32 +427,8 @@ $data = $json[0];
                         </div>
                     </div>
                 </div>
-                <div class="tab-pane fade" id="nav-sarpras" role="tabpanel" aria-labelledby="nav-sarpras-tab">
-                    <div class="row">
-                        <div class="col-lg-12 mb-lg-0 mb-4">
-                            <div class="card">
-                                <div class="card-body p-3">
-                                    <div class="row">
-                                        <h1 class="h3 mb-4 text-gray-800">Sarana & Prasarana<i class="fas fa-edit" style="float: right;" data-bs-toggle="modal" data-bs-target="#modal-form" id="btn-edit" data-id="<?= $dt['id']; ?>"></i></a></h1>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="tab-pane fade" id="nav-pokom" role="tabpanel" aria-labelledby="nav-pokom-tab">
-                    <div class="row">
-                        <div class="col-lg-12 mb-lg-0 mb-4">
-                            <div class="card">
-                                <div class="card-body p-3">
-                                    <div class="row">
-                                        <h1 class="h3 mb-4 text-gray-800">Potensi Ekonomi<i class="fas fa-edit" style="float: right;" data-bs-toggle="modal" data-bs-target="#modal-form" id="btn-edit" data-id="<?= $dt['id']; ?>"></i></a></h1>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+
+
                 <div class="tab-pane fade" id="nav-powil" role="tabpanel" aria-labelledby="nav-powil-tab">
                     <div class="row">
                         <div class="col-lg-12 mb-lg-0 mb-4">
@@ -480,201 +454,302 @@ $data = $json[0];
                     <div class="modal-body p-0">
                         <div class="card card-plain">
                             <div class="card-header pb-0 text-left">
-                                <h4 class="font-weight-bolder text-warning text-gradient" id="judul_form">Edit Data</h4>
+                                <h4 class="font-weight-bolder text-warning text-gradient">Edit Data</h4>
                             </div>
                             <div class="card-body">
-
-                                <form method="POST" role="form text-left">
-                                    <div class="row">
+                                <form role="form text-left" action="<?= base_url('KelembagaanPenyuluhan/Kecamatan/Kecamatan/edit'); ?>" method="post" enctype="multipart/form-data">
+                                    <? csrf_field(); ?>
+                                    <div class=" row">
                                         <div class="col">
-                                            <label for="prov">Propinsi</label>
+                                            <input type="hidden" name="kode_prop" id="kode_prop" value="<?= $kode_prop; ?>">
+                                            <input type="hidden" name="satminkal" id="satminkal" value="<?= $kode_kab; ?>">
+                                            <input type="hidden" name="id" value="<?= $dt['id']; ?>">
+                                            <input type="hidden" name="fotolama" value="<?= $dt['foto']; ?>">
+                                            <label>Upload Foto BPP</label>
                                             <div class="input-group mb-3">
-                                                <input type="text" class="form-control" name="prov" value="" disabled>
+                                                <div class="col-lg-4">
+                                                    <img src="<?= base_url('/assets/img/' . $dt['foto']); ?>" class="img-thumbnail img-preview">
+                                                </div>
+                                                <input type="file" class="custom-file-input" id="foto" name="foto" onchange="previewImg()">
+                                                <label class="custom-file-label" for="foto"><?= $dt['foto']; ?></label>
                                             </div>
-                                            <label for="prov">Kabupaten</label>
+                                            <label>Bentuk Kelembagaan</label>
                                             <div class="input-group mb-3">
-                                                <input type="text" class="form-control" name="kab" value="" disabled>
-                                            </div>
-                                            <label for="kode_desa">Jenis Kelembagaan</label>
-                                            <div class="input-group mb-3">
-                                                <select name="nama_bapel" id="nama_bapel" class="form-control input-lg">
-                                                    <option value=""></option>
-                                                    <OPTION value="31">Badan<BR>
-                                                    <OPTION value="32">Dinas<BR>
+                                                <select class="form-select" name="bentuk_lembaga" id="bentuk_lembaga" aria-label="Default select example">
+                                                    <option selected value="<?= $dt['bentuk_lembaga']; ?>"><?php if ($dt['bentuk_lembaga'] == "20") {
+                                                                                                                echo "Balai Penyuluhan Pertanian";
+                                                                                                            } elseif ($dt['bentuk_lembaga'] == "40") {
+                                                                                                                echo "UPTD";
+                                                                                                            } ?></option>
+                                                    <option value="20">Balai Penyuluhan Pertanian</option>
+                                                    <option value="40">UPTD</option>
                                                 </select>
                                             </div>
+                                            <label>Nama Kelembagaan</label>
                                             <div class="input-group mb-3">
-                                                <label style="margin-top: 10px;">Nomenklatur :
-                                                    <input type="text" class="form-control" id="deskripsi_lembaga_lain" placeholder="" name="deskripsi_lembaga_lain">
-                                                    <label>Pilih Sesuai nomenklatur :</label>
-                                                    <div class="form-check">
-                                                        <input class="form-check-input" type="checkbox" id="jenis_pertanian" name="jenis_pertanian" value="1">
-                                                        <label class="form-check-label" for="flexCheckDefault">
-                                                            Pertanian
-                                                        </label>
-                                                    </div>
-                                                    <div class="form-check">
-                                                        <input class="form-check-input" type="checkbox" id="jenis_tp" name="jenis_tp" value="2">
-                                                        <label class="form-check-label" for="flexCheckDefault">
-                                                            Tanaman Pangan
-                                                        </label>
-                                                    </div>
-                                                    <div class="form-check">
-                                                        <input class="form-check-input" type="checkbox" id="jenis_hor" name="jenis_hor" value="3">
-                                                        <label class="form-check-label" for="flexCheckDefault">
-                                                            Hortikultura
-                                                        </label>
-                                                    </div>
-                                                    <div class="form-check">
-                                                        <input class="form-check-input" type="checkbox" id="jenis_bun" name="jenis_bun" value="4">
-                                                        <label class="form-check-label" for="flexCheckDefault">
-                                                            Perkebunan
-                                                        </label>
-                                                    </div>
-                                                    <div class="form-check">
-                                                        <input class="form-check-input" type="checkbox" id="jenis_nak" name="jenis_nak" value="5">
-                                                        <label class="form-check-label" for="flexCheckDefault">
-                                                            Peternakan
-                                                        </label>
-                                                    </div>
-                                                    <div class="form-check">
-                                                        <input class="form-check-input" type="checkbox" id="jenis_ketahanan_pangan" name="jenis_ketahanan_pangan" value="6">
-                                                        <label class="form-check-label" for="flexCheckDefault">
-                                                            Kesehatan Pangan
-                                                        </label>
-                                                    </div>
-                                                    <div class="form-check">
-                                                        <input class="form-check-input" type="checkbox" id="jenis_pkh" name="jenis_pkh" value="7">
-                                                        <label class="form-check-label" for="flexCheckDefault">
-                                                            Kesehatan Hewan
-                                                        </label>
-                                                    </div>
-                                                    <div class="form-check">
-                                                        <input class="form-check-input" type="checkbox" id="jenis_pangan" name="jenis_pangan" value="8">
-                                                        <label class="form-check-label" for="flexCheckDefault">
-                                                            Pangan
-                                                        </label>
-                                                    </div>
-                                                </label>
+                                                <input type="text" class="form-control" placeholder="Nama Kelembagaan" name="nama_bpp" id="nama_bpp" value="<?= $dt['nama_bpp']; ?>">
                                             </div>
-                                            <label for="alamat">Dasar Hukum Pembentukan</label>
-                                            <select name="dasar_hukum" id="dasar_hukum" class="form-control input-lg">
-                                                <option value=""></option>
-                                                <option value="Perda">Perda</option>
-                                            </select>
-                                            <label for="ketua">No Peraturan</label>
+                                            <label>Alamat Kantor</label>
                                             <div class="input-group mb-3">
-                                                <input type="text" class="form-control" id="no_peraturan" placeholder="Nomor Peraturan" name="no_peraturan">
+                                                <textarea class="form-control" placeholder="Alamat Kantor" id="alamat" name="alamat"><?= $dt['alamat']; ?></textarea>
+                                            </div>
+                                            <label>Kecamatan (lokasi BPP)</label>
+                                            <div class="input-group mb-3">
+                                                <select name="kecamatan" id="kecamatan" class="form-control input-lg">
+                                                    <option value="<?= $dt['kecamatan']; ?>">Kec. <?= $dt['deskripsi']; ?></option>
+                                                    <?php
+                                                    foreach ($kec as $row) {
+                                                        echo '<option value="' . $row["id_daerah"] . '">' . 'Kec. ' . $row["deskripsi"] . '</option>';
+                                                    }
+                                                    ?>
+                                                </select>
                                             </div>
                                             <label for="ketua">Tanggal Pembentukan</label>
                                             <div class="input-group mb-3">
                                                 <select id="day" name="tgl_berdiri" class="form-select tgl_berdiri" aria-label="Default select example">
-                                                    <option value=""></option>
+                                                    <option value="<?= $dt['tgl_berdiri']; ?>"><?= $dt['tgl_berdiri']; ?></option>
                                                 </select>
                                                 <select id="month" name="bln_berdiri" class="form-select bln_berdiri" aria-label="Default select example">
-                                                    <option value=""></option>
+                                                    <option value="<?= $dt['bln_berdiri']; ?>"><?php
+                                                                                                if ($dt['bln_berdiri'] == "1") {
+                                                                                                    echo "Januari";
+                                                                                                } elseif ($dt['bln_berdiri'] == "2") {
+                                                                                                    echo "Pebruari";
+                                                                                                } elseif ($dt['bln_berdiri'] == "3") {
+                                                                                                    echo "Maret";
+                                                                                                } elseif ($dt['bln_berdiri'] == "4") {
+                                                                                                    echo "April";
+                                                                                                } elseif ($dt['bln_berdiri'] == "5") {
+                                                                                                    echo "Mei";
+                                                                                                } elseif ($dt['bln_berdiri'] == "6") {
+                                                                                                    echo "Juni";
+                                                                                                } elseif ($dt['bln_berdiri'] == "7") {
+                                                                                                    echo "Juli";
+                                                                                                } elseif ($dt['bln_berdiri'] == "8") {
+                                                                                                    echo "Agustus";
+                                                                                                } elseif ($dt['bln_berdiri'] == "9") {
+                                                                                                    echo "September";
+                                                                                                } elseif ($dt['bln_berdiri'] == "10") {
+                                                                                                    echo "Oktober";
+                                                                                                } elseif ($dt['bln_berdiri'] == "11") {
+                                                                                                    echo "Nopember";
+                                                                                                } elseif ($dt['bln_berdiri'] == "12") {
+                                                                                                    echo "Desember";
+                                                                                                }
+                                                                                                ?></option>
                                                 </select>
                                                 <select id="year" name="thn_berdiri" class="form-select thn_berdiri" aria-label="Default select example">
-                                                    <option value=""></option>
+                                                    <option value="<?= $dt['thn_berdiri']; ?>"><?= $dt['thn_berdiri']; ?></option>
                                                 </select>
                                             </div>
-                                            <label for="bendahara">Nama Pimpinan</label>
+                                            <label>Status Gedung</label>
                                             <div class="input-group mb-3">
-                                                <input type="text" class="form-control" id="ketua" placeholder="Nama Pimpinan" name="ketua">
-                                                <label style="margin-top: 10px;">No.HP</label>
-                                                <input type="text" style="margin-left: 5px;" class="form-control" id="telp_hp" placeholder="No. HP" name="telp_hp">
+                                                <select class="form-select" name="status_gedung" id="status_gedung" aria-label="Default select example">
+                                                    <option selected value="<?= $dt['status_gedung']; ?>"><?= $dt['status_gedung']; ?></option>
+                                                    <option value="milik sendiri">Milik sendiri</option>
+                                                    <option value="sewa/pinjam">Sewa/Pinjam</option>
+                                                </select>
                                             </div>
-                                            <label> Nama Koordinator Penyuluh</label>
+                                        </div>
+                                        <div class="col">
+                                            <label>kondisi Bangunan</label>
+                                            <div class="input-group mb-3">
+                                                <select class="form-select" name="kondisi_bangunan" id="kondisi_bangunan" aria-label="Default select example">
+                                                    <option selected value="<?= $dt['kondisi_bangunan']; ?>"><?= $dt['kondisi_bangunan']; ?></option>
+                                                    <option value="baik">Baik</option>
+                                                    <option value="rusak">Rusak</option>
+                                                </select>
+                                            </div>
+                                            <label>GPS Point</label>
+                                            <div class="input-group mb-3">
+                                                <input type="text" class="form-control" name="koord_lu_ls" id="koord_lu_ls" value="<?= $dt['koord_lu_ls']; ?>">
+                                                <select class="form-select" name="lu_ls" id="lu_ls" aria-label="Default select example">
+                                                    <option selected value="<?= $dt['lu_ls']; ?>"><?= $dt['lu_ls']; ?></option>
+                                                    <option value="LU">LU</option>
+                                                    <option value="LS">LS</option>
+                                                </select>
+                                                <input type="text" class="form-control" name="koord_bt" id="koord_bt" value="<?= $dt['koord_bt']; ?>">
+                                                &nbsp; &nbsp;<label style="margin-top: 10px;">BT</label>&nbsp; &nbsp;
+                                            </div>
+                                            <label>No.Telepon/Fax</label>
+                                            <div class="input-group mb-3">
+                                                <input type="text" class="form-control" placeholder="No. Telepon" name="telp_bpp" id="telp_bpp" value="<?= $dt['telp_bpp']; ?>">
+                                            </div>
+                                            <label>Alamat Email</label>
+                                            <div class="input-group mb-3">
+                                                <input type="text" class="form-control" placeholder="Email" name="email" id="email" value="<?= $dt['email']; ?>">
+                                            </div>
+                                            <label>Alamat Website/Blog</label>
+                                            <div class="input-group mb-3">
+                                                <input type="text" class="form-control" placeholder="Website" name="website" id="website" value="<?= $dt['website']; ?>">
+                                            </div>
+                                            <label>Nama Pimpinan</label>
+                                            <div class="input-group mb-3">
+                                                <input type="text" class="form-control" placeholder="Nama" name="ketua" id="ketua" value="<?= $dt['ketua']; ?>">
+                                                &nbsp; &nbsp;<label style="margin-top: 10px;">No. HP</label>&nbsp; &nbsp;
+                                                <input type="text" class="form-control" name="telp_hp" id="telp_hp" placeholder="No. HP" value="<?= $dt['telp_hp']; ?>">
+                                            </div>
+                                            <label>Koordinator Penyuluh</label>
                                             <div class="input-group mb-3">
                                                 <div class="form-check form-check-inline">
-                                                    <input class="form-check-input" type="radio" name="jenis_penyuluh" id="inlineRadio1" value="1">
+                                                    <input class="form-check-input pen" type="radio" name="kode_koord_penyuluh" id="inlineRadio1" value="1" <?php echo ($dt["kode_koord_penyuluh"] == "1" ? 'checked="checked"' : '') ?>>
                                                     <label class="form-check-label" for="inlineRadio1">PNS</label>
                                                 </div>
                                                 <div class="form-check form-check-inline">
-                                                    <input class="form-check-input" type="radio" name="jenis_penyuluh" id="inlineRadio2" value="2">
+                                                    <input class="form-check-input pen" type="radio" name="kode_koord_penyuluh" id="inlineRadio2" value="2" <?php echo ($dt["kode_koord_penyuluh"] == "2" ? 'checked="checked"' : '') ?>>
                                                     <label class="form-check-label" for="inlineRadio2">THL</label>
                                                 </div>
                                                 <div class="form-check form-check-inline">
-                                                    <input class="form-check-input" type="radio" name="jenis_penyuluh" id="inlineRadio3" value="3">
+                                                    <input class="form-check-input pen" type="radio" name="kode_koord_penyuluh" id="inlineRadio3" value="3" <?php echo ($dt["kode_koord_penyuluh"] == "3" ? 'checked="checked"' : '') ?>>
                                                     <label class="form-check-label" for="inlineRadio2">Struktural</label>
                                                 </div><br>
                                             </div>
                                             <div class="input-group mb-3" id="divPNS">
                                                 <label style="margin-top: 10px;">PNS:</label>
                                                 <select name="nama_koord_penyuluh" id="nama_koord_penyuluh" class="form-control input-lg" style="margin-left: 15px;">
-
+                                                    <option value="">-</option>
+                                                    <?php
+                                                    foreach ($penyuluhPNS as $row) {
+                                                        echo '<option value="' . $row["nip"] . '">' . $row["nip"] . ' - ' . $row["nama"] . '</option>';
+                                                    }
+                                                    ?>
                                                 </select>
                                             </div>
                                             <div class="input-group mb-3" id="divTHL">
                                                 <label>THL:</label>
                                                 <select name="nama_koord_penyuluh_thl" id="nama_koord_penyuluh_thl" class="form-control input-lg" style="margin-left: 5px;">
-
+                                                    <option value="">-</option>
+                                                    <?php
+                                                    foreach ($penyuluhTHL as $row2) {
+                                                        echo '<option value="' . $row2["noktp"] . '">' . $row2["noktp"] . ' - ' . $row2["nama"] . '</option>';
+                                                    }
+                                                    ?>
                                                 </select>
                                             </div>
                                             <div class="input-group mb-3" id="divST">
                                                 <label style="margin-top: 10px;">NIP:</label>
-                                                <input type="text" class="form-control" style="margin-left: 10px;" id="koord_lainya_nip" placeholder="ketua" name="koord_lainya_nip">
+                                                <input type="text" class="form-control" style="margin-left: 10px;" id="koord_lainya_nip" placeholder="ketua" name="koord_lainya_nip" value="<?= $dt['koord_lainya_nip']; ?>">
                                                 <label style="margin-top: 10px;">Nama</label>
-                                                <input type="text" class="form-control" style="margin-left: 10px;" id="koord_lainya_nama" placeholder="ketua" name="koord_lainya_nama">
+                                                <input type="text" class="form-control" style="margin-left: 10px;" id="koord_lainya_nama" placeholder="ketua" name="koord_lainya_nama" value="<?= $dt['koord_lainya_nama']; ?>">
                                             </div>
                                         </div>
                                         <div class="col">
-                                            <label for="ketua">Bidang yang menangani fungsi penyuluhan</label>
+                                            <h5>Sarana & Prasarana</h5>
+                                            <label>Kendaraan Roda 4</label>
                                             <div class="input-group mb-3">
-                                                <input type="text" class="form-control" id="bidang_luh" placeholder="Bidang" name="bidang_luh">
+                                                <label style="margin-top: 10px;">APBN</label>
+                                                <input type="text" style="margin-left: 10px;" class="form-control" name="roda_4_apbn" id="roda_4_apbn" placeholder="" avalue="<?= $dt['roda_4_apbn']; ?>">
+                                                &nbsp; &nbsp;<label style="margin-top: 10px;">Unit</label>&nbsp; &nbsp;
+                                                <label style="margin-top: 10px;">APBD</label>
+                                                <input type="text" style="margin-left: 10px;" class="form-control" name="roda_4_apbd" id="roda_4_apbd" placeholder="" value="<?= $dt['roda_4_apbd']; ?>">
+                                                &nbsp; &nbsp;<label style="margin-top: 10px;">Unit</label>&nbsp; &nbsp;
                                             </div>
-                                            <label for="ketua">Nama kepala bidang</label>
+                                            <label>Kendaraan Roda 2</label>
                                             <div class="input-group mb-3">
-                                                <input type="text" class="form-control" id="nama_kabid" placeholder="Nama Kabid" name="nama_kabid">
-                                                <label style="margin-top: 10px;">No.HP</label>
-                                                <input type="text" style="margin-left: 5px;" class="form-control" id="hp_kabid" placeholder="No. HP" name="hp_kabid">
+                                                <label style="margin-top: 10px;">APBN</label>
+                                                <input type="text" style="margin-left: 10px;" class="form-control" name="roda_2_apbn" id="roda_2_apbn" placeholder="" value="<?= $dt['roda_2_apbn']; ?>">
+                                                &nbsp; &nbsp;<label style="margin-top: 10px;">Unit</label>&nbsp; &nbsp;
+                                                <label style="margin-top: 10px;">APBD</label>
+                                                <input type="text" style="margin-left: 10px;" class="form-control" name="roda_2_apbd" id="roda_2_apbd" placeholder="" value="<?= $dt['roda_2_apbd']; ?>">
+                                                &nbsp; &nbsp;<label style="margin-top: 10px;">Unit</label>&nbsp; &nbsp;
                                             </div>
-                                            <label for="ketua">Seksi yang menangani penyuluhan</label>
+                                            <label>Alat Pengolah Data (PC)</label>
                                             <div class="input-group mb-3">
-                                                <input type="text" class="form-control" id="seksi_luh" placeholder="Seksi" name="seksi_luh">
+                                                <label style="margin-top: 10px;">APBN</label>
+                                                <input type="text" style="margin-left: 10px;" class="form-control" name="pc_apbn" id="pc_apbn" placeholder="" value="<?= $dt['pc_apbn']; ?>">
+                                                &nbsp; &nbsp;<label style="margin-top: 10px;">Unit</label>&nbsp; &nbsp;
+                                                <label style="margin-top: 10px;">APBD</label>
+                                                <input type="text" style="margin-left: 10px;" class="form-control" name="pc_apbd" id="pc_apbd" placeholder="" value="<?= $dt['pc_apbd']; ?>">
+                                                &nbsp; &nbsp;<label style="margin-top: 10px;">Unit</label>&nbsp; &nbsp;
                                             </div>
-                                            <label for=" ketua">Nama kepala seksi</label>
+                                            <label>Alat Pengolah Data (Laptop)</label>
                                             <div class="input-group mb-3">
-                                                <input type="text" class="form-control" id="nama_kasie" name="nama_kasie" placeholder="Nama Kepala Seksi">
-                                                <label style="margin-top: 10px;">No.HP</label>
-                                                <input type="text" style="margin-left: 5px;" class="form-control" id="hp_kasie" name="hp_kasie" placeholder="No. HP">
+                                                <label style="margin-top: 10px;">APBN</label>
+                                                <input type="text" style="margin-left: 10px;" class="form-control" name="laptop_apbn" id="laptop_apbn" placeholder="" value="<?= $dt['laptop_apbn']; ?>">
+                                                &nbsp; &nbsp;<label style="margin-top: 10px;">Unit</label>&nbsp; &nbsp;
+                                                <label style="margin-top: 10px;">APBD</label>
+                                                <input type="text" style="margin-left: 10px;" class="form-control" name="laptop_apbd" id="laptop_apbd" placeholder="" value="<?= $dt['laptop_apbd']; ?>">
+                                                &nbsp; &nbsp;<label style="margin-top: 10px;">Unit</label>&nbsp; &nbsp;
                                             </div>
-                                            <label for="ketua">UPTD yang menangani fungsi penyuluhan</label>
+                                            <label>Alat Pengolah Data (Printer)</label>
                                             <div class="input-group mb-3">
-                                                <input type="text" class="form-control" id="uptd_luh" placeholder="ketua" name="uptd_luh">
+                                                <label style="margin-top: 10px;">APBN</label>
+                                                <input type="text" style="margin-left: 10px;" class="form-control" name="printer_apbn" id="printer_apbn" placeholder="" value="<?= $dt['printer_apbn']; ?>">
+                                                &nbsp; &nbsp;<label style="margin-top: 10px;">Unit</label>&nbsp; &nbsp;
+                                                <label style="margin-top: 10px;">APBD</label>
+                                                <input type="text" style="margin-left: 10px;" class="form-control" name="printer_apbd" id="printer_apbd" placeholder="" value="<?= $dt['printer_apbd']; ?>">
+                                                &nbsp; &nbsp;<label style="margin-top: 10px;">Unit</label>&nbsp; &nbsp;
                                             </div>
-                                            <label for="ketua">Nama kepala UPTD</label>
+                                            <label>Alat Pengolah Data (Modem)</label>
                                             <div class="input-group mb-3">
-                                                <input type="text" class="form-control" id="nama_kauptd" name="nama_kauptd" placeholder="Nama Kepala UPTD">
-                                                <label style="margin-top: 10px;">No.HP</label>
-                                                <input type="text" style="margin-left: 5px;" class="form-control" id="hp_kauptd" name="hp_kauptd" placeholder="No. HP">
+                                                <label style="margin-top: 10px;">APBN</label>
+                                                <input type="text" style="margin-left: 10px;" class="form-control" name="modem_apbn" id="modem_apbn" placeholder="" value="<?= $dt['modem_apbn']; ?>">
+                                                &nbsp; &nbsp;<label style="margin-top: 10px;">Unit</label>&nbsp; &nbsp;
+                                                <label style="margin-top: 10px;">APBD</label>
+                                                <input type="text" style="margin-left: 10px;" class="form-control" name="modem_apbd" id="modem_apbd" placeholder="" value="<?= $dt['modem_apbd']; ?>">
+                                                &nbsp; &nbsp;<label style="margin-top: 10px;">Unit</label>&nbsp; &nbsp;
                                             </div>
-                                            <label for="alamat">Alamat Kantor</label>
+                                            <label>LCD Proyektor</label>
                                             <div class="input-group mb-3">
-                                                <textarea type="text" class="form-control" id="alamat" placeholder="alamat" name="alamat"></textarea>
+                                                <label style="margin-top: 10px;">APBN</label>
+                                                <input type="text" style="margin-left: 10px;" class="form-control" name="lcd_apbn" id="lcd_apbn" placeholder="" value="<?= $dt['lcd_apbn']; ?>">
+                                                &nbsp; &nbsp;<label style="margin-top: 10px;">Unit</label>&nbsp; &nbsp;
+                                                <label style="margin-top: 10px;">APBD</label>
+                                                <input type="text" style="margin-left: 10px;" class="form-control" name="lcd_apbd" id="lcd_apbd" placeholder="" value="<?= $dt['lcd_apbd']; ?>">
+                                                &nbsp; &nbsp;<label style="margin-top: 10px;">Unit</label>&nbsp; &nbsp;
                                             </div>
+                                            <label>Soil Tester</label>
                                             <div class="input-group mb-3">
-                                                <label for="jum_anggota">Titik koordinat (GPS POint)
-                                                    <input type="text" class="form-control" id="koord" name="koord"><br>
-                                                    <label>Format titik koordinat adalah Decimal Degree, contoh : -6.2924034,106.820540</label>
-                                                </label>
+                                                <label style="margin-top: 10px;">APBN</label>
+                                                <input type="text" style="margin-left: 10px;" class="form-control" name="soil_apbn" id="soil_apbn" placeholder="" value="<?= $dt['soil_apbn']; ?>">
+                                                &nbsp; &nbsp;<label style="margin-top: 10px;">Unit</label>&nbsp; &nbsp;
+                                                <label style="margin-top: 10px;">APBD</label>
+                                                <input type="text" style="margin-left: 10px;" class="form-control" name="soil_apbd" id="soil_apbd" placeholder="" value="<?= $dt['soil_apbd']; ?>">
+                                                &nbsp; &nbsp;<label style="margin-top: 10px;">Unit</label>&nbsp; &nbsp;
                                             </div>
-                                            <label for="ketua">No.Telepon/Fax</label>
+                                        </div>
+                                        <div class="col">
+                                            <h5>Potensi Ekonomi</h5>
+                                            <label>Kios saprotan</label>
                                             <div class="input-group mb-3">
-                                                <input type="text" class="form-control" id="telp_kantor" placeholder="No Telp Kantor" name="telp_kantor">
+                                                <input type="text" style="margin-left: 10px;" class="form-control" name="kios_saprotan" id="kios_saprotan" placeholder="" value="<?= $dt['kios_saprotan']; ?>">
+                                                &nbsp; &nbsp;<label style="margin-top: 10px;">Unit</label>&nbsp; &nbsp;
                                             </div>
-                                            <label for="ketua">Alamat Email</label>
+                                            <label>Pedagang pengepul</label>
                                             <div class="input-group mb-3">
-                                                <input type="text" class="form-control" id="email" placeholder="email" name="email">
+                                                <input type="text" style="margin-left: 10px;" class="form-control" name="pedagang_pengepul" id="pedagang_pengepul" placeholder="" value="<?= $dt['pedagang_pengepul']; ?>">
+                                                &nbsp; &nbsp;<label style="margin-top: 10px;">Unit</label>&nbsp; &nbsp;
                                             </div>
-                                            <label for="ketua">Alamat Website/Blog</label>
+                                            <label>Gudang pangan</label>
                                             <div class="input-group mb-3">
-                                                <input type="text" class="form-control" id="website" placeholder="Alamat website" name="website">
+                                                <input type="text" style="margin-left: 10px;" class="form-control" name="gudang_pangan" id="gudang_pangan" placeholder="" value="<?= $dt['gudang_pangan']; ?>">
+                                                &nbsp; &nbsp;<label style="margin-top: 10px;">Unit</label>&nbsp; &nbsp;
+                                            </div>
+                                            <label>Perbankan</label>
+                                            <div class="input-group mb-3">
+                                                <input type="text" style="margin-left: 10px;" class="form-control" name="perbankan" id="perbankan" placeholder="" value="<?= $dt['perbankan']; ?>">
+                                                &nbsp; &nbsp;<label style="margin-top: 10px;">Unit</label>&nbsp; &nbsp;
+                                            </div>
+                                            <label>Industri Pertanian</label>
+                                            <div class="input-group mb-3">
+                                                <input type="text" style="margin-left: 10px;" class="form-control" name="industri_penyuluhan" id="industri_penyuluhan" placeholder="" value="<?= $dt['industri_penyuluhan']; ?>">
+                                                &nbsp; &nbsp;<label style="margin-top: 10px;">Unit</label>&nbsp; &nbsp;
+                                            </div>
+                                            <h5>Lahan Percontohan</h5>
+                                            <label>Di BPP</label>
+                                            <div class="input-group mb-3">
+                                                <input type="text" style="margin-left: 10px;" class="form-control" name="luas_lahan_bp3k" id="luas_lahan_bp3k" placeholder="" value="<?= $dt['luas_lahan_bp3k']; ?>">
+                                                &nbsp; &nbsp;<label style="margin-top: 10px;">Ha</label>&nbsp; &nbsp;
+                                            </div>
+                                            <label>Di Petani</label>
+                                            <div class="input-group mb-3">
+                                                <input type="text" style="margin-left: 10px;" class="form-control" name="luas_lahan_petani" id="luas_lahan_petani" placeholder="" value="<?= $dt['luas_lahan_petani']; ?>">
+                                                &nbsp; &nbsp;<label style="margin-top: 10px;">Ha</label>&nbsp; &nbsp;
                                             </div>
                                         </div>
                                         <div class="modal-footer">
                                             <button type="button" class="btn bg-gradient-secondary" data-bs-dismiss="modal">Close</button>
-                                            <button type="button" id="btnSave" class="btn bg-gradient-primary">Simpan Data</button>
+                                            <button type="submit" id="btnSave" class="btn bg-gradient-primary">Simpan Data</button>
                                         </div>
                                     </div>
                                 </form>

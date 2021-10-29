@@ -83,6 +83,8 @@ $routes->get('/desakec', 'KelembagaanPenyuluhan/Desa/DesaKec::Desa');
 $routes->get('/daftar_posluhdes_kec', 'KelembagaanPenyuluhan/Desa/DesaKec::listdesa');
 //$routes->get('/add_pos', 'KelembagaanPenyuluhan/Desa/Desa::add_pos');
 $routes->delete('/daftar_posluhdes/(:num)', 'KelembagaanPenyuluhan/Desa/Desa::delete/$1');
+$routes->delete('/kecamatan/(:num)', 'KelembagaanPenyuluhan/Kecamatan/Kecamatan::delete/$1');
+
 /*
  * --------------------------------------------------------------------
  * Additional Routing

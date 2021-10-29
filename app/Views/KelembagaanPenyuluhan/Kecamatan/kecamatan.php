@@ -10,6 +10,15 @@
 </center>
 <a href="#"><button type="button" data-bs-toggle="modal" data-bs-target="#modal-form" class="btn-kec bg-gradient-primary">+ Tambah Data</button></a>
 <div class="card">
+    <?php
+    if ($validation->hasError('foto')) {
+
+    ?>
+        <div class="alert alert-danger" role="alert">
+            <?= $validation->listErrors(); ?>
+        </div>
+
+    <?php } ?>
     <div class="table-responsive">
         <table class="table align-items-center mb-0">
             <thead>
@@ -76,7 +85,7 @@
                         </td>
                         <td class="align-middle text-center text-sm">
                             <button type="button" class="btn bg-gradient-danger btn-sm">
-                                <i class="fas fa-trash"></i> Hapus
+                                <i class="fas fa-trash"><a href="<?= base_url('KelembagaanPenyuluhan/Kecamatan/Kecamatan/delete/' . $row['id']) ?>" onclick="return confirm('apakah anda ingin menghapus data ini?')"></i> Hapus</a>
                             </button>
                             </a>
                         </td>
@@ -95,7 +104,7 @@
                                         <h4 class="font-weight-bolder text-warning text-gradient">Tambah Data</h4>
                                     </div>
                                     <div class="card-body">
-                                        <form role="form text-left" action="<?= base_url('KelembagaanPenyuluhan/Kecamatan/Kecamatan/save'); ?>">
+                                        <form role="form text-left" action="<?= base_url('KelembagaanPenyuluhan/Kecamatan/Kecamatan/save'); ?>" method="post" enctype="multipart/form-data">
                                             <? csrf_field(); ?>
                                             <div class=" row">
                                                 <div class="col">
@@ -106,8 +115,10 @@
                                                         <div class="col-lg-4">
                                                             <img src="/assets/img/logo.png" class="img-thumbnail img-preview">
                                                         </div>
-                                                        <input type="file" class="form-control-file" id="foto" name="foto" onchange="previewImg()">
-                                                        <label class="custom-file-label" for="foto">Tipe file yang diizinkan diupload adalah .JPEG</label>
+                                                        <div class="custom-file">
+                                                            <input type="file" class="custom-file-input" id="foto" name="foto" onchange="previewImg()">
+                                                            <label class="custom-file-label" for="foto">Tipe file yang diizinkan diupload adalah .JPEG</label>
+                                                        </div>
                                                     </div>
                                                     <label>Bentuk Kelembagaan</label>
                                                     <div class="input-group mb-3">
