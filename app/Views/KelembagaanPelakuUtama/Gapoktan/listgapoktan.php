@@ -3,6 +3,17 @@
 <?= $this->section('content') ?>
 
 
+<?php
+if (empty(session()->get('status_user')) || session()->get('status_user') == '2') {
+    $kode = '00';
+} elseif (session()->get('status_user') == '1') {
+    $kode = session()->get('kodebakor');
+} elseif (session()->get('status_user') == '200') {
+    $kode = session()->get('kodebapel');
+} elseif (session()->get('status_user') == '300') {
+    $kode = session()->get('kodebpp');
+}
+?>
 <center><h4> Daftar Gapoktan di Kecamatan <?= ucwords(strtolower($nama_kecamatan)) ?> </h4></center>
 <center><h4>Data ditemukan <?= ucwords(strtolower($jum)) ?> </h2></center>
 <button type="button" data-bs-toggle="modal" data-bs-target="#modal-form" class="btn bg-gradient-primary btn-sm ">+ Tambah Data</button>
@@ -82,7 +93,7 @@
                                     <div class="row">
                                         <div class="col-5" mt-5>
                                             <label>Kecamatan</label>
-                                            <div class="input-group mb-5">
+                                            <div class="input-group mb-3">
                                             <input type="text" class="form-control" id="deskripsi" name="deskripsi" placeholder="Kecamatan" value="<?= $nama_kecamatan; ?>" disabled>
                                             </div>
                                             <label>Desa</label>
@@ -130,8 +141,8 @@
                                                    
                                                 </select>
                                             </div>
-                                            <input type="hidden" class="form-control" id="kode_kec" name="kode_kec" value="<?= $row['id_daerah'] ?>">
-                                            <input type="hidden" id="kode_kab" name="kode_kab" value="<?= $row['id_dati2']; ?>">
+                                            <input type="hidden" name="kode_kab" id="kode_kab" value="<?= $kode; ?>">
+                                            <input type="hidden" name="kode_kec" id="kode_kec" value="<?= $kode_kec; ?>">
                                                 <input type="hidden" class="form-control" id="id_gap" name="id_gap" value="<?= $row['id_gap'] ?>" >
                                              
                                                     <div class="text-center">
@@ -171,6 +182,7 @@
 
         $(document).delegate('#btnSave', 'click', function() {
 
+            var kode_prop = $('#kode_prop').val();
             var kode_kec = $('#kode_kec').val();
             var kode_kab = $('#kode_kab').val();
             var kode_desa = $('#kode_desa').val();
@@ -185,6 +197,7 @@
                 url: '<?= base_url() ?>/KelembagaanPelakuUtama/Gapoktan/ListGapoktan/save/',
                 type: 'POST',
                 data: {
+                    'kode_prop': kode_prop,
                     'kode_kec': kode_kec,
                     'kode_kab': kode_kab,
                     'kode_desa': kode_desa,
@@ -289,6 +302,7 @@
 
                     $('#id_gap').val(result.id_gap);
                     $('#kode_kec').val(result.kode_kec);
+                    $('#kode_prop').val(result.kode_prop);
                     $('#kode_desa').val(result.kode_desa);
                     $('#kode_kab').val(result.kode_kab);
                     $('#nama_gapoktan').val(result.nama_gapoktan);
@@ -307,6 +321,7 @@
                      
 
                         var id_gap = $('#id_gap').val();
+                        var kode_prop = $('#kode_prop').val();
                         var kode_kec = $('#kode_kec').val();
                         var kode_kab = $('#kode_kab').val();
                         var kode_desa = $('#kode_desa').val();
@@ -320,6 +335,7 @@
 
                         let formData = new FormData();
                         formData.append('id_gap', id_gap);
+                        formData.append('kode_prop', kode_prop);
                         formData.append('kode_kec', kode_kec);
                         formData.append('kode_kab', kode_kab);
                         formData.append('kode_desa', kode_desa);

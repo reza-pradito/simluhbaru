@@ -22,12 +22,11 @@ class ListKEP extends BaseController
         if (session()->get('username') == "") {
             return redirect()->to('login');
         }
-       
+        $get_param = $this->request->getGet();
+        $kode_kec = $get_param['kode_kec'];
         $listkep_model = new ListKEPModel();
-        $desadata = new ListKEPModel();
-        $listkep_data = $listkep_model->getListKEPTotal(session()->get('kodebpp'));
-        $desa = $desadata->getDesa(session()->get('kodebpp'));
-
+        $desa = new ListKEPModel();
+        $listkep_data = $listkep_model->getListKEPTotal($kode_kec);
 
         $data = [
 
@@ -50,14 +49,15 @@ class ListKEP extends BaseController
                 'jenis_kep' => $this->request->getPost('jenis_kep'),
                 'nama_kep' => $this->request->getPost('nama_kep'),
                 'alamat' => $this->request->getPost('alamat'),
-                'no_telp' => $this->request->getPost('no_telp'),
+                'no_telp' => $this->request->getPost('no_telp'), 
+                 'nama_direktur' => $this->request->getPost('nama_direktur'),
                 'email' => $this->request->getPost('email'),
                 'tahun_bentuk' => $this->request->getPost('tahun_bentuk'),
                 'badan_hukum' => $this->request->getPost('badan_hukum'),
                 'jum_anggota' => $this->request->getPost('jum_anggota'),
                 'jum_poktan' => $this->request->getPost('jum_poktan'),
                 'jum_gapoktan' => $this->request->getPost('jum_gapoktan'),
-                'nama_direktur' => $this->request->getPost('nama_direktur'),
+              
 
             ]);
             if($res == false){

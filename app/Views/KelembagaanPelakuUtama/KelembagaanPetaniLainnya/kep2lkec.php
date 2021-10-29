@@ -26,7 +26,7 @@
                         <p class="text-xs font-weight-bold mb-0"><?= $i++ ?></p>
                     </td>
                     <td class="align-middle text-center text-sm">
-                    <a href="<?= base_url('/listkep?kode_kec=' . $row['id_daerah']) ?>">
+                    <a href="<?= base_url('/listkep2l?kode_kec=' . $row['id_daerah']) ?>">
                         <p class="text-xs font-weight-bold mb-0"><?= $row['deskripsi'] ?></p>
                     </td></a>
                     <td class="align-middle text-center text-sm">

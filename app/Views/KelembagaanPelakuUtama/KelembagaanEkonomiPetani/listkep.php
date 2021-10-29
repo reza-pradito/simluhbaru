@@ -1,9 +1,17 @@
 <?= $this->extend('layout/main_template') ?>
 
 <?= $this->section('content') ?>
-
-<?php $seskab = session()->get('kodebapel'); ?>
-<?php $seskec = session()->get('kodebpp'); ?>
+<?php
+if (empty(session()->get('status_user')) || session()->get('status_user') == '2') {
+    $kode = '00';
+} elseif (session()->get('status_user') == '1') {
+    $kode = session()->get('kodebakor');
+} elseif (session()->get('status_user') == '200') {
+    $kode = session()->get('kodebapel');
+} elseif (session()->get('status_user') == '300') {
+    $kode = session()->get('kodebpp');
+}
+?>
 <center><h2> Daftar Kelembagaan Ekonomi Petani di Kecamatan <?= ucwords(strtolower($nama_kecamatan)) ?> </h2></center>
 
 
@@ -165,8 +173,8 @@
                                                 <div class="input-group mb-3">
                                                      <input type="text" class="form-control" id="jum_gapoktan" name="jum_gapoktan" placeholder="Jumlah Gapoktan" aria-label="Password" aria-describedby="password-addon">
                                                 </div>
-                                            <input type="hidden" id="kode_kec" name="kode_kec" value="<?= $seskec; ?>" >
-                                                <input type="hidden" id="kode_kab" name="kode_kab" value="<?= $seskab; ?>">
+                                                <input type="hidden" name="kode_kab" id="kode_kab" value="<?= $kode; ?>">
+                                            <input type="hidden" name="kode_kec" id="kode_kec" value="<?= $kode_kec; ?>">
                                                 
                                                 <input type="hidden" id="id_kep" name="id_kep" >
                                                     <div class="text-center">
@@ -210,14 +218,16 @@
             var nama_kep = $('#nama_kep').val();
             var jenis_kep = $('#jenis_kep').val();
             var alamat = $('#alamat').val();
-            var tahun_bentuk = $('#year').val();
-            var email = $('#email').val();
             var no_telp = $('#no_telp').val();
+            var email = $('#email').val(); 
+            var nama_direktur = $('#nama_direktur').val();
+            var tahun_bentuk = $('#year').val();
+            var badan_hukum = $('#badan_hukum').val();
             var jum_anggota = $('#jum_anggota').val();
             var jum_poktan = $('#jum_poktan').val();
             var jum_gapoktan = $('#jum_gapoktan').val();
-            var nama_direktur = $('#nama_direktur').val();
-            var badan_hukum = $('#badan_hukum').val();
+           
+           
 
             $.ajax({
                 url: '<?= base_url() ?>/KelembagaanPelakuUtama/KelembagaanEkonomiPetani/ListKEP/save/',
@@ -228,6 +238,7 @@
                     'kode_desa': kode_desa,
                     'nama_kep': nama_kep,
                     'jenis_kep': jenis_kep,
+                    'alamat': alamat,
                     'no_telp': no_telp,
                     'email': email,
                     'nama_direktur': nama_direktur,
@@ -236,7 +247,7 @@
                     'jum_anggota': jum_anggota,
                     'jum_poktan': jum_poktan,
                     'jum_gapoktan': jum_gapoktan,
-                    'alamat': alamat,
+                    
                     
                 },
                 success: function(result) {
@@ -326,7 +337,7 @@
                     $('#year').val(result.tahun_bentuk);
                     $('#no_telp').val(result.no_telp);
                     $('#email').val(result.email);
-                    $('#nama_direktur').val(result.no_telp);
+                    $('#nama_direktur').val(result.nama_direktur);
                     $('#jum_anggota').val(result.jum_anggota);
                     $('#badan_hukum').val(result.badan_hukum);
                     $('#jum_poktan').val(result.jum_poktan);

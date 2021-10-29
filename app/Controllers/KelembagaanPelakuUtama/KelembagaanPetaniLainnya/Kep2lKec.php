@@ -20,7 +20,7 @@ class Kep2lKec extends BaseController
             'name' => 'Gapoktan Kecamatan' 
         ];
 
-        return view('KelembagaanPelakuUtama/KelembagaanPetaniLainnya/listkep2l', $data);
+        return view('KelembagaanPelakuUtama/KelembagaanPetaniLainnya/kep2lkec', $data);
     }
   
     
