@@ -4,7 +4,6 @@ namespace App\Controllers\KelembagaanPelakuUtama\Gapoktan;
 
 use App\Controllers\BaseController;
 use App\Models\KelembagaanPelakuUtama\Gapoktan\ListGapoktanModel;
-use App\Models\KodeWilayah\KodeWilModel;
 
 class ListGapoktan extends BaseController
 {

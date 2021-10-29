@@ -3,6 +3,17 @@
 <?= $this->section('content') ?>
 
 
+<?php
+if (empty(session()->get('status_user')) || session()->get('status_user') == '2') {
+    $kode = '00';
+} elseif (session()->get('status_user') == '1') {
+    $kode = session()->get('kodebakor');
+} elseif (session()->get('status_user') == '200') {
+    $kode = session()->get('kodebapel');
+} elseif (session()->get('status_user') == '300') {
+    $kode = session()->get('kodebpp');
+}
+?>
 <center><h2> Daftar Kelompok di Tani Kecamatan <?= ucwords(strtolower($nama_kecamatan)) ?> </h2></center>
 
 <center><h4>Data ditemukan <?= ucwords(strtolower($jum)) ?> </h2></center>
@@ -135,9 +146,10 @@
                                                     <option value="2">Tidak aktif</option>
                                                     <option value="3">Bergabung Dengan Kelompok Lain</option>
                                                 </select>
-                                            </div>
-                                            <input type="hidden" id="kode_kec" name="kode_kec" value="<?= $row['id_daerah'] ?>" >
-                                                <input type="hidden" id="kode_kab" name="kode_kab" value="<?= $row['id_dati2'] ?>">
+                                            </div>  
+                                            <input type="hidden" name="kode_kab" id="kode_kab" value="<?= $kode; ?>">
+                                            <input type="hidden" name="kode_prop" id="kode_prop" value="<?= $kode_prop; ?>">
+                                            <input type="hidden" name="kode_kec" id="kode_kec" value="<?= $kode_kec; ?>">
                                                 <input type="hidden" id="id_poktan" name="id_poktan" >
                                                
                                                     <div class="text-center">

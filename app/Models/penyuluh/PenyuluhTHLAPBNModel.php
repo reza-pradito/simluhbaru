@@ -35,7 +35,7 @@ class PenyuluhTHLAPBNModel extends Model
     // protected $validationMessages = [];
     // protected $skipValidation     = false;
 
-    public function getDetailPenyuluhTHLAPBNByNIK($nik)
+    public function getDetailPenyuluhTHLAPBNByNIK($no_peserta)
     {
         $query = $this->db->query("select *, a.no_peserta, a.nama, a.tgl_update, a.agama, d.nm_desa as wil_kerja, e.nm_desa as wil_kerja2,
         f.nm_desa as wil_kerja3, g.nm_desa as wil_kerja4, h.nm_desa as wil_kerja5, u.nm_desa as wil_kerja6, v.nm_desa as wil_kerja7,
@@ -76,7 +76,7 @@ class PenyuluhTHLAPBNModel extends Model
                                         left join tblbpp k on a.penyuluh_di='kecamatan' and a.unit_kerja=k.id
                                         left join tbldaerah j on a.kecamatan_tugas=j.id_daerah
                                         left join tblsekolah sk on a.tingkat_pendidikan=sk.urut
-        WHERE no_peserta = '$nik'");
+        WHERE no_peserta = '$no_peserta'");
         $row   = $query->getRowArray();
         return $row;
     }

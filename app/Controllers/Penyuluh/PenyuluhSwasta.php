@@ -19,9 +19,7 @@ class PenyuluhSwasta extends BaseController
     public function penyuluhswasta()
     {
 
-        // $get_param = $this->request->getGet();
-
-        // $kode_kab = $get_param['kode_kab'];
+      
         if (session()->get('username') == "") {
             return redirect()->to('login');
         }
@@ -52,8 +50,6 @@ class PenyuluhSwasta extends BaseController
                 'noktp' => $this->request->getPost('noktp'),
                 'nama' => $this->request->getPost('nama'),
                 'tgl_lahir' => $this->request->getPost('tgl_lahir'),
-                'bln_lahir' => $this->request->getPost('bln_lahir'),
-                'thn_lahir' => $this->request->getPost('thn_lahir'),
                 'tempat_lahir' => $this->request->getPost('tempat_lahir'),
                 'jenis_kelamin' => $this->request->getPost('jenis_kelamin'),
                 'satminkal' => $this->request->getPost('satminkal'),
@@ -91,6 +87,7 @@ class PenyuluhSwasta extends BaseController
             return json_encode($data);
         }
     }
+    
 
     public function delete($id)
     {

@@ -18,21 +18,11 @@ $result = file_get_contents($api, false);
 $json = json_decode($result, true);
 $data = $json[0];
 ?>
-
-
 <div class="container-fluid py-4">
     <div class="row">
         <!-- Page Heading -->
         <div class="row mt-3 mb-4">
-            <?php
-            if ($validation->hasError('foto')) {
 
-            ?>
-                <div class="alert alert-danger" role="alert">
-                    <?= $validation->listErrors(); ?>
-                </div>
-
-            <?php } ?>
             <div class="col-xl-3 col-sm-6 mb-xl-0 mb-4">
                 <div class="card">
                     <div class="card-body p-3">
@@ -165,7 +155,7 @@ $data = $json[0];
                         <div class="row">
                             <div class="col-8">
                                 <div class="numbers">
-                                    <p class="text-sm mb-0 text-capitalize font-weight-bold">Jumlah Penyuluh Swatahuna</p>
+                                    <p class="text-sm mb-0 text-capitalize font-weight-bold">Jumlah Penyuluh Swadaya</p>
                                     <h5 class="font-weight-bolder mb-0">
                                         <?= number_format($data['jumpenyuluhswadaya']); ?>
                                     </h5>
@@ -224,8 +214,8 @@ $data = $json[0];
                             <div class="card">
                                 <div class="card-body p-3">
                                     <div class="row">
-                                        <h1 class="h3 mb-4 text-gray-800"><?= $title; ?><i class="fas fa-edit" style="float: right;" data-bs-toggle="modal" data-bs-target="#modal-form" id="btn-edit" data-id_gapoktan="<?= $dt['id_gapoktan']; ?>"></i></a></h1>
-                                        <div class="col-lg-12">
+
+                                        <h1 class="h3 mb-4 text-gray-800"><?= $title; ?> <a href="/editbapel"><i class="fas fa-edit" style="float: right;"></i></a></h1>
 
 
                                             <table class="table">
@@ -295,6 +285,17 @@ $data = $json[0];
 
                                             </table>
 
+                                        <h1 class="h3 mb-4 text-gray-800"><?= $title; ?><i class="fas fa-edit" style="float: right;" data-bs-toggle="modal" data-bs-target="#modal-form" id="btn-edit" data-id_gapoktan="<?php
+                                                                                                                                                                                                                            if (session()->get('status_user') == '200') {
+                                                                                                                                                                                                                                echo $dt['id_gapoktan'];
+                                                                                                                                                                                                                            } elseif (session()->get('status_user') == '300') {
+                                                                                                                                                                                                                                echo $dt['id'];
+                                                                                                                                                                                                                            }
+
+
+                                                                                                                                                                                                                            ?>"></i></a></h1>
+
+                                        <div class="col-lg-12">
                                             <?php if (session()->get('status_user') == '1') { ?>
                                                 <table class="table">
 
@@ -472,7 +473,6 @@ $data = $json[0];
                                                     </tbody>
                                                 </table>
                                             <?php } ?>
-
                                         </div>
 
                                     </div>
@@ -483,14 +483,19 @@ $data = $json[0];
                         <div class="col-lg-3 mb-lg-0 mb-4 text-center">
                             <div class="card">
                                 <div class="card-body p-3 ">
-                                    <img src="<?= base_url('assets/img/logo.png'); ?>" width="150px" class="img-thumbnail" alt="profil">
+
+                                    <img src="<?php if ($fotoprofil == '') {
+                                                    echo base_url('assets/img/logo.png');
+                                                } else {
+                                                    echo base_url('assets/img/' . $fotoprofil);
+                                                }  ?>" width="150px" class="img-thumbnail" alt="profil">
 
                                 </div>
                                 <!-- <a href="<?= base_url('profil/lembaga/editfoto') ?>" class="btn btn-primary btn-lg w-100 btn-sm">Upload</a> -->
-                                <button type="button" class="btn btn-primary btn-lg w-100 btn-sm" id="uploadbtn">Upload</button>
+                                <button type="button" class="btn btn-primary btn-lg w-100 btn-sm" id="uploadbtn">Change Picture</button>
+
                             </div>
                         </div>
-
 
                     </div>
                 </div>
@@ -542,49 +547,8 @@ $data = $json[0];
                             <div class="card">
                                 <div class="card-body p-3">
                                     <div class="row">
-                                        <h1 class="h3 mb-4 text-gray-800">Kegiatan yang dilakukan <i class="fas fa-edit" style="float: right;" data-bs-toggle="modal" data-bs-target="#modal-fk" id="btn-add-fas"></i></h1>
+                                        <h1 class="h3 mb-4 text-gray-800">Kegiatan yang dilakukan <a href="/editkegiatan"><i class="fas fa-edit" style="float: right;"></i></a></h1>
                                         <div class="col-lg-12">
-
-
-                                            <table class="table align-items-center mb-0">
-                                                <thead>
-                                                    <tr>
-                                                        <td width="5" class="text-uppercase text-secondary text-xxs font-weight-bolder">Tahun</td>
-                                                        <td width="100" class="text-uppercase text-secondary text-xxs font-weight-bolder">Fasilitasi</td>
-                                                        <td width="100" class="text-uppercase text-secondary text-xxs font-weight-bolder">Nama Kegiatan</td>
-                                                        <td width="100" class="text-secondary opacity-7"></td>
-                                                    </tr>
-                                                </thead>
-                                                <tbody>
-                                                    <?php
-                                                    foreach ($fasdata as $row => $value) {
-                                                    ?>
-                                                        <tr>
-                                                            <td width="50">
-                                                                <p class="text-xs font-weight-bold mb-0"><?= $value['tahun'] ?></p>
-                                                            </td>
-                                                            <td class="align-middle text-sm">
-                                                                <p class="text-xs font-weight-bold mb-0"><?= $value['nama_fasilitasi'] ?></p>
-                                                            </td>
-                                                            <td class="align-middle text-sm">
-                                                                <p class="text-xs font-weight-bold mb-0"><?= $value['kegiatan'] ?></p>
-                                                            </td>
-                                                            <td class="align-middle text-center text-sm">
-                                                                <a href="#">
-                                                                    <button type="button" id="btn-edit-fas" data-bs-toggle="modal" data-bs-target="#modal-fk" class="btn bg-gradient-warning btn-sm" data-id="<?= $value['id'] ?>">
-                                                                        <i class="fas fa-edit"></i> Ubah
-                                                                    </button>
-                                                                </a>
-                                                                <button type="button" id="btn-hapus" data-id="<?= $value['id'] ?>" class="btn bg-gradient-danger btn-sm">
-                                                                    <i class="fas fa-trash"></i> Hapus
-                                                                </button>
-                                                            </td>
-                                                        </tr>
-                                                    <?php
-                                                    }
-                                                    ?>
-                                                </tbody>
-                                            </table>
 
                                         </div>
 
@@ -651,9 +615,8 @@ $data = $json[0];
             </div>
 
         </div>
-    </div>
 
-</div>
+
 
 
 <?php
@@ -790,7 +753,11 @@ foreach ($tabel_data as $row => $item)
                                         <div class="input-group mb-3" id="divPNS">
                                             <label style="margin-top: 10px;">PNS:</label>
                                             <select name="nama_koord_penyuluh pen" id="nama_koord_penyuluh" class="form-control input-lg" style="margin-left: 15px;">
+
                                                 <option value="<?= $val['nama_koord_penyuluh']; ?>"><?= $val['nip']; ?> - <?= $val['nama']; ?></option>
+
+                                                <option value="<?= $val['jenis_penyuluh']; ?>"><?= $val['nip']; ?> - <?= $val['nama']; ?></option>
+
                                                 <?php
                                                 foreach ($penyuluhPNS as $row) {
                                                     echo '<option value="' . $row["nip"] . '">' . $row["nip"] . '-' . $row["nama"] . '</option>';
@@ -801,7 +768,11 @@ foreach ($tabel_data as $row => $item)
                                         <div class="input-group mb-3" id="divTHL">
                                             <label>THL:</label>
                                             <select name="nama_koord_penyuluh_thl" id="nama_koord_penyuluh_thl" class="form-control input-lg" style="margin-left: 5px;">
+
                                                 <option value="<?= $val['nama_koord_penyuluh_thl']; ?>"><?= $val['noktp']; ?> - <?= $val['namathl']; ?></option>
+
+                                                <option value="<?= $val['jenis_pen_thl']; ?>"><?= $val['noktp']; ?> - <?= $val['namathl']; ?></option>
+
                                                 <?php
                                                 foreach ($penyuluhTHL as $row2) {
                                                     echo '<option value="' . $row2["noktp"] . '">' . $row2["noktp"] . '-' . $row2["nama"] . '</option>';
@@ -814,6 +785,7 @@ foreach ($tabel_data as $row => $item)
                                             <input type="text" class="form-control" style="margin-left: 10px;" id="koord_lainya_nip" placeholder="ketua" name="koord_lainya_nip">
                                             <label style="margin-top: 10px;">Nama</label>
                                             <input type="text" class="form-control" style="margin-left: 10px;" id="koord_lainya_nama" placeholder="ketua" name="koord_lainya_nama">
+
                                         </div>
                                     </div>
                                     <div class="col">
@@ -841,6 +813,35 @@ foreach ($tabel_data as $row => $item)
                                         <div class="input-group mb-3">
                                             <input type="text" class="form-control" id="uptd_luh" placeholder="ketua" name="uptd_luh">
                                         </div>
+
+                                        </div>
+                                    </div>
+                                    <div class="col">
+                                        <label for="ketua">Bidang yang menangani fungsi penyuluhan</label>
+                                        <div class="input-group mb-3">
+                                            <input type="text" class="form-control" id="bidang_luh" placeholder="Bidang" name="bidang_luh">
+                                        </div>
+                                        <label for="ketua">Nama kepala bidang</label>
+                                        <div class="input-group mb-3">
+                                            <input type="text" class="form-control" id="nama_kabid" placeholder="Nama Kabid" name="nama_kabid">
+                                            <label style="margin-top: 10px;">No.HP</label>
+                                            <input type="text" style="margin-left: 5px;" class="form-control" id="hp_kabid" placeholder="No. HP" name="hp_kabid">
+                                        </div>
+                                        <label for="ketua">Seksi yang menangani penyuluhan</label>
+                                        <div class="input-group mb-3">
+                                            <input type="text" class="form-control" id="seksi_luh" placeholder="Seksi" name="seksi_luh">
+                                        </div>
+                                        <label for=" ketua">Nama kepala seksi</label>
+                                        <div class="input-group mb-3">
+                                            <input type="text" class="form-control" id="nama_kasie" name="nama_kasie" placeholder="Nama Kepala Seksi">
+                                            <label style="margin-top: 10px;">No.HP</label>
+                                            <input type="text" style="margin-left: 5px;" class="form-control" id="hp_kasie" name="hp_kasie" placeholder="No. HP">
+                                        </div>
+                                        <label for="ketua">UPTD yang menangani fungsi penyuluhan</label>
+                                        <div class="input-group mb-3">
+                                            <input type="text" class="form-control" id="uptd_luh" placeholder="ketua" name="uptd_luh">
+                                        </div>
+
                                         <label for="ketua">Nama kepala UPTD</label>
                                         <div class="input-group mb-3">
                                             <input type="text" class="form-control" id="nama_kauptd" name="nama_kauptd" placeholder="Nama Kepala UPTD">
@@ -918,11 +919,19 @@ foreach ($tabel_data as $row => $item)
                                             }
                                             ?>
                                         </select>
+
                                     </div>
                                     <label for="alamat">Kegiatan</label>
                                     <div class="input-group mb-3">
                                         <textarea type="text" class="form-control" id="kegiatan" placeholder="kegiatan" name="kegiatan"></textarea>
                                     </div>
+
+                                    </div>
+                                    <label for="alamat">Kegiatan</label>
+                                    <div class="input-group mb-3">
+                                        <textarea type="text" class="form-control" id="kegiatan" placeholder="kegiatan" name="kegiatan"></textarea>
+                                    </div>
+
                                 </div>
                                 <div class="modal-footer">
                                     <button type="button" class="btn bg-gradient-secondary" data-bs-dismiss="modal">Close</button>
@@ -954,7 +963,11 @@ foreach ($tabel_data as $row => $item)
                     <div class="col-lg-3 mb-lg-0 text-center">
                         <div class="card">
                             <div class="card-body p-3">
-                                <img src="<?= base_url('assets/img/logo.png'); ?>" width="150px" class="img-thumbnail" alt="profil">
+                                <img src="<?php if ($fotoprofil == '') {
+                                                echo base_url('assets/img/logo.png');
+                                            } else {
+                                                echo base_url('assets/img/' . $fotoprofil);
+                                            }  ?>" width="150px" class="img-thumbnail" alt="profil">
                             </div>
                         </div>
                     </div>
@@ -972,7 +985,9 @@ foreach ($tabel_data as $row => $item)
             </form>
 
         </div>
+
     </div>
+
 </div>
 <?php echo view('layout/footer'); ?>
 
@@ -981,10 +996,9 @@ foreach ($tabel_data as $row => $item)
 
 <?= $this->endSection() ?>
 
-
-
 <?= $this->section('script') ?>
-<script>
+
+<script type="text/javascript">
     function loadNamaKoordinator() {
         if ($('#inlineRadio1').is(':checked')) {
             $("#divPNS").show();
@@ -1016,8 +1030,7 @@ foreach ($tabel_data as $row => $item)
             loadNamaKoordinator();
         });
     });
-</script>
-<script>
+
     var min = 2017,
         max = 2050,
         select = document.getElementById('tahun');
@@ -1030,8 +1043,7 @@ foreach ($tabel_data as $row => $item)
     }
 
     select.value = new Date().getFullYear();
-</script>
-<script>
+
     $(document).ready(function() {
         $(document).delegate('#btn-edit', 'click', function() {
             //var myModal = new bootstrap.Modal(document.getElementById('modal-edit'), options);
@@ -1353,61 +1365,59 @@ foreach ($tabel_data as $row => $item)
             });
 
         });
-    });
-    $(document).delegate('#btn-hapus', 'click', function() {
-        Swal.fire({
-            title: 'Apakah anda yakin',
-            text: "Data akan dihapus ?",
-            type: 'warning',
-            showCloseButton: true,
-            showCancelButton: true,
-            confirmButtonColor: '#3085d6',
-            cancelButtonColor: '#d33',
-            confirmButtonText: 'Hapus Data!'
-        }).then((result) => {
-            if (result.value) {
-                var id = $(this).data('id');
 
-                $.ajax({
-                    url: '<?= base_url() ?>/profil/Lembaga/delete/' + id,
-                    type: 'POST',
+        $(document).delegate('#btn-hapus', 'click', function() {
+            Swal.fire({
+                title: 'Apakah anda yakin',
+                text: "Data akan dihapus ?",
+                type: 'warning',
+                showCloseButton: true,
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                confirmButtonText: 'Hapus Data!'
+            }).then((result) => {
+                if (result.value) {
+                    var id = $(this).data('id');
 
-                    success: function(result) {
-                        Swal.fire({
-                            title: 'Sukses',
-                            text: "Sukses hapus data",
-                            type: 'success',
-                        }).then((result) => {
+                    $.ajax({
+                        url: '<?= base_url() ?>/profil/Lembaga/delete/' + id,
+                        type: 'POST',
 
-                            if (result.value) {
-                                location.reload();
-                            }
-                        });
-                    },
-                    error: function(jqxhr, status, exception) {
-                        Swal.fire({
-                            title: 'Error',
-                            text: "Gagal hapus data",
-                            type: 'error',
-                        }).then((result) => {
-                            if (result.value) {
-                                location.reload();
-                            }
-                        });
-                    }
-                });
-            }
+                        success: function(result) {
+                            Swal.fire({
+                                title: 'Sukses',
+                                text: "Sukses hapus data",
+                                type: 'success',
+                            }).then((result) => {
+
+                                if (result.value) {
+                                    location.reload();
+                                }
+                            });
+                        },
+                        error: function(jqxhr, status, exception) {
+                            Swal.fire({
+                                title: 'Error',
+                                text: "Gagal hapus data",
+                                type: 'error',
+                            }).then((result) => {
+                                if (result.value) {
+                                    location.reload();
+                                }
+                            });
+                        }
+                    });
+                }
+            });
         });
     });
 </script>
 
 
 
-<script type="text/javascript">
-    $('#uploadbtn').on('click', function() {
-        $('#modalFoto').modal('show');
-    });
 
+<script type="text/javascript">
     function loadingproses() {
         $('.backDrop').show();
         $('.backDrop_content').fadeIn('slow');
