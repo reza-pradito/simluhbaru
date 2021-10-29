@@ -3,7 +3,7 @@
 <?= $this->section('content') ?>
 
 <center>
-    <h5> Daftar Kelembagaan Penyuluhan Pertanian Tingkat Kecamatan (BP3K) <br>Kecamatan <?= ucwords(strtolower($nama_kecamatan)) ?> </h5>
+    <h5> Daftar Kelembagaan Penyuluhan Pertanian Tingkat Kecamatan (BP3K) <br>Kecamatan <?= ucwords(strtolower($nama_kec)) ?> </h5>
 </center>
 <a href="#"><button type="button" class="btn bg-gradient-primary">+ Tambah Data</button></a>
 <div class="card">
