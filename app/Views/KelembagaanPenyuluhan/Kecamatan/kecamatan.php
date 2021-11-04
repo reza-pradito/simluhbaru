@@ -1,9 +1,17 @@
 <?= $this->extend('layout/main_template') ?>
 
 <?= $this->section('content') ?>
-<?php $sessnama = session()->get('kodebapel'); ?>
-<?php $sessnama = session()->get('kodebpp'); ?>
-
+<?php
+if (empty(session()->get('status_user')) || session()->get('status_user') == '2') {
+    $kode = '00';
+} elseif (session()->get('status_user') == '1') {
+    $kode = session()->get('kodebakor');
+} elseif (session()->get('status_user') == '200') {
+    $kode = session()->get('kodebapel');
+} elseif (session()->get('status_user') == '300') {
+    $kode = session()->get('kodebpp');
+}
+?>
 
 <center>
     <h5> Daftar Kelembagaan Penyuluhan Pertanian Tingkat Kecamatan <br>Kab <?= ucwords(strtolower($nama_kabupaten)) ?> </h5>
@@ -110,6 +118,8 @@
                                                 <div class="col">
                                                     <input type="hidden" name="kode_prop" id="kode_prop" value="<?= $kode_prop; ?>">
                                                     <input type="hidden" name="satminkal" id="satminkal" value="<?= $kode_kab; ?>">
+                                                    <input type="hidden" name="urut" id="urut" value="<?= $urut['no_urut']; ?>">
+                                                    <input type="hidden" name="kode_bp3k" id="kode_bp3k" value="<?= $urut['no_urut'] . $kode; ?>">
                                                     <label>Upload Foto BPP</label>
                                                     <div class="input-group mb-3">
                                                         <div class="col-lg-4">

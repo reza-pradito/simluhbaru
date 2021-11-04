@@ -103,10 +103,10 @@ class KabupatenModel extends Model
         $db = Database::connect();
         $query = $db->query("select nama_dati2 as nama_kab from tbldati2 where id_dati2='$kode_kab'");
         $row   = $query->getRow();
-        $query3  = $db->query("select *, b.fasilitasi, b.tahun, b.kegiatan, c.fasilitasi as nama_fasilitasi
-                                from tblbapel a
-                                left join tblbapel_fasilitasi_kegiatan b on a.id_gapoktan=b.id_bapel
-                                left join reff_fasilitasi_bpp c on b.fasilitasi=c.idfasilitasi
+        $query3  = $db->query("select *, a.fasilitasi, a.tahun, a.kegiatan, b.kabupaten, c.fasilitasi as nama_fasilitasi
+                                from tblbapel_fasilitasi_kegiatan a
+                                left join tblbapel b on a.id_bapel=b.id_gapoktan
+                                left join reff_fasilitasi_bpp c on a.fasilitasi=c.idfasilitasi
                                 where kabupaten='$kode_kab'
                                 ");
         $results = $query3->getResultArray();
@@ -179,5 +179,59 @@ class KabupatenModel extends Model
     public function hapus($id)
     {
         return $this->builder->delete(['id' => $id]);
+    }
+
+    public function getTotalPNS($kode_kab)
+    {
+        $db = Database::connect();
+        $query = $db->query("select count(id) as jum_pns from tbldasar where satminkal='$kode_kab' 
+                            and kode_kab='3' and status !='1' and status !='2' and status !='3'");
+        $row   = $query->getRow();
+        $query2  = $db->query("select id,nama from tbldasar where satminkal='$kode_kab' 
+                              and kode_kab='3' and status !='1' and status !='2' and status !='3' order by nama");
+        $results = $query2->getResultArray();
+
+        $data =  [
+            'jum_pns' => $row->jum_pns,
+            'datapns' => $results,
+        ];
+
+        return $data;
+    }
+
+    public function getTotalTHLAPBN($kode_kab)
+    {
+        $db = Database::connect();
+        $query = $db->query("select count(id_thl) as jum_thl from tbldasar_thl where satminkal='$kode_kab' 
+                            and penyuluh_di='kabupaten' and sumber_dana='apbn'");
+        $row   = $query->getRow();
+        $query2  = $db->query("select * from tbldasar_thl where satminkal='$kode_kab' and 
+                              penyuluh_di='kabupaten' and sumber_dana='apbn' order by nama");
+        $results = $query2->getResultArray();
+
+        $data =  [
+            'jum_thl' => $row->jum_thl,
+            'datathl' => $results,
+        ];
+
+        return $data;
+    }
+
+    public function getTotalTHLAPBD($kode_kab)
+    {
+        $db = Database::connect();
+        $query = $db->query("select count(id_thl) as jum_thl_apbd from tbldasar_thl where satminkal='$kode_kab' 
+                            and penyuluh_di='kabupaten' and sumber_dana='apbd'");
+        $row   = $query->getRow();
+        $query2  = $db->query("select * from tbldasar_thl where satminkal='$kode_kab' 
+                             and penyuluh_di='kabupaten' and sumber_dana='apbd' order by nama");
+        $results = $query2->getResultArray();
+
+        $data =  [
+            'jum_thl_apbd' => $row->jum_thl_apbd,
+            'datathl_apbd' => $results,
+        ];
+
+        return $data;
     }
 }
