@@ -10,22 +10,22 @@ class ListPoktanAnggotaModel extends Model
     protected $table      = 'tb_poktan_anggota';
     protected $primaryKey = 'id_anggota';
     protected $allowedFields = ['kode_prop', 'kode_kab','id_poktan',
-     'kode_kec', 'kode_desa', 'nama_anggota', 'nama_ktp', 'alamat', 'tgl_lahir','bln_lahir', 'thn_lahir', 'jenis_kelamin', 'no_hp', 'status_anggota', 'kode_komoditas','kode_komoditas2','kode_komoditas3', 
-     'volume', 'volume2', 'volume3', 'lainnya', 'luas_lahan_ternak_diusahakan','luas_lahan_ternak_dimiliki','titik_koordinat_lahan','kategori_petani_penggarap'];
+     'kode_kec', 'kode_desa', 'nama_anggota', 'nama_ktp', 'no_ktp', 'tempat_lahir', 'tgl_lahir','bln_lahir', 'thn_lahir','no_hp',  'jenis_kelamin','alamat_ktp', 'status_anggota', 'kode_komoditas','kode_komoditas2','kode_komoditas3', 
+     'volume', 'volume2', 'volume3', 'lainnya', 'luas_lahan_ternak_diusahakan','luas_lahan_ternak_dimiliki','koordinat_lahan','kategori_petani_penggarap'];
 
 
     protected $useTimestamps = false;
  
-    public function getListPoktanAnggotaTotal($ip)
+    public function getListPoktanAnggotaTotal($id_poktan)
     {
         $db = Database::connect();
-        $query = $db->query("select nama_poktan,kode_prop,kode_kab,kode_kec,kode_desa from tb_poktan where id_poktan='$ip'");
+        $query = $db->query("select nama_poktan,kode_prop,kode_kab,kode_kec,kode_desa from tb_poktan where id_poktan='$id_poktan'");
         $row   = $query->getRow();
         
         
         
-        $query3   = $db->query("select id_anggota,id_poktan,nama_anggota,no_ktp,tempat_lahir,tgl_lahir,bln_lahir,thn_lahir,alamat_ktp,
-                                jenis_kelamin,no_hp,
+        $query3   = $db->query("select id_anggota,id_poktan,nama_ktp,nama_anggota,no_ktp,tempat_lahir,tgl_lahir,bln_lahir,thn_lahir,alamat_ktp,kode_prop,kode_kec,kode_desa,kode_kab,
+                                jenis_kelamin,no_hp,luas_lahan_ternak_dimiliki,luas_lahan_ternak_diusahakan,
                                 case status_anggota 
                                 when '1' then 'Sebagai Anggota'
                                 when '2' then 'Calon Anggota'
@@ -48,7 +48,7 @@ class ListPoktanAnggotaModel extends Model
                                 left join(select * from tb_komoditas) b on a.kode_komoditas=b.kode_komoditas
                                 left join(select * from tb_komoditas) c on a.kode_komoditas2=c.kode_komoditas
                                 left join(select * from tb_komoditas) d on a.kode_komoditas3=d.kode_komoditas
-                                where id_poktan='$ip'
+                                where id_poktan='$id_poktan'
                                 ORDER BY  nama_anggota  ");
 
         $results = $query3->getResultArray();
@@ -64,9 +64,9 @@ class ListPoktanAnggotaModel extends Model
 
         return $data;
     }
-    public function getDataById($ip)
+    public function getDataById($id_poktan)
     {
-        $query = $this->db->query("select * from tb_poktan_anggota where id_poktan= '" . $ip . "' 
+        $query = $this->db->query("select * from tb_poktan_anggota where id_anggota= '" . $id_poktan . "' 
                                 ORDER BY nama_anggota ");
                                 $row = $query->getRow();
                                 return json_encode($row);

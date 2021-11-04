@@ -8,7 +8,15 @@ class KepKec extends BaseController
 {
     public function kepkec()
     {
-       
+        if (empty(session()->get('status_user')) || session()->get('status_user') == '2') {
+            $kode = '00';
+        } elseif (session()->get('status_user') == '1') {
+            $kode = session()->get('kodebakor');
+        } elseif (session()->get('status_user') == '200') {
+            $kode = session()->get('kodebapel');
+        } elseif (session()->get('status_user') == '300') {
+            $kode = session()->get('kodebpp');
+        }
         $kepkec_model = new KepKecModel();
         $kepkec_data = $kepkec_model->getKepKecTotal(session()->get('kodebpp'));
 

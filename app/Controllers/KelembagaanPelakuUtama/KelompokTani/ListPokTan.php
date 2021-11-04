@@ -52,6 +52,8 @@ class ListPokTan extends BaseController
                 'alamat' => $this->request->getPost('alamat'),
                 'simluh_tahun_bentuk' => $this->request->getPost('simluh_tahun_bentuk'),
                 'status' => $this->request->getPost('status'),
+                'simluh_tahun_tap_kelas' => $this->request->getPost('simluh_tahun_tap_kelas'),
+                'simluh_kelas_kemampuan' => $this->request->getPost('simluh_kelas_kemampuan'),
             ]);
             if($res == false){
                 $data = [
@@ -90,6 +92,8 @@ class ListPokTan extends BaseController
         $alamat = $this->request->getPost('alamat');
         $simluh_tahun_bentuk = $this->request->getPost('simluh_tahun_bentuk');
         $status = $this->request->getPost('status');
+        $simluh_tahun_tap_kelas = $this->request->getPost('simluh_tahun_tap_kelas');
+        $simluh_kelas_kemampuan = $this->request->getPost('simluh_kelas_kemampuan');
         $this->model->save([
             'id_poktan' => $id_poktan,
             'kode_kec' => $kode_kec,
@@ -100,6 +104,8 @@ class ListPokTan extends BaseController
             'alamat' => $alamat,
             'simluh_tahun_bentuk' => $simluh_tahun_bentuk,
             'status' => $status,
+            'simluh_tahun_tap_kelas' => $simluh_tahun_tap_kelas,
+            'simluh_kelas_kemampuan' => $simluh_kelas_kemampuan,
         ]);
 
         //session()->setFlashdata('pesan', 'Data berhasil diubah');
@@ -108,6 +114,6 @@ class ListPokTan extends BaseController
     public function delete($id_poktan)
     {
         $this->model->delete($id_poktan);
-        return redirect()->to('/listpoktan');
+        return redirect()->to('/kelompoktani');
     }
 }

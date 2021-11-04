@@ -1,6 +1,17 @@
 <?= $this->extend('layout/main_template') ?>
 
 <?= $this->section('content') ?>
+<?php
+if (empty(session()->get('status_user')) || session()->get('status_user') == '2') {
+    $kode = '00';
+} elseif (session()->get('status_user') == '1') {
+    $kode = session()->get('kodebakor');
+} elseif (session()->get('status_user') == '200') {
+    $kode = session()->get('kodebapel');
+} elseif (session()->get('status_user') == '300') {
+    $kode = session()->get('kodebpp');
+}
+?>
 <br>
 <center><h3> Daftar Anggota Kelompok Tani <?= ucwords(strtolower($nama_poktan)) ?> </h3></center>
 <br>
@@ -139,16 +150,24 @@ maka perbaikan/input data petani disarankan dilakukan melalui form input diatas
                                         <div class="col-5" mt-5>
                                             <label>Nama Anggota</label>
                                             <div class="input-group mb-3">
-                                                <input type="text" class="form-control" id="nama_anggota" name="nama_anggota" placeholder="Nama Anggota" aria-label="Password" aria-describedby="password-addon">
+                                                <input type="text" class="form-control" id="nama_anggota" name="nama_anggota" placeholder="Nama Anggota" >
                                             </div>
                                             <label>Nama Anggota (Sesuai KTP)</label>
                                             <div class="input-group mb-3">
-                                                <input type="text" class="form-control" id="nama_ktp" name="nama_ktp" placeholder="Nama Anggota" aria-label="Password" aria-describedby="password-addon">
+                                                <input type="text" class="form-control" id="nama_ktp" name="nama_ktp" placeholder="Nama KTP" >
                                             </div>
                                             
                                             <label>NO KTP</label>
                                             <div class="input-group mb-3">
-                                                <input type="text" class="form-control" id="no_ktp" name="no_ktp" placeholder="No KTP" aria-label="Password" aria-describedby="password-addon">
+                                                <input type="text" class="form-control" id="no_ktp" name="no_ktp" placeholder="No KTP" >
+                                            </div>
+                                            <label>Jenis Kelamin</label>
+                                            <div class="input-group mb-3">
+                                                <select class="form-select" id="jenis_kelamin" name="jenis_kelamin" >
+                                                    <option selected>Pilih Jenis Kelamin  </option>
+                                                    <option value="laki">Laki - Laki</option>
+                                                    <option value="perempuan">Perempuan</option>
+                                                </select>
                                             </div>
                                             <label>Tempat, Tanggal Lahir</label>
                                                 <div class="input-group mb-1">
@@ -167,15 +186,15 @@ maka perbaikan/input data petani disarankan dilakukan melalui form input diatas
                                                 </div>
                                                 <label>No HP</label>
                                             <div class="input-group mb-3">
-                                                <input type="text" class="form-control" id="no_hp" name="no_hp" placeholder="No HP" aria-label="Password" aria-describedby="password-addon">
+                                                <input type="text" class="form-control" id="no_hp" name="no_hp" placeholder="No HP" >
                                             </div>
                                             <label>Alamat Lengkap Sekretariat</label>
-                                                <textarea class="form-control" id="alamat" placeholder="Alamat" name="alamat" aria-label="Password" aria-describedby="password-addon"></textarea>
+                                                <textarea class="form-control" id="alamat_ktp" placeholder="Alamat" name="alamat_ktp" ></textarea>
                                           
                                             <label>Status</label>
                                             <div class="input-group mb-3">
-                                                <select class="form-select" id="status_anggota" name="status_anggota" aria-label="Default select example">
-                                                    <option selected>Pilih  </option>
+                                                <select class="form-select" id="status_anggota" name="status_anggota">
+                                                    <option selected value="">Pilih  </option>
                                                     <option value="1">Sebagai Anggota</option>
                                                     <option value="2">Calon Anggota</option>
                                                 </select>
@@ -189,7 +208,7 @@ maka perbaikan/input data petani disarankan dilakukan melalui form input diatas
                                                             <option value="">Pilih Komoditas</option>
                                                             <?php
                                                             foreach ($komoditas as $row2) {
-                                                                echo '<option value="' . $row2["nama_subsektor"] . '">' . $row2["nama_subsektor"] . '-' . $row2["nama_komoditas"] . '</option>';
+                                                                echo '<option value="' . $row2["kode_komoditas"] . '">' . $row2["nama_subsektor"] . '-' . $row2["nama_komoditas"] . '</option>';
                                                             }
                                                             ?>
                                                         </select>
@@ -200,7 +219,7 @@ maka perbaikan/input data petani disarankan dilakukan melalui form input diatas
                                                            <option value="">Pilih Komoditas</option>
                                                            <?php
                                                            foreach ($komoditas as $row2) {
-                                                               echo '<option value="' . $row2["nama_subsektor"] . '">' . $row2["nama_subsektor"] . '-' . $row2["nama_komoditas"] . '</option>';
+                                                               echo '<option value="' . $row2["kode_komoditas"] . '">' . $row2["nama_subsektor"] . '-' . $row2["nama_komoditas"] . '</option>';
                                                            }
                                                            ?>
                                                        </select>
@@ -211,7 +230,7 @@ maka perbaikan/input data petani disarankan dilakukan melalui form input diatas
                                                            <option value="">Pilih Komoditas</option>
                                                            <?php
                                                            foreach ($komoditas as $row2) {
-                                                               echo '<option value="' . $row2["nama_subsektor"] . '">' . $row2["nama_subsektor"] . '-' . $row2["nama_komoditas"] . '</option>';
+                                                               echo '<option value="' . $row2["kode_komoditas"] . '">' . $row2["nama_subsektor"] . '-' . $row2["nama_komoditas"] . '</option>';
                                                            }
                                                            ?>
                                                        </select>
@@ -232,7 +251,7 @@ maka perbaikan/input data petani disarankan dilakukan melalui form input diatas
                                             <div class="input-group mb-3">
                                                 <input type="text" class="form-control" id="titik_koordinat_lahan" name="titik_koordinat_lahan" placeholder="Penulisan dengan format decimal degree" aria-label="Password" aria-describedby="password-addon">
                                             </div>
-                                            <label>Status</label>
+                                            <label>Kategori Petani</label>
                                             <div class="input-group mb-3">
                                                 <select class="form-select" id="kategori_petani_penggarap" name="kategori_petani_penggarap" aria-label="Default select example">
                                                     <option selected>Kategori Petani  </option>
@@ -259,8 +278,12 @@ maka perbaikan/input data petani disarankan dilakukan melalui form input diatas
                                             </div>
                                             
                                         </div>
-                                                <input type="hidden" id="id_poktan" name="id_poktan" >
-                                               
+                                        
+                                        <input type="hidden" name="kode_desa" id="kode_desa" value="<?= $kode_desa; ?>">
+                                        <input type="hidden" name="kode_kab" id="kode_kab" value="<?= $kode; ?>">
+                                            <input type="hidden" name="kode_kec" id="kode_kec" value="<?= $kode_kec; ?>">
+                                                <input type="hidden" id="id_anggota" name="id_anggota" >
+                                                <input type="hidden" id="id_poktan" name="id_poktan" value="<?= $id_poktan;?>">
                                                     <div class="text-center">
                                                         <button type="button" id="btnSave" class="btn btn-round bg-gradient-warning btn-sm">Simpan Data</button>
                                                     </div>
@@ -292,100 +315,109 @@ maka perbaikan/input data petani disarankan dilakukan melalui form input diatas
 <?= $this->section('script') ?>
 
 <script>
-    $(document).ready(function() {
+$(document).ready(function() {
 
-        $(document).delegate('#btnSave', 'click', function() {
-           
-            
-           
-            var nama_anggota = $('#nama_anggota').val();
-            var nama_ktp = $('#nama_ktp').val();
-            var no_ktp = $('#no_ktp').val();
-            var alamat = $('#alamat').val();
-            var no_hp = $('#no_hp').val();
-            var jenis_kelamin = $('#simluh_sk_pengukuhan').val();
-            var tgl_lahir = $('#day').val();
-            var bln_lahir = $('#month').val();
-            var thn_lahir = $('#year').val();
-            var status_anggota = $('#status_anggota').val();
-            var kode_komoditas = $('#kode_komoditas').val();
-            var kode_komoditas2 = $('#kode_komoditas2').val();
-            var kode_komoditas3 = $('#kode_komoditas3').val();
-            var volume = $('#volume').val();
-            var volume2 = $('#volume2').val();
-            var $volume3 = $('#volume3').val();
-            var lainnya = $('#lainnya').val();
-            var luas_lahan_ternak_diusahakan = $('#luas_lahan_ternak_diusahakan').val();
-            var luas_lahan_ternak_dimiliki = $('#volume2').val();
-            var titik_koordinat_lahan = $('#titik_koordinat_lahan').val();
-            var kategori_petani_penggarap = $('#kategori_petani_penggarap').val();
+$(document).delegate('#btnSave', 'click', function() {
 
-            $.ajax({
-                url: '<?= base_url() ?>/KelembagaanPelakuUtama/KelompokTani/ListPoktanAnggota/save/',
-                type: 'POST',
-                data: {
-                   
-                   
-                    'nama_anggota': nama_anggota,
-                    'nama_ktp': nama_ktp,
-                    'no_ktp': no_ktp,
-                    'jenis_kelamin': jenis_kelamin,
-                    'no_ktp': no_ktp,
-                    'alamat': alamat,
-                    'status_anggota': status_anggota,
-                    'tgl_lahir': tgl_lahir,
-                    'bln_lahir': bln_lahir,
-                    'thn_lahir': thn_lahir,
-                    'kode_komoditas': kode_komoditas,
-                    'kode_komoditas2': kode_komoditas2,
-                    'kode_komoditas3': kode_komoditas3,
-                    'volume': volume,
-                    'volume2': volume2,
-                    'volume3': volume3,
-                    'lainnya': lainnya,
-                    'luas_lahan_ternak_diusahakan': luas_lahan_ternak_diusahakan,
-                    'luas_lahan_ternak_dimiliki': luas_lahan_ternak_dimiliki,
-                    'titik_koordinat_lahan': titik_koordinat_lahan,
-                    'kategori_petani_penggarap': kategori_petani_penggarap,
-                },
-                success: function(result) {
-                    result = JSON.parse(result);
-                    if(result.value){
-                        Swal.fire({
-                            title: 'Sukses',
-                            text: "Sukses tambah data",
-                            type: 'success',
-                        }).then((result) => {
+    var kode_kec = $('#kode_kec').val();
+    var kode_desa = $('#kode_desa').val();
+    var kode_kab = $('#kode_kab').val();
+    var kode_prop = $('#kode_prop').val();
+    var id_poktan = $('#id_poktan').val();
+    var nama_anggota = $('#nama_anggota').val();
+    var nama_ktp = $('#nama_ktp').val();
+    var no_ktp = $('#no_ktp').val();
+    var tempat_lahir = $('#tempat_lahir').val();
+    var tgl_lahir = $('#day').val();
+    var bln_lahir = $('#month').val();
+    var thn_lahir = $('#year').val();
+    var no_hp = $('#no_hp').val();
+    var jenis_kelamin = $('#jenis_kelamin').val();
+    var alamat_ktp = $('#alamat_ktp').val();
+    var status_anggota = $('#status_anggota').val();
+    var kode_komoditas = $('#kode_komoditas').val();
+    var kode_komoditas2 = $('#kode_komoditas2').val();
+    var kode_komoditas3 = $('#kode_komoditas3').val();
+    var volume = $('#volume').val();
+    var volume2 = $('#volume2').val();
+    var volume3 = $('#volume3').val();
+    var lainnya = $('#lainnya').val();
+    var luas_lahan_ternak_dimiliki = $('#luas_lahan_ternak_dimiliki').val();
+    var luas_lahan_ternak_diusahakan = $('#luas_lahan_ternak_diusahakan').val();
+    var titik_koordinat_lahan = $('#titik_koordinat_lahan').val();
+    var kategori_petani_penggarap = $('#kategori_petani_penggarap').val();
+    
 
-                            if (result.value) {
-                                location.reload();
-                            }
-                        });
-                    }else{
-                        Swal.fire({
-                            title: 'Error',
-                            text: "Gagal tambah data. " + result.message,
-                            type: 'error',
-                        }).then((result) => {
-                            
-                        });
+    $.ajax({
+        url: '<?= base_url() ?>/KelembagaanPelakuUtama/KelompokTani/ListPokTanAnggota/save/',
+        type: 'POST',
+        data: {
+
+            'kode_desa': kode_desa,
+            'kode_kec': kode_kec,
+            'kode_kab': kode_kab,
+            'kode_prop': kode_prop,
+            'id_poktan': id_poktan,
+            'nama_anggota': nama_anggota,
+            'nama_ktp': nama_ktp,
+            'no_ktp': no_ktp,
+            'tempat_lahir': tempat_lahir,
+            'tgl_lahir': tgl_lahir,
+            'bln_lahir': bln_lahir,
+            'thn_lahir': thn_lahir,
+            'no_hp': no_hp,
+            'jenis_kelamin': jenis_kelamin,
+            'alamat_ktp': alamat_ktp,
+            'status_anggota': status_anggota,
+            'kode_komoditas': kode_komoditas,
+            'kode_komoditas2': kode_komoditas2,
+            'kode_komoditas3': kode_komoditas3,
+            'volume': volume,
+            'volume2': volume2,
+            'volume3': volume3,
+            'lainnya': lainnya,
+            'luas_lahan_ternak_dimiliki': luas_lahan_ternak_dimiliki,
+            'luas_lahan_ternak_diusahakan': luas_lahan_ternak_diusahakan,
+            'titik_koordinat_lahan': titik_koordinat_lahan,
+            'kategori_petani_penggarap': kategori_petani_penggarap
+        },
+        success: function(result) {
+            result = JSON.parse(result);
+            if(result.value){
+                Swal.fire({
+                    title: 'Sukses',
+                    text: "Sukses tambah data",
+                    type: 'success',
+                }).then((result) => {
+
+                    if (result.value) {
+                        location.reload();
                     }
-                },
-                error: function(jqxhr, status, exception) {
-                    Swal.fire({
-                        title: 'Error',
-                        text: "Gagal tambah data",
-                        type: 'error',
-                    }).then((result) => {
-                        if (result.value) {
-                            location.reload();
-                        }
-                    });
+                });
+            }else{
+                Swal.fire({
+                    title: 'Error',
+                    text: "Gagal tambah data. " + result.message,
+                    type: 'error',
+                }).then((result) => {
+                    
+                });
+            }
+        },
+        error: function(jqxhr, status, exception) {
+            Swal.fire({
+                title: 'Error',
+                text: "Gagal tambah data",
+                type: 'error',
+            }).then((result) => {
+                if (result.value) {
+                    location.reload();
                 }
             });
-
-        });
-        $(document).delegate('#btnHapus', 'click', function() {
+        }
+    });
+});
+    $(document).delegate('#btnHapus', 'click', function() {
             Swal.fire({
                 title: 'Apakah anda yakin',
                 text: "Data akan dihapus ?",
@@ -397,10 +429,10 @@ maka perbaikan/input data petani disarankan dilakukan melalui form input diatas
                 confirmButtonText: 'Hapus Data!'
             }).then((result) => {
                 if (result.value) {
-                    var id_anggota = $(this).data('id_anggota');
+                    var id = $(this).data('id_anggota');
 
                     $.ajax({
-                        url: '<?= base_url() ?>/KelembagaanPelakuUtama/KelompokTani/ListPoktanAnggota/delete/' + id_anggota,
+                        url: '<?= base_url() ?>/KelembagaanPelakuUtama/KelompokTani/ListPoktanAnggota/delete/' + id,
                         type: 'POST',
 
                         success: function(result) {
@@ -438,16 +470,23 @@ maka perbaikan/input data petani disarankan dilakukan melalui form input diatas
                 dataType: 'JSON',
                 success: function(result) {
                     // console.log(result);
-                
+
                     $('#id_anggota').val(result.id_anggota);
+                    $('#kode_kec').val(result.kode_kec);
+                    $('#kode_desa').val(result.kode_desa);
+                    $('#kode_kab').val(result.kode_kab);
+                    $('#kode_prop').val(result.kode_prop);
+                    $('#id_poktan').val(result.id_poktan);
                     $('#nama_anggota').val(result.nama_anggota);
-                    $('#nama_ktp').val(result.ketua_gapoktan);
-                    $('#alamat').val(result.alamat);
-                    $('#year').val(result.thn_lahir);
-                    $('#month').val(result.bln_lahir);
-                    $('#day').val(result.tgl_lahir);
-                    $('#no_ktp').val(result.no_ktp);
+                    $('#nama_ktp').val(result.nama_ktp);
                     $('#jenis_kelamin').val(result.jenis_kelamin);
+                    $('#tempat_lahir').val(result.tempat_lahir);
+                    $('#day').val(result.tgl_lahir);
+                    $('#month').val(result.bln_lahir);
+                    $('#year').val(result.thn_lahir);
+                    $('#no_hp').val(result.no_hp);
+                    $('#no_ktp').val(result.no_ktp);
+                    $('#alamat_ktp').val(result.alamat_ktp);
                     $('#status_anggota').val(result.status_anggota);
                     $('#kode_komoditas').val(result.kode_komoditas);
                     $('#kode_komoditas2').val(result.kode_komoditas2);
@@ -460,23 +499,30 @@ maka perbaikan/input data petani disarankan dilakukan melalui form input diatas
                     $('#luas_lahan_ternak_dimiliki').val(result.luas_lahan_ternak_dimiliki);
                     $('#titik_koordinat_lahan').val(result.titik_koordinat_lahan);
                     $('#kategori_petani_penggarap').val(result.kategori_petani_penggarap);
-
+                   
 
                     $('#modal-form').modal('show');
                     $("#btnSave").attr("id", "btnDoEdit");
 
                     $(document).delegate('#btnDoEdit', 'click', function() {
                      
-                      
+
                         var id_anggota = $('#id_anggota').val();
+                        var kode_kec = $('#kode_kec').val();
+                        var kode_desa = $('#kode_desa').val();
+                        var kode_kab = $('#kode_kab').val();
+                        var kode_prop = $('#kode_prop').val();
+                        var id_poktan = $('#id_poktan').val();
                         var nama_anggota = $('#nama_anggota').val();
-                        var nama_ktp = $('#ketua_gapoktan').val();
-                        var alamat = $('#alamat').val();
-                        var thn_lahir = $('#year').val();
-                        var tgl_lahir = $('#day').val();
-                        var bln_lahir = $('#bln_lahir').val();
-                        var no_ktp = $('#no_ktp').val();
+                        var nama_ktp = $('#nama_ktp').val();
                         var jenis_kelamin = $('#jenis_kelamin').val();
+                        var tempat_lahir = $('#tempat_lahir').val();
+                        var tgl_lahir = $('#day').val();
+                        var bln_lahir = $('#month').val();
+                        var thn_lahir = $('#year').val();
+                        var no_hp = $('#no_hp').val();
+                        var no_ktp = $('#no_ktp').val();
+                        var alamat_ktp = $('#alamat_ktp').val();
                         var status_anggota = $('#status_anggota').val();
                         var kode_komoditas = $('#kode_komoditas').val();
                         var kode_komoditas2 = $('#kode_komoditas2').val();
@@ -489,18 +535,26 @@ maka perbaikan/input data petani disarankan dilakukan melalui form input diatas
                         var luas_lahan_ternak_diusahakan = $('#luas_lahan_ternak_diusahakan').val();
                         var titik_koordinat_lahan = $('#titik_koordinat_lahan').val();
                         var kategori_petani_penggarap = $('#kategori_petani_penggarap').val();
+                      
 
                         let formData = new FormData();
 
                         formData.append('id_anggota', id_anggota);
+                        formData.append('kode_kec', kode_kec);
+                        formData.append('kode_desa', kode_desa);
+                        formData.append('kode_kab', kode_kab);
+                        formData.append('kode_prop', kode_prop);
+                        formData.append('id_poktan', id_poktan);
                         formData.append('nama_anggota', nama_anggota);
                         formData.append('nama_ktp', nama_ktp);
-                        formData.append('alamat', alamat);
-                        formData.append('thn_lahir', thn_lahir);
+                        formData.append('jenis_kelamin', jenis_kelamin);
+                        formData.append('tempat_lahir', tempat_lahir);
                         formData.append('tgl_lahir', tgl_lahir);
                         formData.append('bln_lahir', bln_lahir);
+                        formData.append('thn_lahir', thn_lahir);
+                        formData.append('no_hp', no_hp);
                         formData.append('no_ktp', no_ktp);
-                        formData.append('jenis_kelamin', jenis_kelamin);
+                        formData.append('alamat_ktp', alamat_ktp);
                         formData.append('status_anggota', status_anggota);
                         formData.append('kode_komoditas', kode_komoditas);
                         formData.append('kode_komoditas2', kode_komoditas2);
@@ -509,13 +563,14 @@ maka perbaikan/input data petani disarankan dilakukan melalui form input diatas
                         formData.append('volume2', volume2);
                         formData.append('volume3', volume3);
                         formData.append('lainnya', lainnya);
-                        formData.append('luas_lahan_ternak_dimiliki', luas_lahan_ternak_dimiliki);
                         formData.append('luas_lahan_ternak_diusahakan', luas_lahan_ternak_diusahakan);
+                        formData.append('luas_lahan_ternak_dimiliki', luas_lahan_ternak_dimiliki);
                         formData.append('titik_koordinat_lahan', titik_koordinat_lahan);
                         formData.append('kategori_petani_penggarap', kategori_petani_penggarap);
+                     debugger;
 
                         $.ajax({
-                            url: '<?= base_url() ?>/KelembagaanPelakuUtama/KelompokTani/ListPoktanAnggota/update/' + id_poktan,
+                            url: '<?= base_url() ?>/KelembagaanPelakuUtama/KelompokTani/ListPoktanAnggota/update/' + id_anggota,
                             type: "POST",
                             data: formData,
                             cache: false,
@@ -555,7 +610,7 @@ maka perbaikan/input data petani disarankan dilakukan melalui form input diatas
                 }
             });
      
-        $('.modal').on('hidden.bs.modal', function() {
+$('.modal').on('hidden.bs.modal', function() {
                 $(this).find('form')[0].reset();
         });
     });

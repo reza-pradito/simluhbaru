@@ -109,13 +109,99 @@
                                                     <option value="tidak">Tidak</option>
                                                 </select>
                                             </div>
+                                            <label>Unit Usaha</label>
+                                                    <div class="form-check">
+                                                         <input class="form-check-input simluh_usaha_saprodi" type="checkbox" value="saprodi" name="simluh_usaha_saprodi" id="simluh_jenis_kelompok_perempuan" >
+                                                    <label class="form-check-label" for="flexCheckDefault">
+                                                    Sarana dan Prasaran Produksi
+                                                    </label>
+                                                    </div>
+                                                    <div class="form-check">
+                                                         <input class="form-check-input simluh_usaha_pemasaran" type="checkbox" value="pemasaran" name="simluh_usaha_pemasaran" id="simluh_jenis_kelompok_perempuan" >
+                                                    <label class="form-check-label" for="flexCheckDefault">
+                                                    Pemasaran
+                                                    </label>
+                                                    </div>      
+                                                    <div class="form-check">
+                                                         <input class="form-check-input simluh_usaha_simpan_pinjam" type="checkbox" value="simluh_usaha_simpan_pinjam" name="simluh_usaha_simpan_pinjam" id="simluh_jenis_kelompok_perempuan" >
+                                                    <label class="form-check-label" for="flexCheckDefault">
+                                                    Keuangan Mikro dan Simpan Pinjam
+                                                    </label>
+                                                    </div>
+                                                    <div class="form-check">
+                                                         <input class="form-check-input simluh_usaha_jasa_lain" type="checkbox" value="simluh_usaha_jasa_lain" name="simluh_usaha_jasa_lain" id="simluh_jenis_kelompok_perempuan" >
+                                                    <label class="form-check-label" for="flexCheckDefault">
+                                                   Jasa Lainnya
+                                                    </label>
+                                                    <div class="input-group mb-3">
+                                                        <input type="text" class="form-control" id="simluh_usaha_jasa_lain_desc" name="simluh_usaha_jasa_lain_desc" placeholder="" >
+                                                    </div>
+                                                    </div>
+                                            </div>
+                                            <div class="col">
+                                                    
+                                                    <label>Usaha Tani</label>
+                                            <div class="input-group mb-3">
+                                               <select name="simluh_usaha_tani" id="simluh_usaha_tani"  class="form-control input-lg">
+                                                            <option value="">Pilih Usaha</option>
+                                                            <?php
+                                                            foreach ($usahatani as $row2) {
+                                                                echo '<option value="' . $row2["id_kom_general"] . '">' . $row2["nama_komoditas"] . '</option>';
+                                                            }
+                                                            ?>
+                                                        </select>
+                                            </div>
+                                            <label>Usaha Olah</label>
+                                            <div class="input-group mb-3">
+                                               <select name="simluh_usaha_olah" id="simluh_usaha_olah"  class="form-control input-lg">
+                                                            <option value="">Pilih Usaha</option>
+                                                            <?php
+                                                            foreach ($usahaolah as $row3) {
+                                                                echo '<option value="' . $row3["id_kom_general"] . '">' . $row3["nama_komoditas"] . '</option>';
+                                                            }
+                                                            ?>
+                                                        </select>
+                                            </div>
+                                            <label>Alat dan Mesin Pertanian Yang Dimiliki</label> 
+                                            <div class="input-group mb-3">
+                                            <label style="margin-top : 10px;" class="form-check-label">Traktor</label> 
+                                                <input type="text" style="margin-left : 10px;" class="form-control" id="simluh_alsin_traktor" name="simluh_alsin_traktor" placeholder="isi dengan angka">
+                                                        </div>  
+                                              <div class="input-group mb-3">
+                                            <label style="margin-top : 10px;" class="form-check-label">Hand Traktor</label> 
+                                                <input type="text" style="margin-left : 10px;" class="form-control" id="simluh_hand_tractor" name="simluh_hand_tractor" >
+                                                        </div>   
+                                                        <div class="input-group mb-3">
+                                            <label style="margin-top : 10px;" class="form-check-label">Pompa Air</label> 
+                                                <input type="text" style="margin-left : 10px;" class="form-control" id="simluh_alsin_pompa_air" name="simluh_alsin_pompa_air" >
+                                                        </div>   
+                                                        <div class="input-group mb-3">
+                                            <label style="margin-top : 10px;" class="form-check-label">Mesin Penggiling Padi</label> 
+                                                <input type="text" style="margin-left : 10px;" class="form-control" id="simluh_penggiling_padi" name="simluh_penggiling_padi" >
+                                                        </div>   
+                                                        <div class="input-group mb-3">
+                                            <label style="margin-top : 10px;" class="form-check-label">Mesin Pengering</label> 
+                                                <input type="text" style="margin-left : 10px;" class="form-control" id="simluh_alsin_pengering" name="simluh_alsin_pengering" >
+                                                        </div>   
+                                                        <div class="input-group mb-3">
+                                            <label style="margin-top : 10px;" class="form-check-label">Mesin Pencacah</label> 
+                                                <input type="text" style="margin-left : 10px;" class="form-control" id="simluh_alsin_chooper" name="simluh_alsin_chooper" >
+                                                        </div>   
+                                                        <div class="input-group mb-3">
+                                            <label style="margin-top : 10px;" class="form-check-label">Lainnya</label> 
+                                                <input type="text" style="margin-left : 10px;" class="form-control" id="simluh_alsin_lain_desc" name="simluh_alsin_lain_desc" >
+                                                <input type="text" style="margin-left : 10px;" class="form-control" id="simluh_alsin_lain" name="simluh_alsin_lain" >
+                                                        </div>                        
+                                            </div>
+
+
                                             <input type="hidden" id="kode_kab" name="kode_kab" value="<?= $kode_kab; ?>">
                                             <input type="hidden" id="kode_prop" name="kode_prop" value="<?= $kode_prop; ?>">
                                                 <input type="hidden" id="id_gapber" name="id_gapber" >
                                                     <div class="text-center">
                                                         <button type="button" id="btnSave" class="btn btn-round bg-gradient-warning btn-sm">Simpan Data</button>
                                                     </div>
-                                                </div>
+                                                
                                             </form>
                                         </div>
 
