@@ -215,74 +215,7 @@ $data = $json[0];
                                 <div class="card-body p-3">
                                     <div class="row">
 
-                                        <!-- <h1 class="h3 mb-4 text-gray-800"><?= $title; ?><i class="fas fa-edit" style="float: right;" data-bs-toggle="modal" data-bs-target="#modal-form" id="btn-edit" data-id_gapoktan="<?= $dt['id_gapoktan']; ?>"></i></a></h1>
 
-                                        <table class="table">
-
-                                            <tbody>
-                                                <input type="hidden" name="id_gapoktan" value="<?= $dt['id_gapoktan']; ?>">
-                                                <tr>
-                                                    <td>Nama Kelembagaan</td>
-                                                    <td>:</td>
-                                                    <td><?= $dt['deskripsi_lembaga_lain']; ?> <?= $sessnama; ?></td>
-                                                </tr>
-                                                <tr>
-                                                    <td>Tanggal Pembentukan</td>
-                                                    <td>:</td>
-                                                    <td><?= $dt['tgl_berdiri'] . '-' . $dt['bln_berdiri'] . '-' . $dt['thn_berdiri']; ?></td>
-                                                </tr>
-                                                <tr>
-                                                    <td>Alamat</td>
-                                                    <td>:</td>
-                                                    <td> <?= $dt['alamat']; ?></td>
-                                                </tr>
-                                                <tr>
-                                                    <td>Provinsi</td>
-                                                    <td>:</td>
-                                                    <td><?= $namaprov; ?></td>
-                                                </tr>
-                                                <tr>
-                                                    <td>No Telepon/Fax</td>
-                                                    <td>:</td>
-                                                    <td><?= $dt['telp_kantor']; ?></td>
-                                                </tr>
-                                                <tr>
-                                                    <td>Alamat Email</td>
-                                                    <td>:</td>
-                                                    <td><?= $dt['email']; ?></td>
-                                                </tr>
-                                                <tr>
-                                                    <td>Alamat Website</td>
-                                                    <td>:</td>
-                                                    <td><?= $dt['website']; ?></td>
-                                                </tr>
-                                                <tr>
-                                                    <td>Nama Pimpinan</td>
-                                                    <td>:</td>
-                                                    <td><?= $dt['ketua']; ?></td>
-                                                </tr>
-                                                <tr>
-                                                    <td>No HP Pimpinan</td>
-                                                    <td>:</td>
-                                                    <td><?= $dt['hp_kabid']; ?></td>
-                                                </tr>
-                                                <tr>
-                                                    <td>Nama Koordinator PP</td>
-                                                    <td>:</td>
-
-                                                    <td><?php if ($dt['kode_koord_penyuluh'] == "1") {
-                                                            echo $dt['nama_koord_penyuluh'];
-                                                        } elseif ($dt['kode_koord_penyuluh'] == "2") {
-                                                            echo $dt['nama_koord_penyuluh_thl'];
-                                                        } elseif ($dt['kode_koord_penyuluh'] == "3") {
-                                                            echo $dt['koord_lainnya_nama'];
-                                                        } ?></td>
-
-                                                </tr>
-
-                                            </tbody>
-
-                                        </table>-->
 
                                         <h1 class="h3 mb-4 text-gray-800"><?= $title; ?><i class="fas fa-edit" style="float: right;" data-bs-toggle="modal" data-bs-target="#modal-form" id="btn-edit" data-id_gapoktan="<?php
                                                                                                                                                                                                                             if (session()->get('status_user') == '200') {
@@ -342,7 +275,7 @@ $data = $json[0];
                                                         <tr>
                                                             <td>No HP Pimpinan</td>
                                                             <td>:</td>
-                                                            <td><?= $dt['hp_kabid']; ?></td>
+                                                            <td><?= $dt['telp_hp']; ?></td>
                                                         </tr>
                                                         <tr>
                                                             <td>Nama Koordinator PP</td>
@@ -404,7 +337,7 @@ $data = $json[0];
                                                         <tr>
                                                             <td>No HP Pimpinan</td>
                                                             <td>:</td>
-                                                            <td><?= $dt['hp_kabid']; ?></td>
+                                                            <td><?= $dt['telp_hp']; ?></td>
                                                         </tr>
                                                         <tr>
                                                             <td>Nama Koordinator PP</td>

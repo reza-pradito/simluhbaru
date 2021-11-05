@@ -92,9 +92,11 @@ if (empty(session()->get('status_user')) || session()->get('status_user') == '2'
                             <p class="text-xs font-weight-bold mb-0"><?= $row['tgl_update'] ?></p>
                         </td>
                         <td class="align-middle text-center text-sm">
-                            <button type="button" class="btn bg-gradient-danger btn-sm">
-                                <i class="fas fa-trash"><a href="<?= base_url('KelembagaanPenyuluhan/Kecamatan/Kecamatan/delete/' . $row['id']) ?>" onclick="return confirm('apakah anda ingin menghapus data ini?')"></i> Hapus</a>
-                            </button>
+                            <a href="<?= base_url('KelembagaanPenyuluhan/Kecamatan/Kecamatan/delete/' . $row['id']) ?>" onclick="return confirm('apakah anda ingin menghapus data ini?')">
+                                <button type="button" class="btn bg-gradient-danger btn-sm">
+                                    <i class="fas fa-trash"></i> Hapus
+                                </button>
+                            </a>
                             </a>
                         </td>
                     </tr>

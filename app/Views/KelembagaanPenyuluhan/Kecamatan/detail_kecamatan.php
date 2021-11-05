@@ -469,6 +469,32 @@ $data = $json[0];
 
                     </div>
                 </div>
+                <div class="tab-pane fade" id="nav-foto" role="tabpanel" aria-labelledby="nav-foto-tab">
+                    <div class="row">
+
+                        <div class="col-lg-12 mb-lg-0 mb-4">
+                            <div class="card">
+                                <div class="card-body p-3">
+                                    <div class="row">
+                                        <h4 class="h3 mb-4 text-gray-800">Foto Bangunan</h4>
+                                        <div class="col-lg-3 mb-lg-0 mb-4 text-center">
+                                            <div class="card">
+                                                <div class="card-body p-3 ">
+                                                    <img src="<?= base_url('assets/img/' . $dt['foto']) ?>" width="150px" class="img-thumbnail" alt="profil">
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                </div>
+                            </div>
+                        </div>
+
+
+
+                    </div>
+                </div>
+
                 <div class="tab-pane fade" id="nav-wilkec" role="tabpanel" aria-labelledby="nav-wilkec-tab">
                     <div class="row">
                         <div class="col-lg-12 mb-lg-0 mb-4">
