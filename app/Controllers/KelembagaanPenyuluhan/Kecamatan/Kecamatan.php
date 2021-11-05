@@ -226,9 +226,9 @@ class Kecamatan extends BaseController
     {
         $dt = $this->model->find($id);
         if ($dt['foto'] != 'logo.png') {
-        }
-        unlink('assets/img/' . $dt['foto']);
 
+            unlink('assets/img/' . $dt['foto']);
+        }
         $this->model->delete($id);
         return redirect()->to('/kecamatan');
     }

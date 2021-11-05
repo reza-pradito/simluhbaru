@@ -43,8 +43,6 @@ class Lembaga extends BaseController
         $query = $db->query('SELECT * FROM reff_fasilitasi_bpp');
         $query->getResultArray();
 
-
-
         $lembagaModel = new LembagaModel();
         $kabModel = new KabupatenModel();
         $wilModel = new KodeWilModel();
