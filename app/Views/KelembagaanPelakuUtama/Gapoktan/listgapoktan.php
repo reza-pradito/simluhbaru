@@ -141,6 +141,7 @@ if (empty(session()->get('status_user')) || session()->get('status_user') == '2'
                                                    
                                                 </select>
                                             </div>
+                                            
                                             <input type="hidden" name="kode_kab" id="kode_kab" value="<?= $kode; ?>">
                                             <input type="hidden" name="kode_kec" id="kode_kec" value="<?= $kode_kec; ?>">
                                                 <input type="hidden" class="form-control" id="id_gap" name="id_gap" value="<?= $row['id_gap'] ?>" >
@@ -257,10 +258,10 @@ if (empty(session()->get('status_user')) || session()->get('status_user') == '2'
                 confirmButtonText: 'Hapus Data!'
             }).then((result) => {
                 if (result.value) {
-                    var id_gap = $(this).data('id_gap');
+                    var id = $(this).data('id_gap');
 
                     $.ajax({
-                        url: '<?= base_url() ?>/KelembagaanPelakuUtama/Gapoktan/ListGapoktan/delete/' + id_gap,
+                        url: '<?= base_url() ?>/KelembagaanPelakuUtama/Gapoktan/ListGapoktan/delete/' + id,
                         type: 'POST',
 
                         success: function(result) {
@@ -291,7 +292,6 @@ if (empty(session()->get('status_user')) || session()->get('status_user') == '2'
             });
 
         });
-       
         $(document).delegate('#btnEditGap', 'click', function() {
             $.ajax({
                 url: '<?= base_url() ?>/KelembagaanPelakuUtama/Gapoktan/ListGapoktan/edit/' + $(this).data('id_gap'),
