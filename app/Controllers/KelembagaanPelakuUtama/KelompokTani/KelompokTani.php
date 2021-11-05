@@ -9,6 +9,11 @@ use App\Models\KodeWilayah\KodeWilModel;
 
 class KelompokTani extends BaseController
 {
+    protected $model;
+    public function __construct()
+    {
+        $this->model = new ListPoktanModel();
+    }
     public function kelompoktani()
     {
         $get_param = $this->request->getGet();
@@ -64,8 +69,9 @@ class KelompokTani extends BaseController
     }
     public function save()
     {
+        $listpoktan_model = new ListPoktanModel();
         try {
-            $res = $this->model->save([
+            $res = $listpoktan_model->save([
                 'kode_kec' => $this->request->getPost('kode_kec'),
                 'kode_kab' => $this->request->getPost('kode_kab'),
                 'kode_desa' => $this->request->getPost('kode_desa'),
@@ -85,7 +91,7 @@ class KelompokTani extends BaseController
                 'simluh_jenis_kelompok_lmdh' => $this->request->getPost('simluh_jenis_kelompok_lmdh'),
                 'simluh_jenis_kelompok_penangkar' => $this->request->getPost('simluh_jenis_kelompok_penangkar'),
                 'simluh_jenis_kelompok_kmp' => $this->request->getPost('simluh_jenis_kelompok_kmp'),
-                'simluh_kelompok_jenis_umkm' => $this->request->getPost('simluh_kelompok_jenis_umkm'),
+                'simluh_jenis_kelompok_umkm' => $this->request->getPost('simluh_jenis_kelompok_umkm'),
             ]);
             if($res == false){
                 $data = [
@@ -109,13 +115,14 @@ class KelompokTani extends BaseController
     }
     public function edit($id_poktan)
     {
+        
         $poktan = $this->model->getDataById($id_poktan);
         echo $poktan;
     }
 
     public function update($id_poktan)
     {
-        
+        $listpoktan_model = new ListPoktanModel();
         $kode_kec = $this->request->getPost('kode_kec');
         $kode_kab = $this->request->getPost('kode_kab');
         $kode_desa = $this->request->getPost('kode_desa');
@@ -126,7 +133,7 @@ class KelompokTani extends BaseController
         $alamat = $this->request->getPost('alamat');
         $simluh_tahun_bentuk = $this->request->getPost('simluh_tahun_bentuk');
         $status = $this->request->getPost('status');
-        $simluh_kelas_kemapuan = $this->request->getPost('simluh_kelas_kemapuan');
+        $simluh_kelas_kemampuan = $this->request->getPost('simluh_kelas_kemampuan');
         $simluh_tahun_tap_kelas = $this->request->getPost('simluh_tahun_tap_kelas');
         $simluh_jenis_kelompok_perempuan = $this->request->getPost('simluh_jenis_kelompok_perempuan');
         $simluh_jenis_kelompok_domisili = $this->request->getPost('simluh_jenis_kelompok_domisili');
@@ -136,7 +143,7 @@ class KelompokTani extends BaseController
         $simluh_jenis_kelompok_penangkar = $this->request->getPost('simluh_jenis_kelompok_penangkar');
         $simluh_jenis_kelompok_kmp = $this->request->getPost('simluh_jenis_kelompok_kmp');
         $simluh_jenis_kelompok_umkm = $this->request->getPost('simluh_jenis_kelompok_umkm');
-        $this->model->save([
+        $listpoktan_model->save([
             'id_poktan' => $id_poktan,
             'kode_kec' => $kode_kec,
             'kode_kab' => $kode_kab,
@@ -157,10 +164,9 @@ class KelompokTani extends BaseController
             'simluh_jenis_kelompok_lmdh' => $simluh_jenis_kelompok_lmdh,
             'simluh_jenis_kelompok_penangkar' => $simluh_jenis_kelompok_penangkar,
             'simluh_jenis_kelompok_kmp' => $simluh_jenis_kelompok_kmp,
-            'simluh_jenis_umkm' => $simluh_jenis_umkm,
+            'simluh_jenis_kelompok_umkm' => $simluh_jenis_kelompok_umkm,
         ]);
 
-        //session()->setFlashdata('pesan', 'Data berhasil diubah');
 
     }
     public function delete($id_poktan)

@@ -12,7 +12,7 @@ class GapoktanBersamaModel extends Model
     protected $primaryKey = 'id_gapber';
     protected $allowedFields = [ 'kode_prop', 'kode_kab',
      'kode_kec', 'kode_desa', 'nama_gapoktan', 'ketua_gapoktan', 'alamat', 'simluh_sk_pengukuhan','simluh_tahun_bentuk','simluh_bendahara',
-    'simluh_sekretaris', 'simluh_usaha_saprodi','simluh_usaha_pemasaran','simluh_usaha_pemasaran',''];
+    'simluh_sekretaris', 'simluh_usaha_saprodi','simluh_usaha_pemasaran','simluh_usaha_simpan_pinjam','simluh_usaha_jasa_lain','simluh_usaha_jasa_lain_desc','simluh_alsin_traktor','simluh_alsin_hand_tractor'];
     protected $useTimestamps = false;
   
 

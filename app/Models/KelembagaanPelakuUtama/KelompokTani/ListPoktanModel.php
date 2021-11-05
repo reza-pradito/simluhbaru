@@ -26,7 +26,7 @@ class ListPoktanModel extends Model
         $query2 = $db->query("SELECT count(id_poktan) as jum FROM tb_poktan where kode_kec ='$kode_kec'");
         $row2   = $query2->getRow();
         
-        $query3   = $db->query("select *, a.id_poktan,a.id_gap,a.alamat,a.id_gap,a.kode_desa,a.kode_kec,a.kode_kab,a.nama_poktan,a.ketua_poktan,b.nm_desa,c.id_daerah,d.id_dati2,a.status,a.simluh_tahun_bentuk
+        $query3   = $db->query("select *, a.id_poktan,a.id_gap,a.alamat,a.id_gap,a.kode_desa,a.kode_kec,a.kode_kab,a.nama_poktan,a.ketua_poktan,b.nm_desa,c.id_daerah,d.id_dati2,a.status,a.simluh_tahun_bentuk,simluh_kelas_kemampuan,simluh_tahun_tap_kelas
                                 ,a.simluh_jenis_kelompok_perempuan,a.simluh_jenis_kelompok_domisili,a.simluh_jenis_kelompok_upja,a.simluh_jenis_kelompok_p3a,a.simluh_jenis_kelompok_lmdh,a.simluh_jenis_kelompok_penangkar,a.simluh_jenis_kelompok_kmp,a.simluh_jenis_kelompok_umkm
                                 from tb_poktan a
                                 left join tbldesa b on a.kode_desa=b.id_desa 

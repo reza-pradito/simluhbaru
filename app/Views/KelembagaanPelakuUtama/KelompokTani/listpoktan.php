@@ -81,7 +81,7 @@ if (empty(session()->get('status_user')) || session()->get('status_user') == '2'
                          
                             
                             <button type="button" class="btn bg-gradient-info btn-sm">
-                            <a href="<?= base_url('/listbantu?ip=' . $row['id_poktan']) ?>"> <i class="fas fa-trash"></i>
+                            <a href="<?= base_url('/listbantu?ip=' . $row['id_poktan']) ?>"> </i>
                                  +Tambah Bantuan
                             </button>
                             
@@ -152,43 +152,43 @@ if (empty(session()->get('status_user')) || session()->get('status_user') == '2'
 
                                             <label>Jenis Kelompok Lainnya</label>
                                             <div class="form-check">
-                                                 <input class="form-check-input simluh_jenis_kelompok_perempuan" type="checkbox" value="simluh_jenis_kelompok_perempuan" name="simluh_jenis_kelompok_perempuan" id="simluh_jenis_kelompok_perempuan" >
+                                                 <input class="form-check-input simluh_jenis_kelompok_perempuan" type="checkbox" value="perempuan" name="simluh_jenis_kelompok_perempuan" id="simluh_jenis_kelompok_perempuan" >
                                                     <label class="form-check-label" for="flexCheckDefault">
                                                     Perempuan
                                                     </label>
                                                     </div>
                                                 <div class="form-check">
-                                                    <input class="form-check-input simluh_jenis_kelompok_domisili" type="checkbox" value="simluh_jenis_kelompok_domisili" name="simluh_jenis_kelompok_domisili" id="simluh_jenis_kelompok_domisili" >
-                                                        <label class="form-check-label" for="flexCheckChecked">
+                                                    <input class="form-check-input simluh_jenis_kelompok_domisili" type="checkbox" value="domisili" name="simluh_jenis_kelompok_domisili" id="simluh_jenis_kelompok_domisili" >
+                                                        <label class="form-check-label" for="simluh_jenis_kelompok_domisili">
                                                              Domisili
                                                          </label>
                                                 </div> <div class="form-check">
-                                                    <input class="form-check-input simluh_jenis_kelompok_upja" type="checkbox" value="simluh_jenis_kelompok_upja" name="simluh_jenis_kelompok_upja" id="simluh_jenis_kelompok_upja" >
+                                                    <input class="form-check-input simluh_jenis_kelompok_upja" type="checkbox" value="upja" name="simluh_jenis_kelompok_upja" id="simluh_jenis_kelompok_upja" >
                                                         <label class="form-check-label" for="flexCheckChecked">
                                                              UPJA
                                                          </label>
                                                 </div> <div class="form-check">
-                                                    <input class="form-check-input simluh_jenis_kelompok_p3a" type="checkbox" value="simluh_jenis_kelompok_p3a" name="simluh_jenis_kelompok_p3a" id="simluh_jenis_kelompok_p3a" >
+                                                    <input class="form-check-input simluh_jenis_kelompok_p3a" type="checkbox" value="p3a" name="simluh_jenis_kelompok_p3a" id="simluh_jenis_kelompok_p3a" >
                                                         <label class="form-check-label" for="flexCheckChecked">
                                                              P3A/HIPPA
                                                          </label>
                                                 </div> <div class="form-check">
-                                                    <input class="form-check-input  simluh_jenis_kelompok_lmdh" type="checkbox" value="simluh_jenis_kelompok_lmdh" name="simluh_jenis_kelompok_lmdh" id="simluh_jenis_kelompok_lmdh" >
+                                                    <input class="form-check-input  simluh_jenis_kelompok_lmdh" type="checkbox" value="lmdh" name="simluh_jenis_kelompok_lmdh" id="simluh_jenis_kelompok_lmdh" >
                                                         <label class="form-check-label" for="flexCheckChecked">
                                                              LMDH
                                                          </label>
                                                 </div> <div class="form-check">
-                                                    <input class="form-check-input simluh_jenis_kelompok_penangkar" type="checkbox" value="simluh_jenis_kelompok_penangkar_benih" name="simluh_jenis_kelompok_penangkar" id="simluh_jenis_kelompok_penangkar" >
+                                                    <input class="form-check-input simluh_jenis_kelompok_penangkar" type="checkbox" value="benih" name="simluh_jenis_kelompok_penangkar" id="simluh_jenis_kelompok_penangkar" >
                                                         <label class="form-check-label" for="flexCheckChecked">
                                                             Penangkar Benih
                                                          </label>
                                                 </div> <div class="form-check">
-                                                    <input class="form-check-input simluh_jenis_kelompok_kmp" type="checkbox" value="simluh_jenis_kelompok_kmp" name="simluh_jenis_kelompok_kmp" id="simluh_jenis_kelompok_kmp" >
+                                                    <input class="form-check-input simluh_jenis_kelompok_kmp" type="checkbox" value="kmp" name="simluh_jenis_kelompok_kmp" id="simluh_jenis_kelompok_kmp" >
                                                         <label class="form-check-label" for="flexCheckChecked">
                                                             KMP (Kawasan Mandiri Pangan)
                                                          </label>
                                                 </div> <div class="form-check">
-                                                    <input class="form-check-input simluh_jenis_kelompok_umkm" type="checkbox" value="simluh_jenis_kelompok_umkm" name="simluh_jenis_kelompok_umkm" id="simluh_jenis_kelompok_umkm" >
+                                                    <input class="form-check-input simluh_jenis_kelompok_umkm" type="checkbox" value="umkm" name="simluh_jenis_kelompok_umkm" id="simluh_jenis_kelompok_umkm" >
                                                         <label class="form-check-label" for="flexCheckChecked">
                                                              UMKM Model Pengembangan Pangan Pokok Lokal (MP3L)
                                                          </label>
@@ -262,20 +262,21 @@ if (empty(session()->get('status_user')) || session()->get('status_user') == '2'
             var status = $('#status').val();
             var simluh_tahun_tap_kelas = $('#year2').val();
             var simluh_kelas_kemampuan = $('#simluh_kelas_kemampuan').val();
-            var simluh_jenis_kelompok_perempuan = $('#simluh_jenis_kelompok_perempuan').val();
-            var simluh_jenis_kelompok_domisili = $('#simluh_jenis_kelompok_domisili').val();
-            var simluh_jenis_kelompok_upja = $('#simluh_jenis_kelompok_upja').val();
-            var simluh_jenis_kelompok_p3a = $('#simluh_jenis_kelompok_p3a').val();
-            var simluh_jenis_kelompok_lmdh = $('#simluh_jenis_kelompok_lmdh').val();
-            var simluh_jenis_kelompok_penangkar = $('#simluh_jenis_kelompok_penangkar').val();
-            var simluh_jenis_kelompok_kmp = $('#simluh_jenis_kelompok_kmp').val();
-            var simluh_jenis_kelompok_umkm = $('#simluh_jenis_kelompok_umkm').val();
+
+            var simluh_jenis_kelompok_perempuan = $(".simluh_jenis_kelompok_perempuan")[0].checked ? $(".simluh_jenis_kelompok_perempuan").val() : "";
+            var simluh_jenis_kelompok_domisili = $(".simluh_jenis_kelompok_domisili")[0].checked ? $(".simluh_jenis_kelompok_domisili").val() : "";
+            var simluh_jenis_kelompok_upja =$(".simluh_jenis_kelompok_upja")[0].checked ? $(".simluh_jenis_kelompok_upja").val() : "";
+            var simluh_jenis_kelompok_p3a = $(".simluh_jenis_kelompok_p3a")[0].checked ? $(".simluh_jenis_kelompok_p3a").val() : "";
+            var simluh_jenis_kelompok_lmdh =$(".simluh_jenis_kelompok_lmdh")[0].checked ? $(".simluh_jenis_kelompok_lmdh").val() : "";
+            var simluh_jenis_kelompok_penangkar =$(".simluh_jenis_kelompok_penangkar")[0].checked ? $(".simluh_jenis_kelompok_penangkar").val() : "";
+            var simluh_jenis_kelompok_kmp = $(".simluh_jenis_kelompok_kmp")[0].checked ? $(".simluh_jenis_kelompok_kmp").val() : "";
+            var simluh_jenis_kelompok_umkm = $(".simluh_jenis_kelompok_umkm")[0].checked ? $(".simluh_jenis_kelompok_umkm").val() : "";
             
             
           
 
             $.ajax({
-                url: '<?= base_url() ?>/KelembagaanPelakuUtama/KelompokTani/ListPokTan/save/',
+                url: '<?= base_url() ?>/KelembagaanPelakuUtama/KelompokTani/KelompokTani/save/',
                 type: 'POST',
                 data: {
                     'kode_kec': kode_kec,
@@ -385,7 +386,7 @@ if (empty(session()->get('status_user')) || session()->get('status_user') == '2'
         });
         $(document).delegate('#btnEditPok', 'click', function() {
             $.ajax({
-                url: '<?= base_url() ?>/KelembagaanPelakuUtama/KelompokTani/ListPokTan/edit/' + $(this).data('id_poktan'),
+                url: '<?= base_url() ?>/KelembagaanPelakuUtama/KelompokTani/KelompokTani/edit/' + $(this).data('id_poktan'),
                 type: 'GET',
                 dataType: 'JSON',
                 success: function(result) {
@@ -404,42 +405,42 @@ if (empty(session()->get('status_user')) || session()->get('status_user') == '2'
                     $('#status').val(result.status);
                     $('#year2').val(result.simluh_tahun_tap_kelas);
                     $('#simluh_kelas_kemampuan').val(result.simluh_kelas_kemampuan);
-                    if (result.simluh_jenis_kelompok_perempuan == "simluh_jenis_kelompok_perempuan") {
+                    if (result.simluh_jenis_kelompok_perempuan == "perempuan") {
                         $("#simluh_jenis_kelompok_perempuan").prop("checked", true);
                     } else {
                         $("#simluh_jenis_kelompok_perempuan").prop("checked", false);
                     } 
-                    if (result.simluh_jenis_kelompok_domisili == "simluh_jenis_kelompok_domisili") {
+                    if (result.simluh_jenis_kelompok_domisili == "domisili") {
                         $("#simluh_jenis_kelompok_domisili").prop("checked", true);
                     } else {
                         $("#simluh_jenis_kelompok_domisili").prop("checked", false);
                     } 
-                    if (result.simluh_jenis_kelompok_upja == "simluh_jenis_kelompok_upja") {
+                    if (result.simluh_jenis_kelompok_upja == "upja") {
                         $("#simluh_jenis_kelompok_upja").prop("checked", true);
                     } else {
                         $("#simluh_jenis_kelompok_upja").prop("checked", false);
                     }
-                    if (result.simluh_jenis_kelompok_p3a == "simluh_jenis_kelompok_p3a") {
+                    if (result.simluh_jenis_kelompok_p3a == "p3a") {
                         $("#simluh_jenis_kelompok_p3a").prop("checked", true);
                     } else {
                         $("#simluh_jenis_kelompok_p3a").prop("checked", false);
                     }
-                    if (result.simluh_jenis_kelompok_lmdh == "simluh_jenis_kelompok_lmdh") {
+                    if (result.simluh_jenis_kelompok_lmdh == "lmdh") {
                         $("#simluh_jenis_kelompok_lmdh").prop("checked", true);
                     } else {
                         $("#simluh_jenis_kelompok_lmdh").prop("checked", false);
                     }
-                    if (result.simluh_jenis_kelompok_penangkar == "simluh_jenis_kelompok_penangkar") {
+                    if (result.simluh_jenis_kelompok_penangkar == "penangkar") {
                         $("#simluh_jenis_kelompok_penangkar").prop("checked", true);
                     } else {
                         $("#simluh_jenis_kelompok_penangkar").prop("checked", false);
                     }
-                    if (result.simluh_jenis_kelompok_kmp == "simluh_jenis_kelompok_kmp") {
+                    if (result.simluh_jenis_kelompok_kmp == "kmp") {
                         $("#simluh_jenis_kelompok_kmp").prop("checked", true);
                     } else {
                         $("#simluh_jenis_kelompok_kmp").prop("checked", false);
                     }
-                    if (result.simluh_jenis_kelompok_umkm == "simluh_jenis_kelompok_umkm") {
+                    if (result.simluh_jenis_kelompok_umkm == "umkm") {
                         $("#simluh_jenis_kelompok_umkm").prop("checked", true);
                     } else {
                         $("#simluh_jenis_kelompok_umkm").prop("checked", false);
@@ -463,14 +464,14 @@ if (empty(session()->get('status_user')) || session()->get('status_user') == '2'
                         var status = $('#status').val();
                         var simluh_tahun_tap_kelas = $('#year2').val();
                         var simluh_kelas_kemampuan = $('#simluh_kelas_kemampuan').val();
-                        var simluh_jenis_kelompok_perempuan = $(".simluh_jenis_kelompok_perempuan")[0].checked ? $(".simluh_jenis_kelompok_perempuan:checked").val() : "";
-                        var simluh_jenis_kelompok_domisili = $(".simluh_jenis_kelompok_domisili")[0].checked ? $(".simluh_jenis_kelompok_domisili:checked").val() : "";
-                        var simluh_jenis_kelompok_upja = $(".simluh_jenis_kelompok_upja")[0].checked ? $(".simluh_jenis_kelompok_upja:checked").val() : "";
-                        var simluh_jenis_kelompok_p3a = $(".simluh_jenis_kelompok_p3a")[0].checked ? $(".simluh_jenis_kelompok_p3a:checked").val() : "";
-                        var simluh_jenis_kelompok_lmdh = $(".simluh_jenis_kelompok_lmdh")[0].checked ? $(".simluh_jenis_kelompok_lmdh:checked").val() : "";
-                        var simluh_jenis_kelompok_penangkar = $(".simluh_jenis_kelompok_penangkar")[0].checked ? $(".simluh_jenis_kelompok_penangkar:checked").val() : "";
-                        var simluh_jenis_kelompok_kmp = $(".simluh_jenis_kelompok_kmp")[0].checked ? $(".simluh_jenis_kelompok_kmp:checked").val() : "";
-                        var simluh_jenis_kelompok_umkm = $(".simluh_jenis_kelompok_umkm")[0].checked ? $(".simluh_jenis_kelompok_umkm:checked").val() : "";
+                        var simluh_jenis_kelompok_perempuan = $(".simluh_jenis_kelompok_perempuan")[0].checked ? $(".simluh_jenis_kelompok_perempuan").val() : "";
+                        var simluh_jenis_kelompok_domisili = $(".simluh_jenis_kelompok_domisili")[0].checked ? $(".simluh_jenis_kelompok_domisili").val() : "";
+                        var simluh_jenis_kelompok_upja = $(".simluh_jenis_kelompok_upja")[0].checked ? $(".simluh_jenis_kelompok_upja").val() : "";
+                        var simluh_jenis_kelompok_p3a = $(".simluh_jenis_kelompok_p3a")[0].checked ? $(".simluh_jenis_kelompok_p3a").val() : "";
+                        var simluh_jenis_kelompok_lmdh = $(".simluh_jenis_kelompok_lmdh")[0].checked ? $(".simluh_jenis_kelompok_lmdh").val() : "";
+                        var simluh_jenis_kelompok_penangkar = $(".simluh_jenis_kelompok_penangkar")[0].checked ? $(".simluh_jenis_kelompok_penangkar").val() : "";
+                        var simluh_jenis_kelompok_kmp = $(".simluh_jenis_kelompok_kmp")[0].checked ? $(".simluh_jenis_kelompok_kmp").val() : "";
+                        var simluh_jenis_kelompok_umkm = $(".simluh_jenis_kelompok_umkm")[0].checked ? $(".simluh_jenis_kelompok_umkm").val() : "";
 
                         let formData = new FormData();
                         formData.append('id_poktan', id_poktan);
@@ -496,7 +497,7 @@ if (empty(session()->get('status_user')) || session()->get('status_user') == '2'
                         formData.append('simluh_jenis_kelompok_umkm', simluh_jenis_kelompok_umkm);
 
                         $.ajax({
-                            url: '<?= base_url() ?>/KelembagaanPelakuUtama/KelompokTani/ListPokTan/update/' + id_poktan,
+                            url: '<?= base_url() ?>/KelembagaanPelakuUtama/KelompokTani/KelompokTani/update/' + id_poktan,
                             type: "POST",
                             data: formData,
                             cache: false,

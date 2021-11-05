@@ -27,7 +27,7 @@ class ListPoktanAnggota extends BaseController
     }
         
     
-    $kode_kab = $this->session->get('kodebapel');
+        $kode_kab = $this->session->get('kodebapel');
         $get_param = $this->request->getGet();
         $ip = $get_param['ip'];
         $listpoktananggota_model = new ListPoktanAnggotaModel();
@@ -83,8 +83,8 @@ class ListPoktanAnggota extends BaseController
                 'volume2' => $this->request->getPost('volume2'),
                 'volume3' => $this->request->getPost('volume3'),
                 'lainnya' => $this->request->getPost('lainnya'),
-                'luas_lahan_yang_diusahakan' => $this->request->getPost('luas_lahan_yang_diusahakan'),
-                'luas_lahan_yang_dimiliki' => $this->request->getPost('luas_lahan_yang_dimiliki'),
+                'luas_lahan_ternak_diusahakan' => $this->request->getPost('luas_lahan_ternak_diusahakan'),
+                'luas_lahan_ternak_dimiliki' => $this->request->getPost('luas_lahan_ternak_dimiliki'),
                 'titik_koordinat_lahan' => $this->request->getPost('titik_koordinat_lahan'),
                 'kategori_petani_penggarap' => $this->request->getPost('kategori_petani_penggarap'),
             ]);
@@ -146,6 +146,8 @@ class ListPoktanAnggota extends BaseController
         $kategori_petani_penggarap = $this->request->getPost('kategori_petani_penggarap');
         
         $this->lpa_model->save([
+            
+            'id_anggota' => $id_anggota,
             'id_poktan' => $id_poktan,
             'kode_kec' => $kode_kec,
             'kode_desa' => $kode_desa,

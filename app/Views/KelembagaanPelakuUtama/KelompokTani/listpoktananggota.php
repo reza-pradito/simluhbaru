@@ -278,14 +278,14 @@ maka perbaikan/input data petani disarankan dilakukan melalui form input diatas
                                             </div>
                                             
                                         </div>
-                                        
+                                        <input type="hidden" name="kode_prop" id="kode_prop" value="<?= $kode_prop; ?>">
                                         <input type="hidden" name="kode_desa" id="kode_desa" value="<?= $kode_desa; ?>">
                                         <input type="hidden" name="kode_kab" id="kode_kab" value="<?= $kode; ?>">
                                             <input type="hidden" name="kode_kec" id="kode_kec" value="<?= $kode_kec; ?>">
                                                 <input type="hidden" id="id_anggota" name="id_anggota" >
                                                 <input type="hidden" id="id_poktan" name="id_poktan" value="<?= $id_poktan;?>">
                                                     <div class="text-center">
-                                                        <button type="button" id="btnSave" class="btn btn-round bg-gradient-warning btn-sm">Simpan Data</button>
+                                                        <button type="button" id="btnSaveA" class="btn btn-round bg-gradient-warning btn-sm">Simpan Data</button>
                                                     </div>
                                                 </div>
                                                 </div>
@@ -317,7 +317,7 @@ maka perbaikan/input data petani disarankan dilakukan melalui form input diatas
 <script>
 $(document).ready(function() {
 
-$(document).delegate('#btnSave', 'click', function() {
+$(document).delegate('#btnSaveA', 'click', function() {
 
     var kode_kec = $('#kode_kec').val();
     var kode_desa = $('#kode_desa').val();
@@ -502,7 +502,7 @@ $(document).delegate('#btnSave', 'click', function() {
                    
 
                     $('#modal-form').modal('show');
-                    $("#btnSave").attr("id", "btnDoEdit");
+                    $("#btnSaveA").attr("id", "btnDoEdit");
 
                     $(document).delegate('#btnDoEdit', 'click', function() {
                      

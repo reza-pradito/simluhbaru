@@ -11,7 +11,7 @@ class ListPoktanAnggotaModel extends Model
     protected $primaryKey = 'id_anggota';
     protected $allowedFields = ['kode_prop', 'kode_kab','id_poktan',
      'kode_kec', 'kode_desa', 'nama_anggota', 'nama_ktp', 'no_ktp', 'tempat_lahir', 'tgl_lahir','bln_lahir', 'thn_lahir','no_hp',  'jenis_kelamin','alamat_ktp', 'status_anggota', 'kode_komoditas','kode_komoditas2','kode_komoditas3', 
-     'volume', 'volume2', 'volume3', 'lainnya', 'luas_lahan_ternak_diusahakan','luas_lahan_ternak_dimiliki','koordinat_lahan','kategori_petani_penggarap'];
+     'volume', 'volume2', 'volume3', 'lainnya', 'luas_lahan_ternak_diusahakan','luas_lahan_ternak_dimiliki','titik_koordinat_lahan','kategori_petani_penggarap'];
 
 
     protected $useTimestamps = false;
