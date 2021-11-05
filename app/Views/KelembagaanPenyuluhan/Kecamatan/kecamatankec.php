@@ -3,7 +3,7 @@
 <?= $this->section('content') ?>
 
 <center>
-    <h5> Daftar Kelembagaan Penyuluhan Pertanian Tingkat Kecamatan (BP3K) <br>Kecamatan <?= ucwords(strtolower($nama_kecamatan)) ?> </h5>
+    <h5> Daftar Kelembagaan Penyuluhan Pertanian Tingkat Kecamatan (BP3K) <br>Kecamatan <?= ucwords(strtolower($nama_kec)) ?> </h5>
 </center>
 <a href="#"><button type="button" class="btn bg-gradient-primary">+ Tambah Data</button></a>
 <div class="card">
@@ -37,7 +37,9 @@
                             <p class="text-xs font-weight-bold mb-0"><?= $i++ ?></p>
                         </td>
                         <td>
-                            <p class="text-xs font-weight-bold mb-0"><?= $row['nama_bpp'] ?></p>
+                            <a href="<?= base_url('/detail_kecamatan?kode_kec=' . $row['id_daerah']) ?>">
+                                <p class="text-xs font-weight-bold mb-0"><?= $row['nama_bpp'] ?></p>
+                            </a>
                         </td>
                         <td>
                             <p class="text-xs font-weight-bold mb-0"><?= $row['alamat'] ?></p>
@@ -70,10 +72,9 @@
                             <p class="text-xs font-weight-bold mb-0"><?= $row['tgl_update'] ?></p>
                         </td>
                         <td class="align-middle text-center text-sm">
-                            <a href="#">
-                                <button type="button" data-bs-toggle="modal" data-bs-target="#modal-form" class="btn bg-gradient-warning btn-sm">
-                                    <i class="fas fa-edit"></i> Ubah
-                                </button>
+                            <button type="button" class="btn bg-gradient-danger btn-sm">
+                                <i class="fas fa-trash"><a href="<?= base_url('KelembagaanPenyuluhan/Kecamatan/Kecamatan/delete/' . $row['id']) ?>" onclick="return confirm('apakah anda ingin menghapus data ini?')"></i> Hapus</a>
+                            </button>
                             </a>
                         </td>
                     </tr>

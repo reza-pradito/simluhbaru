@@ -17,7 +17,7 @@
             <table id="tblUser" class="table">
                 <thead>
                     <tr>
-                        <th scope="col">#</th>
+                        <th scope="col">No</th>
                         <th scope="col">Username</th>
                         <th scope="col">Name</th>
                         <th scope="col">Status</th>
@@ -29,28 +29,7 @@
                         <th scope="col">Aksi</th>
                     </tr>
                 </thead>
-                <tbody>
-                    <?php
-                    $no = 1;
-                    foreach ($dt as $row) : ?>
-                        <tr>
-                            <th scope="row"><?= $no++; ?></th>
-                            <td><?= $row['username']; ?></td>
-                            <td><?= $row['name']; ?></td>
-                            <td><?= $row['status']; ?></td>
-                            <td><?= $row['idProp']; ?></td>
-                            <td><?= $row['kodeBakor']; ?></td>
-                            <td><?= $row['kodeBapel']; ?></td>
-                            <td><?= $row['kodeBpp']; ?></td>
-                            <td><?= $row['p_oke']; ?></td>
-                            <td>
-                                <button type="button" id="btnEditUser" data-id="<?= $row['id'] ?>" class=" btn btn-warning btn-sm">Edit</button>
-                                <button class="btn btn-danger btn-sm" id="btnHapusUser" data-id="<?= $row['id'] ?>" type="button">Hapus</button>
 
-                            </td>
-                        </tr>
-                    <?php endforeach; ?>
-                </tbody>
             </table>
 
         </div>
@@ -110,8 +89,29 @@
 <script>
     $(document).ready(function() {
 
-        $('#tblUser').DataTable({
-            "scrollX": true
+
+        //datatables
+        var table = $('#tblUser').DataTable({
+            "processing": true, //Feature control the processing indicator.
+            "serverSide": true, //Feature control DataTables' server-side processing mode.
+            "ordering": true, // Set true agar bisa di sorting
+            "order": [], // Default sortingnya berdasarkan kolom / field ke 0 (paling pertama)
+            // Load data for the table's content from an Ajax source
+            "ajax": {
+                "url": "<?php echo site_url('manage/user/ajax_user_list') ?>",
+                //"url": "ajax_user_list",
+                "type": "POST"
+            },
+            "aLengthMenu": [
+                [5, 10, 50],
+                [5, 10, 50]
+            ], // Combobox Limit
+
+            //Set column definition initialisation properties.
+            "columnDefs": [{
+                "targets": [0], //first column / numbering column
+                "orderable": true, //set not orderable
+            }, ],
         });
 
         //save

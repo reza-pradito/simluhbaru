@@ -2,6 +2,8 @@
 
 <?= $this->section('content') ?>
 
+<?php $sessnama = session()->get('kodebapel'); ?>
+<?php $sessnama = session()->get('kodebpp'); ?>
 
 <center><h2> Daftar Kelompok di Tani Kab <?= ucwords(strtolower($nama_kabupaten)) ?> </h2></center>
 <div class="card">

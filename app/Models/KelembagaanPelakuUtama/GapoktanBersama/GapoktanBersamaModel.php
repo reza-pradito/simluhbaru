@@ -11,7 +11,8 @@ class GapoktanBersamaModel extends Model
     protected $table      = 'tb_gapoktan_bersama';
     protected $primaryKey = 'id_gapber';
     protected $allowedFields = [ 'kode_prop', 'kode_kab',
-     'kode_kec', 'kode_desa', 'nama_gapoktan', 'ketua_gapoktan', 'alamat', 'simluh_sk_pengukuhan','simluh_tahun_bentuk','simluh_bendahara','simluh_sekretaris'];
+     'kode_kec', 'kode_desa', 'nama_gapoktan', 'ketua_gapoktan', 'alamat', 'simluh_sk_pengukuhan','simluh_tahun_bentuk','simluh_bendahara',
+    'simluh_sekretaris', 'simluh_usaha_saprodi','simluh_usaha_pemasaran','simluh_usaha_simpan_pinjam','simluh_usaha_jasa_lain','simluh_usaha_jasa_lain_desc','simluh_alsin_traktor','simluh_alsin_hand_tractor'];
     protected $useTimestamps = false;
   
 
@@ -25,7 +26,7 @@ class GapoktanBersamaModel extends Model
         $query2 = $db->query("SELECT count(id_gapber) as jum FROM tb_gapoktan_bersama where kode_kab ='$kode_kab'");
         $row2   = $query2->getRow();
         
-        $query3   = $db->query("select id_gapber,kode_desa,kode_kec,nama_gapoktan,ketua_gapoktan,simluh_bendahara,alamat, b.nm_desa ,c.id_daerah,d.id_dati2
+        $query3   = $db->query("select id_gapber,kode_prop,kode_desa,kode_kec,nama_gapoktan,ketua_gapoktan,simluh_bendahara,alamat, b.nm_desa ,c.id_daerah,d.id_dati2
                                 from tb_gapoktan_bersama a
                                 left join tbldesa b on a.kode_desa=b.id_desa 
                                 left join tbldaerah c on a.kode_kec=c.id_daerah
@@ -58,4 +59,17 @@ class GapoktanBersamaModel extends Model
                                 $row = $query->getRow();
                                 return json_encode($row);
     }
+    public function getUsahaTani()
+    {
+        $query = $this->db->query("select * from tb_komoditas_general where id_kom_general !='5' and id_kom_general !='6'");
+        $row   = $query->getResultArray();
+        return $row;
+    }
+    public function getUsahaOlah()
+    {
+        $query = $this->db->query("select * from tb_komoditas_general where id_kom_general !='1' and id_kom_general !='2' and id_kom_general !='3' and id_kom_general !='4'");
+        $row   = $query->getResultArray();
+        return $row;
+    }
+
 }
