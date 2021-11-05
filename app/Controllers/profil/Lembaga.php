@@ -34,14 +34,11 @@ class Lembaga extends BaseController
         if (session()->get('username') == "") {
             return redirect()->to('login');
         }
-
-        if (session()->get('status_user') == '300') {
-            return redirect()->to('kelembagaanpenyuluhan/kecamatan/kecamatan/profilkec');
-        }
-
         $db = \Config\Database::connect();
         $query = $db->query('SELECT * FROM reff_fasilitasi_bpp');
         $query->getResultArray();
+
+
 
         $lembagaModel = new LembagaModel();
         $kabModel = new KabupatenModel();
@@ -92,7 +89,6 @@ class Lembaga extends BaseController
             'validation' => \Config\Services::validation()
 
         ];
-
 
         return view('profil/profillembaga', $data);
     }
