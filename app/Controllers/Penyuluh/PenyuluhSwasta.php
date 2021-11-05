@@ -50,8 +50,6 @@ class PenyuluhSwasta extends BaseController
                 'noktp' => $this->request->getPost('noktp'),
                 'nama' => $this->request->getPost('nama'),
                 'tgl_lahir' => $this->request->getPost('tgl_lahir'),
-                'bln_lahir' => $this->request->getPost('bln_lahir'),
-                'thn_lahir' => $this->request->getPost('thn_lahir'),
                 'tempat_lahir' => $this->request->getPost('tempat_lahir'),
                 'jenis_kelamin' => $this->request->getPost('jenis_kelamin'),
                 'satminkal' => $this->request->getPost('satminkal'),

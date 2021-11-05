@@ -39,7 +39,8 @@ class Kecamatan extends BaseController
             'name' => 'Kecamatan',
             'kode_prop' => $kode['kode_prop'],
             'kode_kab' => $kode['kode_kab'],
-            'kec' => $kec
+            'kec' => $kec,
+            'validation' => \Config\Services::validation()
         ];
 
         return view('KelembagaanPenyuluhan/Kecamatan/kecamatan', $data);
@@ -51,14 +52,14 @@ class Kecamatan extends BaseController
         $kec_model = new KecamatanModel;
 
         $get_param = $this->request->getGet();
-        $kode_kec = $get_param['kode_kec'];
+        // $kode_kec = $get_param['kode_kec'];
 
-        $profilkec = $kec_model->getProfilKec($kode_kec);
-        $namawil = $wilModel->getNamaWil(session()->get('kodebapel'));
-        $penyuluhPNS = $kec_model->getPenyuluhPNS(session()->get('kodebapel'));
-        $penyuluhTHL = $kec_model->getPenyuluhTHL(session()->get('kodebapel'));
-        $kec = $kec_model->getKec(session()->get('kodebapel'));
-        $kode = $wilModel->getKodeWil2(session()->get('kodebapel'));
+        $profilkec = $kec_model->getProfilKec(session()->get('kodebpp'));
+        $namawil = $wilModel->getNamaWil(session()->get('kodebpp'));
+        $penyuluhPNS = $kec_model->getPenyuluhPNS(session()->get('kodebpp'));
+        $penyuluhTHL = $kec_model->getPenyuluhTHL(session()->get('kodebpp'));
+        $kec = $kec_model->getKec(session()->get('kodebpp'));
+        $kode = $wilModel->getKodeWil(session()->get('kodebpp'));
 
         $data = [
             'title' => 'Profil BPP',
@@ -67,85 +68,168 @@ class Kecamatan extends BaseController
             'namakab' => $namawil['namakab'],
             'penyuluhPNS' => $penyuluhPNS,
             'penyuluhTHL' => $penyuluhTHL,
-            'kode_kec' => $kode_kec,
+            'kode_kec' => session()->get('kodebpp'),
             'kode_prop' => $kode['kode_prop'],
             'kode_kab' => $kode['kode_kab'],
-            'kec' => $kec
+            'kec' => $kec,
+            'fotoprofil' => $profilkec['foto']
         ];
+
+        //dd($data);
         return view('KelembagaanPenyuluhan/Kecamatan/detail_kecamatan', $data);
     }
 
     public function save()
     {
-        try {
-            $fileSampul = $this->request->getFile('foto');
-            $fileSampul->move('/assets/img/');
-            $namaSampul = $fileSampul->getName();
-            $res = $this->model->save([
-                'foto' => $namaSampul,
-                'kode_prop' => $this->request->getPost('kode_prop'),
-                'satminkal' => $this->request->getPost('satminkal'),
-                'bentuk_lembaga' => $this->request->getPost('bentuk_lembaga'),
-                'nama_bpp' => $this->request->getPost('nama_bpp'),
-                'kecamatan' => $this->request->getPost('kecamatan'),
-                'alamat' => $this->request->getPost('alamat'),
-                'tgl_berdiri' => $this->request->getPost('tgl_berdiri'),
-                'bln_berdiri' => $this->request->getPost('bln_berdiri'),
-                'thn_berdiri' => $this->request->getPost('thn_berdiri'),
-                'status_gedung' => $this->request->getPost('status_gedung'),
-                'kondisi_bangunan' => $this->request->getPost('kondisi_bangunan'),
-                'koord_lu_ls' => $this->request->getPost('koord_lu_ls'),
-                'lu_ls' => $this->request->getPost('lu_ls'),
-                'koord_bt' => $this->request->getPost('koord_bt'),
-                'telp_bpp' => $this->request->getPost('telp_bpp'),
-                'email' => $this->request->getPost('email'),
-                'website' => $this->request->getPost('website'),
-                'ketua' => $this->request->getPost('ketua'),
-                'kode_koord_penyuluh' => $this->request->getPost('kode_koord_penyuluh'),
-                'nama_koord_penyuluh' => $this->request->getPost('nama_koord_penyuluh'),
-                'nama_koord_penyuluh_thl' => $this->request->getPost('nama_koord_penyuluh_thl'),
-                'koord_lainya_nip' => $this->request->getPost('koord_lainya_nip'),
-                'roda_4_apbn' => $this->request->getPost('roda_4_apbn'),
-                'roda_4_apbd' => $this->request->getPost('roda_4_apbd'),
-                'roda_2_apbn' => $this->request->getPost('roda_2_apbn'),
-                'roda_2_apbd' => $this->request->getPost('roda_2_apbd'),
-                'pc_apbn' => $this->request->getPost('pc_apbn'),
-                'pc_apbd' => $this->request->getPost('pc_apbd'),
-                'laptop_apbn' => $this->request->getPost('laptop_apbn'),
-                'laptop_apbd' => $this->request->getPost('laptop_apbd'),
-                'printer_apbn' => $this->request->getPost('printer_apbn'),
-                'printer_apbd' => $this->request->getPost('printer_apbd'),
-                'modem_apbn' => $this->request->getPost('modem_apbn'),
-                'modem_apbd' => $this->request->getPost('modem_apbd'),
-                'lcd_apbn' => $this->request->getPost('lcd_apbn'),
-                'lcd_apbd' => $this->request->getPost('lcd_apbd'),
-                'kios_saprotan' => $this->request->getPost('kios_saprotan'),
-                'pedagang_pengepul' => $this->request->getPost('pedagang_pengepul'),
-                'gudang_pangan' => $this->request->getPost('gudang_pangan'),
-                'perbankan' => $this->request->getPost('perbankan'),
-                'industri_penyuluhan' => $this->request->getPost('industri_penyuluhan'),
-                'luas_lahan_bp3k' => $this->request->getPost('luas_lahan_bp3k'),
-                'luas_lahan_petani' => $this->request->getPost('luas_lahan_petani')
-            ]);
-            if ($res == false) {
-                $data = [
-                    "value" => false,
-                    "message" => 'data tidak lengkap'
-                ];
-            } else {
-                $data = [
-                    "value" => true
-                ];
-            }
-            return json_encode($data);
-        } catch (\Exception $e) {
-            $data = [
-                "value" => false,
-                "message" => $e->getMessage()
-            ];
-            return json_encode($data);
+        if (!$this->validate([
+            'foto' => [
+                'rules' => 'max_size[foto,3072]|is_image[foto]|mime_in[foto,image/jpg,image/jpeg,image/png]',
+                'errors' => [
+                    'max_size' => 'Ukuran gambar terlalu besar',
+                    'is_image' => 'File yang anda pilih bukan gambar',
+                    'mime_in' => 'File yang anda pilih bukan gambar'
+                ]
+            ]
+        ])) {
+            return redirect()->to('/kecamatan')->withInput();
         }
 
-        //return redirect()->to('/daftar_posluhdes?kode_kec=' . $this->request->getPost('kode_kec'));
+        $fileSampul = $this->request->getFile('foto');
+
+        if ($fileSampul->getError() == 4) {
+            $namaSampul = 'logo.png';
+        } else {
+            $fileSampul->move('assets/img');
+            $namaSampul = $fileSampul->getName();
+        }
+
+        $this->model->save([
+            'foto' => $namaSampul,
+            'kode_prop' => $this->request->getVar('kode_prop'),
+            'satminkal' => $this->request->getVar('satminkal'),
+            'bentuk_lembaga' => $this->request->getVar('bentuk_lembaga'),
+            'nama_bpp' => $this->request->getVar('nama_bpp'),
+            'kecamatan' => $this->request->getVar('kecamatan'),
+            'alamat' => $this->request->getVar('alamat'),
+            'tgl_berdiri' => $this->request->getVar('tgl_berdiri'),
+            'bln_berdiri' => $this->request->getVar('bln_berdiri'),
+            'thn_berdiri' => $this->request->getVar('thn_berdiri'),
+            'status_gedung' => $this->request->getVar('status_gedung'),
+            'kondisi_bangunan' => $this->request->getVar('kondisi_bangunan'),
+            'koordinat_lokasi_bpp' => $this->request->getVar('koordinat_lokasi_bpp'),
+            'telp_bpp' => $this->request->getVar('telp_bpp'),
+            'email' => $this->request->getVar('email'),
+            'website' => $this->request->getVar('website'),
+            'ketua' => $this->request->getVar('ketua'),
+            'kode_koord_penyuluh' => $this->request->getVar('kode_koord_penyuluh'),
+            'nama_koord_penyuluh' => $this->request->getVar('nama_koord_penyuluh'),
+            'nama_koord_penyuluh_thl' => $this->request->getVar('nama_koord_penyuluh_thl'),
+            'koord_lainya_nip' => $this->request->getVar('koord_lainya_nip'),
+            'roda_4_apbn' => $this->request->getVar('roda_4_apbn'),
+            'roda_4_apbd' => $this->request->getVar('roda_4_apbd'),
+            'roda_2_apbn' => $this->request->getVar('roda_2_apbn'),
+            'roda_2_apbd' => $this->request->getVar('roda_2_apbd'),
+            'pc_apbn' => $this->request->getVar('pc_apbn'),
+            'pc_apbd' => $this->request->getVar('pc_apbd'),
+            'laptop_apbn' => $this->request->getVar('laptop_apbn'),
+            'laptop_apbd' => $this->request->getVar('laptop_apbd'),
+            'printer_apbn' => $this->request->getVar('printer_apbn'),
+            'printer_apbd' => $this->request->getVar('printer_apbd'),
+            'modem_apbn' => $this->request->getVar('modem_apbn'),
+            'modem_apbd' => $this->request->getVar('modem_apbd'),
+            'lcd_apbn' => $this->request->getVar('lcd_apbn'),
+            'lcd_apbd' => $this->request->getVar('lcd_apbd'),
+            'soil_apbn' => $this->request->getVar('soil_apbn'),
+            'soil_apbd' => $this->request->getVar('soil_apbd'),
+            'kios_saprotan' => $this->request->getVar('kios_saprotan'),
+            'pedagang_pengepul' => $this->request->getVar('pedagang_pengepul'),
+            'gudang_pangan' => $this->request->getVar('gudang_pangan'),
+            'perbankan' => $this->request->getVar('perbankan'),
+            'industri_penyuluhan' => $this->request->getVar('industri_penyuluhan'),
+            'luas_lahan_bp3k' => $this->request->getVar('luas_lahan_bp3k'),
+            'luas_lahan_petani' => $this->request->getVar('luas_lahan_petani')
+        ]);
+
+
+        return redirect()->to('/kecamatan');
+    }
+
+    public function update($id)
+    {
+        $fileSampul = $this->request->getFile('foto');
+        if ($fileSampul->getError() == 4) {
+            $namaSampul = $this->request->getVar('fotolama');
+        } else {
+            $namaSampul = $fileSampul->getName();
+
+            $fileSampul->move('assets/img', $namaSampul);
+
+            unlink('assets/img/' . $this->request->getVar('fotolama'));
+        }
+
+        $this->model->save([
+            'id' => $id,
+            'foto' => $namaSampul,
+            'kode_prop' => $this->request->getVar('kode_prop'),
+            'satminkal' => $this->request->getVar('satminkal'),
+            'bentuk_lembaga' => $this->request->getVar('bentuk_lembaga'),
+            'nama_bpp' => $this->request->getVar('nama_bpp'),
+            'kecamatan' => $this->request->getVar('kecamatan'),
+            'alamat' => $this->request->getVar('alamat'),
+            'tgl_berdiri' => $this->request->getVar('tgl_berdiri'),
+            'bln_berdiri' => $this->request->getVar('bln_berdiri'),
+            'thn_berdiri' => $this->request->getVar('thn_berdiri'),
+            'status_gedung' => $this->request->getVar('status_gedung'),
+            'kondisi_bangunan' => $this->request->getVar('kondisi_bangunan'),
+            'koordinat_lokasi_bpp' => $this->request->getVar('koordinat_lokasi_bpp'),
+            'telp_bpp' => $this->request->getVar('telp_bpp'),
+            'email' => $this->request->getVar('email'),
+            'website' => $this->request->getVar('website'),
+            'ketua' => $this->request->getVar('ketua'),
+            'kode_koord_penyuluh' => $this->request->getVar('kode_koord_penyuluh'),
+            'nama_koord_penyuluh' => $this->request->getVar('nama_koord_penyuluh'),
+            'nama_koord_penyuluh_thl' => $this->request->getVar('nama_koord_penyuluh_thl'),
+            'koord_lainya_nip' => $this->request->getVar('koord_lainya_nip'),
+            'roda_4_apbn' => $this->request->getVar('roda_4_apbn'),
+            'roda_4_apbd' => $this->request->getVar('roda_4_apbd'),
+            'roda_2_apbn' => $this->request->getVar('roda_2_apbn'),
+            'roda_2_apbd' => $this->request->getVar('roda_2_apbd'),
+            'pc_apbn' => $this->request->getVar('pc_apbn'),
+            'pc_apbd' => $this->request->getVar('pc_apbd'),
+            'laptop_apbn' => $this->request->getVar('laptop_apbn'),
+            'laptop_apbd' => $this->request->getVar('laptop_apbd'),
+            'printer_apbn' => $this->request->getVar('printer_apbn'),
+            'printer_apbd' => $this->request->getVar('printer_apbd'),
+            'modem_apbn' => $this->request->getVar('modem_apbn'),
+            'modem_apbd' => $this->request->getVar('modem_apbd'),
+            'lcd_apbn' => $this->request->getVar('lcd_apbn'),
+            'lcd_apbd' => $this->request->getVar('lcd_apbd'),
+            'soil_apbn' => $this->request->getVar('soil_apbn'),
+            'soil_apbd' => $this->request->getVar('soil_apbd'),
+            'kios_saprotan' => $this->request->getVar('kios_saprotan'),
+            'pedagang_pengepul' => $this->request->getVar('pedagang_pengepul'),
+            'gudang_pangan' => $this->request->getVar('gudang_pangan'),
+            'perbankan' => $this->request->getVar('perbankan'),
+            'industri_penyuluhan' => $this->request->getVar('industri_penyuluhan'),
+            'luas_lahan_bp3k' => $this->request->getVar('luas_lahan_bp3k'),
+            'luas_lahan_petani' => $this->request->getVar('luas_lahan_petani')
+        ]);
+
+
+        //session()->setFlashdata('pesan', 'Edit data berhasil.');
+
+        return redirect()->to('/detail_kecamatan?kode_kec=' . $this->request->getVar('kecamatan'));
+        // dd($this->request->getVar());
+    }
+
+    public function delete($id)
+    {
+        $dt = $this->model->find($id);
+        if ($dt['foto'] != 'logo.png') {
+
+            unlink('assets/img/' . $dt['foto']);
+        }
+        $this->model->delete($id);
+        return redirect()->to('/kecamatan');
     }
 }

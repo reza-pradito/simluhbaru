@@ -5,7 +5,6 @@
     <div class="row">
         <!-- Map -->
         <div class="col-xs-12 col-md-12 col-lg-12 mb-4">
-            <button type="button" class="btn bg-gradient-primary btn-sm">+ Tambah Data</button><br>
             <b>Kecamatan <?= $nama_kecamatan ?></b>
             <p>Ditemukan <?= $jml_data ?> data</p>
             <div class="card">
@@ -22,7 +21,6 @@
                                 <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Status</th>
                                 <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Jabatan<br>Terakhir</th>
                                 <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Terakhir<br>Update</th>
-                                <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Data<br>Dasar</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -35,7 +33,7 @@
                                         <p class="text-xs font-weight-bold mb-0"><?= $i++ ?></p>
                                     </td>
                                     <td class="align-middle text-center text-sm">
-                                        <p class="text-xs font-weight-bold mb-0"><?= $row['nip'] ?> /<?= $row['nip_lama'] ?></p>
+                                        <p class="text-xs font-weight-bold mb-0"><a href="<?= base_url('profil/penyuluhkec/detail/' . $row['nip']) ?>"><?= $row['nip'] ?> /<?= $row['nip_lama'] ?></p>
                                     </td>
                                     <td class="align-middle text-center text-sm">
                                         <p class="text-xs font-weight-bold mb-0"><?= $row['gelar_dpn'] ?> <?= $row['nama'] ?> <?= $row['gelar_blk'] ?></p>
@@ -69,17 +67,6 @@
                                     </td>
                                     <td class="align-middle text-center text-sm">
                                         <p class="text-xs font-weight-bold mb-0"><?= $row['tgl_update'] ?></p>
-                                    </td>
-                                    <td class="align-middle text-center text-sm">
-                                        <a href="#">
-                                            <button type="button" data-bs-toggle="modal" data-bs-target="#modal-form" class="btn bg-gradient-warning btn-sm">
-                                                <i class="fas fa-edit"></i> Ubah
-                                            </button>
-                                        </a>
-                                        <button type="button" class="btn bg-gradient-danger btn-sm">
-                                            <i class="fas fa-trash"></i> Hapus
-                                        </button>
-                                        </a>
                                     </td>
                                 </tr>
                             <?php
