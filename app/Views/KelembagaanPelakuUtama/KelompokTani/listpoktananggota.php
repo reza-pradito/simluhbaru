@@ -166,7 +166,7 @@ maka perbaikan/input data petani disarankan dilakukan melalui form input diatas
                                                 <select class="form-select" id="jenis_kelamin" name="jenis_kelamin" >
                                                     <option selected>Pilih Jenis Kelamin  </option>
                                                     <option value="laki">Laki - Laki</option>
-                                                    <option value="perempuan">Perempuan</option>
+                                                    <option value="pe   rempuan">Perempuan</option>
                                                 </select>
                                             </div>
                                             <label>Tempat, Tanggal Lahir</label>
