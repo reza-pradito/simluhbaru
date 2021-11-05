@@ -30,6 +30,7 @@ class PenyuluhPPPKModel extends Model
     // protected $validationMessages = [];
     // protected $skipValidation     = false;
 
+
     public function getDetailPenyuluhPPPKByNIK($nik)
     {
         $query = $this->db->query("select *,  d.nm_desa, 
@@ -145,7 +146,9 @@ class PenyuluhPPPKModel extends Model
                                 case a.kode_kab when '3' then r.deskripsi when '4' then w.nm_desa else '' end as wilker8,
                                 case a.kode_kab when '3' then s.deskripsi when '4' then x.nm_desa else '' end as wilker9,
                                 case a.kode_kab when '3' then t.deskripsi when '4' then y.nm_desa else '' end as wilker10,
-                                j.deskripsi as kecamatan_tugas
+                                j.deskripsi as kecamatan_tugas,
+                                go.bts_pensi,
+                                i.nama_bapel
                                 from tbldasar_p3k a
                                 left join tblsatminkal b on a.satminkal=b.kode
                                 left join tblstatus_penyuluh c on a.status='0' and a.status_kel=c.kode
@@ -171,6 +174,7 @@ class PenyuluhPPPKModel extends Model
                                 left join tbldaerah r on a.kecamatan_tugas8=r.id_daerah
                                 left join tbldaerah s on a.kecamatan_tugas9=s.id_daerah
                                 left join tbldaerah t on a.kecamatan_tugas10=t.id_daerah
+                                left join tblgolongan go on a.gol=go.kode
                                 where a.satminkal='$kode_kab' order by nama");
         $results = $query->getResultArray();
 
@@ -193,7 +197,7 @@ class PenyuluhPPPKModel extends Model
     public function getTugas($kode_kab)
     {
         $query = $this->db->query("select * from tbldaerah a 
-    left join tbldasar_p3k b on b.dati2=a.id_dati2 where id_dati2='$kode_kab'");
+    left join tbldasar_p3k b on b.dati2=a.id_dati2 where id_dati2=" . $kode_kab);
         $row   = $query->getResultArray();
         return $row;
     }
@@ -202,7 +206,7 @@ class PenyuluhPPPKModel extends Model
     {
         $query = $this->db->query("select a.id, a.nama_bpp, a.satminkal, a.kecamatan, b.deskripsi from tblbpp a 
         left join tbldaerah b on b.id_daerah=a.kecamatan
-        where a.satminkal ='$kode_kab' order by nama_bpp");
+        where a.satminkal ='" . $kode_kab . "' order by nama_bpp");
         $row   = $query->getResultArray();
         return $row;
     }
@@ -299,7 +303,7 @@ class PenyuluhPPPKModel extends Model
                                 left join tbldaerah r on a.kecamatan_tugas8=r.id_daerah
                                 left join tbldaerah s on a.kecamatan_tugas9=s.id_daerah
                                 left join tbldaerah t on a.kecamatan_tugas10=t.id_daerah
-        where id = '" . $id . "'");
+        where a.id = '" . $id . "'");
         $row = $query->getRow();
         return json_encode($row);
     }
