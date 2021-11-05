@@ -3,14 +3,18 @@
 namespace App\Controllers\profil;
 
 use App\Controllers\BaseController;
+use App\Models\KelembagaanPenyuluhan\Kabupaten\FasilitasiBapelModel;
 use App\Models\LembagaModel;
 use App\Models\WilayahModel;
+use App\Models\KelembagaanPenyuluhan\Kabupaten\KabupatenModel;
+use App\Models\KodeWilayah\KodeWilModel;
 
 class Lembaga extends BaseController
 {
     protected $session;
     protected $modelLembaga;
     protected $modelProv;
+    protected $fasModel;
 
     function __construct()
     {
@@ -19,20 +23,44 @@ class Lembaga extends BaseController
         helper('autentikasi');
         $this->modelLembaga = new LembagaModel();
         $this->modelProv = new WilayahModel();
+        $this->fasmodel = new FasilitasiBapelModel();
     }
 
     public function index()
     {
 
+        session();
 
         if (session()->get('username') == "") {
             return redirect()->to('login');
         }
 
+        if (session()->get('status_user') == '300') {
+            return redirect()->to('kelembagaanpenyuluhan/kecamatan/kecamatan/profilkec');
+        }
 
+        $db = \Config\Database::connect();
+        $query = $db->query('SELECT * FROM reff_fasilitasi_bpp');
+        $query->getResultArray();
+
+
+
+        $lembagaModel = new LembagaModel();
+        $kabModel = new KabupatenModel();
+        $wilModel = new KodeWilModel();
         // if (empty($this->session->get('kodebapel'))) {
         //     return redirect()->to('login');
         // } else {
+        $dtlembaga = $lembagaModel->getProfil(session()->get('kodebapel'));
+        $penyuluhPNS = $kabModel->getPenyuluhPNS(session()->get('kodebapel'));
+        $penyuluhTHL = $kabModel->getPenyuluhTHL(session()->get('kodebapel'));
+        $bapel_data = $kabModel->getKabTotal(session()->get('kodebapel'));
+        $bapel = $kabModel->getBapel(session()->get('kodebapel'));
+        $fasdata = $kabModel->getFas(session()->get('kodebapel'));
+        $id_gap = $kabModel->getIdGap(session()->get('kodebapel'));
+        $namawil = $wilModel->getNamaWil(session()->get('kodebapel'));
+
+
         if (empty(session()->get('status_user')) || session()->get('status_user') == '2') {
             $kode = '00';
         } elseif (session()->get('status_user') == '1') {
@@ -44,22 +72,15 @@ class Lembaga extends BaseController
         } elseif (session()->get('status_user') == '300') {
             $kode = session()->get('kodebpp');
         }
-        //  d($kode);
+
 
         $dtlembaga = $this->modelLembaga->getProfil($kode);
         $dtprov = $this->modelProv->getProv();
         //dd($dtlembaga);
 
         $data = [
-
             'title' => 'Profil Lembaga',
-            'prov' => $dtprov
-        ];
-
-
-        return view('profil/profillembaga', $data);
-
-
+            'dt' => $dtlembaga,
             'penyuluhPNS' => $penyuluhPNS,
             'penyuluhTHL' => $penyuluhTHL,
             'namaprov' => $namawil['namaprov'],
@@ -67,14 +88,13 @@ class Lembaga extends BaseController
             'bapel' => $bapel['bapel_data'],
             'fasdata' => $fasdata['fasdata'],
             'idgap' => $id_gap['idgap'],
+            'fotoprofil' => $dtlembaga['foto'],
             'fasilitasi' => $query->getResultArray(),
             'prov' => $dtprov,
-            'fotoprofil' => $dtlembaga['foto'],
             'validation' => \Config\Services::validation()
 
         ];
 
-        // dd($data);
 
         return view('profil/profillembaga', $data);
     }

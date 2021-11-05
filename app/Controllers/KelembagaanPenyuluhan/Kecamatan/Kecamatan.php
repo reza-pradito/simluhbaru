@@ -52,14 +52,14 @@ class Kecamatan extends BaseController
         $kec_model = new KecamatanModel;
 
         $get_param = $this->request->getGet();
-        $kode_kec = $get_param['kode_kec'];
+        // $kode_kec = $get_param['kode_kec'];
 
-        $profilkec = $kec_model->getProfilKec($kode_kec);
-        $namawil = $wilModel->getNamaWil(session()->get('kodebapel'));
-        $penyuluhPNS = $kec_model->getPenyuluhPNS(session()->get('kodebapel'));
-        $penyuluhTHL = $kec_model->getPenyuluhTHL(session()->get('kodebapel'));
-        $kec = $kec_model->getKec(session()->get('kodebapel'));
-        $kode = $wilModel->getKodeWil2(session()->get('kodebapel'));
+        $profilkec = $kec_model->getProfilKec(session()->get('kodebpp'));
+        $namawil = $wilModel->getNamaWil(session()->get('kodebpp'));
+        $penyuluhPNS = $kec_model->getPenyuluhPNS(session()->get('kodebpp'));
+        $penyuluhTHL = $kec_model->getPenyuluhTHL(session()->get('kodebpp'));
+        $kec = $kec_model->getKec(session()->get('kodebpp'));
+        $kode = $wilModel->getKodeWil(session()->get('kodebpp'));
 
         $data = [
             'title' => 'Profil BPP',
@@ -68,11 +68,14 @@ class Kecamatan extends BaseController
             'namakab' => $namawil['namakab'],
             'penyuluhPNS' => $penyuluhPNS,
             'penyuluhTHL' => $penyuluhTHL,
-            'kode_kec' => $kode_kec,
+            'kode_kec' => session()->get('kodebpp'),
             'kode_prop' => $kode['kode_prop'],
             'kode_kab' => $kode['kode_kab'],
-            'kec' => $kec
+            'kec' => $kec,
+            'fotoprofil' => $profilkec['foto']
         ];
+
+        //dd($data);
         return view('KelembagaanPenyuluhan/Kecamatan/detail_kecamatan', $data);
     }
 
