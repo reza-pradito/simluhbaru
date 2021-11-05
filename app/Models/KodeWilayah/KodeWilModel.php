@@ -35,6 +35,29 @@ class KodeWilModel extends Model
         $row2   = $query2->getRow();
         $query3 = $this->db->query("select id_dati2 as kode_kab from tbldesa where id_dati2='$kode_kab'");
         $row3   = $query3->getRow();
+        $query4 = $this->db->query("select id_desa as kode_desa from tbldesa where id_dati2='$kode_kab'");
+        $row4   = $query4->getRow();
+
+        $data =  [
+            'kode_prop' => $row->kode_prop,
+            'kode_kab' => $row3->kode_kab,
+            'kode_kec' => $row2->kode_kec,
+            'kode_desa' => $row4->kode_desa
+        ];
+
+        return $data;
+    }
+    public function getKodeWil3($kode_desa)
+    {
+        $db = Database::connect();
+        $query = $this->db->query("select id_prop as kode_prop from tbldesa where id_dati2='$kode_desa'");
+        $row   = $query->getRow();
+        $query2 = $this->db->query("select id_daerah as kode_kec from tbldesa where id_dati2='$kode_desa'");
+        $row2   = $query2->getRow();
+        $query3 = $this->db->query("select id_dati2 as kode_kab from tbldesa where id_dati2='$kode_desa'");
+        $row3   = $query3->getRow();
+        $query4 = $this->db->query("select id_dati2 as kode_kab from tbldesa where id_dati2='$kode_desa'");
+        $row4   = $query4->getRow();
 
         $data =  [
             'kode_prop' => $row->kode_prop,
@@ -44,7 +67,6 @@ class KodeWilModel extends Model
 
         return $data;
     }
-
 
     public function getNamaWil($kode_kab)
     {
@@ -67,5 +89,4 @@ class KodeWilModel extends Model
 
         return $data;
     }
-
 }

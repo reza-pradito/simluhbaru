@@ -216,7 +216,6 @@ $data = $json[0];
                                     <div class="row">
 
 
-
                                         <h1 class="h3 mb-4 text-gray-800"><?= $title; ?><i class="fas fa-edit" style="float: right;" data-bs-toggle="modal" data-bs-target="#modal-form" id="btn-edit" data-id_gapoktan="<?php
                                                                                                                                                                                                                             if (session()->get('status_user') == '200') {
                                                                                                                                                                                                                                 echo $dt['id_gapoktan'];
@@ -439,6 +438,7 @@ $data = $json[0];
                             <div class="card">
                                 <div class="card-body p-3">
                                     <div class="row">
+
                                         <h4 class="h3 mb-4 text-gray-800">Daftar Penyuluh Yang Bertugas di Kabupaten/Kota</h4>
                                         <div class="col-sm-4">
                                             <h5><span>Jumlah Penyuluh PNS</span></h5>
@@ -528,6 +528,7 @@ $data = $json[0];
                                                     </table>
                                                 </div>
                                             </div>
+
                                         </div>
                                     </div>
 
@@ -575,7 +576,9 @@ $data = $json[0];
                                                             </td>
                                                             <td class="align-middle text-center text-sm">
                                                                 <a href="#">
+
                                                                     <button type="button" id="btn-edit-fas" class="btn bg-gradient-warning btn-sm" data-id="<?= $value['id'] ?>">
+
                                                                         <i class="fas fa-edit"></i> Ubah
                                                                     </button>
                                                                 </a>
@@ -779,6 +782,7 @@ $data = $json[0];
                                                 </div>
                                             </div>
 
+
                                             <div class="col">
                                                 <label for="ketua">Bidang yang menangani fungsi penyuluhan</label>
                                                 <div class="input-group mb-3">
@@ -895,6 +899,8 @@ $data = $json[0];
                                         <button type="button" class="btn bg-gradient-secondary" data-bs-dismiss="modal">Close</button>
                                         <button type="button" id="btnSimpan" class="btn bg-gradient-primary">Simpan Data</button>
                                     </div>
+
+
                             </div>
                             </form>
                         </div>
@@ -902,7 +908,10 @@ $data = $json[0];
                     </div>
                 </div>
             </div>
+
         </div>
+
+
 
 
         <div class="modal fade" id="modalFoto" tabindex="-1" role="dialog" aria-labelledby="modalFoto" aria-hidden="true">
@@ -927,12 +936,20 @@ $data = $json[0];
                                                         echo base_url('assets/img/' . $fotoprofil);
                                                     }  ?>" width="150px" class="img-thumbnail" alt="profil">
                                     </div>
+
                                 </div>
+
+
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn bg-gradient-secondary" data-bs-dismiss="modal">Close</button>
+                                <button type="button" id="btnSimpan" class="btn bg-gradient-primary">Simpan Data</button>
                             </div>
 
                             <div class="input-group mb-3">
                                 <input type="file" class="form-control" id="foto" name="foto">
                                 <label class="input-group-text" for="foto">Pilih Foto</label>
+
                             </div>
 
                     </div>
@@ -957,6 +974,10 @@ $data = $json[0];
 <?= $this->section('script') ?>
 
 <script type="text/javascript">
+    $('#uploadbtn').on('click', function() {
+        $('#modalFoto').modal('show');
+    })
+
     function loadNamaKoordinator() {
         if ($('#inlineRadio1').is(':checked')) {
             $("#divPNS").show();

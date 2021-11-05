@@ -72,9 +72,9 @@ $routes->get('/kelompoktani', 'KelembagaanPelakuUtama/KelompokTani/KelompokTani:
 $routes->get('/kelompoktanikec', 'KelembagaanPelakuUtama/KelompokTani/KelompokTaniKec::kelompoktanikec');
 $routes->get('/listpoktan', 'KelembagaanPelakuUtama/KelompokTani/KelompokTani::listpoktan');
 $routes->get('/listpoktananggota', 'KelembagaanPelakuUtama/KelompokTani/ListPoktanAnggota::listpoktananggota');
+
 $routes->get('/listbantu', 'KelembagaanPelakuUtama/KelompokTani/ListBantu::listbantu');
 $routes->post('/listpoktan/save', 'KelembagaanPelakuUtama/Gapoktan/ListGapoktan::save');
-
 
 $routes->get('/kelembagaanpetanilainnya', 'KelembagaanPelakuUtama/KelembagaanPetaniLainnya/KelembagaanPetaniLainnya::kelembagaanpetanilainnya');
 $routes->get('/listkep2l', 'KelembagaanPelakuUtama/KelembagaanPetaniLainnya/ListKEP2L::listkep2l');
@@ -90,8 +90,6 @@ $routes->get('/desakec', 'KelembagaanPenyuluhan/Desa/DesaKec::Desa');
 $routes->get('/daftar_posluhdes_kec', 'KelembagaanPenyuluhan/Desa/DesaKec::listdesa');
 //$routes->get('/add_pos', 'KelembagaanPenyuluhan/Desa/Desa::add_pos');
 $routes->delete('/daftar_posluhdes/(:num)', 'KelembagaanPenyuluhan/Desa/Desa::delete/$1');
-$routes->delete('/kecamatan/(:num)', 'KelembagaanPenyuluhan/Kecamatan/Kecamatan::delete/$1');
-
 /*
  * --------------------------------------------------------------------
  * Additional Routing
