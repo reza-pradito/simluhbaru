@@ -201,10 +201,10 @@ $data = $json[0];
                 <div class="nav nav-tabs" id="nav-tab" role="tablist">
                     <button class="nav-link active" id="nav-home-tab" data-bs-toggle="tab" data-bs-target="#nav-home" type="button" role="tab" aria-controls="nav-home" aria-selected="true">Profil</button>
                     <button class="nav-link" id="nav-penyuluh-tab" data-bs-toggle="tab" data-bs-target="#nav-penyuluh" type="button" role="tab" aria-controls="nav-penyuluh" aria-selected="false">Daftar Penyuluh</button>
+                    <button class="nav-link" id="nav-foto-tab" data-bs-toggle="tab" data-bs-target="#nav-foto" type="button" role="tab" aria-controls="nav-foto" aria-selected="false">Foto Bangunan</button>
                     <button class="nav-link" id="nav-wilkec-tab" data-bs-toggle="tab" data-bs-target="#nav-wilkec" type="button" role="tab" aria-controls="nav-wilkec" aria-selected="false">Wilayah Kecamatan</button>
                     <button class="nav-link" id="nav-klas-tab" data-bs-toggle="tab" data-bs-target="#nav-klas" type="button" role="tab" aria-controls="nav-klas" aria-selected="false">Klasifikasi BPP</button>
                     <button class="nav-link" id="nav-kegiatan-tab" data-bs-toggle="tab" data-bs-target="#nav-kegiatan" type="button" role="tab" aria-controls="nav-kegiatan" aria-selected="false">Kegiatan</button>
-                    <button class="nav-link" id="nav-lahan-tab" data-bs-toggle="tab" data-bs-target="#nav-lahan" type="button" role="tab" aria-controls="nav-lahan" aria-selected="false">Lahan</button>
                     <button class="nav-link" id="nav-penghargaan-tab" data-bs-toggle="tab" data-bs-target="#nav-penghargaan" type="button" role="tab" aria-controls="nav-penghargaan" aria-selected="false">Penghargaan</button>
                     <button class="nav-link" id="nav-dana-tab" data-bs-toggle="tab" data-bs-target="#nav-dana" type="button" role="tab" aria-controls="nav-dana" aria-selected="false">Dana Alokasi Khusus</button>
                     <button class="nav-link" id="nav-powil-tab" data-bs-toggle="tab" data-bs-target="#nav-powil" type="button" role="tab" aria-controls="nav-powil" aria-selected="false">Potensi Wilayah</button>
@@ -318,36 +318,182 @@ $data = $json[0];
                             <div class="card">
                                 <div class="card-body p-3">
                                     <div class="row">
-                                        <h1 class="h3 mb-4 text-gray-800">Daftar Penyuluh yang bertugas di Kab/Kota</h1>
-                                        <div class="col-lg-8">
-
-                                            <table class="table">
-                                                <tbody>
-                                                    <tr>
-                                                        <td>Penyuluh PNS</td>
-                                                        <td>:</td>
-                                                        <td>dadasas</td>
-                                                    </tr>
-                                                    <tr>
-                                                        <td>THL-TBPP (APBN)</td>
-                                                        <td>:</td>
-                                                        <td>dadasas</td>
-                                                    </tr>
-                                                    <tr>
-                                                        <td>THL-TB PP (APBD)</td>
-                                                        <td>:</td>
-                                                        <td>dadasas</td>
-                                                    </tr>
-                                                </tbody>
-                                            </table>
-
+                                        <h4 class="h3 mb-4 text-gray-800">Data Ketenagaan Penyuluhan</h4>
+                                        <div class="col-sm-4">
+                                            <h5><span>Penyuluh PNS</span></h5>
                                         </div>
-
+                                        <div class="row">
+                                            <div class="col-sm-4">
+                                                <table class="table align-items-center mb-0">
+                                                    <tbody>
+                                                        <?php
+                                                        $i = 1;
+                                                        foreach ($pns_kec as $row => $pns) {
+                                                        ?>
+                                                            <tr>
+                                                                <td class="align-middle text-center text-sm">
+                                                                    <p class="text-xs font-weight-bold mb-0"><?= $i++ ?></p>
+                                                                </td>
+                                                                <td class="align-middle text-sm">
+                                                                    <p class="text-xs font-weight-bold mb-0"><?= $pns['nama'] ?></p>
+                                                                </td>
+                                                            </tr>
+                                                        <?php
+                                                        }
+                                                        ?>
+                                                    </tbody>
+                                                </table>
+                                            </div>
+                                        </div>
+                                        <br>
+                                        <br>
+                                        <div class="row">
+                                            <div class="col-sm-4">
+                                                <h5><span>THL-TB PP</span></h5>
+                                            </div>
+                                            <div class="row">
+                                                <div class="col-sm-4">
+                                                    <table class="table align-items-center mb-0">
+                                                        <tbody>
+                                                            <?php
+                                                            $i = 1;
+                                                            foreach ($thl_kec as $row => $thl) {
+                                                            ?>
+                                                                <tr>
+                                                                    <td class="align-middle text-center text-sm">
+                                                                        <p class="text-xs font-weight-bold mb-0"><?= $i++ ?></p>
+                                                                    </td>
+                                                                    <td class="align-middle text-sm">
+                                                                        <p class="text-xs font-weight-bold mb-0"><?= $thl['nama'] ?></p>
+                                                                    </td>
+                                                                </tr>
+                                                            <?php
+                                                            }
+                                                            ?>
+                                                        </tbody>
+                                                    </table>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <br>
+                                        <br>
+                                        <div class="row">
+                                            <div class="col-sm-4">
+                                                <h5><span>Penyuluh Swadaya</span></h5>
+                                            </div>
+                                            <div class="row">
+                                                <div class="col-sm-4">
+                                                    <table class="table align-items-center mb-0">
+                                                        <tbody>
+                                                            <?php
+                                                            $i = 1;
+                                                            foreach ($swa_kec as $row => $swa) {
+                                                            ?>
+                                                                <tr>
+                                                                    <td class="align-middle text-center text-sm">
+                                                                        <p class="text-xs font-weight-bold mb-0"><?= $i++ ?></p>
+                                                                    </td>
+                                                                    <td class="align-middle text-sm">
+                                                                        <p class="text-xs font-weight-bold mb-0"><?= $swa['nama'] ?></p>
+                                                                    </td>
+                                                                </tr>
+                                                            <?php
+                                                            }
+                                                            ?>
+                                                        </tbody>
+                                                    </table>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-sm-4">
+                                                <h5><span>Penyuluh Swasta</span></h5>
+                                            </div>
+                                            <div class="row">
+                                                <div class="col-sm-4">
+                                                    <table class="table align-items-center mb-0">
+                                                        <tbody>
+                                                            <?php
+                                                            $i = 1;
+                                                            foreach ($swasta_kec as $row => $swasta) {
+                                                            ?>
+                                                                <tr>
+                                                                    <td class="align-middle text-center text-sm">
+                                                                        <p class="text-xs font-weight-bold mb-0"><?= $i++ ?></p>
+                                                                    </td>
+                                                                    <td class="align-middle text-sm">
+                                                                        <p class="text-xs font-weight-bold mb-0"><?= $swasta['nama'] ?></p>
+                                                                    </td>
+                                                                </tr>
+                                                            <?php
+                                                            }
+                                                            ?>
+                                                        </tbody>
+                                                    </table>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-sm-4">
+                                                <h5><span>PPPk</span></h5>
+                                            </div>
+                                            <div class="row">
+                                                <div class="col-sm-4">
+                                                    <table class="table align-items-center mb-0">
+                                                        <tbody>
+                                                            <?php
+                                                            $i = 1;
+                                                            foreach ($p3k_kec as $row => $p3k) {
+                                                            ?>
+                                                                <tr>
+                                                                    <td class="align-middle text-center text-sm">
+                                                                        <p class="text-xs font-weight-bold mb-0"><?= $i++ ?></p>
+                                                                    </td>
+                                                                    <td class="align-middle text-sm">
+                                                                        <p class="text-xs font-weight-bold mb-0"><?= $p3k['nama'] ?></p>
+                                                                    </td>
+                                                                </tr>
+                                                            <?php
+                                                            }
+                                                            ?>
+                                                        </tbody>
+                                                    </table>
+                                                </div>
+                                            </div>
+                                        </div>
                                     </div>
 
                                 </div>
                             </div>
                         </div>
+
+
+
+                    </div>
+                </div>
+                <div class="tab-pane fade" id="nav-foto" role="tabpanel" aria-labelledby="nav-foto-tab">
+                    <div class="row">
+
+                        <div class="col-lg-12 mb-lg-0 mb-4">
+                            <div class="card">
+                                <div class="card-body p-3">
+                                    <div class="row">
+                                        <h4 class="h3 mb-4 text-gray-800">Foto Bangunan</h4>
+                                        <div class="col-lg-3 mb-lg-0 mb-4 text-center">
+                                            <div class="card">
+                                                <div class="card-body p-3 ">
+                                                    <img src="<?= base_url('assets/img/' . $dt['foto']) ?>" width="150px" class="img-thumbnail" alt="profil">
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                </div>
+                            </div>
+                        </div>
+
+
+
                     </div>
                 </div>
 
@@ -357,7 +503,46 @@ $data = $json[0];
                             <div class="card">
                                 <div class="card-body p-3">
                                     <div class="row">
-                                        <h1 class="h3 mb-4 text-gray-800">Wilayah Kecamatan<i class="fas fa-edit" style="float: right;" data-bs-toggle="modal" data-bs-target="#modal-wilkec" id="btn-edit" data-id="<?= $dt['id']; ?>"></i></a></h1>
+                                        <h1 class="h3 mb-4 text-gray-800">Wilayah Kecamatan<i class="fas fa-edit" style="float: right;" data-bs-toggle="modal" data-bs-target="#modal-wilkec"></i></a></h1>
+                                        <div class="col-lg-12">
+                                            <table class="table align-items-center mb-0">
+                                                <thead>
+                                                    <tr>
+                                                        <td width="5" class="text-uppercase text-secondary text-xxs font-weight-bolder">Nama Kecamatan</td>
+                                                        <td width="100" class="text-uppercase text-secondary text-xxs font-weight-bolder">Jumlah Petani</td>
+                                                        <td width="100" class="text-secondary opacity-7"></td>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                    <?php
+                                                    foreach ($wilkec as $row => $val_wk) {
+                                                    ?>
+                                                        <tr>
+                                                            <td width="50">
+                                                                <p class="text-xs font-weight-bold mb-0"><?= $val_wk['nama_kec'] ?></p>
+                                                            </td>
+                                                            <td class="align-middle text-sm">
+                                                                <p class="text-xs font-weight-bold mb-0"><?= $val_wk['jum_petani'] ?></p>
+                                                            </td>
+                                                            <td class="align-middle text-center text-sm">
+                                                                <a href="#">
+                                                                    <button type="button" id="btn-edit-wilkec" class="btn bg-gradient-warning btn-sm" data-id="<?= $val_wk['id'] ?>">
+                                                                        <i class="fas fa-edit"></i> Ubah
+                                                                    </button>
+                                                                </a>
+                                                                <button type="button" id="btn-hapus-wilkec" data-id="<?= $val_wk['id'] ?>" class="btn bg-gradient-danger btn-sm">
+                                                                    <i class="fas fa-trash"></i> Hapus
+                                                                </button>
+                                                            </td>
+                                                        </tr>
+                                                    <?php
+                                                    }
+                                                    ?>
+                                                </tbody>
+                                            </table>
+
+                                        </div>
+
                                     </div>
                                 </div>
                             </div>
@@ -370,7 +555,51 @@ $data = $json[0];
                             <div class="card">
                                 <div class="card-body p-3">
                                     <div class="row">
-                                        <h1 class="h3 mb-4 text-gray-800">Klasifikasi BPP<i class="fas fa-edit" style="float: right;" data-bs-toggle="modal" data-bs-target="#modal-form" id="btn-edit" data-id="<?= $dt['id']; ?>"></i></a></h1>
+                                        <h1 class="h3 mb-4 text-gray-800">Klasifikasi BPP<i class="fas fa-edit" style="float: right;" data-bs-toggle="modal" data-bs-target="#modal-klas"></i></a></h1>
+                                        <div class="col-lg-12">
+
+
+                                            <table class="table align-items-center mb-0">
+                                                <thead>
+                                                    <tr>
+                                                        <td width="5" class="text-uppercase text-secondary text-xxs font-weight-bolder">Tahun</td>
+                                                        <td width="100" class="text-uppercase text-secondary text-xxs font-weight-bolder">Klasifikasi</td>
+                                                        <td width="100" class="text-uppercase text-secondary text-xxs font-weight-bolder">Skor</td>
+                                                        <td width="100" class="text-secondary opacity-7"></td>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                    <?php
+                                                    foreach ($klas as $row => $val_klas) {
+                                                    ?>
+                                                        <tr>
+                                                            <td width="50">
+                                                                <p class="text-xs font-weight-bold mb-0"><?= $val_klas['tahun'] ?></p>
+                                                            </td>
+                                                            <td class="align-middle text-sm">
+                                                                <p class="text-xs font-weight-bold mb-0"><?= $val_klas['klasifikasi'] ?></p>
+                                                            </td>
+                                                            <td class="align-middle text-sm">
+                                                                <p class="text-xs font-weight-bold mb-0"><?= $val_klas['skor'] ?></p>
+                                                            </td>
+                                                            <td class="align-middle text-center text-sm">
+                                                                <a href="#">
+                                                                    <button type="button" id="btn-edit-klas" class="btn bg-gradient-warning btn-sm" data-id="<?= $val_klas['id'] ?>">
+                                                                        <i class="fas fa-edit"></i> Ubah
+                                                                    </button>
+                                                                </a>
+                                                                <button type="button" id="btn-hapus-klas" data-id="<?= $val_klas['id'] ?>" class="btn bg-gradient-danger btn-sm">
+                                                                    <i class="fas fa-trash"></i> Hapus
+                                                                </button>
+                                                            </td>
+                                                        </tr>
+                                                    <?php
+                                                    }
+                                                    ?>
+                                                </tbody>
+                                            </table>
+
+                                        </div>
                                     </div>
                                 </div>
                             </div>
@@ -383,33 +612,110 @@ $data = $json[0];
                             <div class="card">
                                 <div class="card-body p-3">
                                     <div class="row">
-                                        <h1 class="h3 mb-4 text-gray-800">Kegiatan yang dilaksanakan oleh BPP<i class="fas fa-edit" style="float: right;" data-bs-toggle="modal" data-bs-target="#modal-form" id="btn-edit" data-id="<?= $dt['id']; ?>"></i></a></h1>
+                                        <h1 class="h3 mb-4 text-gray-800">Kegiatan yang dilaksanakan oleh BPP<i class="fas fa-edit" style="float: right;" data-bs-toggle="modal" data-bs-target="#modal-fk"></i></a></h1>
+                                        <div class="col-lg-12">
+                                            <table class="table align-items-center mb-0">
+                                                <thead>
+                                                    <tr>
+                                                        <td width="5" class="text-uppercase text-secondary text-xxs font-weight-bolder">Tahun</td>
+                                                        <td width="100" class="text-uppercase text-secondary text-xxs font-weight-bolder">Fasilitasi</td>
+                                                        <td width="100" class="text-uppercase text-secondary text-xxs font-weight-bolder">Nama Kegiatan</td>
+                                                        <td width="100" class="text-secondary opacity-7"></td>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                    <?php
+                                                    foreach ($fasdata as $row => $value) {
+                                                    ?>
+                                                        <tr>
+                                                            <td width="50">
+                                                                <p class="text-xs font-weight-bold mb-0"><?= $value['tahun'] ?></p>
+                                                            </td>
+                                                            <td class="align-middle text-sm">
+                                                                <p class="text-xs font-weight-bold mb-0"><?= $value['nama_fasilitasi'] ?></p>
+                                                            </td>
+                                                            <td class="align-middle text-sm">
+                                                                <p class="text-xs font-weight-bold mb-0"><?= $value['kegiatan'] ?></p>
+                                                            </td>
+                                                            <td class="align-middle text-center text-sm">
+                                                                <a href="#">
+                                                                    <button type="button" id="btn-edit-fas" class="btn bg-gradient-warning btn-sm" data-id="<?= $value['id']; ?>">
+                                                                        <i class="fas fa-edit"></i> Ubah
+                                                                    </button>
+                                                                </a>
+                                                                <button type="button" id="btn-hapus-fas" data-id="<?= $value['id'] ?>" class="btn bg-gradient-danger btn-sm">
+                                                                    <i class="fas fa-trash"></i> Hapus
+                                                                </button>
+                                                            </td>
+                                                        </tr>
+                                                    <?php
+                                                    }
+                                                    ?>
+                                                </tbody>
+                                            </table>
+
+                                        </div>
+
                                     </div>
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
-                <div class="tab-pane fade" id="nav-lahan" role="tabpanel" aria-labelledby="nav-lahan-tab">
-                    <div class="row">
-                        <div class="col-lg-12 mb-lg-0 mb-4">
-                            <div class="card">
-                                <div class="card-body p-3">
-                                    <div class="row">
-                                        <h1 class="h3 mb-4 text-gray-800">Lahan Percontohan<i class="fas fa-edit" style="float: right;" data-bs-toggle="modal" data-bs-target="#modal-form" id="btn-edit" data-id="<?= $dt['id']; ?>"></i></a></h1>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+
                 <div class="tab-pane fade" id="nav-penghargaan" role="tabpanel" aria-labelledby="nav-penghargaan-tab">
                     <div class="row">
                         <div class="col-lg-12 mb-lg-0 mb-4">
                             <div class="card">
                                 <div class="card-body p-3">
                                     <div class="row">
-                                        <h1 class="h3 mb-4 text-gray-800">Penghargaan yang pernah diterima<i class="fas fa-edit" style="float: right;" data-bs-toggle="modal" data-bs-target="#modal-form" id="btn-edit" data-id="<?= $dt['id']; ?>"></i></a></h1>
+                                        <h1 class="h3 mb-4 text-gray-800">Penghargaan yang pernah diterima<i class="fas fa-edit" style="float: right;" data-bs-toggle="modal" data-bs-target="#modal-award"></i></a></h1>
+                                        <div class="col-lg-12">
+                                            <table class="table align-items-center mb-0">
+                                                <thead>
+                                                    <tr>
+                                                        <td width="5" class="text-uppercase text-secondary text-xxs font-weight-bolder">Nama Penghargaan</td>
+                                                        <td width="100" class="text-uppercase text-secondary text-xxs font-weight-bolder">Peringkat</td>
+                                                        <td width="100" class="text-uppercase text-secondary text-xxs font-weight-bolder">Tingkat</td>
+                                                        <td width="100" class="text-uppercase text-secondary text-xxs font-weight-bolder">Tahun</td>
+                                                        <td width="100" class="text-secondary opacity-7"></td>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                    <?php
+                                                    foreach ($penghargaan as $row => $award) {
+                                                    ?>
+                                                        <tr>
+                                                            <td class="align-middle text-sm">
+                                                                <p class="text-xs font-weight-bold mb-0"><?= $award['nama_penghargaan'] ?></p>
+                                                            </td>
+                                                            <td class="align-middle text-sm">
+                                                                <p class="text-xs font-weight-bold mb-0"><?= $award['peringkat'] ?></p>
+                                                            </td>
+                                                            <td class="align-middle text-sm">
+                                                                <p class="text-xs font-weight-bold mb-0"><?= $award['tingkat'] ?></p>
+                                                            </td>
+                                                            <td width="50">
+                                                                <p class="text-xs font-weight-bold mb-0"><?= $award['tahun'] ?></p>
+                                                            </td>
+                                                            <td class="align-middle text-center text-sm">
+                                                                <a href="#">
+                                                                    <button type="button" id="btn-edit-aw" class="btn bg-gradient-warning btn-sm" data-id="<?= $award['id']; ?>">
+                                                                        <i class="fas fa-edit"></i> Ubah
+                                                                    </button>
+                                                                </a>
+                                                                <button type="button" id="btn-hapus-aw" data-id="<?= $award['id'] ?>" class="btn bg-gradient-danger btn-sm">
+                                                                    <i class="fas fa-trash"></i> Hapus
+                                                                </button>
+                                                            </td>
+                                                        </tr>
+                                                    <?php
+                                                    }
+                                                    ?>
+                                                </tbody>
+                                            </table>
+
+                                        </div>
                                     </div>
                                 </div>
                             </div>
@@ -422,7 +728,41 @@ $data = $json[0];
                             <div class="card">
                                 <div class="card-body p-3">
                                     <div class="row">
-                                        <h1 class="h3 mb-4 text-gray-800">Mendapatkan Dana Alokasi Khusus (DAK)<i class="fas fa-edit" style="float: right;" data-bs-toggle="modal" data-bs-target="#modal-form" id="btn-edit" data-id="<?= $dt['id']; ?>"></i></a></h1>
+                                        <h1 class="h3 mb-4 text-gray-800">Mendapatkan Dana Alokasi Khusus (DAK)<i class="fas fa-edit" style="float: right;" data-bs-toggle="modal" data-bs-target="#modal-dak"></i></a></h1>
+                                        <div class="col-lg-12">
+                                            <table class="table align-items-center mb-0">
+                                                <thead>
+                                                    <tr>
+                                                        <td width="5" class="text-uppercase text-secondary text-xxs font-weight-bolder">Tahun</td>
+                                                        <td width="100" class="text-secondary opacity-7"></td>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                    <?php
+                                                    foreach ($dana as $row => $dak) {
+                                                    ?>
+                                                        <tr>
+                                                            <td width="50">
+                                                                <p class="text-xs font-weight-bold mb-0"><?= $dak['tahun_dak'] ?></p>
+                                                            </td>
+                                                            <td class="align-middle text-center text-sm">
+                                                                <a href="#">
+                                                                    <button type="button" id="btn-edit-dak" class="btn bg-gradient-warning btn-sm" data-id="<?= $dak['id'] ?>">
+                                                                        <i class="fas fa-edit"></i> Ubah
+                                                                    </button>
+                                                                </a>
+                                                                <button type="button" id="btn-hapus-dak" data-id="<?= $dak['id'] ?>" class="btn bg-gradient-danger btn-sm">
+                                                                    <i class="fas fa-trash"></i> Hapus
+                                                                </button>
+                                                            </td>
+                                                        </tr>
+                                                    <?php
+                                                    }
+                                                    ?>
+                                                </tbody>
+                                            </table>
+
+                                        </div>
                                     </div>
                                 </div>
                             </div>
@@ -437,7 +777,46 @@ $data = $json[0];
                             <div class="card">
                                 <div class="card-body p-3">
                                     <div class="row">
-                                        <h1 class="h3 mb-4 text-gray-800">Potensi Wilayah<i class="fas fa-edit" style="float: right;" data-bs-toggle="modal" data-bs-target="#modal-form" id="btn-edit" data-id="<?= $dt['id']; ?>"></i></a></h1>
+                                        <h1 class="h3 mb-4 text-gray-800">Potensi Wilayah<i class="fas fa-edit" style="float: right;" data-bs-toggle="modal" data-bs-target="#modal-powil" id="btn-edit"></i></a></h1>
+                                        <div class="col-lg-12">
+                                            <table class="table align-items-center mb-0">
+                                                <thead>
+                                                    <tr>
+                                                        <td width="5" class="text-uppercase text-secondary text-xxs font-weight-bolder">Komoditas</td>
+                                                        <td width="100" class="text-uppercase text-secondary text-xxs font-weight-bolder">Luas Lahan</td>
+                                                        <td width="100" class="text-secondary opacity-7"></td>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                    <?php
+                                                    foreach ($potensi as $row => $powil) {
+                                                    ?>
+                                                        <tr>
+                                                            <td width="50">
+                                                                <p class="text-xs font-weight-bold mb-0"><?= $powil['nama_subsektor'] . ' - ' . $powil['nama_komoditas'] ?></p>
+                                                            </td>
+                                                            <td class="align-middle text-sm">
+                                                                <p class="text-xs font-weight-bold mb-0"><?= $powil['luas_lhn'] ?></p>
+                                                            </td>
+                                                            <td class="align-middle text-center text-sm">
+                                                                <a href="#">
+                                                                    <button type="button" id="btn-edit-kom" class="btn bg-gradient-warning btn-sm" data-id_potensi="<?= $powil['id_potensi']; ?>">
+                                                                        <i class="fas fa-edit"></i> Ubah
+                                                                    </button>
+                                                                </a>
+                                                                <button type="button" id="btn-hapus-kom" data-id_potensi="<?= $powil['id_potensi'] ?>" class="btn bg-gradient-danger btn-sm">
+                                                                    <i class="fas fa-trash"></i> Hapus
+                                                                </button>
+                                                            </td>
+                                                        </tr>
+                                                    <?php
+                                                    }
+                                                    ?>
+                                                </tbody>
+                                            </table>
+
+                                        </div>
+
                                     </div>
                                 </div>
                             </div>
@@ -467,7 +846,7 @@ $data = $json[0];
                                             <input type="hidden" name="satminkal" id="satminkal" value="<?= $kode_kab; ?>">
                                             <input type="hidden" name="id" value="<?= $dt['id']; ?>">
                                             <input type="hidden" name="fotolama" value="<?= $dt['foto']; ?>">
-                                            <label>Upload Foto BPP</label>
+                                            <label>Foto BPP</label>
                                             <div class="input-group mb-3">
                                                 <div class="col-lg-4">
                                                     <img src="<?= base_url('/assets/img/' . $dt['foto']); ?>" class="img-thumbnail img-preview">
@@ -766,15 +1145,17 @@ $data = $json[0];
                             </div>
                             <div class="card-body">
 
-                                <form role="form text-left" action="<?= base_url('profil/Lembaga/save'); ?>">
+                                <form role="form text-left" action="<?= base_url('KelembagaanPenyuluhan/Kecamatan/Kecamatan/save_wilkec'); ?>">
                                     <div class="row">
                                         <div class="col">
+                                            <input type="hidden" name="id" id="id">
                                             <input type="hidden" name="kode_prop" id="kode_prop" value="<?= $dt['kode_prop']; ?>">
                                             <input type="hidden" name="satminkal" id="satminkal" value="<?= $dt['satminkal']; ?>">
+                                            <input type="hidden" name="kode_bp3k" id="kode_bp3k" value="<?= $dt['kode_bp3k']; ?>">
 
-                                            <label for="penyuluh_swadaya">Nama Kecamatan</label>
+                                            <label for="kecamatan">Nama Kecamatan</label>
                                             <div class="input-group mb-3">
-                                                <select name="kecamatan" id="kecamatan" class="form-control input-lg">
+                                                <select name="kecamatan" id="kec" class="form-control input-lg">
                                                     <option value="">Pilih Kecamatan</option>
                                                     <?php
                                                     foreach ($kec as $row) {
@@ -783,14 +1164,14 @@ $data = $json[0];
                                                     ?>
                                                 </select>
                                             </div>
-                                            <label for="alamat">Jumlah Petani</label>
+                                            <label for="jum_petani">Jumlah Petani</label>
                                             <div class="input-group mb-3">
                                                 <input type="number" class="form-control" id="jum_petani" placeholder="Jumlah Petani" name="jum_petani">
                                             </div>
                                         </div>
                                         <div class="modal-footer">
                                             <button type="button" class="btn bg-gradient-secondary" data-bs-dismiss="modal">Close</button>
-                                            <button type="button" id="btnSimpan" class="btn bg-gradient-primary">Simpan Data</button>
+                                            <button type="button" id="btnSaveWilkec" class="btn bg-gradient-primary">Simpan Data</button>
                                         </div>
                                     </div>
                                 </form>
@@ -802,8 +1183,273 @@ $data = $json[0];
             </div>
         </div>
 
+        <div class="modal fade" id="modal-klas" tabindex="-1" role="dialog" aria-labelledby="modal-klas" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered modal-l" role="document">
+                <div class="modal-content">
+                    <div class="modal-body p-0">
+                        <div class="card card-plain">
+                            <div class="card-header pb-0 text-left">
+                                <h4 class="font-weight-bolder text-warning text-gradient" id="judul_form">Tambah Data</h4>
+                            </div>
+                            <div class="card-body">
 
+                                <form role="form text-left" action="<?= base_url('profil/Lembaga/save'); ?>">
+                                    <div class="row">
+                                        <div class="col">
+                                            <input type="hidden" name="id" id="id">
+                                            <input type="hidden" name="id_bpp" id="id_bpp" value="<?= $idbpp; ?>">
+                                            <label for="tahun_beridiri">Tahun</label>
+                                            <div class="input-group mb-3">
+                                                <select id="tahun_klas" name="tahun" class="form-select tahun" aria-label="Default select example">
+                                                    <option value="">Pilih Tahun</option>
+                                                </select>
+                                            </div>
+                                            <label for="penyuluh_swadaya">Klasifikasi</label>
+                                            <div class="input-group mb-3">
+                                                <select name="klasifikasi" id="klasifikasi" class="form-control input-lg">
+                                                    <option value="">Pilih Klasifikasi</option>
+                                                    <?php
+                                                    foreach ($klasifikasi as $klas) {
+                                                        echo '<option value="' . $klas["klasifikasi"] . '">' . $klas["klasifikasi"] . '</option>';
+                                                    }
+                                                    ?>
+                                                </select>
+
+                                            </div>
+                                            <label for="alamat">Skor</label>
+                                            <div class="input-group mb-3">
+                                                <input type="text" class="form-control" id="skor" placeholder="Skor" name="skor">
+                                            </div>
+
+                                        </div>
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn bg-gradient-secondary" data-bs-dismiss="modal">Close</button>
+                                        <button type="button" id="btnSaveKlas" class="btn bg-gradient-primary">Simpan Data</button>
+                                    </div>
+                            </div>
+                            </form>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
+
+    <div class="modal fade" id="modal-fk" tabindex="-1" role="dialog" aria-labelledby="modal-fk" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered modal-l" role="document">
+            <div class="modal-content">
+                <div class="modal-body p-0">
+                    <div class="card card-plain">
+                        <div class="card-header pb-0 text-left">
+                            <h4 class="font-weight-bolder text-warning text-gradient" id="judul_form">Tambah Data</h4>
+                        </div>
+                        <div class="card-body">
+
+                            <form role="form text-left" action="<?= base_url('profil/Lembaga/save'); ?>">
+                                <div class="row">
+                                    <div class="col">
+                                        <input type="hidden" name="id" id="id">
+                                        <input type="hidden" name="id_bpp" id="id_bpp" value="<?= $idbpp; ?>">
+                                        <label for="tahun_beridiri">Tahun</label>
+                                        <div class="input-group mb-3">
+                                            <select id="tahun" name="tahun" class="form-select tahun" aria-label="Default select example">
+                                                <option value="">Pilih Tahun</option>
+                                                <script>
+                                                    var tahun = 2021;
+                                                    for (i = 1990; i <= tahun; i++) {
+                                                        document.write("<option>" + i + "</option>");
+                                                    }
+                                                </script>
+                                            </select>
+                                        </div>
+                                        <label for="fasilitasi">Fasilitasi</label>
+                                        <div class="input-group mb-3">
+                                            <select name="fasilitasi" id="fasilitasi" class="form-control input-lg">
+                                                <option value=""></option>
+                                                <?php
+                                                foreach ($fasilitasi as $row3) {
+                                                    echo '<option value="' . $row3["idfasilitasi"] . '">' . $row3["fasilitasi"] . '</option>';
+                                                }
+                                                ?>
+                                            </select>
+
+                                        </div>
+                                        <label for="alamat">Kegiatan</label>
+                                        <div class="input-group mb-3">
+                                            <textarea type="text" class="form-control" id="kegiatan" placeholder="kegiatan" name="kegiatan"></textarea>
+                                        </div>
+
+                                    </div>
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn bg-gradient-secondary" data-bs-dismiss="modal">Close</button>
+                                    <button type="button" id="btnSaveFas" class="btn bg-gradient-primary">Simpan Data</button>
+                                </div>
+                            </form>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fade" id="modal-award" tabindex="-1" role="dialog" aria-labelledby="modal-award" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered modal-l" role="document">
+            <div class="modal-content">
+                <div class="modal-body p-0">
+                    <div class="card card-plain">
+                        <div class="card-header pb-0 text-left">
+                            <h4 class="font-weight-bolder text-warning text-gradient" id="judul_form">Edit Data</h4>
+                        </div>
+                        <div class="card-body">
+
+                            <form role="form text-left" action="<?= base_url('profil/Lembaga/save'); ?>">
+                                <div class="row">
+                                    <div class="col">
+                                        <input type="hidden" name="id" id="id">
+                                        <input type="hidden" name="kode_prop" id="kode_prop" value="<?= $dt['kode_prop']; ?>">
+                                        <input type="hidden" name="satminkal" id="satminkal" value="<?= $dt['satminkal']; ?>">
+                                        <input type="hidden" name="kode_bp3k" id="kode_bp3k" value="<?= $dt['kode_bp3k']; ?>">
+                                        <label for="alamat">Nama Penghargaan</label>
+                                        <div class="input-group mb-3">
+                                            <input type="text" class="form-control" id="nama_penghargaan" placeholder="Nama Penghargaan" name="nama_penghargaan">
+                                        </div>
+                                        <label for="penyuluh_swadaya">Tingkat</label>
+                                        <div class="input-group mb-3">
+                                            <select name="tingkat" id="tingkat" class="form-control input-lg">
+                                                <option value="">Pilih</option>
+                                                <option value="Pusat">Pusat</option>
+                                                <option value="Daerah">Daerah</option>
+                                            </select>
+                                        </div>
+                                        <label for="penyuluh_swadaya">Peringkat</label>
+                                        <div class="input-group mb-3">
+                                            <select name="peringkat" id="peringkat" class="form-control input-lg">
+                                                <option value="">Pilih</option>
+                                                <option value="I">I</option>
+                                                <option value="II">II</option>
+                                                <option value="III">III</option>
+                                            </select>
+                                        </div>
+                                        <label for="tahun_beridiri">Tahun</label>
+                                        <div class="input-group mb-3">
+                                            <select id="tahun_aw" name="tahun" class="form-select tahun" aria-label="Default select example">
+                                                <option value="">Pilih Tahun</option>
+                                                <script>
+                                                    var tahun = 2021;
+                                                    for (i = 1990; i <= tahun; i++) {
+                                                        document.write("<option>" + i + "</option>");
+                                                    }
+                                                </script>
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn bg-gradient-secondary" data-bs-dismiss="modal">Close</button>
+                                    <button type="button" id="btnSaveAw" class="btn bg-gradient-primary">Simpan Data</button>
+                                </div>
+                            </form>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fade" id="modal-dak" tabindex="-1" role="dialog" aria-labelledby="modal-dak" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered modal-l" role="document">
+            <div class="modal-content">
+                <div class="modal-body p-0">
+                    <div class="card card-plain">
+                        <div class="card-header pb-0 text-left">
+                            <h4 class="font-weight-bolder text-warning text-gradient" id="judul_form">Tambah Data</h4>
+                        </div>
+                        <div class="card-body">
+
+                            <form role="form text-left" action="<?= base_url('profil/Lembaga/save'); ?>">
+                                <div class="row">
+                                    <div class="col">
+                                        <input type="hidden" name="id_bpp" id="id_bpp" value="<?= $idbpp; ?>">
+                                        <input type="hidden" name="id" id="id">
+                                        <label for="tahun_beridiri">Tahun</label>
+                                        <div class="input-group mb-3">
+                                            <select id="tahun_dak" name="tahun_dak" class="form-select tahun">
+                                                <option value="">Pilih Tahun</option>
+                                                <script>
+                                                    var tahun = 2021;
+                                                    for (i = 1990; i <= tahun; i++) {
+                                                        document.write("<option>" + i + "</option>");
+                                                    }
+                                                </script>
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn bg-gradient-secondary" data-bs-dismiss="modal">Close</button>
+                                    <button type="button" id="btnSaveDak" class="btn bg-gradient-primary">Simpan Data</button>
+                                </div>
+                            </form>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fade" id="modal-powil" tabindex="-1" role="dialog" aria-labelledby="modal-powil" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered modal-l" role="document">
+            <div class="modal-content">
+                <div class="modal-body p-0">
+                    <div class="card card-plain">
+                        <div class="card-header pb-0 text-left">
+                            <h4 class="font-weight-bolder text-warning text-gradient" id="judul_form">Tambah Data</h4>
+                        </div>
+                        <div class="card-body">
+
+                            <form role="form text-left" action="<?= base_url('profil/Lembaga/save'); ?>">
+                                <div class="row">
+                                    <div class="col">
+                                        <input type="hidden" name="id_bpp" id="id_bpp" value="<?= $idbpp; ?>">
+                                        <input type="hidden" name="id_potensi" id="id_potensi">
+                                        <label for="penyuluh_swadaya">Komoditas</label>
+                                        <div class="input-group mb-3">
+                                            <select name="kode_komoditas" id="kode_komoditas" class="form-control input-lg">
+                                                <option value="">Pilih Komoditas</option>
+                                                <?php
+                                                foreach ($jenis_komoditas as $jekom) {
+                                                    echo '<option value="' . $jekom["kode_komoditas"] . '">' . $jekom["nama_subsektor"] . ' - ' . $jekom["nama_komoditas"] . '</option>';
+                                                }
+                                                ?>
+                                            </select>
+                                        </div>
+                                        <label for="tahun_beridiri">Luas Lahan (Ha)</label>
+                                        <div class="input-group mb-3">
+                                            <input type="text" class="form-control" id="luas_lhn" placeholder="Luas lahan" name="luas_lhn">
+
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn bg-gradient-secondary" data-bs-dismiss="modal">Close</button>
+                                    <button type="button" id="btnSaveKom" class="btn bg-gradient-primary">Simpan Data</button>
+                                </div>
+                            </form>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
 
 </div>
 
@@ -880,6 +1526,18 @@ $data = $json[0];
     }
 </script>
 <script>
+    var min = 2010,
+        max = 2030,
+        select = document.getElementById('tahun_klas');
+
+    for (var i = min; i <= max; i++) {
+        var opt = document.createElement('option');
+        opt.value = i;
+        opt.innerHTML = i;
+        select.appendChild(opt);
+    }
+    select.value = new Date().getFullYear();
+
     function loadNamaKoordinator() {
         if ($('#inlineRadio1').is(':checked')) {
             $("#divPNS").show();
@@ -913,4 +1571,1124 @@ $data = $json[0];
     });
 </script>
 
+<!-- ajax crud wilkec -->
+<script>
+    $(document).ready(function() {
+        $(document).delegate('#btnSaveWilkec', 'click', function() {
+            var kode_bp3k = $('#kode_bp3k').val();
+            var kode_prop = $('#kode_prop').val();
+            var satminkal = $('#satminkal').val();
+            var kecamatan = $('#kec').val();
+            var jum_petani = $('#jum_petani').val();
+
+            $.ajax({
+                url: '<?= base_url() ?>/KelembagaanPenyuluhan/Kecamatan/Kecamatan/save_wilkec/',
+                type: 'POST',
+                data: {
+                    'kode_bp3k': kode_bp3k,
+                    'kode_prop': kode_prop,
+                    'satminkal': satminkal,
+                    'kecamatan': kecamatan,
+                    'jum_petani': jum_petani,
+                },
+                success: function(result) {
+                    result = JSON.parse(result);
+                    if (result.value) {
+                        Swal.fire({
+                            title: 'Sukses',
+                            text: "Sukses tambah data",
+                            type: 'success',
+                        }).then((result) => {
+
+                            if (result.value) {
+                                location.reload();
+                            }
+                        });
+                    } else {
+                        Swal.fire({
+                            title: 'Error',
+                            text: "Gagal tambah data. " + result.message,
+                            type: 'error',
+                        }).then((result) => {
+
+                        });
+                    }
+                },
+                error: function(jqxhr, status, exception) {
+                    Swal.fire({
+                        title: 'Error',
+                        text: "Gagal tambah data",
+                        type: 'error',
+                    }).then((result) => {
+                        if (result.value) {
+                            location.reload();
+                        }
+                    });
+                }
+            });
+        });
+
+
+        $(document).delegate('#btn-edit-wilkec', 'click', function() {
+            //var myModal = new bootstrap.Modal(document.getElementById('modal-edit'), options);
+            // alert(id);
+            $.ajax({
+                url: '<?= base_url() ?>/KelembagaanPenyuluhan/Kecamatan/Kecamatan/wilkec/' + $(this).data('id'),
+                type: 'GET',
+                dataType: 'JSON',
+                success: function(res) {
+                    // $(".daftpos").html(res)
+                    //console.log(res);
+                    //res = JSON.parse(res);
+
+                    $('#id').val(res[0].id);
+                    $('#kode_bp3k').val(res[0].kode_bp3k);
+                    $('#kode_prop').val(res[0].kode_prop);
+                    $('#satminkal').val(res[0].satminkal);
+                    $('#kec').val(res[0].kecamatan);
+                    $('#jum_petani').val(res[0].jum_petani);
+                    $('#judul-form').text('Edit Data');
+                    $('#modal-wilkec').modal("show");
+                    $("#btnSaveWilkec").attr("id", "btnUbahWilkec");
+
+                    $(document).delegate('#btnUbahWilkec', 'click', function() {
+                        console.log('ok');
+
+                        var id = $('#id').val();
+                        var kode_prop = $('#kode_prop').val();
+                        var kode_bp3k = $('#kode_bp3k').val();
+                        var satminkal = $('#satminkal').val();
+                        var kecamatan = $('#kec').val();
+                        var jum_petani = $('#jum_petani').val();
+
+                        let formData = new FormData();
+                        formData.append('id', id);
+                        formData.append('kode_prop', kode_prop);
+                        formData.append('kode_bp3k', kode_bp3k);
+                        formData.append('satminkal', satminkal);
+                        formData.append('kecamatan', kecamatan);
+                        formData.append('jum_petani', jum_petani);
+                        $.ajax({
+                            url: '<?= base_url() ?>/KelembagaanPenyuluhan/Kecamatan/Kecamatan/update_wilkec/' + id,
+                            type: "POST",
+                            data: formData,
+                            cache: false,
+                            processData: false,
+                            contentType: false,
+                            success: function(result) {
+                                $('#modal-form').modal('hide');
+                                Swal.fire({
+                                    title: 'Sukses',
+                                    text: "Sukses edit data",
+                                    type: 'success',
+                                }).then((result) => {
+
+                                    if (result.value) {
+                                        location.reload();
+                                    }
+                                });
+
+                            },
+                            error: function(jqxhr, status, exception) {
+
+                                Swal.fire({
+                                    title: 'Error',
+                                    text: "Gagal edit data",
+                                    type: 'Error',
+                                }).then((result) => {
+
+                                    if (result.value) {
+                                        location.reload();
+                                    }
+                                });
+
+                            }
+                        });
+                    });
+
+                }
+            });
+
+            $('.modal').on('hidden.bs.modal', function() {
+                $(this).find('form')[0].reset();
+            });
+
+        });
+
+        $(document).delegate('#btn-hapus-wilkec', 'click', function() {
+            Swal.fire({
+                title: 'Apakah anda yakin',
+                text: "Data akan dihapus ?",
+                type: 'warning',
+                showCloseButton: true,
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                confirmButtonText: 'Hapus Data!'
+            }).then((result) => {
+                if (result.value) {
+                    var id = $(this).data('id');
+
+                    $.ajax({
+                        url: '<?= base_url() ?>/KelembagaanPenyuluhan/Kecamatan/Kecamatan/delete_wilkec/' + id,
+                        type: 'POST',
+
+                        success: function(result) {
+                            Swal.fire({
+                                title: 'Sukses',
+                                text: "Sukses hapus data",
+                                type: 'success',
+                            }).then((result) => {
+
+                                if (result.value) {
+                                    location.reload();
+                                }
+                            });
+                        },
+                        error: function(jqxhr, status, exception) {
+                            Swal.fire({
+                                title: 'Error',
+                                text: "Gagal hapus data",
+                                type: 'error',
+                            }).then((result) => {
+                                if (result.value) {
+                                    location.reload();
+                                }
+                            });
+                        }
+                    });
+                }
+            });
+        });
+    });
+</script>
+
+<!-- ajax crud klasifikasi -->
+<script>
+    $(document).ready(function() {
+        $(document).delegate('#btnSaveKlas', 'click', function() {
+            var id_bpp = $('#id_bpp').val();
+            var tahun = $('#tahun_klas').val();
+            var klasifikasi = $('#klasifikasi').val();
+            var skor = $('#skor').val();
+            $.ajax({
+                url: '<?= base_url() ?>/KelembagaanPenyuluhan/Kecamatan/Kecamatan/save_klas/',
+                type: 'POST',
+                data: {
+                    'id_bpp': id_bpp,
+                    'tahun': tahun,
+                    'klasifikasi': klasifikasi,
+                    'skor': skor,
+                },
+                success: function(result) {
+                    result = JSON.parse(result);
+                    if (result.value) {
+                        Swal.fire({
+                            title: 'Sukses',
+                            text: "Sukses tambah data",
+                            type: 'success',
+                        }).then((result) => {
+
+                            if (result.value) {
+                                location.reload();
+                            }
+                        });
+                    } else {
+                        Swal.fire({
+                            title: 'Error',
+                            text: "Gagal tambah data. " + result.message,
+                            type: 'error',
+                        }).then((result) => {
+
+                        });
+                    }
+                },
+                error: function(jqxhr, status, exception) {
+                    Swal.fire({
+                        title: 'Error',
+                        text: "Gagal tambah data",
+                        type: 'error',
+                    }).then((result) => {
+                        if (result.value) {
+                            location.reload();
+                        }
+                    });
+                }
+            });
+        });
+
+
+        $(document).delegate('#btn-edit-klas', 'click', function() {
+            //var myModal = new bootstrap.Modal(document.getElementById('modal-edit'), options);
+            // alert(id);
+            $.ajax({
+                url: '<?= base_url() ?>/KelembagaanPenyuluhan/Kecamatan/Kecamatan/detail_klasifikasi/' + $(this).data('id'),
+                type: 'GET',
+                dataType: 'JSON',
+                success: function(res) {
+                    // $(".daftpos").html(res)
+                    //console.log(res);
+                    //res = JSON.parse(res);
+
+                    $('#id').val(res[0].id);
+                    $('#id_bpp').val(res[0].id_bpp);
+                    $('#tahun_klas').val(res[0].tahun);
+                    $('#klasifikasi').val(res[0].klasifikasi);
+                    $('#skor').val(res[0].skor);
+                    $('#judul-form').text('Edit Data');
+                    $('#modal-klas').modal("show");
+                    $("#btnSaveKlas").attr("id", "btnUbahKlas");
+
+                    $(document).delegate('#btnUbahKlas', 'click', function() {
+                        console.log('ok');
+
+                        var id = $('#id').val();
+                        var id_bpp = $('#id_bpp').val();
+                        var tahun = $('#tahun_klas').val();
+                        var klasifikasi = $('#klasifikasi').val();
+                        var skor = $('#skor').val();
+
+                        let formData = new FormData();
+                        formData.append('id', id);
+                        formData.append('id_bpp', id_bpp);
+                        formData.append('tahun', tahun);
+                        formData.append('klasifikasi', klasifikasi);
+                        formData.append('skor', skor);
+                        $.ajax({
+                            url: '<?= base_url() ?>/KelembagaanPenyuluhan/Kecamatan/Kecamatan/update_klas/' + id,
+                            type: "POST",
+                            data: formData,
+                            cache: false,
+                            processData: false,
+                            contentType: false,
+                            success: function(result) {
+                                $('#modal-form').modal('hide');
+                                Swal.fire({
+                                    title: 'Sukses',
+                                    text: "Sukses edit data",
+                                    type: 'success',
+                                }).then((result) => {
+
+                                    if (result.value) {
+                                        location.reload();
+                                    }
+                                });
+
+                            },
+                            error: function(jqxhr, status, exception) {
+
+                                Swal.fire({
+                                    title: 'Error',
+                                    text: "Gagal edit data",
+                                    type: 'Error',
+                                }).then((result) => {
+
+                                    if (result.value) {
+                                        location.reload();
+                                    }
+                                });
+
+                            }
+                        });
+                    });
+
+                }
+            });
+
+            $('.modal').on('hidden.bs.modal', function() {
+                $(this).find('form')[0].reset();
+            });
+
+        });
+
+        $(document).delegate('#btn-hapus-klas', 'click', function() {
+            Swal.fire({
+                title: 'Apakah anda yakin',
+                text: "Data akan dihapus ?",
+                type: 'warning',
+                showCloseButton: true,
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                confirmButtonText: 'Hapus Data!'
+            }).then((result) => {
+                if (result.value) {
+                    var id = $(this).data('id');
+
+                    $.ajax({
+                        url: '<?= base_url() ?>/KelembagaanPenyuluhan/Kecamatan/Kecamatan/delete_klas/' + id,
+                        type: 'POST',
+
+                        success: function(result) {
+                            Swal.fire({
+                                title: 'Sukses',
+                                text: "Sukses hapus data",
+                                type: 'success',
+                            }).then((result) => {
+
+                                if (result.value) {
+                                    location.reload();
+                                }
+                            });
+                        },
+                        error: function(jqxhr, status, exception) {
+                            Swal.fire({
+                                title: 'Error',
+                                text: "Gagal hapus data",
+                                type: 'error',
+                            }).then((result) => {
+                                if (result.value) {
+                                    location.reload();
+                                }
+                            });
+                        }
+                    });
+                }
+            });
+        });
+    });
+</script>
+
+<!-- ajax crud fasilitasi -->
+<script>
+    $(document).delegate('#btnSaveFas', 'click', function() {
+        var id_bpp = $('#id_bpp').val();
+        var tahun = $('#tahun').val();
+        var fasilitasi = $('#fasilitasi').val();
+        var kegiatan = $('#kegiatan').val();
+
+        $.ajax({
+            url: '<?= base_url() ?>/KelembagaanPenyuluhan/Kecamatan/Kecamatan/save_fas/',
+            type: 'POST',
+            data: {
+                'id_bpp': id_bpp,
+                'tahun': tahun,
+                'fasilitasi': fasilitasi,
+                'kegiatan': kegiatan,
+            },
+            success: function(result) {
+                result = JSON.parse(result);
+                if (result.value) {
+                    Swal.fire({
+                        title: 'Sukses',
+                        text: "Sukses tambah data",
+                        type: 'success',
+                    }).then((result) => {
+
+                        if (result.value) {
+                            location.reload();
+                        }
+                    });
+                } else {
+                    Swal.fire({
+                        title: 'Error',
+                        text: "Gagal tambah data. " + result.message,
+                        type: 'error',
+                    }).then((result) => {
+
+                    });
+                }
+            },
+            error: function(jqxhr, status, exception) {
+                Swal.fire({
+                    title: 'Error',
+                    text: "Gagal tambah data",
+                    type: 'error',
+                }).then((result) => {
+                    if (result.value) {
+                        location.reload();
+                    }
+                });
+            }
+        });
+    });
+
+
+    $(document).delegate('#btn-edit-fas', 'click', function() {
+        //var myModal = new bootstrap.Modal(document.getElementById('modal-edit'), options);
+        // alert(id);
+        $.ajax({
+            url: '<?= base_url() ?>/KelembagaanPenyuluhan/Kecamatan/Kecamatan/fasilitas/' + $(this).data('id'),
+            type: 'GET',
+            dataType: 'JSON',
+            success: function(res) {
+                // $(".daftpos").html(res)
+                //console.log(res);
+                //res = JSON.parse(res);
+
+                $('#id').val(res[0].id);
+                $('#id_bpp').val(res[0].id_bpp);
+                $('#fasilitasi').val(res[0].fasilitasi);
+                $('#kegiatan').val(res[0].kegiatan);
+                $('#tahun').val(res[0].tahun);
+                $('#modal-fk').modal("show");
+                $('#judul-form').text('Edit Data');
+                $("#btnSaveFas").attr("id", "btnUbahFas");
+
+                $(document).delegate('#btnUbahFas', 'click', function() {
+                    console.log('ok');
+
+                    var id = $('#id').val();
+                    var id_bpp = $('#id_bpp').val();
+                    var fasilitasi = $('#fasilitasi').val();
+                    var kegiatan = $('#kegiatan').val();
+                    var tahun = $('#tahun').val();
+
+                    let formData = new FormData();
+                    formData.append('id', id);
+                    formData.append('fasilitasi', fasilitasi);
+                    formData.append('id_bpp', id_bpp);
+                    formData.append('kegiatan', kegiatan);
+                    formData.append('tahun', tahun);
+                    $.ajax({
+                        url: '<?= base_url() ?>/KelembagaanPenyuluhan/Kecamatan/Kecamatan/update_fas/' + id,
+                        type: "POST",
+                        data: formData,
+                        cache: false,
+                        processData: false,
+                        contentType: false,
+                        success: function(result) {
+                            $('#modal-form').modal('hide');
+                            Swal.fire({
+                                title: 'Sukses',
+                                text: "Sukses edit data",
+                                type: 'success',
+                            }).then((result) => {
+
+                                if (result.value) {
+                                    location.reload();
+                                }
+                            });
+
+                        },
+                        error: function(jqxhr, status, exception) {
+
+                            Swal.fire({
+                                title: 'Error',
+                                text: "Gagal edit data",
+                                type: 'Error',
+                            }).then((result) => {
+
+                                if (result.value) {
+                                    location.reload();
+                                }
+                            });
+
+                        }
+                    });
+                });
+
+            }
+        });
+
+        $('.modal').on('hidden.bs.modal', function() {
+            $(this).find('form')[0].reset();
+        });
+
+    });
+
+    $(document).delegate('#btn-hapus-fas', 'click', function() {
+        Swal.fire({
+            title: 'Apakah anda yakin',
+            text: "Data akan dihapus ?",
+            type: 'warning',
+            showCloseButton: true,
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Hapus Data!'
+        }).then((result) => {
+            if (result.value) {
+                var id = $(this).data('id');
+
+                $.ajax({
+                    url: '<?= base_url() ?>/KelembagaanPenyuluhan/Kecamatan/Kecamatan/delete_fas/' + id,
+                    type: 'POST',
+
+                    success: function(result) {
+                        Swal.fire({
+                            title: 'Sukses',
+                            text: "Sukses hapus data",
+                            type: 'success',
+                        }).then((result) => {
+
+                            if (result.value) {
+                                location.reload();
+                            }
+                        });
+                    },
+                    error: function(jqxhr, status, exception) {
+                        Swal.fire({
+                            title: 'Error',
+                            text: "Gagal hapus data",
+                            type: 'error',
+                        }).then((result) => {
+                            if (result.value) {
+                                location.reload();
+                            }
+                        });
+                    }
+                });
+            }
+        });
+    });
+</script>
+
+<!-- ajax crud penghargaan -->
+<script>
+    $(document).delegate('#btnSaveAw', 'click', function() {
+        var kode_bp3k = $('#kode_bp3k').val();
+        var kode_prop = $('#kode_prop').val();
+        var satminkal = $('#satminkal').val();
+        var nama_penghargaan = $('#nama_penghargaan').val();
+        var peringkat = $('#peringkat').val();
+        var tingkat = $('#tingkat').val();
+        var tahun = $('#tahun_aw').val();
+
+
+        $.ajax({
+            url: '<?= base_url() ?>/KelembagaanPenyuluhan/Kecamatan/Kecamatan/save_award/',
+            type: 'POST',
+            data: {
+                'kode_bp3k': kode_bp3k,
+                'kode_prop': kode_prop,
+                'satminkal': satminkal,
+                'nama_penghargaan': nama_penghargaan,
+                'peringkat': peringkat,
+                'tingkat': tingkat,
+                'tahun': tahun,
+            },
+            success: function(result) {
+                result = JSON.parse(result);
+                if (result.value) {
+                    Swal.fire({
+                        title: 'Sukses',
+                        text: "Sukses tambah data",
+                        type: 'success',
+                    }).then((result) => {
+
+                        if (result.value) {
+                            location.reload();
+                        }
+                    });
+                } else {
+                    Swal.fire({
+                        title: 'Error',
+                        text: "Gagal tambah data. " + result.message,
+                        type: 'error',
+                    }).then((result) => {
+
+                    });
+                }
+            },
+            error: function(jqxhr, status, exception) {
+                Swal.fire({
+                    title: 'Error',
+                    text: "Gagal tambah data",
+                    type: 'error',
+                }).then((result) => {
+                    if (result.value) {
+                        location.reload();
+                    }
+                });
+            }
+        });
+    });
+
+
+    $(document).delegate('#btn-edit-aw', 'click', function() {
+        //var myModal = new bootstrap.Modal(document.getElementById('modal-edit'), options);
+        // alert(id);
+        $.ajax({
+            url: '<?= base_url() ?>/KelembagaanPenyuluhan/Kecamatan/Kecamatan/penghargaan/' + $(this).data('id'),
+            type: 'GET',
+            dataType: 'JSON',
+            success: function(res) {
+                // $(".daftpos").html(res)
+                //console.log(res);
+                //res = JSON.parse(res);
+
+                $('#id').val(res[0].id);
+                $('#kode_bp3k').val(res[0].kode_bp3k);
+                $('#kode_prop').val(res[0].kode_prop);
+                $('#satminkal').val(res[0].satminkal);
+                $('#nama_penghargaan').val(res[0].nama_penghargaan);
+                $('#peringkat').val(res[0].peringkat);
+                $('#tingkat').val(res[0].tingkat);
+                $('#tahun_aw').val(res[0].tahun);
+                $('#modal-award').modal("show");
+                $('#judul-form').text('Edit Data');
+                $("#btnSaveAw").attr("id", "btnUbahAw");
+
+                $(document).delegate('#btnUbahAw', 'click', function() {
+                    console.log('ok');
+
+                    var id = $('#id').val();
+                    var kode_bp3k = $('#kode_bp3k').val();
+                    var kode_prop = $('#kode_prop').val();
+                    var satminkal = $('#satminkal').val();
+                    var nama_penghargaan = $('#nama_penghargaan').val();
+                    var peringkat = $('#peringkat').val();
+                    var tingkat = $('#tingkat').val();
+                    var tahun = $('#tahun_aw').val();
+
+                    let formData = new FormData();
+                    formData.append('id', id);
+                    formData.append('kode_prop', kode_prop);
+                    formData.append('kode_bp3k', kode_bp3k);
+                    formData.append('satminkal', satminkal);
+                    formData.append('nama_penghargaan', nama_penghargaan);
+                    formData.append('peringkat', peringkat);
+                    formData.append('tingkat', tingkat);
+                    formData.append('tahun', tahun);
+                    $.ajax({
+                        url: '<?= base_url() ?>/KelembagaanPenyuluhan/Kecamatan/Kecamatan/update_award/' + id,
+                        type: "POST",
+                        data: formData,
+                        cache: false,
+                        processData: false,
+                        contentType: false,
+                        success: function(result) {
+                            $('#modal-form').modal('hide');
+                            Swal.fire({
+                                title: 'Sukses',
+                                text: "Sukses edit data",
+                                type: 'success',
+                            }).then((result) => {
+
+                                if (result.value) {
+                                    location.reload();
+                                }
+                            });
+
+                        },
+                        error: function(jqxhr, status, exception) {
+
+                            Swal.fire({
+                                title: 'Error',
+                                text: "Gagal edit data",
+                                type: 'Error',
+                            }).then((result) => {
+
+                                if (result.value) {
+                                    location.reload();
+                                }
+                            });
+
+                        }
+                    });
+                });
+
+            }
+        });
+
+        $('.modal').on('hidden.bs.modal', function() {
+            $(this).find('form')[0].reset();
+        });
+
+    });
+
+    $(document).delegate('#btn-hapus-aw', 'click', function() {
+        Swal.fire({
+            title: 'Apakah anda yakin',
+            text: "Data akan dihapus ?",
+            type: 'warning',
+            showCloseButton: true,
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Hapus Data!'
+        }).then((result) => {
+            if (result.value) {
+                var id = $(this).data('id');
+
+                $.ajax({
+                    url: '<?= base_url() ?>/KelembagaanPenyuluhan/Kecamatan/Kecamatan/delete_award/' + id,
+                    type: 'POST',
+
+                    success: function(result) {
+                        Swal.fire({
+                            title: 'Sukses',
+                            text: "Sukses hapus data",
+                            type: 'success',
+                        }).then((result) => {
+
+                            if (result.value) {
+                                location.reload();
+                            }
+                        });
+                    },
+                    error: function(jqxhr, status, exception) {
+                        Swal.fire({
+                            title: 'Error',
+                            text: "Gagal hapus data",
+                            type: 'error',
+                        }).then((result) => {
+                            if (result.value) {
+                                location.reload();
+                            }
+                        });
+                    }
+                });
+            }
+        });
+    });
+</script>
+
+<!-- ajax crud DAK -->
+<script>
+    $(document).delegate('#btnSaveDak', 'click', function() {
+        var id_bpp = $('#id_bpp').val();
+        var tahun_dak = $('#tahun_dak').val();
+
+
+        $.ajax({
+            url: '<?= base_url() ?>/KelembagaanPenyuluhan/Kecamatan/Kecamatan/save_dak/',
+            type: 'POST',
+            data: {
+                'id_bpp': id_bpp,
+                'tahun_dak': tahun_dak,
+            },
+            success: function(result) {
+                result = JSON.parse(result);
+                if (result.value) {
+                    Swal.fire({
+                        title: 'Sukses',
+                        text: "Sukses tambah data",
+                        type: 'success',
+                    }).then((result) => {
+
+                        if (result.value) {
+                            location.reload();
+                        }
+                    });
+                } else {
+                    Swal.fire({
+                        title: 'Error',
+                        text: "Gagal tambah data. " + result.message,
+                        type: 'error',
+                    }).then((result) => {
+
+                    });
+                }
+            },
+            error: function(jqxhr, status, exception) {
+                Swal.fire({
+                    title: 'Error',
+                    text: "Gagal tambah data",
+                    type: 'error',
+                }).then((result) => {
+                    if (result.value) {
+                        location.reload();
+                    }
+                });
+            }
+        });
+    });
+
+
+    $(document).delegate('#btn-edit-dak', 'click', function() {
+        //var myModal = new bootstrap.Modal(document.getElementById('modal-edit'), options);
+        // alert(id);
+        $.ajax({
+            url: '<?= base_url() ?>/KelembagaanPenyuluhan/Kecamatan/Kecamatan/dana/' + $(this).data('id'),
+            type: 'GET',
+            dataType: 'JSON',
+            success: function(res) {
+                // $(".daftpos").html(res)
+                //console.log(res);
+                //res = JSON.parse(res);
+
+                $('#id').val(res[0].id);
+                $('#id_bpp').val(res[0].id_bpp);
+                $('#tahun_dak').val(res[0].tahun_dak);
+                $('#modal-dak').modal("show");
+                $('#judul-form').text('Edit Data');
+                $("#btnSaveDak").attr("id", "btnUbahDak");
+
+                $(document).delegate('#btnUbahDak', 'click', function() {
+                    console.log('ok');
+
+                    var id = $('#id').val();
+                    var id_bpp = $('#id_bpp').val();
+                    var tahun_dak = $('#tahun_dak').val();
+
+                    let formData = new FormData();
+                    formData.append('id', id);
+                    formData.append('id_bpp', id_bpp);
+                    formData.append('tahun_dak', tahun_dak);
+                    $.ajax({
+                        url: '<?= base_url() ?>/KelembagaanPenyuluhan/Kecamatan/Kecamatan/update_dak/' + id,
+                        type: "POST",
+                        data: formData,
+                        cache: false,
+                        processData: false,
+                        contentType: false,
+                        success: function(result) {
+                            $('#modal-form').modal('hide');
+                            Swal.fire({
+                                title: 'Sukses',
+                                text: "Sukses edit data",
+                                type: 'success',
+                            }).then((result) => {
+
+                                if (result.value) {
+                                    location.reload();
+                                }
+                            });
+
+                        },
+                        error: function(jqxhr, status, exception) {
+
+                            Swal.fire({
+                                title: 'Error',
+                                text: "Gagal edit data",
+                                type: 'Error',
+                            }).then((result) => {
+
+                                if (result.value) {
+                                    location.reload();
+                                }
+                            });
+
+                        }
+                    });
+                });
+
+            }
+        });
+
+        $('.modal').on('hidden.bs.modal', function() {
+            $(this).find('form')[0].reset();
+        });
+
+    });
+
+    $(document).delegate('#btn-hapus-dak', 'click', function() {
+        Swal.fire({
+            title: 'Apakah anda yakin',
+            text: "Data akan dihapus ?",
+            type: 'warning',
+            showCloseButton: true,
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Hapus Data!'
+        }).then((result) => {
+            if (result.value) {
+                var id = $(this).data('id');
+
+                $.ajax({
+                    url: '<?= base_url() ?>/KelembagaanPenyuluhan/Kecamatan/Kecamatan/delete_dak/' + id,
+                    type: 'POST',
+
+                    success: function(result) {
+                        Swal.fire({
+                            title: 'Sukses',
+                            text: "Sukses hapus data",
+                            type: 'success',
+                        }).then((result) => {
+
+                            if (result.value) {
+                                location.reload();
+                            }
+                        });
+                    },
+                    error: function(jqxhr, status, exception) {
+                        Swal.fire({
+                            title: 'Error',
+                            text: "Gagal hapus data",
+                            type: 'error',
+                        }).then((result) => {
+                            if (result.value) {
+                                location.reload();
+                            }
+                        });
+                    }
+                });
+            }
+        });
+    });
+</script>
+
+<!-- ajax crud Potensi Wilayah -->
+<script>
+    $(document).delegate('#btnSaveKom', 'click', function() {
+        var id_bpp = $('#id_bpp').val();
+        var kode_komoditas = $('#kode_komoditas').val();
+        var luas_lhn = $('#luas_lhn').val();
+
+
+        $.ajax({
+            url: '<?= base_url() ?>/KelembagaanPenyuluhan/Kecamatan/Kecamatan/save_powil/',
+            type: 'POST',
+            data: {
+                'id_bpp': id_bpp,
+                'kode_komoditas': kode_komoditas,
+                'luas_lhn': luas_lhn,
+            },
+            success: function(result) {
+                result = JSON.parse(result);
+                if (result.value) {
+                    Swal.fire({
+                        title: 'Sukses',
+                        text: "Sukses tambah data",
+                        type: 'success',
+                    }).then((result) => {
+
+                        if (result.value) {
+                            location.reload();
+                        }
+                    });
+                } else {
+                    Swal.fire({
+                        title: 'Error',
+                        text: "Gagal tambah data. " + result.message,
+                        type: 'error',
+                    }).then((result) => {
+
+                    });
+                }
+            },
+            error: function(jqxhr, status, exception) {
+                Swal.fire({
+                    title: 'Error',
+                    text: "Gagal tambah data",
+                    type: 'error',
+                }).then((result) => {
+                    if (result.value) {
+                        location.reload();
+                    }
+                });
+            }
+        });
+    });
+
+
+    $(document).delegate('#btn-edit-kom', 'click', function() {
+        //var myModal = new bootstrap.Modal(document.getElementById('modal-edit'), options);
+        // alert(id);
+        $.ajax({
+            url: '<?= base_url() ?>/KelembagaanPenyuluhan/Kecamatan/Kecamatan/powil/' + $(this).data('id_potensi'),
+            type: 'GET',
+            dataType: 'JSON',
+            success: function(res) {
+                // $(".daftpos").html(res)
+                //console.log(res);
+                //res = JSON.parse(res);
+
+                $('#id_potensi').val(res[0].id_potensi);
+                $('#id_bpp').val(res[0].id_bpp);
+                $('#kode_komoditas').val(res[0].kode_komoditas);
+                $('#luas_lhn').val(res[0].luas_lhn);
+                $('#modal-powil').modal("show");
+                $('#judul-form').text('Edit Data');
+                $("#btnSaveKom").attr("id", "btnUbahKom");
+
+                $(document).delegate('#btnUbahKom', 'click', function() {
+                    console.log('ok');
+
+                    var id_potensi = $('#id_potensi').val();
+                    var id_bpp = $('#id_bpp').val();
+                    var kode_komoditas = $('#kode_komoditas').val();
+                    var luas_lhn = $('#luas_lhn').val();
+
+                    let formData = new FormData();
+                    formData.append('id_potensi', id_potensi);
+                    formData.append('id_bpp', id_bpp);
+                    formData.append('kode_komoditas', kode_komoditas);
+                    formData.append('luas_lhn', luas_lhn);
+                    $.ajax({
+                        url: '<?= base_url() ?>/KelembagaanPenyuluhan/Kecamatan/Kecamatan/update_powil/' + id_potensi,
+                        type: "POST",
+                        data: formData,
+                        cache: false,
+                        processData: false,
+                        contentType: false,
+                        success: function(result) {
+                            $('#modal-form').modal('hide');
+                            Swal.fire({
+                                title: 'Sukses',
+                                text: "Sukses edit data",
+                                type: 'success',
+                            }).then((result) => {
+
+                                if (result.value) {
+                                    location.reload();
+                                }
+                            });
+
+                        },
+                        error: function(jqxhr, status, exception) {
+
+                            Swal.fire({
+                                title: 'Error',
+                                text: "Gagal edit data",
+                                type: 'Error',
+                            }).then((result) => {
+
+                                if (result.value) {
+                                    location.reload();
+                                }
+                            });
+
+                        }
+                    });
+                });
+
+            }
+        });
+
+        $('.modal').on('hidden.bs.modal', function() {
+            $(this).find('form')[0].reset();
+        });
+
+    });
+
+    $(document).delegate('#btn-hapus-kom', 'click', function() {
+        Swal.fire({
+            title: 'Apakah anda yakin',
+            text: "Data akan dihapus ?",
+            type: 'warning',
+            showCloseButton: true,
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Hapus Data!'
+        }).then((result) => {
+            if (result.value) {
+                var id_potensi = $(this).data('id_potensi');
+
+                $.ajax({
+                    url: '<?= base_url() ?>/KelembagaanPenyuluhan/Kecamatan/Kecamatan/delete_powil/' + id_potensi,
+                    type: 'POST',
+
+                    success: function(result) {
+                        Swal.fire({
+                            title: 'Sukses',
+                            text: "Sukses hapus data",
+                            type: 'success',
+                        }).then((result) => {
+
+                            if (result.value) {
+                                location.reload();
+                            }
+                        });
+                    },
+                    error: function(jqxhr, status, exception) {
+                        Swal.fire({
+                            title: 'Error',
+                            text: "Gagal hapus data",
+                            type: 'error',
+                        }).then((result) => {
+                            if (result.value) {
+                                location.reload();
+                            }
+                        });
+                    }
+                });
+            }
+        });
+    });
+</script>
 <?= $this->endSection() ?>

@@ -200,7 +200,7 @@ $data = $json[0];
             <nav class="col-lg-12">
                 <div class="nav nav-tabs" id="nav-tab" role="tablist">
                     <button class="nav-link active" id="nav-home-tab" data-bs-toggle="tab" data-bs-target="#nav-home" type="button" role="tab" aria-controls="nav-home" aria-selected="true">Profil</button>
-                    <button class="nav-link" id="nav-penyuluh-tab" data-bs-toggle="tab" data-bs-target="#nav-penyuluh" type="button" role="tab" aria-controls="nav-penyuluh" aria-selected="false">Wilayah Kerja</button>
+                    <button class="nav-link" id="nav-penyuluh-tab" data-bs-toggle="tab" data-bs-target="#nav-penyuluh" type="button" role="tab" aria-controls="nav-penyuluh" aria-selected="false">Daftar Penyuluh</button>
                     <button class="nav-link" id="nav-lahancth-tab" data-bs-toggle="tab" data-bs-target="#nav-kegiatan" type="button" role="tab" aria-controls="nav-kegiatan" aria-selected="false">Kegiatan</button>
                     <!-- <button class="nav-link" id="nav-sarpras-tab" data-bs-toggle="tab" data-bs-target="#nav-sarpras" type="button" role="tab" aria-controls="nav-sarpras" aria-selected="false">Sarana & Prasarana</button>
                     <button class="nav-link" id="nav-pokom-tab" data-bs-toggle="tab" data-bs-target="#nav-pokom" type="button" role="tab" aria-controls="nav-pokom" aria-selected="false">Potensi Ekonomi</button>
@@ -249,7 +249,7 @@ $data = $json[0];
                                                         <tr>
                                                             <td>Provinsi</td>
                                                             <td>:</td>
-                                                            <td><?= $dt['kode_prop']; ?></td>
+                                                            <td><?= $namaprov; ?></td>
                                                         </tr>
                                                         <tr>
                                                             <td>No Telepon/Fax</td>
@@ -274,7 +274,7 @@ $data = $json[0];
                                                         <tr>
                                                             <td>No HP Pimpinan</td>
                                                             <td>:</td>
-                                                            <td><?= $dt['hp_kabid']; ?></td>
+                                                            <td><?= $dt['telp_hp']; ?></td>
                                                         </tr>
                                                         <tr>
                                                             <td>Nama Koordinator PP</td>
@@ -311,7 +311,7 @@ $data = $json[0];
                                                         <tr>
                                                             <td>Provinsi</td>
                                                             <td>:</td>
-                                                            <td><?= $dt['kode_prop']; ?></td>
+                                                            <td><?= $namaprov; ?></td>
                                                         </tr>
                                                         <tr>
                                                             <td>No Telepon/Fax</td>
@@ -336,7 +336,7 @@ $data = $json[0];
                                                         <tr>
                                                             <td>No HP Pimpinan</td>
                                                             <td>:</td>
-                                                            <td><?= $dt['hp_kabid']; ?></td>
+                                                            <td><?= $dt['telp_hp']; ?></td>
                                                         </tr>
                                                         <tr>
                                                             <td>Nama Koordinator PP</td>
@@ -423,7 +423,7 @@ $data = $json[0];
 
                                 </div>
                                 <!-- <a href="<?= base_url('profil/lembaga/editfoto') ?>" class="btn btn-primary btn-lg w-100 btn-sm">Upload</a> -->
-                                <button type="button" class="btn btn-primary btn-lg w-100 btn-sm" id="uploadbtn">Change Picture</button>
+                                <button type="button" class="btn btn-primary btn-lg w-100 btn-sm" data-bs-toggle="modal" data-bs-target="#modalFoto" id="uploadbtn">Change Picture</button>
 
                             </div>
                         </div>
@@ -438,29 +438,98 @@ $data = $json[0];
                             <div class="card">
                                 <div class="card-body p-3">
                                     <div class="row">
-                                        <h1 class="h3 mb-4 text-gray-800">Daftar Penyuluh</h1>
-                                        <div class="col-lg-8">
-                                            <!-- <select name="prov" id="prov" class="form-control">
-                                                <?php
-                                                foreach ($prov as $dtProv) {
 
-                                                    echo '<option value="' . $dtProv['id_prop'] . '">' . $dtProv['nama_prop'] . '</option>';
-                                                }
-                                                ?>
-                                            </select>
-
-                                            <select name="kab" id="kab" class="form-control">
-                                            </select>
-
-                                            <select name="kec" id="kec" class="form-control">
-                                            </select>
-
-                                            <select name="desa" id="desa" class="form-control">
-                                            </select> -->
-
+                                        <h4 class="h3 mb-4 text-gray-800">Daftar Penyuluh Yang Bertugas di Kabupaten/Kota</h4>
+                                        <div class="col-sm-4">
+                                            <h5><span>Jumlah Penyuluh PNS</span></h5>
+                                        </div>
+                                        <div class="col-sm-4"><span>(<?= $jum_pns; ?> Orang)</span></div>
+                                        <div class="row">
+                                            <div class="col-sm-4">
+                                                <table class="table align-items-center mb-0">
+                                                    <tbody>
+                                                        <?php
+                                                        $i = 1;
+                                                        foreach ($datapns as $row => $pns) {
+                                                        ?>
+                                                            <tr>
+                                                                <td class="align-middle text-center text-sm">
+                                                                    <p class="text-xs font-weight-bold mb-0"><?= $i++ ?></p>
+                                                                </td>
+                                                                <td class="align-middle text-sm">
+                                                                    <p class="text-xs font-weight-bold mb-0"><?= $pns['nama'] ?></p>
+                                                                </td>
+                                                            </tr>
+                                                        <?php
+                                                        }
+                                                        ?>
+                                                    </tbody>
+                                                </table>
+                                            </div>
+                                        </div>
+                                        <br>
+                                        <br>
+                                        <div class="row">
+                                            <div class="col-sm-4">
+                                                <h5><span>THL-TB PP (APBN)</span></h5>
+                                            </div>
+                                            <div class="col-sm-4"><span>(<?= $jum_thl; ?> Orang)</span></div>
+                                            <div class="row">
+                                                <div class="col-sm-4">
+                                                    <table class="table align-items-center mb-0">
+                                                        <tbody>
+                                                            <?php
+                                                            $i = 1;
+                                                            foreach ($datathl as $row => $thl) {
+                                                            ?>
+                                                                <tr>
+                                                                    <td class="align-middle text-center text-sm">
+                                                                        <p class="text-xs font-weight-bold mb-0"><?= $i++ ?></p>
+                                                                    </td>
+                                                                    <td class="align-middle text-sm">
+                                                                        <p class="text-xs font-weight-bold mb-0"><?= $thl['nama'] ?></p>
+                                                                    </td>
+                                                                </tr>
+                                                            <?php
+                                                            }
+                                                            ?>
+                                                        </tbody>
+                                                    </table>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <br>
+                                        <br>
+                                        <div class="row">
+                                            <div class="col-sm-4">
+                                                <h5><span>THL-TB PP (APBD)</span></h5>
+                                            </div>
+                                            <div class="col-sm-4"><span>(<?= $jum_thl_apbd; ?> Orang)</span></div>
+                                            <div class="row">
+                                                <div class="col-sm-4">
+                                                    <table class="table align-items-center mb-0">
+                                                        <tbody>
+                                                            <?php
+                                                            $i = 1;
+                                                            foreach ($datathl_apbd as $row => $thl_apbd) {
+                                                            ?>
+                                                                <tr>
+                                                                    <td class="align-middle text-center text-sm">
+                                                                        <p class="text-xs font-weight-bold mb-0"><?= $i++ ?></p>
+                                                                    </td>
+                                                                    <td class="align-middle text-sm">
+                                                                        <p class="text-xs font-weight-bold mb-0"><?= $thl_apbd['nama'] ?></p>
+                                                                    </td>
+                                                                </tr>
+                                                            <?php
+                                                            }
+                                                            ?>
+                                                        </tbody>
+                                                    </table>
+                                                </div>
+                                            </div>
 
                                         </div>
-
                                     </div>
 
                                 </div>
@@ -507,7 +576,9 @@ $data = $json[0];
                                                             </td>
                                                             <td class="align-middle text-center text-sm">
                                                                 <a href="#">
-                                                                    <button type="button" id="btn-edit-fas" data-bs-toggle="modal" data-bs-target="#modal-fk" class="btn bg-gradient-warning btn-sm" data-id="<?= $value['id'] ?>">
+
+                                                                    <button type="button" id="btn-edit-fas" class="btn bg-gradient-warning btn-sm" data-id="<?= $value['id'] ?>">
+
                                                                         <i class="fas fa-edit"></i> Ubah
                                                                     </button>
                                                                 </a>
@@ -530,59 +601,6 @@ $data = $json[0];
                             </div>
                         </div>
 
-                    </div>
-                </div>
-
-                <div class="tab-pane fade" id="nav-lahancth" role="tabpanel" aria-labelledby="nav-lahancth-tab">
-                    <div class="row">
-                        <div class="col-lg-12 mb-lg-0 mb-4">
-                            <div class="card">
-                                <div class="card-body p-3">
-                                    <a href="#">
-                                        <button type="button" data-bs-toggle="modal" data-bs-target="#modal-lahancth" class="btn bg-gradient-primary">+ Tambah Data</button>
-                                    </a>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="tab-pane fade" id="nav-sarpras" role="tabpanel" aria-labelledby="nav-sarpras-tab">
-                    <div class="row">
-                        <div class="col-lg-12 mb-lg-0 mb-4">
-                            <div class="card">
-                                <div class="card-body p-3">
-                                    <a href="#">
-                                        <button type="button" data-bs-toggle="modal" data-bs-target="#modal-sarpras" class="btn bg-gradient-primary">+ Tambah Data</button>
-                                    </a>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="tab-pane fade" id="nav-pokom" role="tabpanel" aria-labelledby="nav-pokom-tab">
-                    <div class="row">
-                        <div class="col-lg-12 mb-lg-0 mb-4">
-                            <div class="card">
-                                <div class="card-body p-3">
-                                    <a href="#">
-                                        <button type="button" data-bs-toggle="modal" data-bs-target="#modal-sarpras" class="btn bg-gradient-primary">+ Tambah Data</button>
-                                    </a>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="tab-pane fade" id="nav-powil" role="tabpanel" aria-labelledby="nav-powil-tab">
-                    <div class="row">
-                        <div class="col-lg-12 mb-lg-0 mb-4">
-                            <div class="card">
-                                <div class="card-body p-3">
-                                    <a href="#">
-                                        <button type="button" data-bs-toggle="modal" data-bs-target="#modal-lahancth" class="btn bg-gradient-primary">+ Tambah Data</button>
-                                    </a>
-                                </div>
-                            </div>
-                        </div>
                     </div>
                 </div>
 
@@ -763,6 +781,8 @@ $data = $json[0];
 
                                                 </div>
                                             </div>
+
+
                                             <div class="col">
                                                 <label for="ketua">Bidang yang menangani fungsi penyuluhan</label>
                                                 <div class="input-group mb-3">
@@ -788,6 +808,7 @@ $data = $json[0];
                                                 <div class="input-group mb-3">
                                                     <input type="text" class="form-control" id="uptd_luh" placeholder="ketua" name="uptd_luh">
                                                 </div>
+
                                                 <label for="ketua">Nama kepala UPTD</label>
                                                 <div class="input-group mb-3">
                                                     <input type="text" class="form-control" id="nama_kauptd" name="nama_kauptd" placeholder="Nama Kepala UPTD">
@@ -816,16 +837,70 @@ $data = $json[0];
                                                 <div class="input-group mb-3">
                                                     <input type="text" class="form-control" id="website" placeholder="Alamat website" name="website">
                                                 </div>
-
+                                            </div>
+                                            <div class="modal-footer">
+                                                <button type="button" class="btn bg-gradient-secondary" data-bs-dismiss="modal">Close</button>
+                                                <button type="button" id="btnSave" class="btn bg-gradient-primary">Simpan Data</button>
                                             </div>
                                         </div>
+                                    </form>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        <?php
+            } ?>
 
 
-                                </div>
-                                <div class="modal-footer">
-                                    <button type="button" class="btn bg-gradient-secondary" data-bs-dismiss="modal">Close</button>
-                                    <button type="button" id="btnSave" class="btn bg-gradient-primary">Simpan Data</button>
-                                </div>
+        <div class="modal fade" id="modal-fk" tabindex="-1" role="dialog" aria-labelledby="modal-fk" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered modal-l" role="document">
+                <div class="modal-content">
+                    <div class="modal-body p-0">
+                        <div class="card card-plain">
+                            <div class="card-header pb-0 text-left">
+                                <h4 class="font-weight-bolder text-warning text-gradient" id="judul_form">Tambah Data</h4>
+                            </div>
+                            <div class="card-body">
+
+                                <form role="form text-left" action="<?= base_url('profil/Lembaga/save'); ?>">
+                                    <div class="row">
+                                        <div class="col">
+                                            <input type="hidden" name="id" id="id">
+                                            <input type="hidden" name="id_bapel" id="id_bapel" value="<?= $idgap; ?>">
+                                            <label for="tahun_beridiri">Tahun</label>
+                                            <div class="input-group mb-3">
+                                                <select id="tahun" name="tahun" class="form-select tahun" aria-label="Default select example">
+                                                    <option value=""></option>
+                                                </select>
+                                            </div>
+                                            <label for="penyuluh_swadaya">Fasilitasi</label>
+                                            <div class="input-group mb-3">
+                                                <select name="fasilitasi" id="fasilitasi" class="form-control input-lg">
+                                                    <option value=""></option>
+                                                    <?php
+                                                    foreach ($fasilitasi as $row3) {
+                                                        echo '<option value="' . $row3["idfasilitasi"] . '">' . $row3["fasilitasi"] . '</option>';
+                                                    }
+                                                    ?>
+                                                </select>
+
+                                            </div>
+                                            <label for="alamat">Kegiatan</label>
+                                            <div class="input-group mb-3">
+                                                <textarea type="text" class="form-control" id="kegiatan" placeholder="kegiatan" name="kegiatan"></textarea>
+                                            </div>
+
+                                        </div>
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn bg-gradient-secondary" data-bs-dismiss="modal">Close</button>
+                                        <button type="button" id="btnSimpan" class="btn bg-gradient-primary">Simpan Data</button>
+                                    </div>
+
+
                             </div>
                             </form>
                         </div>
@@ -833,48 +908,33 @@ $data = $json[0];
                     </div>
                 </div>
             </div>
-    </div>
-</div>
-<?php
-            } ?>
+
+        </div>
 
 
-<div class="modal fade" id="modal-fk" tabindex="-1" role="dialog" aria-labelledby="modal-fk" aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered modal-l" role="document">
-        <div class="modal-content">
-            <div class="modal-body p-0">
-                <div class="card card-plain">
-                    <div class="card-header pb-0 text-left">
-                        <h4 class="font-weight-bolder text-warning text-gradient" id="judul_form">Edit Data</h4>
+
+
+        <div class="modal fade" id="modalFoto" tabindex="-1" role="dialog" aria-labelledby="modalFoto" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabel">Ubah Foto Profil</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">×</span>
+                        </button>
                     </div>
-                    <div class="card-body">
+                    <div class="modal-body">
+                        <form method="POST" enctype="multipart/form-data" action="<?= base_url('profil/lembaga/saveProfil'); ?>">
 
-                        <form role="form text-left" action="<?= base_url('profil/Lembaga/save'); ?>">
-                            <div class="row">
-                                <div class="col">
-                                    <input type="hidden" name="id" id="id">
-                                    <input type="hidden" name="id_bapel" id="id_bapel" value="<?= $idgap; ?>">
-                                    <label for="tahun_beridiri">Tahun</label>
-                                    <div class="input-group mb-3">
-                                        <select id="tahun" name="tahun" class="form-select tahun" aria-label="Default select example">
-                                            <option value=""></option>
-                                        </select>
-                                    </div>
-                                    <label for="penyuluh_swadaya">Fasilitasi</label>
-                                    <div class="input-group mb-3">
-                                        <select name="fasilitasi" id="fasilitasi" class="form-control input-lg">
-                                            <option value=""></option>
-                                            <?php
-                                            foreach ($fasilitasi as $row3) {
-                                                echo '<option value="' . $row3["idfasilitasi"] . '">' . $row3["fasilitasi"] . '</option>';
-                                            }
-                                            ?>
-                                        </select>
 
-                                    </div>
-                                    <label for="alamat">Kegiatan</label>
-                                    <div class="input-group mb-3">
-                                        <textarea type="text" class="form-control" id="kegiatan" placeholder="kegiatan" name="kegiatan"></textarea>
+                            <div class="col-lg-3 mb-lg-0 text-center">
+                                <div class="card">
+                                    <div class="card-body p-3">
+                                        <img src="<?php if ($fotoprofil == '') {
+                                                        echo base_url('assets/img/logo.png');
+                                                    } else {
+                                                        echo base_url('assets/img/' . $fotoprofil);
+                                                    }  ?>" width="150px" class="img-thumbnail" alt="profil">
                                     </div>
 
                                 </div>
@@ -885,59 +945,26 @@ $data = $json[0];
                                 <button type="button" class="btn bg-gradient-secondary" data-bs-dismiss="modal">Close</button>
                                 <button type="button" id="btnSimpan" class="btn bg-gradient-primary">Simpan Data</button>
                             </div>
+
+                            <div class="input-group mb-3">
+                                <input type="file" class="form-control" id="foto" name="foto">
+                                <label class="input-group-text" for="foto">Pilih Foto</label>
+
+                            </div>
+
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn bg-gradient-secondary" data-bs-dismiss="modal">Close</button>
+                        <button type="submit" id="btnSave" class="btn bg-gradient-primary">Simpan</button>
                     </div>
                     </form>
+
                 </div>
 
             </div>
         </div>
     </div>
-</div>
-</div>
-
-<div class="modal fade" id="modalFoto" tabindex="-1" role="dialog" aria-labelledby="exampleModalMessageTitle" aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel">Ubah Foto Profil</h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">×</span>
-                </button>
-            </div>
-            <div class="modal-body">
-                <form method="POST" enctype="multipart/form-data" action="<?= base_url('profil/lembaga/saveProfil'); ?>">
-
-
-                    <div class="col-lg-3 mb-lg-0 text-center">
-                        <div class="card">
-                            <div class="card-body p-3">
-                                <img src="<?php if ($fotoprofil == '') {
-                                                echo base_url('assets/img/logo.png');
-                                            } else {
-                                                echo base_url('assets/img/' . $fotoprofil);
-                                            }  ?>" width="150px" class="img-thumbnail" alt="profil">
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="input-group mb-3">
-                        <input type="file" class="form-control" id="foto" name="foto">
-                        <label class="input-group-text" for="foto">Pilih Foto</label>
-                    </div>
-
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn bg-gradient-secondary" data-bs-dismiss="modal">Close</button>
-                <button type="submit" id="btnSave" class="btn bg-gradient-primary">Simpan</button>
-            </div>
-            </form>
-
-        </div>
-
-    </div>
-
-</div>
-<?php echo view('layout/footer'); ?>
+    <?php echo view('layout/footer'); ?>
 
 </div>
 </div>
@@ -983,8 +1010,8 @@ $data = $json[0];
         });
     });
 
-    var min = 2017,
-        max = 2050,
+    var min = 2010,
+        max = 2030,
         select = document.getElementById('tahun');
 
     for (var i = min; i <= max; i++) {
@@ -1026,7 +1053,7 @@ $data = $json[0];
                     $('#telp_hp').val(res[0].telp_hp);
                     $('#telp_hp_koord').val(res[0].telp_hp_koord);
                     $('#email_koord').val(res[0].email_koord);
-                    $('#jenis_pertanian').val(res[0].jenis_pertanian);
+                    $("#jenis_pertanian")[0].checked ? $("#jenis_pertanian").val() : "";
                     $('#jenis_tp').val(res[0].jenis_tp);
                     $('#jenis_hor').val(res[0].jenis_hor);
                     $('#jenis_bun').val(res[0].jenis_bun);
@@ -1254,6 +1281,8 @@ $data = $json[0];
                     $('#fasilitasi').val(res[0].fasilitasi);
                     $('#kegiatan').val(res[0].kegiatan);
                     $('#tahun').val(res[0].tahun);
+                    $('#judul-form').text('Edit Data');
+                    $('#modal-fk').modal("show");
                     $("#btnSimpan").attr("id", "btnUbah");
 
                     $(document).delegate('#btnUbah', 'click', function() {

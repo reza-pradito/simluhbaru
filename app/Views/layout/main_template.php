@@ -102,7 +102,9 @@
                 currentYear--;
             }
 
-            for (var m = 1; m < 13; m++) {
+
+            for (var m = 1; m < 12; m++) {
+
                 let month = monthNames[m];
                 let monthElem = document.createElement("option");
                 monthElem.value = m;

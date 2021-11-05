@@ -4,6 +4,10 @@ namespace App\Controllers\profil;
 
 use App\Controllers\BaseController;
 use App\Models\KelembagaanPenyuluhan\Kabupaten\FasilitasiBapelModel;
+
+use App\Models\KelembagaanPenyuluhan\Kabupaten\KabupatenModel;
+use App\Models\KodeWilayah\KodeWilModel;
+
 use App\Models\LembagaModel;
 use App\Models\WilayahModel;
 use App\Models\KelembagaanPenyuluhan\Kabupaten\KabupatenModel;
@@ -23,6 +27,9 @@ class Lembaga extends BaseController
         helper('autentikasi');
         $this->modelLembaga = new LembagaModel();
         $this->modelProv = new WilayahModel();
+
+        $this->model = new KabupatenModel();
+
         $this->fasmodel = new FasilitasiBapelModel();
     }
 
@@ -55,6 +62,10 @@ class Lembaga extends BaseController
         $id_gap = $kabModel->getIdGap(session()->get('kodebapel'));
         $namawil = $wilModel->getNamaWil(session()->get('kodebapel'));
 
+        $pns = $kabModel->getTotalPNS(session()->get('kodebapel'));
+        $thl = $kabModel->getTotalTHLAPBN(session()->get('kodebapel'));
+        $thl_apbd = $kabModel->getTotalTHLAPBD(session()->get('kodebapel'));
+
 
         if (empty(session()->get('status_user')) || session()->get('status_user') == '2') {
             $kode = '00';
@@ -73,6 +84,8 @@ class Lembaga extends BaseController
         $dtprov = $this->modelProv->getProv();
         //dd($dtlembaga);
 
+
+
         $data = [
             'title' => 'Profil Lembaga',
             'dt' => $dtlembaga,
@@ -85,6 +98,12 @@ class Lembaga extends BaseController
             'idgap' => $id_gap['idgap'],
             'fotoprofil' => $dtlembaga['foto'],
             'fasilitasi' => $query->getResultArray(),
+            'jum_pns' => $pns['jum_pns'],
+            'datapns' => $pns['datapns'],
+            'datathl' => $thl['datathl'],
+            'jum_thl' => $thl['jum_thl'],
+            'datathl_apbd' => $thl_apbd['datathl_apbd'],
+            'jum_thl_apbd' => $thl_apbd['jum_thl_apbd'],
             'prov' => $dtprov,
             'validation' => \Config\Services::validation()
 
@@ -92,7 +111,6 @@ class Lembaga extends BaseController
 
         return view('profil/profillembaga', $data);
     }
-
 
     public function detailKab($id)
     {
