@@ -7,7 +7,6 @@
 <center>
     <h3> Data Kelembagaan Penyuluhan Pertanian <br><?= ucwords(strtolower($nama_prop)) ?> </h3>
 </center>
-<a href="#"><button type="button" class="btn bg-gradient-primary">+ Tambah Data</button></a>
 <div class="card">
     <div class="table-responsive">
         <table class="table align-items-center mb-0">
@@ -17,6 +16,7 @@
                     <td width="180" class="text-uppercase text-secondary text-xxs font-weight-bolder" style="text-align: center;">Nama Lembaga</td>
                     <td width="300" class="text-uppercase text-secondary text-xxs font-weight-bolder" style="text-align: center;">Alamat</td>
                     <td width="150" class="text-uppercase text-secondary text-xxs font-weight-bolder" style="text-align: center;">Nama<br>Pimpinan</td>
+                    <td width="150" class="text-uppercase text-secondary text-xxs font-weight-bolder" style="text-align: center;">Jumlah<br>Penyuluh<br>PNS</td>
                     <td width="150" class="text-uppercase text-secondary text-xxs font-weight-bolder" style="text-align: center;">Jumlah<br>Penyuluh<br>THL</td>
                     <td width="150" class="text-uppercase text-secondary text-xxs font-weight-bolder" style="text-align: center;">Jumlah<br>Penyuluh<br>Swadaya</td>
                     <td width="150" class="text-uppercase text-secondary text-xxs font-weight-bolder" style="text-align: center;">Jumlah<br>Poktan</td>
@@ -62,13 +62,6 @@
                         </td>
                         <td class="align-middle text-center text-sm">
                             <p class="text-xs font-weight-bold mb-0"><?= $row['tgl_update'] ?></p>
-                        </td>
-                        <td class="align-middle text-center text-sm">
-                            <a href="#">
-                                <button type="button" data-bs-toggle="modal" data-bs-target="#modal-form" class="btn bg-gradient-warning btn-sm">
-                                    <i class="fas fa-edit"></i> Ubah
-                                </button>
-                            </a>
                         </td>
                     </tr>
                 <?php

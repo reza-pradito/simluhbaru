@@ -109,15 +109,13 @@
                                                     <option value="tidak">Tidak</option>
                                                 </select>
                                             </div>
-                                            
-
                                             <input type="hidden" id="kode_kab" name="kode_kab" value="<?= $kode_kab; ?>">
                                             <input type="hidden" id="kode_prop" name="kode_prop" value="<?= $kode_prop; ?>">
                                                 <input type="hidden" id="id_gapber" name="id_gapber" >
                                                     <div class="text-center">
                                                         <button type="button" id="btnSave" class="btn btn-round bg-gradient-warning btn-sm">Simpan Data</button>
                                                     </div>
-        </div>
+                                                </div>
                                             </form>
                                         </div>
 

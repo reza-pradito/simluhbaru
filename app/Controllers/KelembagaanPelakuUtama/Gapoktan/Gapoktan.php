@@ -57,7 +57,7 @@ class Gapoktan extends BaseController
             'name' => 'List Gabungan Kelompok Tani',
             'desa' => $desa,
             'kode_kec' => $kode_kec,
-            'kode_prop' => $kode_data['kode_prop']
+            '$kode_prop' => $kode_data['kode_prop']
 
         ];
 
@@ -141,6 +141,6 @@ class Gapoktan extends BaseController
     public function delete($id_gap)
     {
         $this->model->delete($id_gap);
-       // return redirect()->to('/gapoktan');
+        return redirect()->to('/listgapoktan');
     }
 }

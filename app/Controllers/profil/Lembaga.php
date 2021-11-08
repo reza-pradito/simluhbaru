@@ -8,13 +8,13 @@ use App\Models\LembagaModel;
 use App\Models\WilayahModel;
 use App\Models\KelembagaanPenyuluhan\Kabupaten\KabupatenModel;
 use App\Models\KodeWilayah\KodeWilModel;
+use App\Models\KelembagaanPenyuluhan\Provinsi\ProvModel;
 
 class Lembaga extends BaseController
 {
     protected $session;
     protected $modelLembaga;
     protected $modelProv;
-    protected $fasModel;
 
     function __construct()
     {
@@ -23,9 +23,7 @@ class Lembaga extends BaseController
         helper('autentikasi');
         $this->modelLembaga = new LembagaModel();
         $this->modelProv = new WilayahModel();
-
         $this->model = new KabupatenModel();
-
         $this->fasmodel = new FasilitasiBapelModel();
     }
 
@@ -44,6 +42,7 @@ class Lembaga extends BaseController
         $lembagaModel = new LembagaModel();
         $kabModel = new KabupatenModel();
         $wilModel = new KodeWilModel();
+        $provModel = new ProvModel();
         // if (empty($this->session->get('kodebapel'))) {
         //     return redirect()->to('login');
         // } else {
@@ -68,6 +67,43 @@ class Lembaga extends BaseController
             ];
         } elseif (session()->get('status_user') == '4') {
             $kode = session()->get('kodebapel');
+
+            $dtlembaga = $lembagaModel->getProfil($kode);
+            $penyuluhPNS = $kabModel->getPenyuluhPNS(session()->get('kodebapel'));
+            $penyuluhTHL = $kabModel->getPenyuluhTHL(session()->get('kodebapel'));
+            $bapel_data = $kabModel->getKabTotal(session()->get('kodebapel'));
+            $bapel = $kabModel->getBapel(session()->get('kodebapel'));
+            $fasdata = $kabModel->getFas(session()->get('kodebapel'));
+            $id_gap = $kabModel->getIdGap(session()->get('kodebapel'));
+            $namawil = $wilModel->getNamaWil(session()->get('kodebapel'));
+            $pns = $kabModel->getTotalPNS(session()->get('kodebapel'));
+            $thl = $kabModel->getTotalTHLAPBN(session()->get('kodebapel'));
+            $thl_apbd = $kabModel->getTotalTHLAPBD(session()->get('kodebapel'));
+
+            $data = [
+                'title' => 'Profil Lembaga',
+                'dt' => $dtlembaga,
+
+                'penyuluhPNS' => $penyuluhPNS,
+                'penyuluhTHL' => $penyuluhTHL,
+                'namaprov' => $namawil['namaprov'],
+                'tabel_data' => $bapel_data['table_data'],
+                'bapel' => $bapel['bapel_data'],
+                'fasdata' => $fasdata['fasdata'],
+                'idgap' => $id_gap['idgap'],
+                'fasilitasi' => $query->getResultArray(),
+                'fotoprofil' => $dtlembaga['foto'],
+                'jum_pns' => $pns['jum_pns'],
+                'datapns' => $pns['datapns'],
+                'datathl' => $thl['datathl'],
+                'jum_thl' => $thl['jum_thl'],
+                'datathl_apbd' => $thl_apbd['datathl_apbd'],
+                'jum_thl_apbd' => $thl_apbd['jum_thl_apbd'],
+                'validation' => \Config\Services::validation()
+
+            ];
+
+            return view('profil/profillembaga', $data);
         } elseif (session()->get('status_user') == '200') {
             $kode = session()->get('kodebapel');
             $dtlembaga = $lembagaModel->getProfil($kode);
@@ -142,9 +178,6 @@ class Lembaga extends BaseController
 
             ];
         }
-
-
-        return view('profil/profillembaga', $data);
     }
 
     public function detailKab($id)

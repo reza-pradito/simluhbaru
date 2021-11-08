@@ -125,9 +125,9 @@ class ListKEP extends BaseController
         //session()->setFlashdata('pesan', 'Data berhasil diubah');
 
     }
-    public function delete($id_kep)
+    public function delete($id)
     {
-        $this->model->delete($id_kep);
-        return redirect()->to('/kelembagaanekonomipetani');
+        $this->model->delete($id);
+        return redirect()->to('/listkep');
     }
 }
