@@ -78,7 +78,7 @@ class Kecamatan extends BaseController
         $query2->getResultArray();
 
         $get_param = $this->request->getGet();
-        // $kode_kec = $get_param['kode_kec'];
+        $kode_kec = $get_param['kode_kec'];
 
 
         $profilkec = $kec_model->getProfilKec($kode_kec);

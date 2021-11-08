@@ -20,6 +20,7 @@ $data = $json[0];
 ?>
 <div class="container-fluid py-4">
     <div class="row">
+        <?= $validation->getError(); ?>
         <!-- Page Heading -->
         <div class="row mt-3 mb-4">
 
@@ -249,7 +250,7 @@ $data = $json[0];
                                                         <tr>
                                                             <td>Provinsi</td>
                                                             <td>:</td>
-                                                            <td><?= $namaprov; ?></td>
+                                                            <td><?= $dt['kode_prop']; ?></td>
                                                         </tr>
                                                         <tr>
                                                             <td>No Telepon/Fax</td>
@@ -279,13 +280,7 @@ $data = $json[0];
                                                         <tr>
                                                             <td>Nama Koordinator PP</td>
                                                             <td>:</td>
-                                                            <<td><?php if ($dt['kode_koord_penyuluh'] == "1") {
-                                                                        echo $dt['nama_koord_penyuluh'];
-                                                                    } elseif ($dt['kode_koord_penyuluh'] == "2") {
-                                                                        echo $dt['nama_koord_penyuluh_thl'];
-                                                                    } elseif ($dt['kode_koord_penyuluh'] == "3") {
-                                                                        echo $dt['koord_lainnya_nama'];
-                                                                    } ?></td>
+                                                            <td></td>
                                                         </tr>
                                                     </tbody>
                                                 </table>
@@ -540,6 +535,7 @@ $data = $json[0];
 
                     </div>
                 </div>
+
 
                 <div class="tab-pane fade" id="nav-kegiatan" role="tabpanel" aria-labelledby="nav-home-tab">
                     <div class="row">
@@ -941,10 +937,7 @@ $data = $json[0];
 
 
                             </div>
-                            <div class="modal-footer">
-                                <button type="button" class="btn bg-gradient-secondary" data-bs-dismiss="modal">Close</button>
-                                <button type="button" id="btnSimpan" class="btn bg-gradient-primary">Simpan Data</button>
-                            </div>
+
 
                             <div class="input-group mb-3">
                                 <input type="file" class="form-control" id="foto" name="foto">

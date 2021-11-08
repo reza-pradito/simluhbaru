@@ -61,4 +61,9 @@ class User extends BaseController
             echo json_encode($output);
         }
     }
+
+    public function saveUser()
+    {
+        echo "test";
+    }
 }

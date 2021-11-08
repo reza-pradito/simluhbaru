@@ -7,7 +7,7 @@ use CodeIgniter\Model;
 class AdminModel extends Model
 {
 
-    protected $table = 'tblbapel';
+    //protected $table = 'tblbapel';
 
     //  protected $db = \Config\Database::connect();
 
@@ -16,5 +16,12 @@ class AdminModel extends Model
         $query = $this->db->query("SELECT * FROM tbluser where `status` = $id");
         $row   = $query->getRowArray();
         return $row;
+    }
+
+    public function saveProfil($data)
+    {
+        $db = db_connect();
+        $builder = $db->table('tbluser');
+        $builder->where('id', session()->get('userid'))->update($data);
     }
 }
