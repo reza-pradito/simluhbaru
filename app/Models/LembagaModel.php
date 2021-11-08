@@ -17,15 +17,7 @@ class LembagaModel extends Model
 
 
         if (session()->get('status_user') == '1') {
-<<<<<<< HEAD
             $query = $this->db->query("SELECT * FROM tblbakor where kode_prop = " . $id);
-=======
-            $query = $this->db->query("select *, a.alamat, a.ketua, a.tgl_update, a.kode_prop, a.nama_bapel, b.nama as namakoord  
-                                        from tblbakor a
-                                        left join tbldasar b on a.nama_koord_penyuluh=b.nip 
-                                        where a.kode_prop='$id' 
-                                        ");
->>>>>>> 6f4ed500b6dcd6a3d2b201fe4b47dc7f10349f15
         } elseif (session()->get('status_user') == '4') {
             $query = $this->db->query("SELECT * FROM tblbapel where kabupaten = " . $id);
         } elseif (session()->get('status_user') == '200') {

@@ -924,14 +924,10 @@ $data = $json[0];
                                                     }  ?>" width="150px" class="img-thumbnail" alt="profil">
                                     </div>
                                 </div>
-<<<<<<< HEAD
 
 
                             </div>
 
-=======
-                            </div>
->>>>>>> 6f4ed500b6dcd6a3d2b201fe4b47dc7f10349f15
 
                             <div class="input-group mb-3">
                                 <input type="file" class="form-control" id="foto" name="foto">
