@@ -123,11 +123,11 @@
                                                 <label>Jenis Kelamin</label>
                                                 <div class="input-group mb-3">
                                                     <div class="form-check form-check-inline" id="jenis_kelamin">
-                                                        <input class="form-check-input" type="radio" name="jenis_kelamin" id="jenis_kelamin" value="1">
+                                                        <input class="form-check-input jenis_kelamin" type="radio" name="jenis_kelamin" id="jenis_kelamin" value="1">
                                                         <label class="form-check-label" for="inlineRadio1">Laki-laki</label>
                                                     </div>
                                                     <div class="form-check form-check-inline" id="jenis_kelamin">
-                                                        <input class="form-check-input" type="radio" name="jenis_kelamin" id="jenis_kelamin" value="2">
+                                                        <input class="form-check-input jenis_kelamin" type="radio" name="jenis_kelamin" id="jenis_kelamin2" value="2">
                                                         <label class="form-check-label" for="inlineRadio2">Perempuan</label>
                                                     </div>
                                                 </div>
@@ -184,7 +184,7 @@
                                                 <label>Keahlian Bidang Teknis</label>
                                                 <div class="input-group">
                                                     <div class="form-check">
-                                                        <input class="form-check-input" type="checkbox" id="ahli_tp" name="ahli_tp" value="1">
+                                                        <input class="form-check-input ahli_tp" type="checkbox" id="ahli_tp" name="ahli_tp" value="1">
                                                         <label class="form-check-label" for="flexCheckDefault">
                                                             Tanaman Pangan
                                                         </label>
@@ -192,7 +192,7 @@
                                                 </div><input type="text" class="form-control" id="detail_tp" name="detail_tp" aria-label="Password" aria-describedby="password-addon">
                                                 <div class="input-group">
                                                     <div class="form-check">
-                                                        <input class="form-check-input" type="checkbox" id="ahli_nak" name="ahli_nak" value="2">
+                                                        <input class="form-check-input ahli_nak" type="checkbox" id="ahli_nak" name="ahli_nak" value="2">
                                                         <label class="form-check-label" for="flexCheckDefault">
                                                             Peternakan
                                                         </label>
@@ -200,7 +200,7 @@
                                                 </div><input type="text" class="form-control" id="detail_nak" name="detail_nak" aria-label="Password" aria-describedby="password-addon">
                                                 <div class="input-group">
                                                     <div class="form-check">
-                                                        <input class="form-check-input" type="checkbox" id="ahli_bun" name="ahli_bun" value="3">
+                                                        <input class="form-check-input ahli_bun" type="checkbox" id="ahli_bun" name="ahli_bun" value="3">
                                                         <label class="form-check-label" for="flexCheckDefault">
                                                             Perkebunan
                                                         </label>
@@ -208,7 +208,7 @@
                                                 </div><input type="text" class="form-control" id="detail_bun" name="detail_bun" aria-label="Password" aria-describedby="password-addon">
                                                 <div class="input-group">
                                                     <div class="form-check">
-                                                        <input class="form-check-input" type="checkbox" id="ahli_hor" name="ahli_hor" value="4">
+                                                        <input class="form-check-input ahli_hor" type="checkbox" id="ahli_hor" name="ahli_hor" value="4">
                                                         <label class="form-check-label" for="flexCheckDefault">
                                                             Hortikultura
                                                         </label>
@@ -216,7 +216,7 @@
                                                 </div><input type="text" class="form-control" id="detail_hor" name="detail_hor" aria-label="Password" aria-describedby="password-addon">
                                                 <div class="input-group">
                                                     <div class="form-check">
-                                                        <input class="form-check-input" type="checkbox" id="ahli_lainnya" name="ahli_lainnya" value="5">
+                                                        <input class="form-check-input ahli_lainnya" type="checkbox" id="ahli_lainnya" name="ahli_lainnya" value="5">
                                                         <label class="form-check-label" for="flexCheckDefault">
                                                             Lainnya
                                                         </label>
@@ -392,18 +392,18 @@
             var bln_lahir = $('#month').val();
             var thn_lahir = $('#year').val();
             var tempat_lahir = $('#tempat_lahir').val();
-            var jenis_kelamin = $('#jenis_kelamin').val();
+            var jenis_kelamin = $(".jenis_kelamin:checked").val();
             var status_kel = $('#status_kel').val();
             var agama = $('#agama').val();
-            var ahli_tp = $('#ahli_tp').val();
+            var ahli_tp = $(".ahli_tp")[0].checked ? $(".ahli_tp:checked").val() : "";
             var detail_tp = $('#detail_tp').val();
-            var ahli_nak = $('#ahli_nak').val();
+            var ahli_nak = $(".ahli_nak")[0].checked ? $(".ahli_nak:checked").val() : "";
             var detail_nak = $('#detail_nak').val();
-            var ahli_bun = $('#ahli_bun').val();
+            var ahli_bun = $(".ahli_bun")[0].checked ? $(".ahli_bun:checked").val() : "";
             var detail_bun = $('#detail_bun').val();
-            var ahli_hor = $('#ahli_hor').val();
+            var ahli_hor = $(".ahli_hor")[0].checked ? $(".ahli_hor:checked").val() : "";
             var detail_hor = $('#detail_hor').val();
-            var ahli_lainnya = $('#ahli_lainnya').val();
+            var ahli_lainnya = $(".ahli_lainnya")[0].checked ? $(".ahli_lainnya:checked").val() : "";
             var detail_lainnya = $('#detail_lainnya').val();
             var instansi_pembina = $('#instansi_pembina').val();
             var satminkal = $('#satminkal').val();
@@ -579,18 +579,47 @@
                     $('#month').val(result.bln_lahir);
                     $('#year').val(result.thn_lahir);
                     $('#tempat_lahir').val(result.tempat_lahir);
-                    $('#jenis_kelamin').val(result.jenis_kelamin);
+                    if (result.jenis_kelamin == "1") {
+                        $("#jenis_kelamin").prop("checked", true);
+                    } else {
+                        $("#jenis_kelamin").prop("checked", false);
+                    }
+                    if (result.jenis_kelamin == "2") {
+                        $("#jenis_kelamin2").prop("checked", true);
+                    } else {
+                        $("#jenis_kelamin2").prop("checked", false);
+                    }
                     $('#status_kel').val(result.status_kel);
                     $('#agama').val(result.agama);
-                    $('#ahli_tp').val(result.ahli_tp);
+                    if (result.ahli_tp == "1") {
+                        $("#ahli_tp").prop("checked", true);
+                    } else {
+                        $("#ahli_tp").prop("checked", false);
+                    }
                     $('#detail_tp').val(result.detail_tp);
-                    $('#ahli_nak').val(result.ahli_nak);
+                    if (result.ahli_nak == "2") {
+                        $("#ahli_nak").prop("checked", true);
+                    } else {
+                        $("#ahli_nak").prop("checked", false);
+                    }
                     $('#detail_nak').val(result.detail_nak);
-                    $('#ahli_bun').val(result.ahli_bun);
+                    if (result.ahli_bun == "3") {
+                        $("#ahli_bun").prop("checked", true);
+                    } else {
+                        $("#ahli_bun").prop("checked", false);
+                    }
                     $('#detail_bun').val(result.detail_bun);
-                    $('#ahli_hor').val(result.ahli_hor);
+                    if (result.ahli_hor == "4") {
+                        $("#ahli_hor").prop("checked", true);
+                    } else {
+                        $("#ahli_hor").prop("checked", false);
+                    }
                     $('#detail_hor').val(result.detail_hor);
-                    $('#ahli_lainnya').val(result.ahli_lainnya);
+                    if (result.ahli_lainnya == "5") {
+                        $("#ahli_lainnya").prop("checked", true);
+                    } else {
+                        $("#ahli_lainnya").prop("checked", false);
+                    }
                     $('#detail_lainnya').val(result.detail_lainnya);
                     $('#instansi_pembina').val(result.instansi_pembina);
                     $('#satminkal').val(result.satminkal);
@@ -637,25 +666,25 @@
 
                         var id_swa = $('#id_swa').val();
                         var id = $('#id').val();
-                        var jenis_penyuluh = $('#jenis_penyuluh').val();
+                        var jenis_kelamin = $(".jenis_kelamin:checked").val();
                         var noktp = $('#noktp').val();
                         var nama = $('#nama').val();
                         var tgl_lahir = $('#day').val();
                         var bln_lahir = $('#month').val();
                         var thn_lahir = $('#year').val();
                         var tempat_lahir = $('#tempat_lahir').val();
-                        var jenis_kelamin = $('#jenis_kelamin').val();
+                        var jenis_kelamin = $(".jenis_kelamin:checked").val();
                         var status_kel = $('#status_kel').val();
                         var agama = $('#agama').val();
-                        var ahli_tp = $('#ahli_tp').val();
+                        var ahli_tp = $(".ahli_tp")[0].checked ? $(".ahli_tp:checked").val() : "";
                         var detail_tp = $('#detail_tp').val();
-                        var ahli_nak = $('#ahli_nak').val();
+                        var ahli_nak = $(".ahli_nak")[0].checked ? $(".ahli_nak:checked").val() : "";
                         var detail_nak = $('#detail_nak').val();
-                        var ahli_bun = $('#ahli_bun').val();
+                        var ahli_bun = $(".ahli_bun")[0].checked ? $(".ahli_bun:checked").val() : "";
                         var detail_bun = $('#detail_bun').val();
-                        var ahli_hor = $('#ahli_hor').val();
+                        var ahli_hor = $(".ahli_hor")[0].checked ? $(".ahli_hor:checked").val() : "";
                         var detail_hor = $('#detail_hor').val();
-                        var ahli_lainnya = $('#ahli_lainnya').val();
+                        var ahli_lainnya = $(".ahli_lainnya")[0].checked ? $(".ahli_lainnya:checked").val() : "";
                         var detail_lainnya = $('#detail_lainnya').val();
                         var instansi_pembina = $('#instansi_pembina').val();
                         var satminkal = $('#satminkal').val();
@@ -807,11 +836,20 @@
             $.ajax({
                 url: "<?= base_url() ?>/Penyuluh/PenyuluhSwadaya/showDesa/" + kdtempat_tugas + "",
                 success: function(response) {
-                    $("#wil_kerja").html(response);
-                    $("#wil_kerja2").html(response);
-                    $("#wil_kerja3").html(response);
-                    $("#wil_kerja4").html(response);
-                    $("#wil_kerja5").html(response);
+                    var htmla = '<option value="">Pilih Desa</option>';
+                    if (response == '') {
+                        $("select#wil_kerja").html('<option value="">--Pilih Desa--</option>');
+                        $("select#wil_kerja2").html('<option value="">--Pilih Desa--</option>');
+                        $("select#wil_kerja3").html('<option value="">--Pilih Desa--</option>');
+                        $("select#wil_kerja4").html('<option value="">--Pilih Desa--</option>');
+                        $("select#wil_kerja5").html('<option value="">--Pilih Desa--</option>');
+                    } else {
+                        $("select#wil_kerja").html(htmla += response);
+                        $("select#wil_kerja2").html(htmla += response);
+                        $("select#wil_kerja3").html(htmla += response);
+                        $("select#wil_kerja4").html(htmla += response);
+                        $("select#wil_kerja5").html(htmla += response);
+                    }
                 },
                 dataType: "html"
             });
