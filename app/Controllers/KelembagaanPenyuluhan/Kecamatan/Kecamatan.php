@@ -78,8 +78,7 @@ class Kecamatan extends BaseController
         $query2->getResultArray();
 
         $get_param = $this->request->getGet();
-        // $kode_kec = $get_param['kode_kec'];
-
+        $kode_kec = $get_param['kode_kec'];
 
         $profilkec = $kec_model->getProfilKec($kode_kec);
         $wilkec = $kec_model->getWIlkec($kode_kec);
@@ -96,7 +95,6 @@ class Kecamatan extends BaseController
         $potensi = $kec_model->getPotensiWilayah($kode_kec);
         $jenis_komoditas = $kec_model->getJenisKomoditas();
         $penyuluh = $kec_model->getPenyuluh($kode_kec);
-
 
         $data = [
             'title' => 'Profil BPP',
@@ -124,10 +122,7 @@ class Kecamatan extends BaseController
             'p3k_kec' => $penyuluh['p3k_kec'],
             'swasta_kec' => $penyuluh['swasta_kec'],
             'kec' => $kec
-
         ];
-
-        //dd($data);
         return view('KelembagaanPenyuluhan/Kecamatan/detail_kecamatan', $data);
     }
 

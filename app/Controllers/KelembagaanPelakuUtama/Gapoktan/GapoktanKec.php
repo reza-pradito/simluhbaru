@@ -20,7 +20,7 @@ class GapoktanKec extends BaseController
             'name' => 'Gapoktan Kecamatan' 
         ];
 
-        return view('KelembagaanPelakuUtama/Gapoktan/gapoktankec', $data);
+        return view('KelembagaanPelakuUtama/KelompokTani/kelompoktanikec', $data);
     }
   
     

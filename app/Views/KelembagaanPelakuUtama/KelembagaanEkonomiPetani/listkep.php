@@ -175,7 +175,6 @@ if (empty(session()->get('status_user')) || session()->get('status_user') == '2'
                                                 </div>
                                                 <input type="hidden" name="kode_kab" id="kode_kab" value="<?= $kode; ?>">
                                             <input type="hidden" name="kode_kec" id="kode_kec" value="<?= $kode_kec; ?>">
-                                            <input type="hidden" name="kode_prop" id="kode_prop" value="<?= $kode_prop; ?>">
                                                 
                                                 <input type="hidden" id="id_kep" name="id_kep" >
                                                     <div class="text-center">
@@ -289,50 +288,36 @@ if (empty(session()->get('status_user')) || session()->get('status_user') == '2'
 
         });
         $(document).delegate('#btnHapus', 'click', function() {
-            Swal.fire({
-                title: 'Apakah anda yakin',
-                text: "Data akan dihapus ?",
-                type: 'warning',
-                showCloseButton: true,
-                showCancelButton: true,
-                confirmButtonColor: '#3085d6',
-                cancelButtonColor: '#d33',
-                confirmButtonText: 'Hapus Data!'
-            }).then((result) => {
-                if (result.value) {
-                    var id = $(this).data('id_kep');
+            var id_kep = $(this).data('id_kep');
 
-                    $.ajax({
-                        url: '<?= base_url() ?>/KelembagaanPelakuUtama/KelembagaanEkonomiPetani/ListKEP/delete/' + id,
-                        type: 'POST',
+            $.ajax({
+                url: '<?= base_url() ?>/KelembagaanPelakuUtama/KelembagaanEkonomiPetani/ListKEP/delete/' + id_kep,
+                type: 'POST',
+                success: function(result) {
+                    Swal.fire({
+                        title: 'Sukses',
+                        text: "Sukses Hapus data",
+                        type: 'success',
+                    }).then((result) => {
 
-                        success: function(result) {
-                            Swal.fire({
-                                title: 'Sukses',
-                                text: "Sukses hapus data",
-                                type: 'success',
-                            }).then((result) => {
-
-                                if (result.value) {
-                                    location.reload();
-                                }
-                            });
-                        },
-                        error: function(jqxhr, status, exception) {
-                            Swal.fire({
-                                title: 'Error',
-                                text: "Gagal hapus data",
-                                type: 'error',
-                            }).then((result) => {
-                                if (result.value) {
-                                    location.reload();
-                                }
-                            });
+                        if (result.value) {
+                            location.reload();
+                        }
+                    });
+                },
+                error: function(jqxhr, status, exception) {
+                    Swal.fire({
+                        title: 'Error',
+                        text: "Gagal Hapus data",
+                        type: 'error',
+                    }).then((result) => {
+                        if (result.value) {
+                            location.reload();
                         }
                     });
                 }
-            });
 
+            });
         });
         $(document).delegate('#btnEditKEP', 'click', function() {
             $.ajax({
@@ -356,7 +341,7 @@ if (empty(session()->get('status_user')) || session()->get('status_user') == '2'
                     $('#jum_anggota').val(result.jum_anggota);
                     $('#badan_hukum').val(result.badan_hukum);
                     $('#jum_poktan').val(result.jum_poktan);
-                    $('#jum_gapoktan').val(result.jum_gapoktan);
+                    $('#jum_gapoktan').val(result.no_telp);
 
 
                     $('#modal-form').modal('show');
@@ -395,7 +380,7 @@ if (empty(session()->get('status_user')) || session()->get('status_user') == '2'
                         formData.append('badan_hukum', badan_hukum);
                         formData.append('jum_poktan', jum_poktan);
                         formData.append('jum_anggota', jum_anggota);
-                        formData.append('jum_gapoktan', jum_gapoktan);
+                        formData.append('jum_poktan', jum_poktan);
 
                         $.ajax({
                             url: '<?= base_url() ?>/KelembagaanPelakuUtama/KelembagaanEkonomiPetani/ListKEP/update/' + id_kep,
