@@ -18,7 +18,6 @@
                     <th class="text-uppercase text-secondary text-xxs font-weight-bolder" style="text-align: center;">Tempat Tugas<br>(Kecamatan)</th>
                     <th class="text-uppercase text-secondary text-xxs font-weight-bolder" style="text-align: center;">Wilayah Kerja</th>
                     <th class="text-uppercase text-secondary text-xxs font-weight-bolder" style="text-align: center;">Terakhir<br>Update</th>
-                    <th class="text-uppercase text-secondary text-xxs font-weight-bolder" style="text-align: center;">Aksi</th>
                 </tr>
             </thead>
             <tbody>
@@ -31,7 +30,7 @@
                             <p class="text-xs font-weight-bold mb-8"><?= $i++ ?></p>
                         </td>
                         <td class="align-middle text-center text-sm">
-                            <p class="text-xs font-weight-bold mb-8"><?= $row['no_peserta'] ?></p>
+                            <p class="text-xs font-weight-bold mb-8"><a href="<?= base_url('profil/penyuluhthlapbnkec/detail/' . $row['no_peserta']) ?>"><?= $row['no_peserta'] ?></p>
                         </td>
                         <td class="align-middle text-center text-sm">
                             <p class="text-xs font-weight-bold mb-8"><?= $row['nama'] ?></p>
@@ -57,17 +56,6 @@
                         <td class="align-middle text-center text-sm">
                             <p class="text-xs font-weight-bold mb-8"><?= $row['tgl_update'] ?></p>
                         </td>
-                        </td>
-                        <td class="align-middle text-center text-sm">
-                            <a href="#">
-                                <button type="button" data-bs-toggle="modal" data-bs-target="#modal-form" class="btn bg-gradient-warning btn-sm">
-                                    <i class="fas fa-edit"></i> Ubah
-                                </button>
-                            </a>
-                            <button type="button" class="btn bg-gradient-danger btn-sm">
-                                <i class="fas fa-trash"></i> Hapus
-                            </button>
-                            </a>
                         </td>
                     </tr>
                 <?php

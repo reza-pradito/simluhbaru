@@ -34,7 +34,7 @@ class PosluhdesKecModel extends Model
         $row   = $query->getRow();
         $query2 = $db->query("SELECT count(idpos) as jum_kec FROM tb_posluhdes where kode_kec ='$kode_kec'");
         $row2   = $query2->getRow();
-        $query3  = $db->query("select * , b.nm_desa, c.nama as penyuluh_swadaya, a.nama, a.alamat 
+        $query3  = $db->query("select * , b.nm_desa, c.nama as penyuluh_swadaya, a.nama, a.alamat, b.id_daerah 
                                 from tb_posluhdes a
                                 left join tbldesa b on a.kode_desa=b.id_desa
                                 left join tbldasar_swa c on a.penyuluh_swadaya=c.id_swa 

@@ -68,26 +68,44 @@ class KodeWilModel extends Model
         return $data;
     }
 
-    public function getNamaWil($kode_kab)
+    public function getNamaWil($kode)
     {
-        $query = $this->db->query("select a.id_dati2, b.nama_prop as namaprov 
-                                    from tbldesa a
-                                    left join tblpropinsi b on a.id_prop=b.id_prop
-                                    where id_dati2='$kode_kab'");
-        $row   = $query->getRow();
 
-        $query2 = $this->db->query("select nama_dati2 as namakab 
-                                    from tbldati2 
-                                    where id_dati2='$kode_kab'");
-        $row2   = $query2->getRow();
+        if (session()->get('status_user') == '200') {
+            $query = $this->db->query("select a.id_dati2, b.nama_prop as namaprov 
+            from tbldesa a
+            left join tblpropinsi b on a.id_prop=b.id_prop
+            where id_dati2='$kode'");
+            $row   = $query->getRow();
+
+            $query2 = $this->db->query("select nama_dati2 as namakab 
+            from tbldati2 
+            where id_dati2='$kode'");
+            $row2   = $query2->getRow();
 
 
-        $data = [
-            'namaprov' => $row->namaprov,
-            'namakab' => $row2->namakab
-        ];
+            $data = [
+                'namaprov' => $row->namaprov,
+                'namakab' => $row2->namakab
+            ];
+        } elseif (session()->get('status_user') == '300') {
+
+            // dd('test');
+            $query = $this->db->query("select a.id_daerah, b.nama_prop as namaprov, c.nama_dati2 as namakab from tbldesa a left join tbldati2 c on a.id_dati2 = c.id_dati2
+            left join tblpropinsi b on a.id_prop=b.id_prop
+            where id_daerah=" . $kode);
+
+            $row   = $query->getRow();
+
+
+            $data = [
+                'namaprov' => $row->namaprov,
+                'namakab' => $row->namakab
+            ];
+        }
+
+
 
         return $data;
     }
-
 }
