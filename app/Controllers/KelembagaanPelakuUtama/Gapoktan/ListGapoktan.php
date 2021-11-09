@@ -35,5 +35,5 @@ class ListGapoktan extends BaseController
 
         return view('KelembagaanPelakuUtama/Gapoktan/listgapoktan', $data);
     }
-   
+
 }

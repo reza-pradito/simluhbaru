@@ -121,7 +121,7 @@ a.nm_pelatihan6, a.tgl_update, a.wil_kerja2, a.wil_kerja3, a.wil_kerja4, a.wil_k
     public function getTugas($kode_kab)
     {
         $query = $this->db->query("select * from tbldaerah a 
-    left join tbldasar_swa b on b.satminkal=a.id_dati2 where id_dati2='$kode_kab'");
+    left join tbldasar_swa b on b.dati2=a.id_dati2 where id_dati2='$kode_kab'");
         $row   = $query->getResultArray();
         return $row;
     }

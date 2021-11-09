@@ -16,7 +16,7 @@ class KecamatanModel extends Model
 
     protected $allowedFields = [
         'kode_prop', 'satminkal', 'bentuk_lembaga', 'nama_bpp', 'kecamatan', 'alamat', 'tgl_berdiri', 'bln_berdiri', 'foto',
-        'thn_berdiri', 'status_gedung', 'kondisi_bangunan', 'koordinat_lokasi_bpp', 'telp_bpp', 'email', 'website', 'ketua',
+        'thn_berdiri', 'status_gedung', 'kondisi_bangunan', 'koordinat_lokasi_bpp', 'telp_bpp', 'telp_hp', 'email', 'website', 'ketua',
         'roda_4_apbn', 'roda_4_apbd', 'roda_2_apbn', 'roda_2_apbd', 'pc_apbn', 'pc_apbd', 'laptop_apbn', 'laptop_apbd', 'printer_apbn', 'printer_apbd',
         'modem_apbn', 'modem_apbd', 'lcd_apbn', 'lcd_apbd', 'kios_saprotan', 'pedagang_pengepul', 'gudang_pangan', 'perbankan', 'industri_penyuluhan',
         'luas_lahan_bp3k', 'luas_lahan_petani', 'kode_koord_penyuluh', 'nama_koord_penyuluh', 'nama_koord_penyuluh_thl', 'koord_lainya_nip', 'koord_lainya_nama'
@@ -111,5 +111,223 @@ class KecamatanModel extends Model
     public function hapus($id)
     {
         return $this->builder->delete(['id' => $id]);
+    }
+
+    public function getNoUrut($kode_prop, $kode_kab)
+    {
+
+        $query = $this->db->query('SELECT max(urut) as no_urut FROM tblbpp where kode_prop=' . $kode_prop . ' and satminkal=' . $kode_kab . '');
+        $row   = $query->getRowArray();
+        return $row;
+    }
+
+    public function getWIlkec($kode_kec)
+    {
+        $db = Database::connect();
+        $query3  = $db->query("select *, a.kecamatan, a.id, a.jum_petani, c.deskripsi as nama_kec
+                                from tblbpp_wil_kec a
+                                left join tblbpp b on a.kode_bp3k=b.kode_bp3k
+                                left join tbldaerah c on a.kecamatan=c.id_daerah
+                                where a.kecamatan='$kode_kec'
+                                ");
+        $results = $query3->getResultArray();
+
+        $data =  [
+            'wilkec' => $results,
+        ];
+
+        return $data;
+    }
+
+    public function getWK($id)
+    {
+        $query = $this->db->query("select *
+                                from tblbpp_wil_kec 
+                                where id='$id'
+                                ");
+        $row   = $query->getResultArray();
+        return $row;
+    }
+
+    public function getKlasifikasi($kode_kec)
+    {
+        $db = Database::connect();
+        $query3  = $db->query("select *, a.id, a.tahun, a.skor, a.klasifikasi, b.kecamatan
+                                from tblbpp_klasifikasi a
+                                left join tblbpp b on a.id_bpp=b.id
+                                where b.kecamatan='$kode_kec'
+                                ");
+        $results = $query3->getResultArray();
+
+        $data =  [
+            'klas' => $results,
+        ];
+
+        return $data;
+    }
+
+    public function getIdBpp($kode_kab)
+    {
+        $db = Database::connect();
+        $query = $this->db->query("select id as idbpp from tblbpp where satminkal='$kode_kab'");
+        $row   = $query->getRow();
+
+        $data =  [
+            'idbpp' => $row->idbpp
+        ];
+
+        return $data;
+    }
+
+    public function getKlas($id)
+    {
+        $query = $this->db->query("select * from tblbpp_klasifikasi where id='$id'");
+        $row   = $query->getResultArray();
+        return $row;
+    }
+
+    public function getFas($kode_kec)
+    {
+        $db = Database::connect();
+        $query3  = $db->query("select *, a.id, a.fasilitasi, a.tahun, a.kegiatan, b.kecamatan, c.fasilitasi as nama_fasilitasi
+                                from tblbpp_fasilitasi_kegiatan a
+                                left join tblbpp b on a.id_bpp=b.id
+                                left join reff_fasilitasi_bpp c on a.fasilitasi=c.idfasilitasi
+                                where b.kecamatan='$kode_kec'
+                                ");
+        $results = $query3->getResultArray();
+
+        $data =  [
+            'fasdata' => $results,
+        ];
+
+        return $data;
+    }
+
+    public function getFasilitasi($id)
+    {
+        $query = $this->db->query("select *
+                                from tblbpp_fasilitasi_kegiatan 
+                                where id='$id'
+                                ");
+        $row   = $query->getResultArray();
+        return $row;
+    }
+
+    public function getAward($kode_kec)
+    {
+        $db = Database::connect();
+        $query3  = $db->query("select *, a.id, a.nama_penghargaan, a.tahun, a.peringkat, a.tingkat, b.kecamatan
+                                from tblbpp_penghargaan a
+                                left join tblbpp b on a.kode_bp3k=b.kode_bp3k
+                                where b.kecamatan='$kode_kec'
+                                ");
+        $results = $query3->getResultArray();
+
+        $data =  [
+            'penghargaan' => $results,
+        ];
+
+        return $data;
+    }
+
+    public function getPenghargaan($id)
+    {
+        $query = $this->db->query("select *
+                                from tblbpp_penghargaan 
+                                where id='$id'
+                                ");
+        $row   = $query->getResultArray();
+        return $row;
+    }
+
+    public function getDana($kode_kec)
+    {
+        $db = Database::connect();
+        $query3  = $db->query("select *, a.id, a.id_bpp, a.tahun_dak, b.kecamatan
+                                from tblbpp_dak a
+                                left join tblbpp b on a.id_bpp=b.id
+                                where b.kecamatan='$kode_kec'
+                                ");
+        $results = $query3->getResultArray();
+
+        $data =  [
+            'dana' => $results,
+        ];
+
+        return $data;
+    }
+
+    public function getDak($id)
+    {
+        $query = $this->db->query("select *
+                                from tblbpp_dak 
+                                where id='$id'
+                                ");
+        $row   = $query->getResultArray();
+        return $row;
+    }
+
+    public function getJenisKomoditas()
+    {
+
+        $query = $this->db->query("select * from tb_komoditas order by id_sub_sektor,id_komoditas");
+        $row   = $query->getResultArray();
+        return $row;
+    }
+
+    public function getPotensiWilayah($kode_kec)
+    {
+        $db = Database::connect();
+        $query3  = $db->query("select *, a.id_potensi, a.id_bpp, a.luas_lhn, b.kecamatan, c.nama_subsektor, c.nama_komoditas
+                                from tb_bpp_potensi a
+                                left join tblbpp b on a.id_bpp=b.id
+                                left join tb_komoditas c on a.kode_komoditas=c.kode_komoditas
+                                where b.kecamatan='$kode_kec'
+                                ");
+        $results = $query3->getResultArray();
+
+        $data =  [
+            'potensi' => $results,
+        ];
+
+        return $data;
+    }
+
+    public function getPowil($id_potensi)
+    {
+        $query = $this->db->query("select *
+                                from tb_bpp_potensi 
+                                where id_potensi='$id_potensi'
+                                ");
+        $row   = $query->getResultArray();
+        return $row;
+    }
+
+    public function getPenyuluh($kode_kec)
+    {
+        $db = Database::connect();
+        $query = $db->query("select * from tbldasar where tempat_tugas='$kode_kec' and kode_kab='4' 
+                            and status !='1' and status !='2' and status !='3'");
+        $results   = $query->getResultArray();
+        $query2  = $db->query("select * from tbldasar_thl where tempat_tugas='$kode_kec'");
+        $results2 = $query2->getResultArray();
+        $query3  = $db->query("select * from tbldasar_swa where tempat_tugas='$kode_kec'");
+        $results3 = $query3->getResultArray();
+        $query4  = $db->query("select * from tbldasar_swasta where tempat_tugas='$kode_kec'");
+        $results4 = $query4->getResultArray();
+        $query5  = $db->query("select * from tbldasar_p3k where tempat_tugas='$kode_kec' 
+                                and kode_kab='4' and status !='1' and status !='2' and status !='3' order by nama");
+        $results5 = $query5->getResultArray();
+
+        $data =  [
+            'pns_kec' => $results,
+            'thl_kec' => $results2,
+            'swa_kec' => $results3,
+            'swasta_kec' => $results4,
+            'p3k_kec' => $results5,
+        ];
+
+        return $data;
     }
 }

@@ -73,6 +73,9 @@ class Gapoktan extends BaseController
             'usahatani' => $usaha_tani,
             'usahaolah' => $usaha_olah
 
+          
+
+
         ];
 
         return view('KelembagaanPelakuUtama/Gapoktan/listgapoktan', $data);
@@ -206,6 +209,6 @@ class Gapoktan extends BaseController
     public function delete($id_gap)
     {
         $this->model->delete($id_gap);
-       // return redirect()->to('/gapoktan');
+        return redirect()->to('/listgapoktan');
     }
 }
