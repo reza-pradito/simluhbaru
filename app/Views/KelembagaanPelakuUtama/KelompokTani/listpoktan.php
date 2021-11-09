@@ -153,7 +153,7 @@ if (empty(session()->get('status_user')) || session()->get('status_user') == '2'
                                             <label>Jenis Kelompok Lainnya</label>
                                             <div class="form-check">
                                                  <input class="form-check-input simluh_jenis_kelompok_perempuan" type="checkbox" value="perempuan" name="simluh_jenis_kelompok_perempuan" id="simluh_jenis_kelompok_perempuan" >
-                                                    <label class="form-check-label" for="flexCheckDefault">
+                                                    <label class="form-check-label" for="simluh_jenis_kelompok_perempuan">
                                                     Perempuan
                                                     </label>
                                                     </div>
@@ -162,37 +162,44 @@ if (empty(session()->get('status_user')) || session()->get('status_user') == '2'
                                                         <label class="form-check-label" for="simluh_jenis_kelompok_domisili">
                                                              Domisili
                                                          </label>
-                                                </div> <div class="form-check">
+                                                </div> 
+                                                <div class="form-check">
                                                     <input class="form-check-input simluh_jenis_kelompok_upja" type="checkbox" value="upja" name="simluh_jenis_kelompok_upja" id="simluh_jenis_kelompok_upja" >
-                                                        <label class="form-check-label" for="flexCheckChecked">
+                                                        <label class="form-check-label" for="simluh_jenis_kelompok_upja">
                                                              UPJA
                                                          </label>
-                                                </div> <div class="form-check">
+                                                </div> 
+                                                <div class="form-check">
                                                     <input class="form-check-input simluh_jenis_kelompok_p3a" type="checkbox" value="p3a" name="simluh_jenis_kelompok_p3a" id="simluh_jenis_kelompok_p3a" >
-                                                        <label class="form-check-label" for="flexCheckChecked">
+                                                        <label class="form-check-label" for="simluh_jenis_kelompok_p3a">
                                                              P3A/HIPPA
                                                          </label>
-                                                </div> <div class="form-check">
+                                                </div> 
+                                                <div class="form-check">
                                                     <input class="form-check-input  simluh_jenis_kelompok_lmdh" type="checkbox" value="lmdh" name="simluh_jenis_kelompok_lmdh" id="simluh_jenis_kelompok_lmdh" >
-                                                        <label class="form-check-label" for="flexCheckChecked">
+                                                        <label class="form-check-label" for="simluh_jenis_kelompok_lmdh">
                                                              LMDH
                                                          </label>
-                                                </div> <div class="form-check">
-                                                    <input class="form-check-input simluh_jenis_kelompok_penangkar" type="checkbox" value="benih" name="simluh_jenis_kelompok_penangkar" id="simluh_jenis_kelompok_penangkar" >
-                                                        <label class="form-check-label" for="flexCheckChecked">
+                                                </div> 
+                                                <div class="form-check">
+                                                    <input class="form-check-input simluh_jenis_kelompok_penangkar" type="checkbox" value="penangkar_benih" name="simluh_jenis_kelompok_penangkar" id="simluh_jenis_kelompok_penangkar" >
+                                                        <label class="form-check-label" for="simluh_jenis_kelompok_penangkar">
                                                             Penangkar Benih
                                                          </label>
-                                                </div> <div class="form-check">
+                                                </div> 
+                                                <div class="form-check">
                                                     <input class="form-check-input simluh_jenis_kelompok_kmp" type="checkbox" value="kmp" name="simluh_jenis_kelompok_kmp" id="simluh_jenis_kelompok_kmp" >
-                                                        <label class="form-check-label" for="flexCheckChecked">
+                                                        <label class="form-check-label" for="simluh_jenis_kelompok_kmp">
                                                             KMP (Kawasan Mandiri Pangan)
                                                          </label>
-                                                </div> <div class="form-check">
+                                                </div> 
+                                                <div class="form-check">
                                                     <input class="form-check-input simluh_jenis_kelompok_umkm" type="checkbox" value="umkm" name="simluh_jenis_kelompok_umkm" id="simluh_jenis_kelompok_umkm" >
-                                                        <label class="form-check-label" for="flexCheckChecked">
+                                                        <label class="form-check-label" for="simluh_jenis_kelompok_umkm">
                                                              UMKM Model Pengembangan Pangan Pokok Lokal (MP3L)
                                                          </label>
-                                                </div><label>Kelas Kemampuan</label>
+                                                </div>
+                                                <label>Kelas Kemampuan</label>
                                             <div class="input-group mb-3">
                                                 <select class="form-select" id="simluh_kelas_kemampuan" name="simluh_kelas_kemampuan" aria-label="Default select example">
                                                     <option selected>Pilih  </option>
@@ -405,6 +412,7 @@ if (empty(session()->get('status_user')) || session()->get('status_user') == '2'
                     $('#status').val(result.status);
                     $('#year2').val(result.simluh_tahun_tap_kelas);
                     $('#simluh_kelas_kemampuan').val(result.simluh_kelas_kemampuan);
+
                     if (result.simluh_jenis_kelompok_perempuan == "perempuan") {
                         $("#simluh_jenis_kelompok_perempuan").prop("checked", true);
                     } else {
@@ -430,7 +438,7 @@ if (empty(session()->get('status_user')) || session()->get('status_user') == '2'
                     } else {
                         $("#simluh_jenis_kelompok_lmdh").prop("checked", false);
                     }
-                    if (result.simluh_jenis_kelompok_penangkar == "penangkar") {
+                    if (result.simluh_jenis_kelompok_penangkar == "penangkar_benih") {
                         $("#simluh_jenis_kelompok_penangkar").prop("checked", true);
                     } else {
                         $("#simluh_jenis_kelompok_penangkar").prop("checked", false);

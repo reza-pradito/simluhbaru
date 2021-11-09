@@ -9,7 +9,9 @@ class ListKEPModel extends Model
 {
     protected $table      = 'tb_kep';
     protected $primaryKey = 'id_kep';
-    protected $allowedFields = ['kode_prop', 'kode_kab', 'email',  'kode_kec', 'kode_desa', 'nama_kep', 'jenis_kep', 'alamat', 'jum_anggota','tahun_bentuk','nama_direktur','jum_poktan','jum_gapoktan','no_telp','badan_hukum'];
+    protected $allowedFields = ['kode_prop', 'kode_kab', 'email',  'kode_kec', 'kode_desa', 'nama_kep', 'jenis_kep', 'alamat', 'jum_anggota','tahun_bentuk',
+    'nama_direktur','jum_poktan','jum_gapoktan','no_telp','badan_hukum','total_aset','jenis_mitra_internasional','jenis_mitra_nasional','jenis_mitra_lokal','jenis_mitra_koperasi',
+    'jenis_mitra_perorangan','jenis_mitra_pemasaran','bentuk_mitra_pemasaran','bentuk_mitra_saprodi','bnetuk_mitra_pendampingan','total_aset','sertifikasi'];
 
     protected $useTimestamps = false;
    

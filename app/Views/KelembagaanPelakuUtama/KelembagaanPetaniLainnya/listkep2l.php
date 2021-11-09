@@ -67,12 +67,12 @@
                         <p class="text-xs font-weight-bold mb-0"><?= $row['status'] ?></p>
                     </td>
                     <td class="align-middle text-center text-sm">
-                    <button type="button"  data-id_kep2l=""="<?= $row['id_kep2l'] ?>" id="btnEditP2l" class="btn bg-gradient-warning btn-sm">
+                    <button type="button"  data-id_p2l=""="<?= $row['id_p2l'] ?>" id="btnEditP2l" class="btn bg-gradient-warning btn-sm">
                                     <i class="fas fa-edit"></i> Ubah
                                 </button>
                             
                            
-                                <button class="btn btn-danger btn-sm" id="btnHapus" data-id_kep2l="<?= $row['id_kep2l'] ?>" type="submit" onclick="return confirm('Are you sure ?')">Hapus</button>
+                                <button class="btn btn-danger btn-sm" id="btnHapus" data-id_p2l="<?= $row['id_p2l'] ?>" type="submit" onclick="return confirm('Are you sure ?')">Hapus</button>
                                 <i class="fas fa-trash"></i> 
                             </button>
                         </td>
@@ -114,30 +114,30 @@
                                             </div>
                                             <label>No SK CPL</label>
                                             <div class="input-group mb-3">
-                                                <input type="text" class="form-control" id="no_sk_cpl" name="no_sk_cpl"  aria-label="Password" aria-describedby="password-addon">
+                                                <input type="text" class="form-control" id="no_sk_cpcl" name="no_sk_cpcl" >
                                             </div>
                                             <label>No Urut Dalam SK</label>
                                             <div class="input-group mb-3">
-                                                <input type="text" class="form-control" id="no_urut_sk" name="no_urut_sk" aria-label="Password" aria-describedby="password-addon">
+                                                <input type="text" class="form-control" id="no_urut_sk" name="no_urut_sk">
                                             </div>
                                             <label>Nama Kelompok</label>
                                             <div class="input-group mb-3">
-                                                <input type="text" class="form-control" id="nama_poktan" name="nama_poktan" aria-label="Password" aria-describedby="password-addon">
+                                                <input type="text" class="form-control" id="nama_poktan" name="nama_poktan" >
                                             </div>
                                             <label>Nama Ketua (ISIKAN NIK)</label>
                                             <div class="input-group mb-3">
-                                                <input type="text" class="form-control" id="nama_ketua" name="nama_ketua" aria-label="Password" aria-describedby="password-addon">
+                                                <input type="text" class="form-control" id="nama_ketua" name="nama_ketua">
                                             </div>
                                             <label>Nama Sekretaris (ISIKAN NIK)</label>
                                             <div class="input-group mb-3">
-                                                <input type="text" class="form-control" id="nama_sekretaris" name="nama_sekretaris" aria-label="Password" aria-describedby="password-addon">
+                                                <input type="text" class="form-control" id="nama_sekretaris" name="nama_sekretaris" >
                                             </div> 
                                             <label>Nama Bendahara (ISIKAN NIK)</label>
                                             <div class="input-group mb-3">
-                                                <input type="text" class="form-control" id="nama_bendahara" name="nama_bendahara" aria-label="Password" aria-describedby="password-addon">
+                                                <input type="text" class="form-control" id="nama_bendahara" name="nama_bendahara" >
                                             </div>
                                             <label>Alamat Lengkap Sekretariat</label>
-                                                <textarea class="form-control" id="alamat" placeholder="Alamat" name="alamat" aria-label="Password" aria-describedby="password-addon"></textarea>
+                                                <textarea class="form-control" id="alamat_sekretariat" placeholder="Alamat" name="alamat_sekretariat" aria-label="Password" aria-describedby="password-addon"></textarea>
                                             <label>Tanggal Pembentukan</label>
                                             <div class="input-group mb-3">
                                                 <input type="date" class="form-control" id="tanggal_bentuk" name="tanggal_bentuk"  aria-label="Default select example" name="simluh_tahun_bentuk">
@@ -164,8 +164,7 @@
                                                 </select>
                                             </div>
                                             <input type="hidden" id="kode_kec" name="kode_kec" value="<?= $kode_kec; ?>" >
-                                                
-                                                <input type="hidden" id="id_kep2l" name="id_kep2l" >
+                                                <input type="hidden" id="id_p2l" name="id_p2l" >
                                                
                                                     <div class="text-center">
                                                         <button type="button" id="btnSave" class="btn btn-round bg-gradient-warning btn-sm">Simpan Data</button>
@@ -207,29 +206,29 @@
             var kode_kec = $('#kode_kec').val();
             var kode_kab = $('#kode_kab').val();
             var kode_desa = $('#kode_desa').val();
-            var $no_sk_cpl = $('#no_sk_cpl').val();
+            var no_sk_cpcl = $('#no_sk_cpcl').val();
             var no_urut_sk = $('#no_urut_sk').val();
             var nama_ketua = $('#nama_ketua').val();
             var nama_sekretaris = $('#nama_sekretaris').val();
             var nama_bendahara = $('#nama_bendahara').val();
-            var alamat = $('#alamat').val();
+            var alamat_sekretariat = $('#alamat_sekretariat').val();
             var tanggal_bentuk = $('#tanggal_bentuk').val();
             var kode_komoditas_hor = $('#kode_komoditas_hor').val();
             var status = $('#status').val();
 
             $.ajax({
-                url: '<?= base_url() ?>/KelembagaanPelakuUtama/KelembagaanPetaniLainnya/ListKEP2L/save/',
+                url: '<?= base_url() ?>/KelembagaanPelakuUtama/KelembagaanPetaniLainnya/KelembagaanPetaniLainnya/save/',
                 type: 'POST',
                 data: {
                     'kode_kec': kode_kec,
                     'kode_kab': kode_kab,
                     'kode_desa': kode_desa,
-                    'no_sk_cpl': no_sk_cpl,
+                    'no_sk_cpcl': no_sk_cpcl,
                     'no_urut_sk': no_urut_sk,
                     'nama_ketua': nama_ketua,
                     'nama_sekretaris': nama_sekretaris,
                     'nama_bendahara': nama_bendahara,
-                    'alamat': alamat,
+                    'alamat_sekretariat': alamat_sekretariat,
                     'tanggal_bentuk': tanggal_bentuk,
                     'kode_komoditas_hor': kode_komoditas_hor,
                     'status': status,
@@ -272,7 +271,52 @@
 
         });
       
-     
+        $(document).delegate('#btnHapus', 'click', function() {
+            Swal.fire({
+                title: 'Apakah anda yakin',
+                text: "Data akan dihapus ?",
+                type: 'warning',
+                showCloseButton: true,
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                confirmButtonText: 'Hapus Data!'
+            }).then((result) => {
+                if (result.value) {
+                    var id = $(this).data('id_p2l');
+
+                    $.ajax({
+                        url: '<?= base_url() ?>/KelembagaanPelakuUtama/KelembagaanPetaniLainnya/KelembagaanPetaniLainnya/delete/' + id,
+                        type: 'POST',
+
+                        success: function(result) {
+                            Swal.fire({
+                                title: 'Sukses',
+                                text: "Sukses hapus data",
+                                type: 'success',
+                            }).then((result) => {
+
+                                if (result.value) {
+                                    location.reload();
+                                }
+                            });
+                        },
+                        error: function(jqxhr, status, exception) {
+                            Swal.fire({
+                                title: 'Error',
+                                text: "Gagal hapus data",
+                                type: 'error',
+                            }).then((result) => {
+                                if (result.value) {
+                                    location.reload();
+                                }
+                            });
+                        }
+                    });
+                }
+            });
+
+        });
         $('.modal').on('hidden.bs.modal', function() {
                 $(this).find('form')[0].reset();
         });

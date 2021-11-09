@@ -43,5 +43,16 @@ class GapoktanModel extends Model
 
         return $data;
     }
-    
+    public function getUsahaTani()
+    {
+        $query = $this->db->query("select * from tb_komoditas_general where id_kom_general !='5' and id_kom_general !='6'");
+        $row   = $query->getResultArray();
+        return $row;
+    }
+    public function getUsahaOlah()
+    {
+        $query = $this->db->query("select * from tb_komoditas_general where id_kom_general !='1' and id_kom_general !='2' and id_kom_general !='3' and id_kom_general !='4'");
+        $row   = $query->getResultArray();
+        return $row;
+    }
 }
