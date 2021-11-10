@@ -280,13 +280,13 @@ $data = $json[0];
                                                         <tr>
                                                             <td>Nama Koordinator PP</td>
                                                             <td>:</td>
-                                                            <<td><?php if ($dt['kode_koord_penyuluh'] == "1") {
-                                                                        echo $dt['nama_koord_penyuluh'];
-                                                                    } elseif ($dt['kode_koord_penyuluh'] == "2") {
-                                                                        echo $dt['nama_koord_penyuluh_thl'];
-                                                                    } elseif ($dt['kode_koord_penyuluh'] == "3") {
-                                                                        echo $dt['koord_lainnya_nama'];
-                                                                    } ?></td>
+                                                            <td><?php if ($dt['kode_koord_penyuluh'] == "1") {
+                                                                    echo $dt['nama_koord_penyuluh'];
+                                                                } elseif ($dt['kode_koord_penyuluh'] == "2") {
+                                                                    echo $dt['nama_koord_penyuluh_thl'];
+                                                                } elseif ($dt['kode_koord_penyuluh'] == "3") {
+                                                                    echo $dt['koord_lainnya_nama'];
+                                                                } ?></td>
                                                         </tr>
                                                     </tbody>
                                                 </table>

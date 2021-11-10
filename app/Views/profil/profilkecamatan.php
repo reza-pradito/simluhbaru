@@ -250,12 +250,12 @@ $data = $json[0];
                                                     <tr>
                                                         <td>Kabupaten/Kota</td>
                                                         <td>:</td>
-                                                        <td><?= $namakab; ?></td>
+                                                        <td><?= $dt['namakab']; ?></td>
                                                     </tr>
                                                     <tr>
                                                         <td>Provinsi</td>
                                                         <td>:</td>
-                                                        <td><?= $namaprov; ?></td>
+                                                        <td><?= $dt['namaprov']; ?></td>
                                                     </tr>
                                                     <tr>
                                                         <td>Status Bangunan</td>
@@ -836,16 +836,16 @@ $data = $json[0];
                                 <h4 class="font-weight-bolder text-warning text-gradient">Edit Data</h4>
                             </div>
                             <div class="card-body">
-                                <form role="form text-left" action="<?= base_url('KelembagaanPenyuluhan/Kecamatan/Kecamatan/update/' . $dt['id']) ?>" method="post" enctype="multipart/form-data">
+                                <form role="form text-left" action="<?= base_url('profil/Lembaga/updatekec/' . $dt['id']) ?>" method="post" enctype="multipart/form-data">
                                     <? csrf_field(); ?>
                                     <div class=" row">
                                         <div class="col">
-                                            <input type="hidden" name="kode_prop" id="kode_prop" value="<?= $kode_prop; ?>">
-                                            <input type="hidden" name="satminkal" id="satminkal" value="<?= $kode_kab; ?>">
+                                            <input type="hidden" name="kode_prop" id="kode_prop" value="<?= $dt['id_prop']; ?>">
+                                            <input type="hidden" name="satminkal" id="satminkal" value="<?= $dt['id_dati2']; ?>">
                                             <input type="hidden" name="id" value="<?= $dt['id']; ?>">
                                             <input type="hidden" name="fotolama" value="<?= $dt['foto']; ?>">
                                             <input type="hidden" name="urut" id="urut" value="<?= $dt['urut']; ?>">
-                                            <input type="hidden" name="kode_bp3k" id="kode_bp3k" value="<?= $bp; ?>">
+                                            <input type="hidden" name="kode_bp3k" id="kode_bp3k" value="<?= $dt['kode_bp3k']; ?>">
                                             <label>Foto BPP</label>
                                             <div class="input-group mb-3">
                                                 <div class="col-lg-4">
@@ -1535,7 +1535,7 @@ $data = $json[0];
             var jum_petani = $('#jum_petani').val();
 
             $.ajax({
-                url: '<?= base_url() ?>/KelembagaanPenyuluhan/Kecamatan/Kecamatan/save_wilkec/',
+                url: '<?= base_url() ?>/profil/Lembaga/save_wilkec/',
                 type: 'POST',
                 data: {
                     'kode_bp3k': kode_bp3k,
@@ -1586,7 +1586,7 @@ $data = $json[0];
             //var myModal = new bootstrap.Modal(document.getElementById('modal-edit'), options);
             // alert(id);
             $.ajax({
-                url: '<?= base_url() ?>/KelembagaanPenyuluhan/Kecamatan/Kecamatan/wilkec/' + $(this).data('id'),
+                url: '<?= base_url() ?>/profil/Lembaga/wilkec/' + $(this).data('id'),
                 type: 'GET',
                 dataType: 'JSON',
                 success: function(res) {
@@ -1622,7 +1622,7 @@ $data = $json[0];
                         formData.append('kecamatan', kecamatan);
                         formData.append('jum_petani', jum_petani);
                         $.ajax({
-                            url: '<?= base_url() ?>/KelembagaanPenyuluhan/Kecamatan/Kecamatan/update_wilkec/' + id,
+                            url: '<?= base_url() ?>/profil/Lembaga/update_wilkec/' + id,
                             type: "POST",
                             data: formData,
                             cache: false,
@@ -1683,7 +1683,7 @@ $data = $json[0];
                     var id = $(this).data('id');
 
                     $.ajax({
-                        url: '<?= base_url() ?>/KelembagaanPenyuluhan/Kecamatan/Kecamatan/delete_wilkec/' + id,
+                        url: '<?= base_url() ?>/profil/Lembaga/delete_wilkec/' + id,
                         type: 'POST',
 
                         success: function(result) {
@@ -1725,7 +1725,7 @@ $data = $json[0];
             var klasifikasi = $('#klasifikasi').val();
             var skor = $('#skor').val();
             $.ajax({
-                url: '<?= base_url() ?>/KelembagaanPenyuluhan/Kecamatan/Kecamatan/save_klas/',
+                url: '<?= base_url() ?>/profil/Lembaga/save_klas/',
                 type: 'POST',
                 data: {
                     'id_bpp': id_bpp,
@@ -1775,7 +1775,7 @@ $data = $json[0];
             //var myModal = new bootstrap.Modal(document.getElementById('modal-edit'), options);
             // alert(id);
             $.ajax({
-                url: '<?= base_url() ?>/KelembagaanPenyuluhan/Kecamatan/Kecamatan/detail_klasifikasi/' + $(this).data('id'),
+                url: '<?= base_url() ?>/profil/Lembaga/detail_klasifikasi/' + $(this).data('id'),
                 type: 'GET',
                 dataType: 'JSON',
                 success: function(res) {
@@ -1808,7 +1808,7 @@ $data = $json[0];
                         formData.append('klasifikasi', klasifikasi);
                         formData.append('skor', skor);
                         $.ajax({
-                            url: '<?= base_url() ?>/KelembagaanPenyuluhan/Kecamatan/Kecamatan/update_klas/' + id,
+                            url: '<?= base_url() ?>/profil/Lembaga/update_klas/' + id,
                             type: "POST",
                             data: formData,
                             cache: false,
@@ -1869,7 +1869,7 @@ $data = $json[0];
                     var id = $(this).data('id');
 
                     $.ajax({
-                        url: '<?= base_url() ?>/KelembagaanPenyuluhan/Kecamatan/Kecamatan/delete_klas/' + id,
+                        url: '<?= base_url() ?>/profil/Lembaga/delete_klas/' + id,
                         type: 'POST',
 
                         success: function(result) {
@@ -1911,7 +1911,7 @@ $data = $json[0];
         var kegiatan = $('#kegiatan').val();
 
         $.ajax({
-            url: '<?= base_url() ?>/KelembagaanPenyuluhan/Kecamatan/Kecamatan/save_fas/',
+            url: '<?= base_url() ?>/profil/Lembaga/save_fas/',
             type: 'POST',
             data: {
                 'id_bpp': id_bpp,
@@ -1961,7 +1961,7 @@ $data = $json[0];
         //var myModal = new bootstrap.Modal(document.getElementById('modal-edit'), options);
         // alert(id);
         $.ajax({
-            url: '<?= base_url() ?>/KelembagaanPenyuluhan/Kecamatan/Kecamatan/fasilitas/' + $(this).data('id'),
+            url: '<?= base_url() ?>/profil/Lembaga/fasilitasi/' + $(this).data('id'),
             type: 'GET',
             dataType: 'JSON',
             success: function(res) {
@@ -1994,7 +1994,7 @@ $data = $json[0];
                     formData.append('kegiatan', kegiatan);
                     formData.append('tahun', tahun);
                     $.ajax({
-                        url: '<?= base_url() ?>/KelembagaanPenyuluhan/Kecamatan/Kecamatan/update_fas/' + id,
+                        url: '<?= base_url() ?>/profil/Lembaga/update_fas/' + id,
                         type: "POST",
                         data: formData,
                         cache: false,
@@ -2055,7 +2055,7 @@ $data = $json[0];
                 var id = $(this).data('id');
 
                 $.ajax({
-                    url: '<?= base_url() ?>/KelembagaanPenyuluhan/Kecamatan/Kecamatan/delete_fas/' + id,
+                    url: '<?= base_url() ?>/profil/Lembaga/delete_fas/' + id,
                     type: 'POST',
 
                     success: function(result) {
@@ -2100,7 +2100,7 @@ $data = $json[0];
 
 
         $.ajax({
-            url: '<?= base_url() ?>/KelembagaanPenyuluhan/Kecamatan/Kecamatan/save_award/',
+            url: '<?= base_url() ?>/profil/Lembaga/save_award/',
             type: 'POST',
             data: {
                 'kode_bp3k': kode_bp3k,
@@ -2153,7 +2153,7 @@ $data = $json[0];
         //var myModal = new bootstrap.Modal(document.getElementById('modal-edit'), options);
         // alert(id);
         $.ajax({
-            url: '<?= base_url() ?>/KelembagaanPenyuluhan/Kecamatan/Kecamatan/penghargaan/' + $(this).data('id'),
+            url: '<?= base_url() ?>/profil/Lembaga/penghargaan/' + $(this).data('id'),
             type: 'GET',
             dataType: 'JSON',
             success: function(res) {
@@ -2195,7 +2195,7 @@ $data = $json[0];
                     formData.append('tingkat', tingkat);
                     formData.append('tahun', tahun);
                     $.ajax({
-                        url: '<?= base_url() ?>/KelembagaanPenyuluhan/Kecamatan/Kecamatan/update_award/' + id,
+                        url: '<?= base_url() ?>/profil/Lembaga/update_award/' + id,
                         type: "POST",
                         data: formData,
                         cache: false,
@@ -2256,7 +2256,7 @@ $data = $json[0];
                 var id = $(this).data('id');
 
                 $.ajax({
-                    url: '<?= base_url() ?>/KelembagaanPenyuluhan/Kecamatan/Kecamatan/delete_award/' + id,
+                    url: '<?= base_url() ?>/profil/Lembaga/delete_award/' + id,
                     type: 'POST',
 
                     success: function(result) {
@@ -2296,7 +2296,7 @@ $data = $json[0];
 
 
         $.ajax({
-            url: '<?= base_url() ?>/KelembagaanPenyuluhan/Kecamatan/Kecamatan/save_dak/',
+            url: '<?= base_url() ?>/profil/Lembaga/save_dak/',
             type: 'POST',
             data: {
                 'id_bpp': id_bpp,
@@ -2344,7 +2344,7 @@ $data = $json[0];
         //var myModal = new bootstrap.Modal(document.getElementById('modal-edit'), options);
         // alert(id);
         $.ajax({
-            url: '<?= base_url() ?>/KelembagaanPenyuluhan/Kecamatan/Kecamatan/dana/' + $(this).data('id'),
+            url: '<?= base_url() ?>/profil/Lembaga/dana/' + $(this).data('id'),
             type: 'GET',
             dataType: 'JSON',
             success: function(res) {
@@ -2371,7 +2371,7 @@ $data = $json[0];
                     formData.append('id_bpp', id_bpp);
                     formData.append('tahun_dak', tahun_dak);
                     $.ajax({
-                        url: '<?= base_url() ?>/KelembagaanPenyuluhan/Kecamatan/Kecamatan/update_dak/' + id,
+                        url: '<?= base_url() ?>/profil/Lembaga/update_dak/' + id,
                         type: "POST",
                         data: formData,
                         cache: false,
@@ -2432,7 +2432,7 @@ $data = $json[0];
                 var id = $(this).data('id');
 
                 $.ajax({
-                    url: '<?= base_url() ?>/KelembagaanPenyuluhan/Kecamatan/Kecamatan/delete_dak/' + id,
+                    url: '<?= base_url() ?>/profil/Lembaga/delete_dak/' + id,
                     type: 'POST',
 
                     success: function(result) {
@@ -2473,7 +2473,7 @@ $data = $json[0];
 
 
         $.ajax({
-            url: '<?= base_url() ?>/KelembagaanPenyuluhan/Kecamatan/Kecamatan/save_powil/',
+            url: '<?= base_url() ?>/profil/Lembaga/save_powil/',
             type: 'POST',
             data: {
                 'id_bpp': id_bpp,
@@ -2522,7 +2522,7 @@ $data = $json[0];
         //var myModal = new bootstrap.Modal(document.getElementById('modal-edit'), options);
         // alert(id);
         $.ajax({
-            url: '<?= base_url() ?>/KelembagaanPenyuluhan/Kecamatan/Kecamatan/powil/' + $(this).data('id_potensi'),
+            url: '<?= base_url() ?>/profil/Lembaga/powil/' + $(this).data('id_potensi'),
             type: 'GET',
             dataType: 'JSON',
             success: function(res) {
@@ -2552,7 +2552,7 @@ $data = $json[0];
                     formData.append('kode_komoditas', kode_komoditas);
                     formData.append('luas_lhn', luas_lhn);
                     $.ajax({
-                        url: '<?= base_url() ?>/KelembagaanPenyuluhan/Kecamatan/Kecamatan/update_powil/' + id_potensi,
+                        url: '<?= base_url() ?>/profil/Lembaga/update_powil/' + id_potensi,
                         type: "POST",
                         data: formData,
                         cache: false,
@@ -2613,7 +2613,7 @@ $data = $json[0];
                 var id_potensi = $(this).data('id_potensi');
 
                 $.ajax({
-                    url: '<?= base_url() ?>/KelembagaanPenyuluhan/Kecamatan/Kecamatan/delete_powil/' + id_potensi,
+                    url: '<?= base_url() ?>/profil/Lembaga/delete_powil/' + id_potensi,
                     type: 'POST',
 
                     success: function(result) {
