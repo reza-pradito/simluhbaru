@@ -59,4 +59,22 @@ class ProvModel extends Model
 
         return $data;
     }
+
+    public function getTotalPNS($kode_prop)
+    {
+        $db = Database::connect();
+        $query = $db->query("select count(id) as jum_pns from tbldasar where satminkal like '$kode_prop' 
+                            and kode_kab='2' and status !='1' and status !='2' and status !='3'");
+        $row   = $query->getRow();
+        $query2  = $db->query("select id,nama from tbldasar where satminkal='$kode_prop' and kode_kab='2' 
+                    and status !='1' and status !='2' and status !='3' order by nama");
+        $results = $query2->getResultArray();
+
+        $data =  [
+            'jum_pns' => $row->jum_pns,
+            'datapns' => $results,
+        ];
+
+        return $data;
+    }
 }

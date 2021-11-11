@@ -730,15 +730,15 @@
                         var jenis_kelamin = $(".jenis_kelamin:checked").val();
                         var status_kel = $('#status_kel').val();
                         var agama = $('#agama').val();
-                        var ahli_tp = $('#ahli_tp').val();
+                        var ahli_tp = $(".ahli_tp")[0].checked ? $(".ahli_tp:checked").val() : "";
                         var detail_tp = $('#detail_tp').val();
-                        var ahli_nak = $('#ahli_nak').val();
+                        var ahli_nak = $(".ahli_nak")[0].checked ? $(".ahli_nak:checked").val() : "";
                         var detail_nak = $('#detail_nak').val();
-                        var ahli_bun = $('#ahli_bun').val();
+                        var ahli_bun = $(".ahli_bun")[0].checked ? $(".ahli_bun:checked").val() : "";
                         var detail_bun = $('#detail_bun').val();
-                        var ahli_hor = $('#ahli_hor').val();
+                        var ahli_hor = $(".ahli_hor")[0].checked ? $(".ahli_hor:checked").val() : "";
                         var detail_hor = $('#detail_hor').val();
-                        var ahli_lainnya = $('#ahli_lainnya').val();
+                        var ahli_lainnya = $(".ahli_lainnya")[0].checked ? $(".ahli_lainnya:checked").val() : "";
                         var detail_lainnya = $('#detail_lainnya').val();
                         var instansi_pembina = $('#instansi_pembina').val();
                         var satminkal = $('#satminkal').val();
@@ -985,8 +985,8 @@
 
 <script>
     $(document).ready(function() {
-        const monthNames = ["January", "February", "March", "April", "May", "June",
-            "July", "August", "September", "October", "November", "December"
+        const monthNames = ["Bulan", "Januari", "Februari", "Maret", "April", "Mei", "Juni",
+            "Juli", "Agustus", "September", "Oktober", "November", "Desember"
         ];
         let qntYears = 80;
         let selectYear = $("#year");
@@ -1003,7 +1003,7 @@
             currentYear--;
         }
 
-        for (var m = 0; m < 12; m++) {
+        for (var m = 1; m <= 12; m++) {
             let month = monthNames[m];
             let monthElem = document.createElement("option");
             monthElem.value = m;

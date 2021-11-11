@@ -2,17 +2,7 @@
 
 <?= $this->section('content') ?>
 
-<?php
-if (empty(session()->get('status_user')) || session()->get('status_user') == '2') {
-    $kode = '00';
-} elseif (session()->get('status_user') == '1') {
-    $kode = session()->get('kodebakor');
-} elseif (session()->get('status_user') == '200') {
-    $kode = session()->get('kodebapel');
-} elseif (session()->get('status_user') == '300') {
-    $kode = session()->get('kodebpp');
-}
-?>
+
 <center><h2> Daftar Bantuan Kegiatan yang di peroleh Kelompok <?= ucwords(strtolower($nama_poktan)) ?> </h2></center>
 
 <button type="button" data-bs-toggle="modal" data-bs-target="#modal-form" class="btn bg-gradient-primary btn-sm">+ Tambah Data</button>
@@ -40,7 +30,7 @@ if (empty(session()->get('status_user')) || session()->get('status_user') == '2'
                     </td>
                     
                     <td class="align-middle text-center text-sm">
-                        <p class="text-xs font-weight-bold mb-0"><?= $row['desckeg'] ?>-<?= $row['subitem'] ?></p>
+                        <p class="text-xs font-weight-bold mb-0"><?= $row['kegiatan'] ?></p>
                     </td>
                     <td class="align-middle text-center text-sm">
                         <p class="text-xs font-weight-bold mb-0"><?= $row['volume'] ?></p>
@@ -88,7 +78,7 @@ if (empty(session()->get('status_user')) || session()->get('status_user') == '2'
                                                             <option value="">Pilih Kegiatan</option>
                                                             <?php
                                                             foreach ($kegiatan as $row2) {
-                                                                echo '<option value="' . $row2["kegiatan"] . '">' . $row2["desckeg"] . '-' . $row2["subitem"] . '</option>';
+                                                                echo '<option value="' . $row2["idmast"] . '">' . $row2["desckeg"] . '-' . $row2["subitem"] . '</option>';
                                                             }
                                                             ?>
                                                         </select>
@@ -103,9 +93,10 @@ if (empty(session()->get('status_user')) || session()->get('status_user') == '2'
                                                     <option value="">Pilih Tahun</option>
                                                 </select>
                                             </div>
+                                         
                                            
-                                                <input type="hidden" id="idban" name="idban" value="idban">
-                                                <input type="hidden" id="id_poktan" name="id_poktan" value="<?= $id_poktan;?>">
+                                                <input type="hidden" id="id_poktan" name="id_poktan" >
+                                               
                                                     <div class="text-center">
                                                         <button type="button" id="btnSave" class="btn btn-round bg-gradient-warning btn-sm">Simpan Data</button>
                                                     </div>
@@ -139,21 +130,20 @@ if (empty(session()->get('status_user')) || session()->get('status_user') == '2'
 
         $(document).delegate('#btnSave', 'click', function() {
 
-            var id_poktan = $('#id_poktan').val();
+         
             var kegiatan = $('#kegiatan').val();
             var volume = $('#volume').val();
             var tahun = $('#year').val();
-            
+           
 
             $.ajax({
                 url: '<?= base_url() ?>/KelembagaanPelakuUtama/KelompokTani/ListBantu/save/',
                 type: 'POST',
                 data: {
-                    'id_poktan': id_poktan,
-                    'kegiatan': kegiatan,
+                    
+                    'kegiatan': kegiatan, 
                     'volume': volume,
                     'tahun': tahun,
-                    
                 },
                 success: function(result) {
                     result = JSON.parse(result);
@@ -247,11 +237,10 @@ if (empty(session()->get('status_user')) || session()->get('status_user') == '2'
                     // console.log(result);
 
                     $('#idban').val(result.idban);
-                    $('#id_poktan').val(result.id_poktan);
                     $('#kegiatan').val(result.kegiatan);
                     $('#volume').val(result.volume);
-                    $('#year').val(result.tahun);
-                   
+                       $('#year').val(result.tahun);
+
 
                     $('#modal-form').modal('show');
                     $("#btnSave").attr("id", "btnDoEdit");
@@ -260,19 +249,15 @@ if (empty(session()->get('status_user')) || session()->get('status_user') == '2'
                      
 
                         var idban = $('#idban').val();
-                        var id_poktan = $('#id_poktan').val();
                         var kegiatan = $('#kegiatan').val();
                         var volume = $('#volume').val();
                         var tahun = $('#year').val();
-                      
 
                         let formData = new FormData();
                         formData.append('idban', idban);
-                        formData.append('id_poktan', id_poktan);
                         formData.append('kegiatan', kegiatan);
                         formData.append('volume', volume);
                         formData.append('tahun', tahun);
-                     
 
                         $.ajax({
                             url: '<?= base_url() ?>/KelembagaanPelakuUtama/KelompokTani/ListBantu/update/' + idban,

@@ -39,5 +39,5 @@ class ListKEP extends BaseController
 
         return view('KelembagaanPelakuUtama/KelembagaanEkonomiPetani/listkep', $data);
     }
-  
+
 }

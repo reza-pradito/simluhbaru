@@ -118,6 +118,7 @@ if (empty(session()->get('status_user')) || session()->get('status_user') == '2'
                                                     <option value="tidak">Tidak</option>
                                                 </select>
                                             </div>
+
                                             <label>Unit Usaha</label>
                                             <div class="form-check">
                                                  <input class="form-check-input simluh_usaha_saprodi" type="checkbox" value="saprodi" name="simluh_usaha_saprodi" id="simluh_usaha_saprodi" >
@@ -204,13 +205,15 @@ if (empty(session()->get('status_user')) || session()->get('status_user') == '2'
                                                         </div>                        
                                             </div>
                                             </div>
-                                            <input type="hidden" name="kode_kab" id="kode_kab" value="<?= $kode; ?>">
-                                            <input type="hidden" name="kode_prop" id="kode_prop" value="<?= $kode_prop; ?>">
+                                          
+                                            <input type="hidden" id="kode_kab" name="kode_kab" value="<?= $kode_kab; ?>">
+                                            <input type="hidden" id="kode_prop" name="kode_prop" value="<?= $kode_prop; ?>">
+
                                                 <input type="hidden" id="id_gapber" name="id_gapber" >
                                                     <div class="text-center">
                                                         <button type="button" id="btnSave" class="btn btn-round bg-gradient-warning btn-sm">Simpan Data</button>
                                                     </div>
-      
+
                                             </form>
                                         </div>
 

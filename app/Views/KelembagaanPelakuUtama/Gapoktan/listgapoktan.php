@@ -141,6 +141,7 @@ if (empty(session()->get('status_user')) || session()->get('status_user') == '2'
                                                    
                                                 </select>
                                             </div>
+
                                                         </div>
                                             <div class="col">
                                             <label>Unit Usaha</label>
@@ -380,10 +381,12 @@ if (empty(session()->get('status_user')) || session()->get('status_user') == '2'
                 confirmButtonText: 'Hapus Data!'
             }).then((result) => {
                 if (result.value) {
-                    var id = $(this).data('id_gap');
+                    var id_gap = $(this).data('id_gap');
 
                     $.ajax({
+
                         url: '<?= base_url() ?>/KelembagaanPelakuUtama/Gapoktan/Gapoktan/delete/' + id,
+
                         type: 'POST',
 
                         success: function(result) {
@@ -414,6 +417,7 @@ if (empty(session()->get('status_user')) || session()->get('status_user') == '2'
             });
 
         });
+       
         $(document).delegate('#btnEditGap', 'click', function() {
             $.ajax({
                 url: '<?= base_url() ?>/KelembagaanPelakuUtama/Gapoktan/Gapoktan/edit/' + $(this).data('id_gap'),

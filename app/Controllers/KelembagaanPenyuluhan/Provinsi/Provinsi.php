@@ -17,10 +17,10 @@ class Provinsi extends BaseController
 
     public function prov()
     {
-        $get_param = $this->request->getGet();
-        $kode_prop = $get_param['kode_prop'];
+        // $get_param = $this->request->getGet();
+        // $kode_prop = $get_param['kode_prop'];
         $prov_model = new ProvModel;
-        $prov_data = $prov_model->getProv($kode_prop);
+        $prov_data = $prov_model->getProv(session()->get('kodebakor'));
 
         $data = [
             // 'jumpns' => $kab_data['jumpns'],
