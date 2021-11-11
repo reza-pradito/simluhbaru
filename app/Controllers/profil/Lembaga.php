@@ -15,7 +15,8 @@ use App\Models\KelembagaanPenyuluhan\Kecamatan\PotensiWilayahModel;
 use App\Models\KelembagaanPenyuluhan\Kecamatan\WilkecModel;
 use App\Models\KelembagaanPenyuluhan\Provinsi\ProvModel;
 use App\Models\KodeWilayah\KodeWilModel;
-
+use App\Models\LembagaModel;
+use App\Models\WilayahModel;
 
 
 class Lembaga extends BaseController
