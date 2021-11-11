@@ -200,7 +200,7 @@ if (empty(session()->get('status_user')) || session()->get('status_user') == '2'
                                                         </div>  
                                               <div class="input-group mb-3">
                                             <label style="margin-top : 10px;" class="form-check-label">Hand Traktor</label> 
-                                                <input type="text" style="margin-left : 10px;" class="form-control" id="simluh_hand_tractor" name="simluh_hand_tractor" >
+                                                <input type="text" style="margin-left : 10px;" class="form-control" id="simluh_alsin_hand_tractor" name="simluh_alsin_hand_tractor" >
                                                         </div>   
                                                         <div class="input-group mb-3">
                                             <label style="margin-top : 10px;" class="form-check-label">Pompa Air</label> 

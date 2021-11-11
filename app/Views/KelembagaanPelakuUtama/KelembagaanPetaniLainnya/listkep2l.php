@@ -1,9 +1,17 @@
 <?= $this->extend('layout/main_template') ?>
 
 <?= $this->section('content') ?>
-
-
-<?php $kode_kec = session()->get('kode_bpp'); ?>
+<?php
+if (empty(session()->get('status_user')) || session()->get('status_user') == '2') {
+    $kode = '00';
+} elseif (session()->get('status_user') == '1') {
+    $kode = session()->get('kodebakor');
+} elseif (session()->get('status_user') == '200') {
+    $kode = session()->get('kodebapel');
+} elseif (session()->get('status_user') == '300') {
+    $kode = session()->get('kodebpp');
+}
+?>
 <center><h2> Daftar Kelompok P2L di Kec <?= ucwords(strtolower($nama_kecamatan)) ?> </h2></center>
 <center>Data ditemukan <?= ucwords(strtolower($jum)) ?> </center>
 
@@ -16,6 +24,7 @@
                 <tr>
                     <th class="text-uppercase text-secondary text-xxs font-weight-bolder" style="text-align: center;">No</th>
                     <th class="text-uppercase text-secondary text-xxs font-weight-bolder" style="text-align: center;">Nama Desa</th>
+                    <th class="text-uppercase text-secondary text-xxs font-weight-bolder" style="text-align: center;">No SK CPCL</th>
                     <th class="text-uppercase text-secondary text-xxs font-weight-bolder" style="text-align: center;">Nama Kelompok</th>
                     <th class="text-uppercase text-secondary text-xxs font-weight-bolder" style="text-align: center;">Nama Ketua</th>
                     <th class="text-uppercase text-secondary text-xxs font-weight-bolder" style="text-align: center;">Nama Sekretaris</th>
@@ -41,6 +50,9 @@
                     </td>
                     <td class="align-middle text-center text-sm">
                         <p class="text-xs font-weight-bold mb-0"><?= $row['nm_desa'] ?></p>
+                    </td>  
+                    <td class="align-middle text-center text-sm">
+                        <p class="text-xs font-weight-bold mb-0"><?= $row['no_sk_cpcl'] ?></p>
                     </td>
                     <td class="align-middle text-center text-sm">
                         <p class="text-xs font-weight-bold mb-0"><?= $row['nama_poktan'] ?></p>
@@ -72,8 +84,8 @@
                                 </button>
                             
                            
-                                <button class="btn btn-danger btn-sm" id="btnHapus" data-id_p2l="<?= $row['id_p2l'] ?>" type="submit" onclick="return confirm('Are you sure ?')">Hapus</button>
-                                <i class="fas fa-trash"></i> 
+                                <button class="btn btn-danger btn-sm" id="btnHapus" data-id_p2l="<?= $row['id_p2l'] ?>" type="button" >
+                                <i class="fas fa-trash"></i> Hapus
                             </button>
                         </td>
                 </tr>
@@ -137,20 +149,20 @@
                                                 <input type="text" class="form-control" id="nama_bendahara" name="nama_bendahara" >
                                             </div>
                                             <label>Alamat Lengkap Sekretariat</label>
-                                                <textarea class="form-control" id="alamat_sekretariat" placeholder="Alamat" name="alamat_sekretariat" aria-label="Password" aria-describedby="password-addon"></textarea>
+                                                <textarea class="form-control" id="alamat_sekretariat" placeholder="Alamat" name="alamat_sekretariat" ></textarea>
                                             <label>Tanggal Pembentukan</label>
                                             <div class="input-group mb-3">
-                                                <input type="date" class="form-control" id="tanggal_bentuk" name="tanggal_bentuk"  aria-label="Default select example" name="simluh_tahun_bentuk">
+                                                <input type="date" class="form-control" id="tanggal_bentuk" name="tanggal_bentuk"  >
                                                    
                                                 </select>
                                             </div>
                                             <label>Desa</label>
                                             <div class="input-group mb-3">
                                                <select name="kode_komoditas_hor" id="kode_komoditas_hor"  class="form-control input-lg">
-                                                            <option value="">Pilih Komodias</option>
+                                                            <option value="">Pilih Komoditas</option>
                                                             <?php
                                                             foreach ($komoditas as $row2) {
-                                                                echo '<option value="' . $row2["kode_komoditas"] . '' . $row2["nama_subsektor"] . '">' . $row2["nama_komoditas"] . '</option>';
+                                                                echo '<option value="' . $row2["id_komoditas"] . '">' . $row2["nama_subsektor"] . '-' . $row2["nama_komoditas"] . '</option>';
                                                             }
                                                             ?>
                                                         </select>
@@ -163,6 +175,8 @@
                                                     <option value="2">Tidak aktif</option>
                                                 </select>
                                             </div>
+                                            <input type="hidden" name="kode_prop" id="kode_prop" value="<?= $kode_prop; ?>">
+                                            <input type="hidden" name="kode_kab" id="kode_kab" value="<?= $kode_kab; ?>">
                                             <input type="hidden" id="kode_kec" name="kode_kec" value="<?= $kode_kec; ?>" >
                                                 <input type="hidden" id="id_p2l" name="id_p2l" >
                                                
@@ -192,10 +206,7 @@
 
 <?= $this->endSection() ?>
 
-
-<?= $this->section('script') ?>
-
-
+<?php $this->section('script') ?>
 
 
 <script>
@@ -203,11 +214,13 @@
 
         $(document).delegate('#btnSave', 'click', function() {
 
+            var kode_prop = $('#kode_prop').val();
             var kode_kec = $('#kode_kec').val();
             var kode_kab = $('#kode_kab').val();
             var kode_desa = $('#kode_desa').val();
             var no_sk_cpcl = $('#no_sk_cpcl').val();
             var no_urut_sk = $('#no_urut_sk').val();
+            var nama_poktan = $('#nama_poktan').val();
             var nama_ketua = $('#nama_ketua').val();
             var nama_sekretaris = $('#nama_sekretaris').val();
             var nama_bendahara = $('#nama_bendahara').val();
@@ -220,11 +233,13 @@
                 url: '<?= base_url() ?>/KelembagaanPelakuUtama/KelembagaanPetaniLainnya/KelembagaanPetaniLainnya/save/',
                 type: 'POST',
                 data: {
+                    'kode_prop': kode_prop,
                     'kode_kec': kode_kec,
                     'kode_kab': kode_kab,
                     'kode_desa': kode_desa,
                     'no_sk_cpcl': no_sk_cpcl,
                     'no_urut_sk': no_urut_sk,
+                    'nama_poktan': nama_poktan,
                     'nama_ketua': nama_ketua,
                     'nama_sekretaris': nama_sekretaris,
                     'nama_bendahara': nama_bendahara,
@@ -232,6 +247,9 @@
                     'tanggal_bentuk': tanggal_bentuk,
                     'kode_komoditas_hor': kode_komoditas_hor,
                     'status': status,
+                    
+                   
+
                 },
                 success: function(result) {
                     result = JSON.parse(result);
@@ -268,9 +286,7 @@
                     });
                 }
             });
-
         });
-      
         $(document).delegate('#btnHapus', 'click', function() {
             Swal.fire({
                 title: 'Apakah anda yakin',
@@ -315,13 +331,119 @@
                     });
                 }
             });
+        });
+        $(document).delegate('#btnEditP2l', 'click', function() {
+            $.ajax({
+                url: '<?= base_url() ?>/KelembagaanPelakuUtama/KelembagaanPetaniLainnya/KelembagaanPetaniLainnya/edit/' + $(this).data('id_p2l'),
+                type: 'GET',
+                dataType: 'JSON',
+                success: function(result) {
+                    // console.log(result);
 
-        });
-        $('.modal').on('hidden.bs.modal', function() {
+                    $('#id_p2l').val(result.id_p2l);
+                    $('#kode_kec').val(result.kode_kec);
+                    $('#kode_prop').val(result.kode_prop);
+                    $('#kode_desa').val(result.kode_desa);
+                    $('#kode_kab').val(result.kode_kab);
+                    $('#no_sk_cpcl').val(result.no_sk_cpcl);
+                    $('#no_urut_sk').val(result.no_urut_sk);
+                    $('#nama_poktan').val(result.nama_poktan);
+                    $('#nama_ketua').val(result.nama_ketua);
+                    $('#nama_bendahara').val(result.nama_bendahara);
+                    $('#nama_sekretaris').val(result.nama_sekretaris);
+                    $('#alamat_sekretariat').val(result.alamat_sekretariat);
+                    $('#tanggal_bentuk').val(result.tanggal_bentuk);
+                    $('#kode_komoditas_hor').val(result.kode_komoditas_hor);
+                    $('#status').val(result.status);
+
+
+                    $('#modal-form').modal('show');
+                    $("#btnSave").attr("id", "btnDoEdit");
+
+                    $(document).delegate('#btnDoEdit', 'click', function() {
+                     
+
+                        var id_p2l = $('#id_p2l').val();
+                        var kode_prop = $('#kode_prop').val();
+                        var kode_kec = $('#kode_kec').val();
+                        var kode_kab = $('#kode_kab').val();
+                        var kode_desa = $('#kode_desa').val();
+                        var no_sk_cpcl = $('#no_sk_cpcl').val();
+                        var no_urut_sk = $('#no_urut_sk').val();
+                        var nama_poktan = $('#nama_poktan').val();
+                        var nama_ketua = $('#nama_ketua').val();
+                        var nama_bendahara = $('#nama_bendahara').val();
+                        var nama_sekretaris = $('#nama_sekretaris').val();
+                        var alamat_sekretariat = $('#alamat_sekretariat').val();
+                        var tanggal_bentuk = $('#tanggal_bentuk').val();
+                        var $kode_komoditas_hor = $('#$kode_komoditas_hor').val();
+                        var status = $('#status').val();
+
+                        let formData = new FormData();
+                        formData.append('id_p2l', id_p2l);
+                        formData.append('kode_prop', kode_prop);
+                        formData.append('kode_kec', kode_kec);
+                        formData.append('kode_kab', kode_kab);
+                        formData.append('kode_desa', kode_desa);
+                        formData.append('no_sk_cpcl', no_sk_cpcl);
+                        formData.append('no_urut_sk', no_urut_sk);
+                        formData.append('nama_poktan', nama_poktan);
+                        formData.append('nama_ketua', nama_ketua);
+                        formData.append('nama_bendahara', nama_bendahara);
+                        formData.append('nama_sekretaris', nama_sekretaris);
+                        formData.append('alamat_sekretariat', alamat_sekretariat);
+                        formData.append('tanggal_bentuk', tanggal_bentuk);
+                        formData.append('kode_komoditas_hor', kode_komoditas_hor);
+                        formData.append('status', status);
+                        
+                       
+
+                        $.ajax({
+                            url: '<?= base_url() ?>/KelembagaanPelakuUtama/KelembagaanPetaniLainnya/KelembagaanPetaniLainnya/update/' + id_p2l,
+                            type: "POST",
+                            data: formData,
+                            cache: false,
+                            processData: false,
+                            contentType: false,
+                            success: function(result) {
+                                $('#modal-form').modal('hide');
+                                Swal.fire({
+                                    title: 'Sukses',
+                                    text: "Sukses edit data",
+                                    type: 'success',
+                                }).then((result) => {
+
+                                    if (result.value) {
+                                        location.reload();
+                                    }
+                                });
+
+                            },
+                            error: function(jqxhr, status, exception) {
+
+                                Swal.fire({
+                                    title: 'Error',
+                                    text: "Gagal edit data",
+                                    type: 'Error',
+                                }).then((result) => {
+
+                                    if (result.value) {
+                                        location.reload();
+                                    }
+                                });
+
+                            }
+                        });
+                    });
+
+                }
+            });
+
+            $('.modal').on('hidden.bs.modal', function() {
                 $(this).find('form')[0].reset();
-        });
+            });
     });
-    
-    
+});
+
 </script>
-<?= $this->endSection() ?>
+<?php $this->endSection() ?>

@@ -32,6 +32,7 @@ class Gapoktan extends BaseController
         $gapoktan_model = new GapoktanModel;
         $gapoktan_data = $gapoktan_model->getGapoktanTotal($this->session->get('kodebapel'));
         $kode_data = $kode_model->getKodeWil2(session()->get('kodebapel'));
+        
        
 
         $data = [
