@@ -69,7 +69,7 @@ class ProvModel extends Model
         $query = $db->query("select count(id) as jum_pns from tbldasar where satminkal like '$kode_prop' 
                             and kode_kab='2' and status !='1' and status !='2' and status !='3'");
         $row   = $query->getRow();
-        $query2  = $db->query("select id,nama from tbldasar where satminkal='$kode_prop' and kode_kab='2' 
+        $query2  = $db->query("select id,nama,nip from tbldasar where satminkal='$kode_prop' and kode_kab='2' 
                     and status !='1' and status !='2' and status !='3' order by nama");
         $results = $query2->getResultArray();
 

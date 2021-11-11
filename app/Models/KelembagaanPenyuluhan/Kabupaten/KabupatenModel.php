@@ -183,7 +183,7 @@ class KabupatenModel extends Model
         $query = $db->query("select count(id) as jum_pns from tbldasar where satminkal='$kode_kab' 
                             and kode_kab='3' and status !='1' and status !='2' and status !='3'");
         $row   = $query->getRow();
-        $query2  = $db->query("select id,nama from tbldasar where satminkal='$kode_kab' 
+        $query2  = $db->query("select id,nama,noktp,nip from tbldasar where satminkal='$kode_kab' 
                               and kode_kab='3' and status !='1' and status !='2' and status !='3' order by nama");
         $results = $query2->getResultArray();
 
