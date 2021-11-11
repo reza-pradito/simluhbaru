@@ -5,6 +5,7 @@ namespace App\Controllers\KelembagaanPelakuUtama\KelembagaanPetaniLainnya;
 use App\Controllers\BaseController;
 use App\Models\KelembagaanPelakuUtama\KelembagaanPetaniLainnya\KelembagaanPetaniLainnyaModel;
 use App\Models\KelembagaanPelakuUtama\KelembagaanPetaniLainnya\ListKEP2LModel;
+use App\Models\KodeWilayah\KodeWilModel;
 
 class KelembagaanPetaniLainnya extends BaseController
 {   
@@ -16,9 +17,7 @@ class KelembagaanPetaniLainnya extends BaseController
     public function kelembagaanpetanilainnya()
     {
      
-       
-
-        // $kode_kab = $get_param['kode_kab'];
+        $get_param = $this->request->getGet();
         if (empty(session()->get('status_user')) || session()->get('status_user') == '2') {
             $kode = '00';
         } elseif (session()->get('status_user') == '1') {
@@ -28,17 +27,20 @@ class KelembagaanPetaniLainnya extends BaseController
         } elseif (session()->get('status_user') == '300') {
             $kode = session()->get('kodebpp');
         }
-        $get_param = $this->request->getGet();
+  
+        $kode_model = new KodeWilModel; 
         $kelembagaanpetanilainnya_model = new KelembagaanPetaniLainnyaModel();
-        $kelembagaanpetanilainnya_data = $kelembagaanpetanilainnya_model->getKelembagaanPetaniLainnyaTotal($kode);
-
+        $kelembagaanpetanilainnya_data = $kelembagaanpetanilainnya_model->getKelembagaanPetaniLainnyaTotal($this->session->get('kodebapel'));
+        $kode_data = $kode_model->getKodeWil2(session()->get('kodebapel'));
         $data = [
 
             'nama_kabupaten' => $kelembagaanpetanilainnya_data['nama_kab'],
             'jum_poktan' => $kelembagaanpetanilainnya_data['jum_poktan'],
             'tabel_data' => $kelembagaanpetanilainnya_data['table_data'],
             'title' => 'Kelompok Petani Lainnya',
-            'name' => 'Kelompok Petani Lainnya'
+            'name' => 'Kelompok Petani Lainnya',
+            'kode_prop' => $kode_data['kode_prop'],
+           
         ];
 
         return view('KelembagaanPelakuUtama/KelembagaanPetaniLainnya/kelembagaanpetanilainnya', $data);
@@ -47,12 +49,14 @@ class KelembagaanPetaniLainnya extends BaseController
     public function listkep2l()
     {
         $get_param = $this->request->getGet();
-     
         $kode_kec = $get_param['kode_kec'];
+        $kodewil_model = new KodeWilModel();
         $listkep2l_model = new ListKEP2LModel();
         $desa = $listkep2l_model->getDesa($kode_kec);
         $komoditas = $listkep2l_model->getKomoditas();
+        $kode_data = $kodewil_model->getKodeWil($kode_kec);
         $listkep2l_data = $listkep2l_model->getListKEP2LTotal($kode_kec);
+        $kode = $kodewil_model->getKodeWil2(session()->get('kodebapel'));
 
 
         $data = [
@@ -64,7 +68,9 @@ class KelembagaanPetaniLainnya extends BaseController
             'name' => 'List Kelompok Petani Lainnya',
             'desa' => $desa,
             'komoditas' => $komoditas,
-            'kode_kec' => $kode_kec
+            'kode_kec' => $kode_kec,
+            'kode_prop' => $kode_data['kode_prop'],
+            'kode_kab' => $kode['kode_kab'],
 
         ];
 
@@ -73,24 +79,24 @@ class KelembagaanPetaniLainnya extends BaseController
 
     public function save()
     {
-        try {
-            $res = $this->model->save([
-                'kode_kec' => $this->request->getPost('kode_kec'),
-                'kode_kab' => $this->request->getPost('kode_kab'),
-                'kode_desa' => $this->request->getPost('kode_desa'),
-                'nama_poktan' => $this->request->getPost('nama_poktan'),
-                'no_sk_cpcl' => $this->request->getPost('no_sk_cpcl'),
-                'no_urut_sk' => $this->request->getPost('no_urut_sk'),
-                'nama_poktan' => $this->request->getPost('nama_poktan'),
-                'nama_ketua' => $this->request->getPost('nama_ketua'),
-                'nama_sekretaris' => $this->request->getPost('nama_sekretaris'),
-                'nama_bendahara' => $this->request->getPost('nama_bendahara'),
-                'alamat_sekretariat' => $this->request->getPost('alamat_sekretariat'),
-                'tanggal_bentuk' => $this->request->getPost('tanggal_bentuk'),
-                'status' => $this->request->getPost('status'),
-                'status' => $this->request->getPost('status'),
-            ]);
-            if($res == false){
+        try{
+        $res = $this->model->save([
+            'kode_kec' => $this->request->getPost('kode_kec'),
+            'kode_prop' => $this->request->getPost('kode_prop'),
+            'kode_kab' => $this->request->getPost('kode_kab'),
+            'kode_desa' => $this->request->getPost('kode_desa'),
+            'no_sk_cpcl' => $this->request->getPost('no_sk_cpcl'),
+            'no_urut_sk' => $this->request->getPost('no_urut_sk'),
+            'nama_poktan' => $this->request->getPost('nama_poktan'),
+            'nama_ketua' => $this->request->getPost('nama_ketua'),
+            'nama_sekretaris' => $this->request->getPost('nama_sekretaris'),
+            'nama_bendahara' => $this->request->getPost('nama_bendahara'),
+            'alamat_sekretariat' => $this->request->getPost('alamat_sekretariat'), 
+            'tanggal_bentuk' => $this->request->getPost('tanggal_bentuk'),
+            'kode_komoditas_hor' => $this->request->getPost('kode_komoditas_hor'),
+            'status' => $this->request->getPost('status'),
+        ]);
+        if($res == false){
                 $data = [
                     "value" => false,
                     "message" => 'data tidak lengkap'
@@ -112,13 +118,13 @@ class KelembagaanPetaniLainnya extends BaseController
     }
     public function edit($id_p2l)
     {
-        $p2l = $this->model->getDataById($id_p2l);
-        echo $p2l;
+        $kep2l = $this->model->getDataById($id_p2l);
+        echo $kep2l;
     }
-
     public function update($id_p2l)
     {
         
+        $kode_prop = $this->request->getPost('kode_prop');
         $kode_kec = $this->request->getPost('kode_kec');
         $kode_kab = $this->request->getPost('kode_kab');
         $kode_desa = $this->request->getPost('kode_desa');
@@ -126,15 +132,18 @@ class KelembagaanPetaniLainnya extends BaseController
         $no_urut_sk = $this->request->getPost('no_urut_sk');
         $nama_poktan = $this->request->getPost('nama_poktan');
         $nama_ketua = $this->request->getPost('nama_ketua');
-        $nama_sekretaris = $this->request->getPost('nama_sekretaris');
         $nama_bendahara = $this->request->getPost('nama_bendahara');
-        $alamat_sekretariat = $this->request->getPost('alamat_sekretariat');
+        $nama_sekretaris = $this->request->getPost('nama_sekretaris');
+        $alamat_sekretariat = $this->request->getPost('alamat_sekretariat');  
         $tanggal_bentuk = $this->request->getPost('tanggal_bentuk');
         $kode_komoditas_hor = $this->request->getPost('kode_komoditas_hor');
         $status = $this->request->getPost('status');
+
+       
         $this->model->save([
             'id_p2l' => $id_p2l,
             'kode_kec' => $kode_kec,
+            'kode_prop' => $kode_prop,
             'kode_kab' => $kode_kab,
             'kode_desa' => $kode_desa,
             'no_sk_cpcl' => $no_sk_cpcl,
@@ -147,12 +156,15 @@ class KelembagaanPetaniLainnya extends BaseController
             'tanggal_bentuk' => $tanggal_bentuk,
             'kode_komoditas_hor' => $kode_komoditas_hor,
             'status' => $status,
+         
         ]);
+
+        //session()->setFlashdata('pesan', 'Data berhasil diubah');
 
     }
     public function delete($id_p2l)
     {
         $this->model->delete($id_p2l);
-       // return redirect()->to('/listkep2l');
+       // return redirect()->to('/gapoktan');
     }
 }

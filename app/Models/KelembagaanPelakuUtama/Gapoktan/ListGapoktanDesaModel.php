@@ -12,7 +12,7 @@ class ListGapoktanDesaModel extends Model
     protected $primaryKey = 'id_poktan';
     protected $allowedFields = [ 'kode_prop', 'kode_kab', 'id_gap',
      'kode_kec', 'kode_desa', 'nama_poktan', 'ketua_poktan', 'alamat','simluh_jenis_kelompok',
-     'simluh_kelas_kemampuan','simluh_tahun_tap_kelas','simluh_tahun_bentuk','status', 'simluh_bendahara', 'simluh_sekretaris'];
+     'simluh_kelas_kemampuan','simluh_tahun_tap_kelas','simluh_tahun_bentuk','status', 'simluh_kelas_kemampuan', 'simluh_jenis_kelompok'];
 
     protected $useTimestamps = false;
 
@@ -43,9 +43,9 @@ class ListGapoktanDesaModel extends Model
 
         return $data;
     }
-    public function getDesa($kode_desa)
+    public function getDesa($kode_kec)
     {
-        $query = $this->db->query("select * from tbldesa where id_daerah LIKE '" . $kode_desa . "%' ORDER BY nm_desa ASC");
+        $query = $this->db->query("select * from tbldesa where id_daerah LIKE '" . $kode_kec . "%' ORDER BY nm_desa ASC");
         $row   = $query->getResultArray();
         return $row;
     }

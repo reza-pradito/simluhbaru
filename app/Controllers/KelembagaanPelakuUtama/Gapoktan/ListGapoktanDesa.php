@@ -28,7 +28,7 @@ class ListGapoktanDesa extends BaseController
         $get_param = $this->request->getGet();
         $kode_desa = $get_param['kode_desa'];
         $listgapoktandesa_model = new ListGapoktanDesaModel();
-        $desa = $listgapoktandesa_model->getDesa($kode_desa);
+        $desa = $listgapoktandesa_model->getDesa(session()->get('kodebapel'));
         $listgapoktandesa_data = $listgapoktandesa_model->getListGapoktanDesaTotal($kode_desa);
         $kode_data = $kode_model->getKodeWil2(session()->get('kodebapel'));
 
@@ -63,9 +63,6 @@ class ListGapoktanDesa extends BaseController
         $simluh_kelas_kemampuan = $this->request->getPost('simluh_kelas_kemampuan');
         $simluh_tahun_tap_kelas = $this->request->getPost('simluh_tahun_tap_kelas');
         $simluh_tahun_bentuk = $this->request->getPost('simluh_tahun_bentuk');
-        $simluh_bendahara = $this->request->getPost('simluh_bendahara');
-        $simluh_sekretaris = $this->request->getPost('simluh_sekretaris');
-        $status = $this->request->getPost('status');  
         $simluh_jenis_kelompok = $this->request->getPost('simluh_jenis_kelompok');  
      
 
@@ -81,10 +78,7 @@ class ListGapoktanDesa extends BaseController
             'alamat' => $alamat,
             'simluh_kelas_kemampuan' => $simluh_kelas_kemampuan,
             'simluh_tahun_bentuk' => $simluh_tahun_bentuk,
-            'simluh_bendahara' => $simluh_bendahara,
-            'simluh_sekretaris' => $simluh_sekretaris,
             'simluh_tahun_tap_kelas' => $simluh_tahun_tap_kelas,
-            'status' => $status,
             'simluh_jenis_kelompok' => $simluh_jenis_kelompok,
            
         ]);
