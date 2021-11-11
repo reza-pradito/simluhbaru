@@ -109,7 +109,7 @@ if (empty(session()->get('status_user')) || session()->get('status_user') == '2'
                                             </div>
                                             <label>Nama Gapoktan</label>
                                             <div class="input-group mb-3">
-                                                <input type="text" class="form-control " id="nama_gapoktan" name="nama_gapoktan" placeholder="Nama Gapoktan" aria-label="Password" aria-describedby="password-addon">
+                                                <input type="text" class="form-control " id="nama_gapoktan" name="nama_gapoktan" placeholder="Nama Gapoktan" required>
                                             </div>
                                             <label>Nama Ketua</label>
                                             <div class="input-group mb-3">
@@ -141,6 +141,93 @@ if (empty(session()->get('status_user')) || session()->get('status_user') == '2'
                                                    
                                                 </select>
                                             </div>
+
+                                                        </div>
+                                            <div class="col">
+                                            <label>Unit Usaha</label>
+                                            <div class="form-check">
+                                                 <input class="form-check-input simluh_usaha_saprodi" type="checkbox" value="saprodi" name="simluh_usaha_saprodi" id="simluh_usaha_saprodi" >
+                                                    <label class="form-check-label" for="simluh_usaha_saprodi">
+                                                    Sarana dan Prasarana Produksi
+                                                    </label>
+                                                    </div>
+                                                    <div class="form-check">
+                                                 <input class="form-check-input simluh_usaha_pemasaran" type="checkbox" value="pemasaran" name="simluh_usaha_pemasaran" id="simluh_usaha_pemasaran" >
+                                                    <label class="form-check-label" for="simluh_usaha_pemasaran">
+                                                    Pemasaran
+                                                    </label>
+                                                    </div>
+                                                    <div class="form-check">
+                                                 <input class="form-check-input simluh_usaha_simpan_pinjam" type="checkbox" value="simpan_pinjam" name="simluh_usaha_simpan_pinjam" id="simluh_usaha_simpan_pinjam" >
+                                                    <label class="form-check-label" for="simluh_usaha_simpan_pinjam">
+                                                    Keuangan Mikro / Simpan Pinjam
+                                                    </label>
+                                                    </div>
+                                                    <div class="form-check">
+                                                 <input class="form-check-input simluh_usaha_jasa_lain" type="checkbox" value="jasa_lain" name="simluh_usaha_jasa_lain" id="simluh_usaha_jasa_lain" >
+                                                    <label class="form-check-label" for="simluh_usaha_jasa_lain">
+                                                    Jasa Lainnya
+                                                    </label>
+                                                    </div>
+                                                    <div class="input-group mb-3">
+                                                        <input type="text" class="form-control" id="simluh_usaha_jasa_lain_desc" name="simluh_usaha_jasa_lain_desc" placeholder="" >
+                                                    </div>
+                                                    <label>Usaha Tani</label>
+                                            <div class="input-group mb-3">
+                                               <select name="simluh_usaha_tani" id="simluh_usaha_tani"  class="form-control  input-lg">
+                                                            <option value="">Pilih Desa</option>
+                                                            <?php
+                                                            foreach ($usahatani as $row3) {
+                                                                echo '<option value="' . $row3["id_kom_general"] . '">' . $row3["nama_komoditas"] . '</option>';
+                                                            }
+                                                            ?>
+                                                        </select>
+                                            </div>
+                                            <label>Usaha Olah</label>
+                                            <div class="input-group mb-3">
+                                               <select name="simluh_usaha_olah" id="simluh_usaha_olah"  class="form-control input-lg">
+                                                            <option value="">Pilih Usaha</option>
+                                                            <?php
+                                                            foreach ($usahaolah as $row4) {
+                                                                echo '<option value="' . $row4["id_kom_general"] . '">' . $row4["nama_komoditas"] . '</option>';
+                                                            }
+                                                            ?>
+                                                        </select>
+                                            </div>
+                                            <label>Alat dan Mesin Pertanian Yang Dimiliki</label> 
+                                            <div class="input-group mb-3">
+                                            <label style="margin-top : 10px;" class="form-check-label">Traktor</label> 
+                                                <input type="text" style="margin-left : 10px;" class="form-control" id="simluh_alsin_traktor" name="simluh_alsin_traktor" placeholder="isi dengan angka">
+                                                        </div>  
+                                              <div class="input-group mb-3">
+                                            <label style="margin-top : 10px;" class="form-check-label">Hand Traktor</label> 
+                                                <input type="text" style="margin-left : 10px;" class="form-control" id="simluh_hand_tractor" name="simluh_hand_tractor" >
+                                                        </div>   
+                                                        <div class="input-group mb-3">
+                                            <label style="margin-top : 10px;" class="form-check-label">Pompa Air</label> 
+                                                <input type="text" style="margin-left : 10px;" class="form-control" id="simluh_alsin_pompa_air" name="simluh_alsin_pompa_air" >
+                                                        </div>   
+                                                        <div class="input-group mb-3">
+                                            <label style="margin-top : 10px;" class="form-check-label">Mesin Penggiling Padi</label> 
+                                                <input type="text" style="margin-left : 10px;" class="form-control" id="simluh_penggiling_padi" name="simluh_penggiling_padi" >
+                                                        </div>   
+                                                        <div class="input-group mb-3">
+                                            <label style="margin-top : 10px;" class="form-check-label">Mesin Pengering</label> 
+                                                <input type="text" style="margin-left : 10px;" class="form-control" id="simluh_alsin_pengering" name="simluh_alsin_pengering" >
+                                                        </div>   
+                                                        <div class="input-group mb-3">
+                                            <label style="margin-top : 10px;" class="form-check-label">Mesin Pencacah</label> 
+                                                <input type="text" style="margin-left : 10px;" class="form-control" id="simluh_alsin_chooper" name="simluh_alsin_chooper" >
+                                                        </div>   
+                                                        <div class="input-group mb-3">
+                                            <label style="margin-top : 10px;" class="form-check-label">Lainnya</label> 
+                                                <input type="text" style="margin-left : 10px;" class="form-control" id="simluh_alsin_lain_desc" name="simluh_alsin_lain_desc" >
+                                                <input type="text" style="margin-left : 10px;" class="form-control" id="simluh_alsin_lain" name="simluh_alsin_lain" >
+                                                        </div>                        
+                                            </div>
+                                            </div>
+
+                                            <input type="hidden" name="kode_prop" id="kode_prop" value="<?= $kode_prop; ?>">
                                             <input type="hidden" name="kode_kab" id="kode_kab" value="<?= $kode; ?>">
                                             <input type="hidden" name="kode_kec" id="kode_kec" value="<?= $kode_kec; ?>">
                                                 <input type="hidden" class="form-control" id="id_gap" name="id_gap" value="<?= $row['id_gap'] ?>" >
@@ -193,8 +280,26 @@ if (empty(session()->get('status_user')) || session()->get('status_user') == '2'
             var simluh_bendahara = $('#simluh_bendahara').val();
             var simluh_tahun_bentuk = $('#year').val();
             var simluh_sk_pengukuhan = $('#simluh_sk_pengukuhan').val();
+            var simluh_usaha_tani = $('#simluh_usaha_tani').val();
+            var simluh_usaha_olah = $('#simluh_usaha_olah').val();
+
+            var simluh_usaha_saprodi = $(".simluh_usaha_saprodi")[0].checked ? $(".simluh_usaha_saprodi").val() : "";
+            var simluh_usaha_pemasaran = $(".simluh_usaha_pemasaran")[0].checked ? $(".simluh_usaha_pemasaran").val() : "";
+            var simluh_usaha_simpan_pinjam = $(".simluh_usaha_simpan_pinjam")[0].checked ? $(".simluh_usaha_simpan_pinjam").val() : "";
+            var simluh_usaha_jasa_lain = $(".simluh_usaha_jasa_lain")[0].checked ? $(".simluh_usaha_jasa_lain").val() : "";
+            var simluh_usaha_jasa_lain_desc = $('#simluh_usaha_jasa_lain_desc').val();
+
+            var simluh_alsin_traktor = $('#simluh_alsin_traktor').val();
+            var simluh_alsin_hand_tractor = $('#simluh_alsin_hand_tractor').val();
+            var simluh_alsin_pompa_air = $('#simluh_alsin_pompa_air').val();
+            var simluh_alsin_penggiling_padi = $('#simluh_alsin_penggiling_padi').val();
+            var simluh_alsin_pengering = $('#simluh_alsin_pengering').val();
+            var simluh_alsin_chooper = $('#simluh_alsin_chooper').val();
+            var simluh_alsin_lain_desc = $('#simluh_alsin_lain_desc').val();
+            var simluh_alsin_lain = $('#simluh_alsin_lain').val();
+
             $.ajax({
-                url: '<?= base_url() ?>/KelembagaanPelakuUtama/Gapoktan/ListGapoktan/save/',
+                url: '<?= base_url() ?>/KelembagaanPelakuUtama/Gapoktan/Gapoktan/save/',
                 type: 'POST',
                 data: {
                     'kode_prop': kode_prop,
@@ -207,7 +312,26 @@ if (empty(session()->get('status_user')) || session()->get('status_user') == '2'
                     'simluh_sekretaris': simluh_sekretaris,
                     'simluh_bendahara': simluh_bendahara,
                     'simluh_tahun_bentuk': simluh_tahun_bentuk,
-                    'simluh_sk_pengukuhan': simluh_sk_pengukuhan
+                    'simluh_sk_pengukuhan': simluh_sk_pengukuhan,
+                    'simluh_usaha_tani': simluh_usaha_tani,
+                    'simluh_usaha_olah': simluh_usaha_olah,
+                    
+                    'simluh_usaha_saprodi': simluh_usaha_saprodi,
+                    'simluh_usaha_pemasaran': simluh_usaha_pemasaran,
+                    'simluh_usaha_simpan_pinjam': simluh_usaha_simpan_pinjam,
+                    'simluh_usaha_jasa_lain': simluh_usaha_jasa_lain,
+                    'simluh_usaha_jasa_lain_desc': simluh_usaha_jasa_lain_desc,
+
+                    
+                    'simluh_alsin_traktor': simluh_alsin_traktor,
+                    'simluh_alsin_hand_tractor': simluh_alsin_hand_tractor,
+                    'simluh_alsin_pompa_air': simluh_alsin_pompa_air,
+                    'simluh_alsin_penggiling_padi': simluh_alsin_penggiling_padi,
+                    'simluh_alsin_pengering': simluh_alsin_pengering,
+                    'simluh_alsin_chooper': simluh_alsin_chooper,
+                    'simluh_alsin_lain_desc': simluh_alsin_lain_desc,
+                    'simluh_alsin_lain': simluh_alsin_lain,
+
                 },
                 success: function(result) {
                     result = JSON.parse(result);
@@ -260,7 +384,9 @@ if (empty(session()->get('status_user')) || session()->get('status_user') == '2'
                     var id_gap = $(this).data('id_gap');
 
                     $.ajax({
-                        url: '<?= base_url() ?>/KelembagaanPelakuUtama/Gapoktan/ListGapoktan/delete/' + id_gap,
+
+                        url: '<?= base_url() ?>/KelembagaanPelakuUtama/Gapoktan/Gapoktan/delete/' + id,
+
                         type: 'POST',
 
                         success: function(result) {
@@ -294,7 +420,7 @@ if (empty(session()->get('status_user')) || session()->get('status_user') == '2'
        
         $(document).delegate('#btnEditGap', 'click', function() {
             $.ajax({
-                url: '<?= base_url() ?>/KelembagaanPelakuUtama/Gapoktan/ListGapoktan/edit/' + $(this).data('id_gap'),
+                url: '<?= base_url() ?>/KelembagaanPelakuUtama/Gapoktan/Gapoktan/edit/' + $(this).data('id_gap'),
                 type: 'GET',
                 dataType: 'JSON',
                 success: function(result) {
@@ -312,6 +438,39 @@ if (empty(session()->get('status_user')) || session()->get('status_user') == '2'
                     $('#simluh_bendahara').val(result.simluh_bendahara);
                     $('#simluh_sekretaris').val(result.simluh_sekretaris);
                     $('#simluh_sk_pengukuhan').val(result.simluh_sk_pengukuhan);
+                    $('#simluh_usaha_tani').val(result.simluh_usaha_tani);
+                    $('#simluh_usaha_olah').val(result.simluh_usaha_olah);
+
+                    if (result.simluh_usaha_saprodi == "saprodi") {
+                        $("#simluh_usaha_saprodi").prop("checked", true);
+                    } else {
+                        $("#simluh_usaha_saprodi").prop("checked", false);
+                    } 
+                    if (result.simluh_usaha_pemasaran == "pemasaran") {
+                        $("#simluh_usaha_pemasaran").prop("checked", true);
+                    } else {
+                        $("#simluh_usaha_pemasaran").prop("checked", false);
+                    } 
+                    if (result.simluh_usaha_simpan_pinjam == "simpan_pinjam") {
+                        $("#simluh_usaha_simpan_pinjam").prop("checked", true);
+                    } else {
+                        $("#simluh_usaha_simpan_pinjam").prop("checked", false);
+                    }
+                    if (result.simluh_usaha_jasa_lain == "jasa_lain") {
+                        $("#simluh_usaha_jasa_lain").prop("checked", true);
+                    } else {
+                        $("#simluh_usaha_jasa_lain").prop("checked", false);
+                    }
+                    $('#simluh_usaha_jasa_lain_desc').val(result.simluh_usaha_jasa_lain_desc);
+
+                    $('#simluh_alsin_traktor').val(result.simluh_alsin_traktor);
+                    $('#simluh_alsin_hand_tractor').val(result.simluh_alsin_hand_tractor);
+                    $('#simluh_alsin_pompa_air').val(result.simluh_alsin_pompa_air);
+                    $('#simluh_alsin_pengering').val(result.simluh_alsin_pengering);
+                    $('#simluh_alsin_penggiling_padi').val(result.simluh_alsin_penggiling_padi);
+                    $('#simluh_alsin_chooper').val(result.simluh_alsin_chooper);
+                    $('#simluh_alsin_lain_desc').val(result.simluh_alsin_lain_desc);
+                    $('#simluh_alsin_lain').val(result.simluh_alsin_lain);
 
 
                     $('#modal-form').modal('show');
@@ -332,6 +491,24 @@ if (empty(session()->get('status_user')) || session()->get('status_user') == '2'
                         var simluh_sk_pengukuhan = $('#simluh_sk_pengukuhan').val();
                         var simluh_bendahara = $('#simluh_bendahara').val();
                         var simluh_sekretaris = $('#simluh_sekretaris').val();
+                        var simluh_usaha_tani = $('#simluh_usaha_tani').val();
+                        var simluh_usaha_olah = $('#simluh_usaha_olah').val();
+
+                        var simluh_usaha_saprodi = $(".simluh_usaha_saprodi")[0].checked ? $(".simluh_usaha_saprodi").val() : "";
+                        var simluh_usaha_pemasaran = $(".simluh_usaha_pemasaran")[0].checked ? $(".simluh_usaha_pemasaran").val() : "";
+                        var simluh_usaha_simpan_pinjam = $(".simluh_usaha_simpan_pinjam")[0].checked ? $(".simluh_usaha_simpan_pinjam").val() : "";
+                        var simluh_usaha_jasa_lain = $(".simluh_usaha_jasa_lain")[0].checked ? $(".simluh_usaha_jasa_lain").val() : "";
+                        var simluh_usaha_jasa_lain_desc = $('#simluh_usaha_jasa_lain_desc').val();
+
+                        var simluh_alsin_traktor = $('#simluh_alsin_traktor').val();
+                        var simluh_alsin_hand_tractor = $('#simluh_alsin_hand_tractor').val();
+                        var simluh_alsin_pompa_air = $('#simluh_alsin_pompa_air').val();
+                        var simluh_alsin_penggiling_padi = $('#simluh_alsin_penggiling_padi').val();
+                        var simluh_alsin_pengering = $('#simluh_alsin_pengering').val();
+                        var simluh_alsin_chooper = $('#simluh_alsin_chooper').val();
+                        var simluh_alsin_lain_desc = $('#simluh_alsin_lain_desc').val();
+                        var simluh_alsin_lain = $('#simluh_alsin_lain').val();
+                
 
                         let formData = new FormData();
                         formData.append('id_gap', id_gap);
@@ -346,9 +523,25 @@ if (empty(session()->get('status_user')) || session()->get('status_user') == '2'
                         formData.append('simluh_sk_pengukuhan', simluh_sk_pengukuhan);
                         formData.append('simluh_bendahara', simluh_bendahara);
                         formData.append('simluh_sekretaris', simluh_sekretaris);
+                        formData.append('simluh_usaha_olah', simluh_usaha_olah);
+                        formData.append('simluh_sk_pengukuhan', simluh_sk_pengukuhan);
+                        
+                        formData.append('simluh_usaha_saprodi', simluh_usaha_saprodi);
+                        formData.append('simluh_usaha_pemasaran', simluh_usaha_pemasaran);
+                        formData.append('simluh_usaha_simpan_pinjam', simluh_usaha_simpan_pinjam);
+                        formData.append('simluh_usaha_jasa_lain', simluh_usaha_jasa_lain);
+                        formData.append('simluh_usaha_jasa_lain_desc', simluh_usaha_jasa_lain_desc);
+                        formData.append('simluh_alsin_traktor', simluh_alsin_traktor);
+                        formData.append('simluh_alsin_hand_tractor', simluh_alsin_hand_tractor);
+                        formData.append('simluh_alsin_pompa_air', simluh_alsin_pompa_air);
+                        formData.append('simluh_alsin_penggiling_padi)', simluh_alsin_penggiling_padi);
+                        formData.append('simluh_alsin_chooper', simluh_alsin_chooper);
+                        formData.append('simluh_alsin_lain_desc', simluh_alsin_lain_desc);
+                        formData.append('simluh_alsin_lain', simluh_alsin_lain);
+                        formData.append('simluh_alsin_pengering', simluh_alsin_pengering);
 
                         $.ajax({
-                            url: '<?= base_url() ?>/KelembagaanPelakuUtama/Gapoktan/ListGapoktan/update/' + id_gap,
+                            url: '<?= base_url() ?>/KelembagaanPelakuUtama/Gapoktan/Gapoktan/update/' + id_gap,
                             type: "POST",
                             data: formData,
                             cache: false,

@@ -81,7 +81,7 @@ $routes->post('/listpoktan/save', 'KelembagaanPelakuUtama/Gapoktan/ListGapoktan:
 
 
 $routes->get('/kelembagaanpetanilainnya', 'KelembagaanPelakuUtama/KelembagaanPetaniLainnya/KelembagaanPetaniLainnya::kelembagaanpetanilainnya');
-$routes->get('/listkep2l', 'KelembagaanPelakuUtama/KelembagaanPetaniLainnya/ListKEP2L::listkep2l');
+$routes->get('/listkep2l', 'KelembagaanPelakuUtama/KelembagaanPetaniLainnya/KelembagaanPetaniLainnya::listkep2l');
 $routes->get('/kep2lkec', 'KelembagaanPelakuUtama/KelembagaanPetaniLainnya/Kep2lKec::kep2lkec');
 
 $routes->get('/desa', 'KelembagaanPenyuluhan/Desa/Desa::desa');

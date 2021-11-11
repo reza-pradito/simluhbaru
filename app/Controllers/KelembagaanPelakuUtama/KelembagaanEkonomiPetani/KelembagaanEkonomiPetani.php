@@ -8,6 +8,15 @@ use App\Models\KodeWilayah\KodeWilModel;
 
 class KelembagaanEkonomiPetani extends BaseController
 {
+    protected $model;
+    public function __construct()
+    {
+        $this->session = service('session');
+        $this->config = config('Auth');
+        $this->auth = service('authentication');
+
+        $this->model = new ListKEPModel();
+    }
     public function kelembagaanekonomipetani()
     {
         if (empty(session()->get('status_user')) || session()->get('status_user') == '2') {
@@ -77,6 +86,19 @@ class KelembagaanEkonomiPetani extends BaseController
                 'jum_anggota' => $this->request->getPost('jum_anggota'),
                 'jum_poktan' => $this->request->getPost('jum_poktan'),
                 'jum_gapoktan' => $this->request->getPost('jum_gapoktan'),
+                'total_aset' => $this->request->getPost('total_aset'),
+                'sertifikasi' => $this->request->getPost('sertifikasi'),
+
+                'jenis_mitra_internasional' => $this->request->getPost('jenis_mitra_internasional'),
+                'jenis_mitra_nasional' => $this->request->getPost('jenis_mitra_nasional'),
+                'jenis_mitra_lokal' => $this->request->getPost('jenis_mitra_lokal'),
+                'jenis_mitra_koperasi' => $this->request->getPost('jenis_mitra_koperasi'),
+                'jenis_mitra_perorangan' => $this->request->getPost('jenis_mitra_perorangan'),
+
+                
+                'bentuk_mitra_pemasaran' => $this->request->getPost('bentuk_mitra_pemasaran'),
+                'bentuk_mitra_saprodi' => $this->request->getPost('bentuk_mitra_saprodi'),
+                'bnetuk_mitra_pendampingan' => $this->request->getPost('bnetuk_mitra_pendampingan'),
               
 
             ]);
@@ -123,6 +145,18 @@ class KelembagaanEkonomiPetani extends BaseController
         $alamat = $this->request->getPost('alamat');
         $no_telp = $this->request->getPost('no_telp');  
         $email = $this->request->getPost('email');
+        $total_aset = $this->request->getPost('total_aset');
+        $sertifikasi = $this->request->getPost('sertifikasi');
+        
+        $jenis_mitra_internasional = $this->request->getPost('jenis_mitra_internasional');
+        $jenis_mitra_nasional = $this->request->getPost('jenis_mitra_nasional');
+        $jenis_mitra_lokal = $this->request->getPost('jenis_mitra_lokal');
+        $jenis_mitra_koperasi = $this->request->getPost('jenis_mitra_koperasi');
+        $jenis_mitra_perorangan = $this->request->getPost('jenis_mitra_perorangan');
+        
+        $bentuk_mitra_pemasaran = $this->request->getPost('bentuk_mitra_pemasaran');
+        $bentuk_mitra_saprodi = $this->request->getPost('bentuk_mitra_saprodi');
+        $bnetuk_mitra_pendampingan = $this->request->getPost('bnetuk_mitra_pendampingan');
        
         $this->model->save([
             'id_kep' => $id_kep,
@@ -140,6 +174,18 @@ class KelembagaanEkonomiPetani extends BaseController
             'no_telp' => $no_telp,
             'nama_direktur' => $nama_direktur,
             'email' => $email,
+            'total_aset' => $total_aset,
+            'sertifikasi' => $sertifikasi,
+            
+            'jenis_mitra_internasional' => $jenis_mitra_internasional,
+            'jenis_mitra_nasional' => $jenis_mitra_nasional,
+            'jenis_mitra_lokal' => $jenis_mitra_lokal,
+            'jenis_mitra_koperasi' => $jenis_mitra_koperasi,
+            'jenis_mitra_perorangan' => $jenis_mitra_perorangan,
+            
+            'bentuk_mitra_pemasaran' => $bentuk_mitra_pemasaran,
+            'bentuk_mitra_saprodi' => $bentuk_mitra_saprodi,
+            'bnetuk_mitra_pendampingan' => $bnetuk_mitra_pendampingan,
         ]);
 
         //session()->setFlashdata('pesan', 'Data berhasil diubah');
