@@ -43,15 +43,13 @@ class PosluhdesModel extends Model
         $row   = $query->getRow();
         $query2 = $db->query("SELECT count(idpos) as jum_kec FROM tb_posluhdes where kode_kec ='$kode_kec'");
         $row2   = $query2->getRow();
-        $query2 = $db->query("SELECT count(idpos) as jum_kec FROM tb_posluhdes where kode_kec ='$kode_kec'");
-        $row2   = $query2->getRow();
-        $query3  = $db->query("select * , b.nm_desa, c.nama as penyuluh_swadaya, a.idpos, a.kode_kec, a.kode_kab, a.tahun_berdiri, a.nama, a.alamat, b.id_desa, c.id_swa, c.noktp, d.deskripsi, b.id_daerah, b.id_dati2, b.id_prop 
+        $query3  = $db->query("select * ,a.idpos, b.nm_desa, c.nama as penyuluh_swadaya, a.idpos, a.kode_kec, a.kode_kab, a.tahun_berdiri, a.nama, a.alamat, b.id_desa, c.id_swa, c.noktp, d.deskripsi, b.id_daerah, b.id_dati2, b.id_prop 
                                 from tb_posluhdes a
                                 left join tbldesa b on a.kode_desa=b.id_desa
                                 left join tbldasar_swa c on a.penyuluh_swadaya=c.id_swa 
                                 left join tbldaerah d on a.kode_kec=d.id_daerah
                                 where kode_kec='$kode_kec'
-                                order by a.nama, a.kode_desa, b.nm_desa ASC");
+                                order by a.idpos DESC");
         $results = $query3->getResultArray();
 
 

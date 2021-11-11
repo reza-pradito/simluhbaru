@@ -7,26 +7,22 @@ use \Config\Database;
 
 class ListBantuModel extends Model
 {
-    protected $table      = 'tb_bantuan';
-    protected $primaryKey = 'idban';
-    protected $allowedFields = ['id_poktan','volume','tahun','kegiatan','sk_cpl   '];
+    protected $table      = 'mast_kegiatan';
+    protected $primaryKey = 'idmast';
+    protected $allowedFields = ['idkeg','desckeg','iditem','subitem','kegiatan'];
 
 
     protected $useTimestamps = false;
  
-    public function getListBantu($id_poktan)
+    public function getListBantu($ip)
     {
         $db = Database::connect();
-        $query = $db->query("select nama_poktan,kode_prop,kode_kab,kode_kec,kode_desa from tb_poktan where id_poktan='$id_poktan'");
+        $query = $db->query("select nama_poktan,kode_prop,kode_kab,kode_kec,kode_desa from tb_poktan where id_poktan='$ip'");
         $row   = $query->getRow();
         
         
         
-        $query3   = $db->query(" select * , b.idmast,b.idkeg,b.desckeg,b.iditem,b.subitem,b.kegiatan
-                                from tb_bantuan a
-                                left join mast_kegiatan b on a.kegiatan=b.kegiatan 
-                                where id_poktan= $id_poktan
-                                ORDER BY tahun");
+        $query3   = $db->query(" select * from tb_bantuan where idban= $ip");
 
         $results = $query3->getResultArray();
 
@@ -41,9 +37,9 @@ class ListBantuModel extends Model
 
         return $data;
     }
-    public function getDataById($id_poktan)
+    public function getDataById($ip)
     {
-        $query = $this->db->query("select * from tb_bantuan where idban= '" . $id_poktan . "' 
+        $query = $this->db->query("select * from tb_bantuan where idban= '" . $ip . "' 
                                 ORDER BY tahun ");
                                 $row = $query->getRow();
                                 return json_encode($row);

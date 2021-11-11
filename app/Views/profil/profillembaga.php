@@ -20,6 +20,7 @@ $data = $json[0];
 ?>
 <div class="container-fluid py-4">
     <div class="row">
+        <?= $validation->getError(); ?>
         <!-- Page Heading -->
         <div class="row mt-3 mb-4">
 
@@ -216,6 +217,7 @@ $data = $json[0];
                                     <div class="row">
 
 
+
                                         <h1 class="h3 mb-4 text-gray-800"><?= $title; ?><i class="fas fa-edit" style="float: right;" data-bs-toggle="modal" data-bs-target="#modal-form" id="btn-edit" data-id_gapoktan="<?php
                                                                                                                                                                                                                             if (session()->get('status_user') == '200') {
                                                                                                                                                                                                                                 echo $dt['id_gapoktan'];
@@ -249,7 +251,7 @@ $data = $json[0];
                                                         <tr>
                                                             <td>Provinsi</td>
                                                             <td>:</td>
-                                                            <td><?= $namaprov; ?></td>
+                                                            <td><?= $dt['kode_prop']; ?></td>
                                                         </tr>
                                                         <tr>
                                                             <td>No Telepon/Fax</td>
@@ -279,13 +281,15 @@ $data = $json[0];
                                                         <tr>
                                                             <td>Nama Koordinator PP</td>
                                                             <td>:</td>
-                                                            <<td><?php if ($dt['kode_koord_penyuluh'] == "1") {
-                                                                        echo $dt['nama_koord_penyuluh'];
-                                                                    } elseif ($dt['kode_koord_penyuluh'] == "2") {
-                                                                        echo $dt['nama_koord_penyuluh_thl'];
-                                                                    } elseif ($dt['kode_koord_penyuluh'] == "3") {
-                                                                        echo $dt['koord_lainnya_nama'];
-                                                                    } ?></td>
+
+                                                            <td><?php if ($dt['kode_koord_penyuluh'] == "1") {
+                                                                    echo $dt['nama_koord_penyuluh'];
+                                                                } elseif ($dt['kode_koord_penyuluh'] == "2") {
+                                                                    echo $dt['nama_koord_penyuluh_thl'];
+                                                                } elseif ($dt['kode_koord_penyuluh'] == "3") {
+                                                                    echo $dt['koord_lainnya_nama'];
+                                                                } ?></td>
+
                                                         </tr>
                                                     </tbody>
                                                 </table>
@@ -438,7 +442,6 @@ $data = $json[0];
                             <div class="card">
                                 <div class="card-body p-3">
                                     <div class="row">
-
                                         <h4 class="h3 mb-4 text-gray-800">Daftar Penyuluh Yang Bertugas di Kabupaten/Kota</h4>
                                         <div class="col-sm-4">
                                             <h5><span>Jumlah Penyuluh PNS</span></h5>
@@ -528,7 +531,6 @@ $data = $json[0];
                                                     </table>
                                                 </div>
                                             </div>
-
                                         </div>
                                     </div>
 
@@ -540,6 +542,7 @@ $data = $json[0];
 
                     </div>
                 </div>
+
 
                 <div class="tab-pane fade" id="nav-kegiatan" role="tabpanel" aria-labelledby="nav-home-tab">
                     <div class="row">
@@ -576,9 +579,7 @@ $data = $json[0];
                                                             </td>
                                                             <td class="align-middle text-center text-sm">
                                                                 <a href="#">
-
                                                                     <button type="button" id="btn-edit-fas" class="btn bg-gradient-warning btn-sm" data-id="<?= $value['id'] ?>">
-
                                                                         <i class="fas fa-edit"></i> Ubah
                                                                     </button>
                                                                 </a>
@@ -652,49 +653,49 @@ $data = $json[0];
                                                         <input type="text" class="form-control" id="deskripsi_lembaga_lain" placeholder="" name="deskripsi_lembaga_lain">
                                                         <label>Pilih Sesuai nomenklatur :</label>
                                                         <div class="form-check">
-                                                            <input class="form-check-input" type="checkbox" id="jenis_pertanian" name="jenis_pertanian" value="1">
+                                                            <input class="form-check-input jenis_pertanian" type="checkbox" id="jenis_pertanian" name="jenis_pertanian" value="1">
                                                             <label class="form-check-label" for="flexCheckDefault">
                                                                 Pertanian
                                                             </label>
                                                         </div>
                                                         <div class="form-check">
-                                                            <input class="form-check-input" type="checkbox" id="jenis_tp" name="jenis_tp" value="2">
+                                                            <input class="form-check-input jenis_tp" type="checkbox" id="jenis_tp" name="jenis_tp" value="2">
                                                             <label class="form-check-label" for="flexCheckDefault">
                                                                 Tanaman Pangan
                                                             </label>
                                                         </div>
                                                         <div class="form-check">
-                                                            <input class="form-check-input" type="checkbox" id="jenis_hor" name="jenis_hor" value="3">
+                                                            <input class="form-check-input jenis_hor" type="checkbox" id="jenis_hor" name="jenis_hor" value="3">
                                                             <label class="form-check-label" for="flexCheckDefault">
                                                                 Hortikultura
                                                             </label>
                                                         </div>
                                                         <div class="form-check">
-                                                            <input class="form-check-input" type="checkbox" id="jenis_bun" name="jenis_bun" value="4">
+                                                            <input class="form-check-input jenis_bun" type="checkbox" id="jenis_bun" name="jenis_bun" value="4">
                                                             <label class="form-check-label" for="flexCheckDefault">
                                                                 Perkebunan
                                                             </label>
                                                         </div>
                                                         <div class="form-check">
-                                                            <input class="form-check-input" type="checkbox" id="jenis_nak" name="jenis_nak" value="5">
+                                                            <input class="form-check-input jenis_nak" type="checkbox" id="jenis_nak" name="jenis_nak" value="5">
                                                             <label class="form-check-label" for="flexCheckDefault">
                                                                 Peternakan
                                                             </label>
                                                         </div>
                                                         <div class="form-check">
-                                                            <input class="form-check-input" type="checkbox" id="jenis_ketahanan_pangan" name="jenis_ketahanan_pangan" value="6">
+                                                            <input class="form-check-input jenis_ketahanan_pangan" type="checkbox" id="jenis_ketahanan_pangan" name="jenis_ketahanan_pangan" value="6">
                                                             <label class="form-check-label" for="flexCheckDefault">
                                                                 Kesehatan Pangan
                                                             </label>
                                                         </div>
                                                         <div class="form-check">
-                                                            <input class="form-check-input" type="checkbox" id="jenis_pkh" name="jenis_pkh" value="7">
+                                                            <input class="form-check-input jenis_pkh" type="checkbox" id="jenis_pkh" name="jenis_pkh" value="7">
                                                             <label class="form-check-label" for="flexCheckDefault">
                                                                 Kesehatan Hewan
                                                             </label>
                                                         </div>
                                                         <div class="form-check">
-                                                            <input class="form-check-input" type="checkbox" id="jenis_pangan" name="jenis_pangan" value="8">
+                                                            <input class="form-check-input jenis_pangan" type="checkbox" id="jenis_pangan" name="jenis_pangan" value="8">
                                                             <label class="form-check-label" for="flexCheckDefault">
                                                                 Pangan
                                                             </label>
@@ -781,7 +782,6 @@ $data = $json[0];
 
                                                 </div>
                                             </div>
-
 
                                             <div class="col">
                                                 <label for="ketua">Bidang yang menangani fungsi penyuluhan</label>
@@ -899,8 +899,6 @@ $data = $json[0];
                                         <button type="button" class="btn bg-gradient-secondary" data-bs-dismiss="modal">Close</button>
                                         <button type="button" id="btnSimpan" class="btn bg-gradient-primary">Simpan Data</button>
                                     </div>
-
-
                             </div>
                             </form>
                         </div>
@@ -908,10 +906,7 @@ $data = $json[0];
                     </div>
                 </div>
             </div>
-
         </div>
-
-
 
 
         <div class="modal fade" id="modalFoto" tabindex="-1" role="dialog" aria-labelledby="modalFoto" aria-hidden="true">
@@ -936,20 +931,15 @@ $data = $json[0];
                                                         echo base_url('assets/img/' . $fotoprofil);
                                                     }  ?>" width="150px" class="img-thumbnail" alt="profil">
                                     </div>
-
                                 </div>
 
 
                             </div>
-                            <div class="modal-footer">
-                                <button type="button" class="btn bg-gradient-secondary" data-bs-dismiss="modal">Close</button>
-                                <button type="button" id="btnSimpan" class="btn bg-gradient-primary">Simpan Data</button>
-                            </div>
+
 
                             <div class="input-group mb-3">
                                 <input type="file" class="form-control" id="foto" name="foto">
                                 <label class="input-group-text" for="foto">Pilih Foto</label>
-
                             </div>
 
                     </div>
@@ -974,10 +964,6 @@ $data = $json[0];
 <?= $this->section('script') ?>
 
 <script type="text/javascript">
-    $('#uploadbtn').on('click', function() {
-        $('#modalFoto').modal('show');
-    })
-
     function loadNamaKoordinator() {
         if ($('#inlineRadio1').is(':checked')) {
             $("#divPNS").show();
@@ -1053,14 +1039,46 @@ $data = $json[0];
                     $('#telp_hp').val(res[0].telp_hp);
                     $('#telp_hp_koord').val(res[0].telp_hp_koord);
                     $('#email_koord').val(res[0].email_koord);
-                    $("#jenis_pertanian")[0].checked ? $("#jenis_pertanian").val() : "";
-                    $('#jenis_tp').val(res[0].jenis_tp);
-                    $('#jenis_hor').val(res[0].jenis_hor);
-                    $('#jenis_bun').val(res[0].jenis_bun);
-                    $('#jenis_nak').val(res[0].jenis_nak);
-                    $('#jenis_pkh').val(res[0].jenis_pkh);
-                    $('#jenis_ketahanan_pangan').val(res[0].jenis_ketahanan_pangan);
-                    $('#jenis_pangan').val(res[0].jenis_pangan);
+                    if (res[0].jenis_pertanian == "1") {
+                        $("#jenis_pertanian").prop("checked", true);
+                    } else {
+                        $("#jenis_pertanian").prop("checked", false);
+                    }
+                    if (res[0].jenis_tp == "2") {
+                        $("#jenis_tp").prop("checked", true);
+                    } else {
+                        $("#jenis_tp").prop("checked", false);
+                    }
+                    if (res[0].jenis_hor == "3") {
+                        $("#jenis_hor").prop("checked", true);
+                    } else {
+                        $("#jenis_hor").prop("checked", false);
+                    }
+                    if (res[0].jenis_bun == "4") {
+                        $("#jenis_bun").prop("checked", true);
+                    } else {
+                        $("#jenis_bun").prop("checked", false);
+                    }
+                    if (res[0].jenis_nak == "5") {
+                        $("#jenis_nak").prop("checked", true);
+                    } else {
+                        $("#jenis_nak").prop("checked", false);
+                    }
+                    if (res[0].jenis_ketahanan_pangan == "6") {
+                        $("#jenis_ketahanan_pangan").prop("checked", true);
+                    } else {
+                        $("#jenis_ketahanan_pangan").prop("checked", false);
+                    }
+                    if (res[0].jenis_pkh == "7") {
+                        $("#jenis_pkh").prop("checked", true);
+                    } else {
+                        $("#jenis_pkh").prop("checked", false);
+                    }
+                    if (res[0].jenis_pangan == "8") {
+                        $("#jenis_pangan").prop("checked", true);
+                    } else {
+                        $("#jenis_pangan").prop("checked", false);
+                    }
                     $('#bidang_luh').val(res[0].bidang_luh);
                     $('#nama_kabid').val(res[0].nama_kabid);
                     $('#hp_kabid').val(res[0].hp_kabid);
@@ -1098,15 +1116,14 @@ $data = $json[0];
 
                         var telp_hp_koord = $('#telp_hp_koord').val();
                         var email_koord = $('#email_koord').val();
-                        var jenis_pertanian = $('#jenis_pertanian').val();
-                        var jenis_tp = $('#jenis_tp').val();
-                        var jenis_hor = $('#jenis_hor').val();
-                        var jenis_bun = $('#jenis_bun').val();
-                        var jenis_nak = $('#jenis_nak').val();
-                        var jenis_pkh = $('#jenis_pkh').val();
-                        var jenis_ketahanan_pangan = $('#jenis_ketahanan_pangan').val();
-                        var jenis_pangan = $('#jenis_pangan').val();
-
+                        var jenis_pertanian = $(".jenis_pertanian")[0].checked ? $(".jenis_pertanian").val() : "";
+                        var jenis_tp = $(".jenis_tp")[0].checked ? $(".jenis_tp").val() : "";
+                        var jenis_hor = $(".jenis_hor")[0].checked ? $(".jenis_hor").val() : "";
+                        var jenis_bun = $(".jenis_bun")[0].checked ? $(".jenis_bun").val() : "";
+                        var jenis_nak = $(".jenis_nak")[0].checked ? $(".jenis_nak").val() : "";
+                        var jenis_pkh = $(".jenis_pkh")[0].checked ? $(".jenis_pkh").val() : "";
+                        var jenis_ketahanan_pangan = $(".jenis_ketahanan_pangan")[0].checked ? $(".jenis_ketahanan_pangan").val() : "";
+                        var jenis_pangan = $(".jenis_pangan")[0].checked ? $(".jenis_pangan").val() : "";
                         var bidang_luh = $('#bidang_luh').val();
                         var nama_kabid = $('#nama_kabid').val();
                         var hp_kabid = $('#hp_kabid').val();

@@ -11,7 +11,7 @@ use App\Models\KelembagaanPenyuluhan\Kecamatan\PenghargaanModel;
 use App\Models\KelembagaanPenyuluhan\Kecamatan\PotensiWilayahModel;
 use App\Models\KelembagaanPenyuluhan\Kecamatan\WilkecModel;
 use App\Models\KodeWilayah\KodeWilModel;
-
+use Exception;
 
 class Kecamatan extends BaseController
 {
@@ -36,13 +36,13 @@ class Kecamatan extends BaseController
         $kec_model = new KecamatanModel;
         $kode_model = new KodeWilModel();
 
-        $kode_prop = substr(session()->get('kodebapel'), 0, 2);
+        // $kode_prop = substr(session()->get('kodebapel'), 0, 2);
         $kec_data = $kec_model->getKecTotal($this->session->get('kodebapel'));
         $penyuluhPNS = $kec_model->getPenyuluhPNS(session()->get('kodebapel'));
         $penyuluhTHL = $kec_model->getPenyuluhTHL(session()->get('kodebapel'));
         $kec = $kec_model->getKec(session()->get('kodebapel'));
-        $kode = $kode_model->getKodeWil2(session()->get('kodebapel'));
-        $no_urut = $kec_model->getNoUrut($kode_prop, session()->get('kodebapel'));
+        $kode = $kode_model->getKodeWil(session()->get('kodebapel'));
+        $no_urut = $kec_model->getNoUrut(session()->get('kodebapel'));
 
         $data = [
             //'jumpns' => $kec_data['jumpns'],
@@ -52,13 +52,12 @@ class Kecamatan extends BaseController
             'penyuluhTHL' => $penyuluhTHL,
             'title' => 'Kecamatan',
             'name' => 'Kecamatan',
-            'urut' => $no_urut,
+            'urut' => $no_urut['no_urut'],
             'kode_prop' => $kode['kode_prop'],
             'kode_kab' => $kode['kode_kab'],
             'kec' => $kec,
             'validation' => \Config\Services::validation()
         ];
-
         return view('KelembagaanPenyuluhan/Kecamatan/kecamatan', $data);
     }
 
@@ -78,8 +77,7 @@ class Kecamatan extends BaseController
         $query2->getResultArray();
 
         $get_param = $this->request->getGet();
-        // $kode_kec = $get_param['kode_kec'];
-
+        $kode_kec = $get_param['kode_kec'];
 
         $profilkec = $kec_model->getProfilKec($kode_kec);
         $wilkec = $kec_model->getWIlkec($kode_kec);
@@ -88,7 +86,7 @@ class Kecamatan extends BaseController
         $penyuluhTHL = $kec_model->getPenyuluhTHL(session()->get('kodebapel'));
         $kec = $kec_model->getKec(session()->get('kodebapel'));
         $fasdata = $kec_model->getFas($kode_kec);
-        $kode = $wilModel->getKodeWil2(session()->get('kodebapel'));
+        $kode = $wilModel->getKodeWil(session()->get('kodebapel'));
         $idbpp = $kec_model->getIdBpp(session()->get('kodebapel'));
         $klas = $kec_model->getKlasifikasi($kode_kec);
         $award = $kec_model->getAward($kode_kec);
@@ -96,10 +94,11 @@ class Kecamatan extends BaseController
         $potensi = $kec_model->getPotensiWilayah($kode_kec);
         $jenis_komoditas = $kec_model->getJenisKomoditas();
         $penyuluh = $kec_model->getPenyuluh($kode_kec);
-
+        $bp = $kec_model->getBP3K($kode_kec);
 
         $data = [
             'title' => 'Profil BPP',
+            'bp' => $bp['kode_bp3k'],
             'dt' => $profilkec,
             'wilkec' => $wilkec['wilkec'],
             'fasilitasi' => $query->getResultArray(),
@@ -124,10 +123,7 @@ class Kecamatan extends BaseController
             'p3k_kec' => $penyuluh['p3k_kec'],
             'swasta_kec' => $penyuluh['swasta_kec'],
             'kec' => $kec
-
         ];
-
-        //dd($data);
         return view('KelembagaanPenyuluhan/Kecamatan/detail_kecamatan', $data);
     }
 
@@ -174,6 +170,8 @@ class Kecamatan extends BaseController
             'email' => $this->request->getVar('email'),
             'website' => $this->request->getVar('website'),
             'ketua' => $this->request->getVar('ketua'),
+            'kode_bp3k' => $this->request->getVar('kode_bp3k'),
+            'urut' => $this->request->getVar('urut'),
             'kode_koord_penyuluh' => $this->request->getVar('kode_koord_penyuluh'),
             'nama_koord_penyuluh' => $this->request->getVar('nama_koord_penyuluh'),
             'nama_koord_penyuluh_thl' => $this->request->getVar('nama_koord_penyuluh_thl'),
@@ -216,8 +214,10 @@ class Kecamatan extends BaseController
             $namaSampul = $fileSampul->getName();
 
             $fileSampul->move('assets/img', $namaSampul);
-
-            unlink('assets/img/' . $this->request->getVar('fotolama'));
+            try {
+                unlink('assets/img/' . $this->request->getVar('fotolama'));
+            } catch (Exception $e) {
+            }
         }
 
         $this->model->save([
@@ -240,6 +240,8 @@ class Kecamatan extends BaseController
             'email' => $this->request->getVar('email'),
             'website' => $this->request->getVar('website'),
             'ketua' => $this->request->getVar('ketua'),
+            'kode_bp3k' => $this->request->getVar('kode_bp3k'),
+            'urut' => $this->request->getVar('urut'),
             'kode_koord_penyuluh' => $this->request->getVar('kode_koord_penyuluh'),
             'nama_koord_penyuluh' => $this->request->getVar('nama_koord_penyuluh'),
             'nama_koord_penyuluh_thl' => $this->request->getVar('nama_koord_penyuluh_thl'),
@@ -280,8 +282,10 @@ class Kecamatan extends BaseController
     {
         $dt = $this->model->find($id);
         if ($dt['foto'] != 'logo.png') {
-
-            unlink('assets/img/' . $dt['foto']);
+            try {
+                unlink('assets/img/' . $dt['foto']);
+            } catch (Exception $e) {
+            }
         }
         $this->model->delete($id);
         return redirect()->to('/kecamatan');

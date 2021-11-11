@@ -120,8 +120,8 @@ if (empty(session()->get('status_user')) || session()->get('status_user') == '2'
                                                 <div class="col">
                                                     <input type="hidden" name="kode_prop" id="kode_prop" value="<?= $kode_prop; ?>">
                                                     <input type="hidden" name="satminkal" id="satminkal" value="<?= $kode_kab; ?>">
-                                                    <input type="hidden" name="urut" id="urut" value="<?= $urut['no_urut']; ?>">
-                                                    <input type="hidden" name="kode_bp3k" id="kode_bp3k" value="<?= $urut['no_urut'] . $kode; ?>">
+                                                    <input type="hidden" name="urut" id="urut" value="<?= $urut; ?>">
+                                                    <input type="hidden" name="kode_bp3k" id="kode_bp3k" value="<?= $kode . $urut; ?>">
                                                     <label>Upload Foto BPP</label>
                                                     <div class="input-group mb-3">
                                                         <div class="col-lg-4">
@@ -150,7 +150,7 @@ if (empty(session()->get('status_user')) || session()->get('status_user') == '2'
                                                     </div>
                                                     <label>Kecamatan (lokasi BPP)</label>
                                                     <div class="input-group mb-3">
-                                                        <select name="kecamatan" id="kecamatan" class="form-control input-lg">
+                                                        <select name="kecamatan" id="kecamatan" class="form-control input-lg" required>
                                                             <option value="">Pilih Kecamatan</option>
                                                             <?php
                                                             foreach ($kec as $row) {
@@ -214,15 +214,15 @@ if (empty(session()->get('status_user')) || session()->get('status_user') == '2'
                                                     <label>Koordinator Penyuluh</label>
                                                     <div class="input-group mb-3">
                                                         <div class="form-check form-check-inline">
-                                                            <input class="form-check-input pen" type="radio" name="kode_koord_penyuluh" id="inlineRadio1" value="1">
+                                                            <input class="form-check-input pen" type="radio" name="kode_koord_penyuluh" id="inlineRadio1" value="1" required>
                                                             <label class="form-check-label" for="inlineRadio1">PNS</label>
                                                         </div>
                                                         <div class="form-check form-check-inline">
-                                                            <input class="form-check-input pen" type="radio" name="kode_koord_penyuluh" id="inlineRadio2" value="2">
+                                                            <input class="form-check-input pen" type="radio" name="kode_koord_penyuluh" id="inlineRadio2" value="2" required>
                                                             <label class="form-check-label" for="inlineRadio2">THL</label>
                                                         </div>
                                                         <div class="form-check form-check-inline">
-                                                            <input class="form-check-input pen" type="radio" name="kode_koord_penyuluh" id="inlineRadio3" value="3">
+                                                            <input class="form-check-input pen" type="radio" name="kode_koord_penyuluh" id="inlineRadio3" value="3" required>
                                                             <label class="form-check-label" for="inlineRadio2">Struktural</label>
                                                         </div><br>
                                                     </div>

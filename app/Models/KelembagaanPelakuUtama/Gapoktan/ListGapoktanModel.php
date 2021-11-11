@@ -11,7 +11,9 @@ class ListGapoktanModel extends Model
 
     protected $table      = 'tb_gapoktan';
     protected $primaryKey = 'id_gap';
-    protected $allowedFields = ['id_gapber', 'no_reg', 'kode_prop', 'kode_kab',
+    protected $allowedFields = ['id_gapber', 'no_reg', 'kode_prop', 'kode_kab','simluh_usaha_tani','simluh_usaha_olah',
+    'simluh_sekretaris', 'simluh_usaha_saprodi','simluh_usaha_pemasaran','simluh_usaha_simpan_pinjam','simluh_usaha_jasa_lain','simluh_usaha_jasa_lain_desc',
+    'simluh_alsin_traktor','simluh_alsin_hand_tractor','simluh_alsin_pompa_air','simluh_alsin_penggiling_padi','simluh_alsin_pengering','simluh_alsin_chooper','simluh_alsin_lain_desc','simluh_alsin_lain',
      'kode_kec', 'kode_desa', 'nama_gapoktan', 'ketua_gapoktan', 'simluh_sk_pengukuhan', 'simluh_tahun_bentuk', 'simluh_sekretaris', 'simluh_bendahara', 'alamat'];
 
     protected $useTimestamps = false;
@@ -73,4 +75,17 @@ class ListGapoktanModel extends Model
                                 $row = $query->getRow();
                                 return json_encode($row);
     }
+    public function getUsahaTani()
+    {
+        $query = $this->db->query("select * from tb_komoditas_general where id_kom_general !='5' and id_kom_general !='6'");
+        $row   = $query->getResultArray();
+        return $row;
+    }
+    public function getUsahaOlah()
+    {
+        $query = $this->db->query("select * from tb_komoditas_general where id_kom_general !='1' and id_kom_general !='2' and id_kom_general !='3' and id_kom_general !='4'");
+        $row   = $query->getResultArray();
+        return $row;
+    }
+
 }

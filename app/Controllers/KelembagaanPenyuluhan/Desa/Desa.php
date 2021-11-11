@@ -40,11 +40,12 @@ class Desa extends BaseController
 
         $get_param = $this->request->getGet();
         $kode_kec = $get_param['kode_kec'];
+        $kode = $this->session->get('kodebapel');
         $posluhdes_model = new PosluhdesModel;
         $kodewil_model = new KodeWilModel;
         $pen_swa = $posluhdes_model->getPenyuluhSwadaya($kode_kec);
         $desa = $posluhdes_model->getDesa($kode_kec);
-        $kode_data = $kodewil_model->getKodeWil($kode_kec);
+        $kode_data = $kodewil_model->getKodeWil($kode);
         //dd($pen_swa);
         // $data['desa'] = $posluhdes_model->orderBy('nm_desa', 'ASC')->findAll();
         $posluhdes_data = $posluhdes_model->getPosluhdesTotal($kode_kec);
@@ -62,7 +63,7 @@ class Desa extends BaseController
         ];
 
         //$output = view('KelembagaanPenyuluhan/Desa/source-pos', $data);
-        //echo json_encode($data);
+        //echo json_encode($datas);
         //$data = json_encode($data);
         return view('KelembagaanPenyuluhan/Desa/daftar_posluhdes', $data);
     }

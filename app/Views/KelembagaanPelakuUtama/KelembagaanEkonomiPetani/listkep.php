@@ -161,7 +161,11 @@ if (empty(session()->get('status_user')) || session()->get('status_user') == '2'
                                                     
                                                 </select>
                                             </div>
-                                            <label>Jumlah Anggota / Pemegang Saham</label>
+                                           
+                                                </div>
+
+                                                <div class="col">
+                                                <label>Jumlah Anggota / Pemegang Saham</label>
                                                 <div class="input-group mb-3">
                                                      <input type="text" class="form-control" id="jum_anggota" name="jum_anggota" placeholder="Jumlah Anggota" aria-label="Password" aria-describedby="password-addon">
                                                 </div>
@@ -173,15 +177,74 @@ if (empty(session()->get('status_user')) || session()->get('status_user') == '2'
                                                 <div class="input-group mb-3">
                                                      <input type="text" class="form-control" id="jum_gapoktan" name="jum_gapoktan" placeholder="Jumlah Gapoktan" aria-label="Password" aria-describedby="password-addon">
                                                 </div>
+                                                <label>Kemitraan Usaha</label>
+                                                <div class="form-check">
+                                                 <input class="form-check-input jenis_mitra_internasional" type="checkbox" value="perusahaan internasional" name="jenis_mitra_internasional" id="jenis_mitra_internasional" >
+                                                    <label class="form-check-label" for="jenis_mitra_internasional">
+                                                    Perusahaan Internasional
+                                                    </label>
+                                                    </div>
+                                                    <div class="form-check">
+                                                 <input class="form-check-input jenis_mitra_nasional" type="checkbox" value="perusahaan nasional" name="jenis_mitra_nasional" id="jenis_mitra_nasional" >
+                                                    <label class="form-check-label" for="jenis_mitra_nasional">
+                                                    Perusahaan Nasional
+                                                    </label>
+                                                    </div>
+                                                    <div class="form-check">
+                                                 <input class="form-check-input jenis_mitra_lokal" type="checkbox" value="perusahaan lokal" name="jenis_mitra_lokal" id="jenis_mitra_lokal" >
+                                                    <label class="form-check-label" for="jenis_mitra_lokal">
+                                                    Perusahaan Lokal
+                                                    </label>
+                                                    </div>
+                                                    <div class="form-check">
+                                                 <input class="form-check-input jenis_mitra_koperasi" type="checkbox" value="koperasi" name="jenis_mitra_koperasi" id="jenis_mitra_koperasi" >
+                                                    <label class="form-check-label" for="jenis_mitra_koperasi">
+                                                    Koperasi
+                                                    </label>
+                                                    </div>
+                                                    <div class="form-check">
+                                                 <input class="form-check-input jenis_mitra_perorangan" type="checkbox" value="perorangan" name="jenis_mitra_perorangan" id="jenis_mitra_perorangan" >
+                                                    <label class="form-check-label" for="jenis_mitra_perorangan">
+                                                    Perorangan
+                                                    </label>
+                                                    </div>
+                                             
+                                                    <label>Bentuk Kemitraan</label>
+                                                    <div class="form-check">
+                                                 <input class="form-check-input bentuk_mitra_pemasaran" type="checkbox" value="pemasaran" name="bentuk_mitra_pemasaran" id="bentuk_mitra_pemasaran" >
+                                                    <label class="form-check-label" for="bentuk_mitra_pemasaran">
+                                                    Pemasaran
+                                                    </label>
+                                                    </div>
+                                                    <div class="form-check">
+                                                 <input class="form-check-input bentuk_mitra_saprodi" type="checkbox" value="sarana produksi" name="bentuk_mitra_saprodi" id="bentuk_mitra_saprodi" >
+                                                    <label class="form-check-label" for="bentuk_mitra_saprodi">
+                                                    Sarana Produksi
+                                                    </label>
+                                                    </div>
+                                                    <div class="form-check">
+                                                 <input class="form-check-input bnetuk_mitra_pendampingan" type="checkbox" value="pendampingan" name="bnetuk_mitra_pendampingan" id="bnetuk_mitra_pendampingan" >
+                                                    <label class="form-check-label" for="bnetuk_mitra_pendampingan">
+                                                    Pendampingan
+                                                    </label>
+                                                    </div>
+                                                    <label>Total Aset</label>
+                                                <div class="input-group mb-3">
+                                                  Rp.   <input type="text" class="form-control" id="total_aset" name="total_aset" placeholder="" >
+                                                </div><label>Sertifikat Mutu Produk (ISO, dll)n</label>
+                                                <div class="input-group mb-3">
+                                                     <input type="text" class="form-control" id="sertifikasi" name="sertifikasi" placeholder="" >
+                                                </div>
+                                                </div>
+
                                                 <input type="hidden" name="kode_kab" id="kode_kab" value="<?= $kode; ?>">
                                             <input type="hidden" name="kode_kec" id="kode_kec" value="<?= $kode_kec; ?>">
-                                            <input type="hidden" name="kode_prop" id="kode_prop" value="<?= $kode_prop; ?>">
                                                 
                                                 <input type="hidden" id="id_kep" name="id_kep" >
                                                     <div class="text-center">
                                                         <button type="button" id="btnSave" class="btn btn-round bg-gradient-warning btn-sm">Simpan Data</button>
                                                     </div>
-                                                </div>
+                                                
                                             </form>
                                         </div>
 
@@ -227,11 +290,24 @@ if (empty(session()->get('status_user')) || session()->get('status_user') == '2'
             var jum_anggota = $('#jum_anggota').val();
             var jum_poktan = $('#jum_poktan').val();
             var jum_gapoktan = $('#jum_gapoktan').val();
+            var total_aset = $('#total_aset').val();
+            var sertifikasi = $('#sertifikasi').val();
+
+            var jenis_mitra_internasional = $(".jenis_mitra_internasional")[0].checked ? $(".jenis_mitra_internasional").val() : "";
+            var jenis_mitra_nasional = $(".jenis_mitra_nasional")[0].checked ? $(".jenis_mitra_nasional").val() : "";
+            var jenis_mitra_lokal = $(".jenis_mitra_lokal")[0].checked ? $(".jenis_mitra_lokal").val() : "";
+            var jenis_mitra_koperasi = $(".jenis_mitra_koperasi")[0].checked ? $(".jenis_mitra_koperasi").val() : "";
+            var jenis_mitra_perorangan = $(".jenis_mitra_perorangan")[0].checked ? $(".jenis_mitra_perorangan").val() : "";
+
+            
+            var bentuk_mitra_pemasaran = $(".bentuk_mitra_pemasaran")[0].checked ? $(".bentuk_mitra_pemasaran").val() : "";
+            var bentuk_mitra_saprodi = $(".bentuk_mitra_saprodi")[0].checked ? $(".bentuk_mitra_saprodi").val() : "";
+            var bnetuk_mitra_pendampingan = $(".bnetuk_mitra_pendampingan")[0].checked ? $(".bnetuk_mitra_pendampingan").val() : "";
            
            
 
             $.ajax({
-                url: '<?= base_url() ?>/KelembagaanPelakuUtama/KelembagaanEkonomiPetani/ListKEP/save/',
+                url: '<?= base_url() ?>/KelembagaanPelakuUtama/KelembagaanEkonomiPetani/KelembagaanEkonomiPetani/save/',
                 type: 'POST',
                 data: {
                     'kode_kec': kode_kec,
@@ -248,6 +324,19 @@ if (empty(session()->get('status_user')) || session()->get('status_user') == '2'
                     'jum_anggota': jum_anggota,
                     'jum_poktan': jum_poktan,
                     'jum_gapoktan': jum_gapoktan,
+                    'total_aset': total_aset,
+                    'sertifikasi': sertifikasi,
+                    
+                    'jenis_mitra_internasional': jenis_mitra_internasional,
+                    'jenis_mitra_nasional': jenis_mitra_nasional,
+                    'jenis_mitra_lokal': jenis_mitra_lokal,
+                    'jenis_mitra_koperasi': jenis_mitra_koperasi,
+                    'jenis_mitra_perorangan': jenis_mitra_perorangan,
+
+                    
+                    'bentuk_mitra_pemasaran': bentuk_mitra_pemasaran,
+                    'bentuk_mitra_saprodi': bentuk_mitra_saprodi,
+                    'bnetuk_mitra_pendampingan': bnetuk_mitra_pendampingan,
                     
                     
                 },
@@ -289,21 +378,10 @@ if (empty(session()->get('status_user')) || session()->get('status_user') == '2'
 
         });
         $(document).delegate('#btnHapus', 'click', function() {
-            Swal.fire({
-                title: 'Apakah anda yakin',
-                text: "Data akan dihapus ?",
-                type: 'warning',
-                showCloseButton: true,
-                showCancelButton: true,
-                confirmButtonColor: '#3085d6',
-                cancelButtonColor: '#d33',
-                confirmButtonText: 'Hapus Data!'
-            }).then((result) => {
-                if (result.value) {
-                    var id = $(this).data('id_kep');
+            var id_kep = $(this).data('id_kep');
 
                     $.ajax({
-                        url: '<?= base_url() ?>/KelembagaanPelakuUtama/KelembagaanEkonomiPetani/ListKEP/delete/' + id,
+                        url: '<?= base_url() ?>/KelembagaanPelakuUtama/KelembagaanEkonomiPetani/KelembagaanEkonomiPetani/delete/' + id,
                         type: 'POST',
 
                         success: function(result) {
@@ -313,30 +391,29 @@ if (empty(session()->get('status_user')) || session()->get('status_user') == '2'
                                 type: 'success',
                             }).then((result) => {
 
-                                if (result.value) {
-                                    location.reload();
-                                }
-                            });
-                        },
-                        error: function(jqxhr, status, exception) {
-                            Swal.fire({
-                                title: 'Error',
-                                text: "Gagal hapus data",
-                                type: 'error',
-                            }).then((result) => {
-                                if (result.value) {
-                                    location.reload();
-                                }
-                            });
+
+                        if (result.value) {
+                            location.reload();
+                        }
+                    });
+                },
+                error: function(jqxhr, status, exception) {
+                    Swal.fire({
+                        title: 'Error',
+                        text: "Gagal Hapus data",
+                        type: 'error',
+                    }).then((result) => {
+                        if (result.value) {
+                            location.reload();
                         }
                     });
                 }
-            });
 
+            });
         });
         $(document).delegate('#btnEditKEP', 'click', function() {
             $.ajax({
-                url: '<?= base_url() ?>/KelembagaanPelakuUtama/KelembagaanEkonomiPetani/ListKEP/edit/' + $(this).data('id_kep'),
+                url: '<?= base_url() ?>/KelembagaanPelakuUtama/KelembagaanEkonomiPetani/KelembagaanEkonomiPetani/edit/' + $(this).data('id_kep'),
                 type: 'GET',
                 dataType: 'JSON',
                 success: function(result) {
@@ -356,7 +433,53 @@ if (empty(session()->get('status_user')) || session()->get('status_user') == '2'
                     $('#jum_anggota').val(result.jum_anggota);
                     $('#badan_hukum').val(result.badan_hukum);
                     $('#jum_poktan').val(result.jum_poktan);
+
                     $('#jum_gapoktan').val(result.jum_gapoktan);
+                    $('#total_aset').val(result.total_aset);
+                    $('#sertifikasi').val(result.sertifikasi);
+
+                    if (result.jenis_mitra_internasional == "perusahaan internasional") {
+                        $("#jenis_mitra_internasional").prop("checked", true);
+                    } else {
+                        $("#jenis_mitra_internasional").prop("checked", false);
+                    } 
+                    if (result.jenis_mitra_nasional == "perusahaan nasional") {
+                        $("#jenis_mitra_nasional").prop("checked", true);
+                    } else {
+                        $("#jenis_mitra_nasional").prop("checked", false);
+                    } 
+                    if (result.jenis_mitra_lokal == "perusahaan lokal") {
+                        $("#jenis_mitra_lokal").prop("checked", true);
+                    } else {
+                        $("#jenis_mitra_lokal").prop("checked", false);
+                    }
+                    if (result.jenis_mitra_koperasi == "koperasi") {
+                        $("#jenis_mitra_koperasi").prop("checked", true);
+                    } else {
+                        $("#jenis_mitra_koperasi").prop("checked", false);
+                    }
+                    if (result.jenis_mitra_perorangan == "perorangan") {
+                        $("#jenis_mitra_perorangan").prop("checked", true);
+                    } else {
+                        $("#jenis_mitra_perorangan").prop("checked", false);
+                    }
+
+                    if (result.bentuk_mitra_pemasaran == "pemasaran") {
+                        $("#bentuk_mitra_pemasaran").prop("checked", true);
+                    } else {
+                        $("#bentuk_mitra_pemasaran").prop("checked", false);
+                    } 
+                    if (result.bentuk_mitra_saprodi == "sarana produksi") {
+                        $("#bentuk_mitra_saprodi").prop("checked", true);
+                    } else {
+                        $("#bentuk_mitra_saprodi").prop("checked", false);
+                    } 
+                    if (result.bnetuk_mitra_pendampingan == "pendampingan") {
+                        $("#bnetuk_mitra_pendampingan").prop("checked", true);
+                    } else {
+                        $("#bnetuk_mitra_pendampingan").prop("checked", false);
+                    }
+
 
 
                     $('#modal-form').modal('show');
@@ -379,6 +502,19 @@ if (empty(session()->get('status_user')) || session()->get('status_user') == '2'
             var jum_gapoktan = $('#jum_gapoktan').val();
             var nama_direktur = $('#nama_direktur').val();
             var badan_hukum = $('#badan_hukum').val();
+            var total_aset = $('#total_aset').val();
+            var sertifikasi = $('#sertifikasi').val();
+
+            var jenis_mitra_internasional = $(".jenis_mitra_internasional")[0].checked ? $(".jenis_mitra_internasional").val() : "";
+            var jenis_mitra_nasional = $(".jenis_mitra_nasional")[0].checked ? $(".jenis_mitra_nasional").val() : "";
+            var jenis_mitra_lokal = $(".jenis_mitra_lokal")[0].checked ? $(".jenis_mitra_lokal").val() : "";
+            var jenis_mitra_koperasi = $(".jenis_mitra_koperasi")[0].checked ? $(".jenis_mitra_koperasi").val() : "";
+            var jenis_mitra_perorangan = $(".jenis_mitra_perorangan")[0].checked ? $(".jenis_mitra_perorangan").val() : "";
+
+            
+            var bentuk_mitra_pemasaran = $(".bentuk_mitra_pemasaran")[0].checked ? $(".bentuk_mitra_pemasaran").val() : "";
+            var bentuk_mitra_saprodi = $(".bentuk_mitra_saprodi")[0].checked ? $(".bentuk_mitra_saprodi").val() : "";
+            var bnetuk_mitra_pendampingan = $(".bnetuk_mitra_pendampingan")[0].checked ? $(".bnetuk_mitra_pendampingan").val() : "";
 
                         let formData = new FormData();
                         formData.append('id_kep', id_kep);
@@ -395,10 +531,27 @@ if (empty(session()->get('status_user')) || session()->get('status_user') == '2'
                         formData.append('badan_hukum', badan_hukum);
                         formData.append('jum_poktan', jum_poktan);
                         formData.append('jum_anggota', jum_anggota);
+
                         formData.append('jum_gapoktan', jum_gapoktan);
+                        formData.append('total_aset', total_aset);
+                        formData.append('sertifikasi', sertifikasi);
+
+                        formData.append('jenis_mitra_internasional', jenis_mitra_internasional);
+                        formData.append('jenis_mitra_nasional', jenis_mitra_nasional);
+                        formData.append('jenis_mitra_lokal', jenis_mitra_lokal);
+                        formData.append('jenis_mitra_koperasi', jenis_mitra_koperasi);
+                        formData.append('jenis_mitra_perorangan', jenis_mitra_perorangan);
+
+                        
+                        formData.append('bentuk_mitra_pemasaran', bentuk_mitra_pemasaran);
+                        formData.append('bentuk_mitra_saprodi', bentuk_mitra_saprodi);
+                        formData.append('bnetuk_mitra_pendampingan', bnetuk_mitra_pendampingan);
+x
+                        formData.append('jum_poktan', jum_poktan);
+
 
                         $.ajax({
-                            url: '<?= base_url() ?>/KelembagaanPelakuUtama/KelembagaanEkonomiPetani/ListKEP/update/' + id_kep,
+                            url: '<?= base_url() ?>/KelembagaanPelakuUtama/KelembagaanEkonomiPetani/KelembagaanEkonomiPetani/update/' + id_kep,
                             type: "POST",
                             data: formData,
                             cache: false,

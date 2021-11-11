@@ -85,6 +85,7 @@
     <script>
         $(document).ready(function() {
 
+
             const monthNames = ["Bulan", "Januari", "Februari", "Maret", "April", "Mei", "Juni",
                 "Juli", "Agustus", "September", "Oktober", "November", "Desember"
             ];
@@ -104,7 +105,7 @@
             }
 
 
-            for (var m = 1; m <= 12; m++) {
+            for (var m = 1; m < 13; m++) {
 
                 let month = monthNames[m];
                 let monthElem = document.createElement("option");
