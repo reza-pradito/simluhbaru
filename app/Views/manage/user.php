@@ -69,18 +69,24 @@
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
-            <form action="<?= base_url('manage/menu/submenu_save'); ?>" method="post">
+            <form action="<?= base_url('manage/user/saveUser'); ?>" method="post">
                 <div class="modal-body">
                     <div class="form-group">
-                        <input type="text" class="form-control" id="title" name="title" placeholder="Submenu title">
+                        <input type="text" class="form-control" id="namauser" name="namauser" placeholder="Nama User">
                     </div>
 
                     <div class="form-group">
-                        <input type="text" class="form-control" id="url" name="url" placeholder="Submenu url">
+                        <input type="text" class="form-control" id="username" name="username" placeholder="username">
                     </div>
+
                     <div class="form-group">
-                        <input type="text" class="form-control" id="icon" name="icon" placeholder="Submenu icon">
+                        <input type="text" class="form-control" id="password" name="password" placeholder="password">
                     </div>
+
+                    <select name="status" id="status" class="form-control">
+                        <option value="3">Admin Pusat</option>
+                    </select>
+
                     <div class="form-group">
                         <div class="form-check">
                             <input class="form-check-input" type="checkbox" value="1" name="is_active" id="is_active" checked>
