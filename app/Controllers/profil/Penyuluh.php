@@ -14,10 +14,10 @@ class Penyuluh extends BaseController
         $this->session->start();
     }
 
-    public function detail($nik)
+    public function detail($nip)
     {
         $penyuluhmodel = new PenyuluhPNSModel();
-        $dtpenyuluh = $penyuluhmodel->getDetailPenyuluhPNSByNIK($nik);
+        $dtpenyuluh = $penyuluhmodel->getDetailPenyuluhPNSByNIK($nip);
         $data = [
             'title' => 'Profil penyuluh',
             'dt' => $dtpenyuluh

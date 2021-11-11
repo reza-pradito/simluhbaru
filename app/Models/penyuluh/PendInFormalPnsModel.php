@@ -20,7 +20,6 @@ class PendInFormalPnsModel extends Model
 
         $query   = $db->query("select a.id, a.nip, a.nama, a.kelompok, a.lokasi, a.tgl_mulai, a.tgl_selesai, a.penyelenggara, a.jml_jam,
 a.satminkal, a.tgl_update from tblinformal a
-                                left join tbldasar b on b.nip=a.nip
                                 WHERE a.nip = '$nip'");
         $row   = $query->getRowArray();
         return $row;
@@ -31,13 +30,12 @@ a.satminkal, a.tgl_update from tblinformal a
         $db = Database::connect();
 
         $query   = $db->query("select a.id, a.nip, a.nama, a.kelompok, a.lokasi, a.tgl_mulai, a.tgl_selesai, a.penyelenggara, a.jml_jam,
-a.satminkal, a.tgl_update, b.nama as namaluh from tblinformal a
-                                left join tbldasar b on a.id=b.id
+a.satminkal, a.tgl_update from tblinformal a
                                 where a.nip='$nip' order by nama");
         $results = $query->getResultArray();
 
         $data =  [
-            'table_data' => $results,
+            'table_data' => $results
         ];
 
         return $data;
@@ -47,7 +45,6 @@ a.satminkal, a.tgl_update, b.nama as namaluh from tblinformal a
     {
         $query = $this->db->query("select a.id, a.nip, a.nama, a.kelompok, a.lokasi, a.tgl_mulai, a.tgl_selesai, a.penyelenggara, a.jml_jam,
         a.satminkal, a.tgl_update from tblinformal a
-                                        left join tbldasar b on a.id=b.id
         where id = '" . $id . "'");
         $row = $query->getRow();
         return json_encode($row);
