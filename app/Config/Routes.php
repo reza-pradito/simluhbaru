@@ -38,6 +38,10 @@ $routes->get('/dashboard', 'Page::dashboard');
 $routes->get('/lembaga', 'profil/Lembaga::index');
 $routes->get('/index', 'Manage\Rolemenu::index');
 
+$routes->get('/daftarkelembagaan', 'profil/Guest::daftarkelembagaan');
+$routes->get('/dl_kab', 'profil/Guest::daftarkelembagaankab');
+$routes->get('/rekap_keluh', 'profil/Guest::rekapkeluh');
+
 $routes->get('/penyuluhpns', 'Penyuluh/PenyuluhPns::penyuluhpns');
 $routes->get('/penyuluhcpns', 'Penyuluh/PenyuluhCpns::penyuluhcpns');
 $routes->get('/penyuluhthlapbn', 'Penyuluh/PenyuluhTHLAPBN::penyuluhthlAPBN');
@@ -51,6 +55,8 @@ $routes->get('/penyuluhthlapbdkec', 'Penyuluh/PenyuluhTHLAPBDKec::penyuluhthlAPB
 $routes->get('/penyuluhswastakec', 'Penyuluh/PenyuluhSwastaKec::penyuluhswastakec');
 $routes->get('/penyuluhpnskec', 'Penyuluh/PenyuluhPNSKec::penyuluhpnskec');
 $routes->get('/penyuluhpppkkec', 'Penyuluh/PenyuluhPPPKKec::penyuluhpppkkec');
+$routes->get('/pendidikaninformalpns', 'Penyuluh/PendInFormalPns::detail');
+$routes->get('/pakpns', 'Penyuluh/PakPNS::detail');
 
 //$routes->get('profil/penyuluh/detail/(:any)', 'penyuluh::detail/$1');
 
@@ -77,7 +83,7 @@ $routes->post('/listpoktan/save', 'KelembagaanPelakuUtama/Gapoktan/ListGapoktan:
 
 
 $routes->get('/kelembagaanpetanilainnya', 'KelembagaanPelakuUtama/KelembagaanPetaniLainnya/KelembagaanPetaniLainnya::kelembagaanpetanilainnya');
-$routes->get('/listkep2l', 'KelembagaanPelakuUtama/KelembagaanPetaniLainnya/ListKEP2L::listkep2l');
+$routes->get('/listkep2l', 'KelembagaanPelakuUtama/KelembagaanPetaniLainnya/KelembagaanPetaniLainnya::listkep2l');
 $routes->get('/kep2lkec', 'KelembagaanPelakuUtama/KelembagaanPetaniLainnya/Kep2lKec::kep2lkec');
 
 $routes->get('/desa', 'KelembagaanPenyuluhan/Desa/Desa::desa');

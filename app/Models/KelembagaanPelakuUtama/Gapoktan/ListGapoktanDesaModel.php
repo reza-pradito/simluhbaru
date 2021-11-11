@@ -7,25 +7,14 @@ use \Config\Database;
 
 class ListGapoktanDesaModel extends Model
 {
-    protected $table      = 'penyuluh';
-    //protected $primaryKey = 'id';
-
-
-    //protected $returnType     = 'array';
-    //protected $useSoftDeletes = true;
-
-    //protected $allowedFields = ['nama', 'alamat', 'telpon'];
-
+  
+    protected $table      = 'tb_poktan';
+    protected $primaryKey = 'id_poktan';
+    protected $allowedFields = [ 'kode_prop', 'kode_kab', 'id_gap',
+     'kode_kec', 'kode_desa', 'nama_poktan', 'ketua_poktan', 'alamat','simluh_jenis_kelompok',
+     'simluh_kelas_kemampuan','simluh_tahun_tap_kelas','simluh_tahun_bentuk','status', 'simluh_kelas_kemampuan', 'simluh_jenis_kelompok'];
 
     protected $useTimestamps = false;
-    // protected $createdField  = 'created_at';
-    // protected $updatedField  = 'updated_at';
-    // protected $deletedField  = 'deleted_at';
-
-    // protected $validationRules    = [];
-    // protected $validationMessages = [];
-    // protected $skipValidation     = false;
-
 
     public function getListGapoktanDesaTotal($kode_desa)
     {
@@ -53,5 +42,21 @@ class ListGapoktanDesaModel extends Model
         ];
 
         return $data;
+    }
+    public function getDesa($kode_kec)
+    {
+        $query = $this->db->query("select * from tbldesa where id_daerah LIKE '" . $kode_kec . "%' ORDER BY nm_desa ASC");
+        $row   = $query->getResultArray();
+        return $row;
+    }
+    public function getDataById($id_poktan)
+    {
+        $query = $this->db->query("select * , b.deskripsi
+                                from tb_poktan a
+                                left join tbldaerah b on a.kode_kec=b.id_daerah
+                                where id_poktan= '" . $id_poktan . "' 
+                                ORDER BY nama_poktan ");
+                                $row = $query->getRow();
+                                return json_encode($row);
     }
 }

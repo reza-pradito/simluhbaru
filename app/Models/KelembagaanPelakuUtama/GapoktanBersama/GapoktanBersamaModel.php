@@ -10,9 +10,13 @@ class GapoktanBersamaModel extends Model
   
     protected $table      = 'tb_gapoktan_bersama';
     protected $primaryKey = 'id_gapber';
-    protected $allowedFields = [ 'kode_prop', 'kode_kab',
-     'kode_kec', 'kode_desa', 'nama_gapoktan', 'ketua_gapoktan', 'alamat', 'simluh_sk_pengukuhan','simluh_tahun_bentuk','simluh_bendahara','simluh_sekretaris'];
+
     protected $useTimestamps = false;
+    protected $allowedFields = [ 'kode_prop', 'kode_kab',
+     'kode_kec', 'kode_desa', 'nama_gapoktan', 'ketua_gapoktan', 'alamat', 'simluh_sk_pengukuhan','simluh_tahun_bentuk','simluh_bendahara','simluh_usaha_tani','simluh_usaha_olah',
+    'simluh_sekretaris', 'simluh_usaha_saprodi','simluh_usaha_pemasaran','simluh_usaha_simpan_pinjam','simluh_usaha_jasa_lain','simluh_usaha_jasa_lain_desc',
+    'simluh_alsin_traktor','simluh_alsin_hand_tractor','simluh_alsin_pompa_air','simluh_alsin_penggiling_padi','simluh_alsin_pengering','simluh_alsin_chooper','simluh_alsin_lain_desc','simluh_alsin_lain'];
+    
   
 
 

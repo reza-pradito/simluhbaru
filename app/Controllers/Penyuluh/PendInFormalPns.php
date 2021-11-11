@@ -16,14 +16,21 @@ class PendInFormalPns extends BaseController
         $this->model = new PendInFormalPnsModel();
     }
 
-    public function detail($nip)
+    public function detail()
     {
+        $get_param = $this->request->getGet();
+        $get_paramm = $this->request->getGet();
+
+        $nip = $get_param['nip'];
+        $nama = $get_paramm['nama'];
         $penyuluhmodel = new PendInFormalPnsModel();
         $dtpenyuluh = $penyuluhmodel->getPendInFormalPnsTotal($nip);
         $diklat = $penyuluhmodel->getDiklat();
         $data = [
-            'title' => 'Pendidikan Formal PNS',
             'tabel_data' => $dtpenyuluh['table_data'],
+            'title' => 'Pendidikan Formal PNS',
+            'nipp' => $nip,
+            'namaa' => $nama,
             'diklat' => $diklat
         ];
 
@@ -70,7 +77,7 @@ class PendInFormalPns extends BaseController
     public function delete($id)
     {
         $this->model->delete($id);
-        return redirect()->to('/pendinformalpns');
+        // return redirect()->to('/pendinformalpns');
     }
 
     public function edit($id)
