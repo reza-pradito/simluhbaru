@@ -30,14 +30,15 @@ class GuestModel extends Model
     public function getDaftarKelembagaanKab($kode_prop)
     {
         $db = Database::connect();
-        $query = $db->query("select *, a.kode_prop, b.nama as namapns, c.nama as namathl, e.nama_dati2 as namakab, e.id_dati2 
-                            from tblbapel a
-                            left join tbldasar b on a.nama_koord_penyuluh=b.nip
-                            left join tbldasar_thl c on a.nama_koord_penyuluh_thl=c.noktp
-                            left join tblpropinsi d on a.kode_prop = d.id_prop 
-                            left join tbldati2 e on a.kode_prop = e.id_prop
-                            where a.kode_prop='$kode_prop' 
-                            ");
+        $sql = "select a.kode_prop, a.nama_bapel, b.nama as namapns, c.nama as namathl, e.nama_dati2 as namakab, e.id_dati2 
+        from tblbapel a
+        left join tbldasar b on a.nama_koord_penyuluh=b.nip
+        left join tbldasar_thl c on a.nama_koord_penyuluh_thl=c.noktp
+        left join tblpropinsi d on a.kode_prop = d.id_prop 
+        left join tbldati2 e on a.kode_prop = e.id_prop
+        where a.kode_prop='$kode_prop' ";
+        dd($sql);
+        $query = $db->query($sql);
         $results   = $query->getResultArray();
 
         $data =  [

@@ -33,7 +33,7 @@ class Lembaga extends BaseController
         $this->modelProv = new WilayahModel();
         $this->provmodel = new ProvModel();
         $this->model = new KabupatenModel();
-        $this->fasmodel = new FasilitasiBapelModel();
+        $this->fmodel = new FasilitasiBapelModel();
         $this->kecmodel = new KecamatanModel();
         $this->wkmodel = new WilkecModel();
         $this->klmodel = new KlasifikasiModel();
@@ -808,7 +808,7 @@ class Lembaga extends BaseController
     public function save()
     {
         try {
-            $res = $this->fasmodel->save([
+            $res = $this->fmodel->save([
                 'id_bapel' => $this->request->getPost('id_bapel'),
                 'fasilitasi' => $this->request->getPost('fasilitasi'),
                 'kegiatan' => $this->request->getPost('kegiatan'),
@@ -842,7 +842,7 @@ class Lembaga extends BaseController
         $tahun = $this->request->getPost('tahun');
         $fasilitasi = $this->request->getPost('fasilitasi');
         $kegiatan = $this->request->getPost('kegiatan');
-        $this->fasmodel->save([
+        $this->fmodel->save([
             'id' => $id,
             'id_bapel' => $id_bapel,
             'fasilitasi' => $fasilitasi,
@@ -855,7 +855,7 @@ class Lembaga extends BaseController
 
     public function delete($id)
     {
-        $this->fasmodel->delete($id);
+        $this->fmodel->delete($id);
         return redirect()->to('/lembaga');
     }
 

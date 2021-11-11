@@ -11,7 +11,7 @@ use App\Models\KelembagaanPenyuluhan\Kecamatan\PenghargaanModel;
 use App\Models\KelembagaanPenyuluhan\Kecamatan\PotensiWilayahModel;
 use App\Models\KelembagaanPenyuluhan\Kecamatan\WilkecModel;
 use App\Models\KodeWilayah\KodeWilModel;
-
+use Exception;
 
 class Kecamatan extends BaseController
 {
@@ -214,8 +214,10 @@ class Kecamatan extends BaseController
             $namaSampul = $fileSampul->getName();
 
             $fileSampul->move('assets/img', $namaSampul);
-
-            unlink('assets/img/' . $this->request->getVar('fotolama'));
+            try {
+                unlink('assets/img/' . $this->request->getVar('fotolama'));
+            } catch (Exception $e) {
+            }
         }
 
         $this->model->save([
@@ -280,8 +282,10 @@ class Kecamatan extends BaseController
     {
         $dt = $this->model->find($id);
         if ($dt['foto'] != 'logo.png') {
-
-            unlink('assets/img/' . $dt['foto']);
+            try {
+                unlink('assets/img/' . $dt['foto']);
+            } catch (Exception $e) {
+            }
         }
         $this->model->delete($id);
         return redirect()->to('/kecamatan');
