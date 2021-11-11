@@ -16,7 +16,7 @@ class KabupatenModel extends Model
 
     protected $allowedFields = [
         'kode_prop', 'kabupaten', 'roda_4_apbn', 'roda_4_apbd', 'roda_2_apbn' . 'roda_2_apbd', 'pc_apbn', 'pc_apbd', 'laptop_apbn', 'laptop_apbd', 'printer_apbn', 'printer_apbd', 'lcd_apbn', 'lcd_apbd', 'soil_apbn', 'soil_apbd', 'modem_apbn', 'modem_apbd',
-        'perda', 'pergub', 'id_gapoktan', 'nama_bapel', 'dasar_hukum', 'no_peraturan', 'tgl_berdiri', 'bln_berdiri', 'thn_berdiri', 'telp_kantor', 'alamat',  'email', 'website', 'ketua', 'telp_hp', 'telp_hp_koord', 'email_koord', 'jenis_pertanian',
+        'perda', 'pergub', 'id_gapoktan', 'nama_bapel', 'dasar_hukum', 'deskripsi_lembaga_lain', 'no_peraturan', 'tgl_berdiri', 'bln_berdiri', 'thn_berdiri', 'telp_kantor', 'alamat',  'email', 'website', 'ketua', 'telp_hp', 'telp_hp_koord', 'email_koord', 'jenis_pertanian', 'koord',
         'jenis_tp', 'jenis_hor', 'jenis_bun', 'jenis_nak', 'jenis_pkh', 'jenis_ketahanan_pangan', 'jenis_pangan', 'bidang_luh', 'nama_kabid', 'hp_kabid', 'seksi_luh', 'nama_kasie', 'hp_kasie', 'uptd_luh', 'nama_kauptd', 'hp_kauptd', 'nama_koord_penyuluh', 'nama_koord_penyuluh_thl', 'koord_lainya_nip', 'koord_lainya_nama', 'kode_koord_penyuluh'
     ];
 

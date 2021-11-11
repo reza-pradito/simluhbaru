@@ -120,8 +120,8 @@ if (empty(session()->get('status_user')) || session()->get('status_user') == '2'
                                                 <div class="col">
                                                     <input type="hidden" name="kode_prop" id="kode_prop" value="<?= $kode_prop; ?>">
                                                     <input type="hidden" name="satminkal" id="satminkal" value="<?= $kode_kab; ?>">
-                                                    <input type="hidden" name="urut" id="urut" value="<?= $urut['no_urut']; ?>">
-                                                    <input type="hidden" name="kode_bp3k" id="kode_bp3k" value="<?= $urut['no_urut'] . $kode; ?>">
+                                                    <input type="hidden" name="urut" id="urut" value="<?= $urut; ?>">
+                                                    <input type="hidden" name="kode_bp3k" id="kode_bp3k" value="<?= $kode . $urut; ?>">
                                                     <label>Upload Foto BPP</label>
                                                     <div class="input-group mb-3">
                                                         <div class="col-lg-4">
