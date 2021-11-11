@@ -1,8 +1,17 @@
 <?= $this->extend('layout/main_template') ?>
 
 <?= $this->section('content') ?>
-
-
+<?php
+if (empty(session()->get('status_user')) || session()->get('status_user') == '2') {
+    $kode = '00';
+} elseif (session()->get('status_user') == '1') {
+    $kode = session()->get('kodebakor');
+} elseif (session()->get('status_user') == '200') {
+    $kode = session()->get('kodebapel');
+} elseif (session()->get('status_user') == '300') {
+    $kode = session()->get('kodebpp');
+}
+?>
 <center><h2> Daftar Kelembagaan Ekonomi Petani di Kecamatan <?= ucwords(strtolower($nama_kecamatan)) ?> </h2></center>
 
 
@@ -164,11 +173,11 @@
                                                 <div class="input-group mb-3">
                                                      <input type="text" class="form-control" id="jum_gapoktan" name="jum_gapoktan" placeholder="Jumlah Gapoktan" aria-label="Password" aria-describedby="password-addon">
                                                 </div>
-                                            <input type="hidden" id="kode_kec" name="kode_kec" value="<?= $row['id_daerah'] ?>" >
-                                                <input type="hidden" id="kode_kab" name="kode_kab" value="<?= $row['id_dati2'] ?>">
+                                                <input type="hidden" name="kode_kab" id="kode_kab" value="<?= $kode; ?>">
+                                            <input type="hidden" name="kode_kec" id="kode_kec" value="<?= $kode_kec; ?>">
+                                            <input type="hidden" name="kode_prop" id="kode_prop" value="<?= $kode_prop; ?>">
                                                 
                                                 <input type="hidden" id="id_kep" name="id_kep" >
-                                                <input type="hidden" name="kode_desa" value="<?= $row['id_desa'] ?>"> 
                                                     <div class="text-center">
                                                         <button type="button" id="btnSave" class="btn btn-round bg-gradient-warning btn-sm">Simpan Data</button>
                                                     </div>
@@ -210,14 +219,16 @@
             var nama_kep = $('#nama_kep').val();
             var jenis_kep = $('#jenis_kep').val();
             var alamat = $('#alamat').val();
-            var tahun_bentuk = $('#year').val();
-            var email = $('#email').val();
             var no_telp = $('#no_telp').val();
+            var email = $('#email').val(); 
+            var nama_direktur = $('#nama_direktur').val();
+            var tahun_bentuk = $('#year').val();
+            var badan_hukum = $('#badan_hukum').val();
             var jum_anggota = $('#jum_anggota').val();
             var jum_poktan = $('#jum_poktan').val();
             var jum_gapoktan = $('#jum_gapoktan').val();
-            var nama_direktur = $('#nama_direktur').val();
-            var badan_hukum = $('#badan_hukum').val();
+           
+           
 
             $.ajax({
                 url: '<?= base_url() ?>/KelembagaanPelakuUtama/KelembagaanEkonomiPetani/ListKEP/save/',
@@ -228,6 +239,7 @@
                     'kode_desa': kode_desa,
                     'nama_kep': nama_kep,
                     'jenis_kep': jenis_kep,
+                    'alamat': alamat,
                     'no_telp': no_telp,
                     'email': email,
                     'nama_direktur': nama_direktur,
@@ -236,7 +248,7 @@
                     'jum_anggota': jum_anggota,
                     'jum_poktan': jum_poktan,
                     'jum_gapoktan': jum_gapoktan,
-                    'alamat': alamat,
+                    
                     
                 },
                 success: function(result) {
@@ -277,36 +289,50 @@
 
         });
         $(document).delegate('#btnHapus', 'click', function() {
-            var id_kep = $(this).data('id_kep');
+            Swal.fire({
+                title: 'Apakah anda yakin',
+                text: "Data akan dihapus ?",
+                type: 'warning',
+                showCloseButton: true,
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                confirmButtonText: 'Hapus Data!'
+            }).then((result) => {
+                if (result.value) {
+                    var id = $(this).data('id_kep');
 
-            $.ajax({
-                url: '<?= base_url() ?>/KelembagaanPelakuUtama/KelembagaanEkonomiPetani/ListKEP/delete/' + id_kep,
-                type: 'POST',
-                success: function(result) {
-                    Swal.fire({
-                        title: 'Sukses',
-                        text: "Sukses Hapus data",
-                        type: 'success',
-                    }).then((result) => {
+                    $.ajax({
+                        url: '<?= base_url() ?>/KelembagaanPelakuUtama/KelembagaanEkonomiPetani/ListKEP/delete/' + id,
+                        type: 'POST',
 
-                        if (result.value) {
-                            location.reload();
-                        }
-                    });
-                },
-                error: function(jqxhr, status, exception) {
-                    Swal.fire({
-                        title: 'Error',
-                        text: "Gagal Hapus data",
-                        type: 'error',
-                    }).then((result) => {
-                        if (result.value) {
-                            location.reload();
+                        success: function(result) {
+                            Swal.fire({
+                                title: 'Sukses',
+                                text: "Sukses hapus data",
+                                type: 'success',
+                            }).then((result) => {
+
+                                if (result.value) {
+                                    location.reload();
+                                }
+                            });
+                        },
+                        error: function(jqxhr, status, exception) {
+                            Swal.fire({
+                                title: 'Error',
+                                text: "Gagal hapus data",
+                                type: 'error',
+                            }).then((result) => {
+                                if (result.value) {
+                                    location.reload();
+                                }
+                            });
                         }
                     });
                 }
-
             });
+
         });
         $(document).delegate('#btnEditKEP', 'click', function() {
             $.ajax({
@@ -326,11 +352,11 @@
                     $('#year').val(result.tahun_bentuk);
                     $('#no_telp').val(result.no_telp);
                     $('#email').val(result.email);
-                    $('#nama_direktur').val(result.no_telp);
+                    $('#nama_direktur').val(result.nama_direktur);
                     $('#jum_anggota').val(result.jum_anggota);
                     $('#badan_hukum').val(result.badan_hukum);
                     $('#jum_poktan').val(result.jum_poktan);
-                    $('#jum_gapoktan').val(result.no_telp);
+                    $('#jum_gapoktan').val(result.jum_gapoktan);
 
 
                     $('#modal-form').modal('show');
@@ -369,7 +395,7 @@
                         formData.append('badan_hukum', badan_hukum);
                         formData.append('jum_poktan', jum_poktan);
                         formData.append('jum_anggota', jum_anggota);
-                        formData.append('jum_poktan', jum_poktan);
+                        formData.append('jum_gapoktan', jum_gapoktan);
 
                         $.ajax({
                             url: '<?= base_url() ?>/KelembagaanPelakuUtama/KelembagaanEkonomiPetani/ListKEP/update/' + id_kep,

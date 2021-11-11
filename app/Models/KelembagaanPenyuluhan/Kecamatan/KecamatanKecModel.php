@@ -7,7 +7,7 @@ use \Config\Database;
 
 class KecamatanKecModel extends Model
 {
-    //protected $table      = 'penyuluh';
+    protected $table      = 'tblbpp';
     //protected $primaryKey = 'id';
 
 

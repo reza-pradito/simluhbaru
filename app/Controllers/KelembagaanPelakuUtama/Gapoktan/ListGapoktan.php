@@ -4,7 +4,6 @@ namespace App\Controllers\KelembagaanPelakuUtama\Gapoktan;
 
 use App\Controllers\BaseController;
 use App\Models\KelembagaanPelakuUtama\Gapoktan\ListGapoktanModel;
-use App\Models\KodeWilayah\KodeWilModel;
 
 class ListGapoktan extends BaseController
 {
@@ -110,6 +109,6 @@ class ListGapoktan extends BaseController
     public function delete($id_gap)
     {
         $this->model->delete($id_gap);
-        return redirect()->to('/listgapoktan');
+        return redirect()->to('/gapoktan');
     }
 }

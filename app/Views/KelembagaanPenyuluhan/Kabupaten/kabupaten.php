@@ -4,10 +4,25 @@
 
 <?php $sessnama = session()->get('kodebapel'); ?>
 
+<?php
+if (empty(session()->get('status_user')) || session()->get('status_user') == '2') {
+    $kode = '00';
+} elseif (session()->get('status_user') == '1') {
+    $kode = session()->get('kodebakor');
+} elseif (session()->get('status_user') == '200') {
+    $kode = session()->get('kodebapel');
+} elseif (session()->get('status_user') == '300') {
+    $kode = session()->get('kodebpp');
+}
+
+$api = 'https://api.pertanian.go.id/api/simantap/dashboard/list?&api-key=f13914d292b53b10936b7a7d1d6f2406&kode=' . $kode;
+$result = file_get_contents($api, false);
+$json = json_decode($result, true);
+$data = $json[0];
+?>
 <center>
     <h3> Data Kelembagaan Penyuluhan Pertanian <br>Kab <?= ucwords(strtolower($nama_kabupaten)) ?> </h3>
 </center>
-<a href="#"><button type="button" class="btn bg-gradient-primary">+ Tambah Data</button></a>
 <div class="card">
     <div class="table-responsive">
         <table class="table align-items-center mb-0">
@@ -37,8 +52,10 @@
                         <td class="align-middle text-center text-sm">
                             <p class="text-xs font-weight-bold mb-0"><?= $i++ ?></p>
                         </td>
-                        <td class="align-middle text-center text-sm">
-                            <p class="text-xs font-weight-bold mb-0"><?= $row['nama_bapel'] ?></p>
+                        <td>
+                            <a href="<?= base_url('/lembaga') ?>">
+                                <p class="text-xs font-weight-bold mb-0"><?= $row['nama_bapel'] ?></p>
+                            </a>
                         </td>
                         <td class="align-middle text-center text-sm">
                             <p class="text-xs font-weight-bold mb-0"><?= $row['alamat'] ?></p>
@@ -47,32 +64,25 @@
                             <p class="text-xs font-weight-bold mb-0"><?= $row['ketua'] ?></p>
                         </td>
                         <td class="align-middle text-center text-sm">
-                            <p class="text-xs font-weight-bold mb-0"><?= $row['jumpns'] ?></p>
+                            <p class="text-xs font-weight-bold mb-0"><?= number_format($data['jumpenyuluhpns']); ?></p>
                         </td>
                         <td class="align-middle text-center text-sm">
                             <p class="text-xs font-weight-bold mb-0"><?= $row['jumthl'] ?></p>
                         </td>
                         <td class="align-middle text-center text-sm">
-                            <p class="text-xs font-weight-bold mb-0"><?= $row['jumswa'] ?></p>
+                            <p class="text-xs font-weight-bold mb-0"><?= number_format($data['jumpenyuluhswadaya']); ?></p>
                         </td>
                         <td class="align-middle text-center text-sm">
-                            <p class="text-xs font-weight-bold mb-0"><?= $row['jumpok'] ?></p>
+                            <p class="text-xs font-weight-bold mb-0"><?= number_format($data['jumpoktan']); ?></p>
                         </td>
                         <td class="align-middle text-center text-sm">
-                            <p class="text-xs font-weight-bold mb-0"><?= $row['jumgap'] ?></p>
+                            <p class="text-xs font-weight-bold mb-0"><?= number_format($data['jumgapoktan']); ?></p>
                         </td>
                         <td class="align-middle text-center text-sm">
                             <p class="text-xs font-weight-bold mb-0"><?= $row['jumkep'] ?></p>
                         </td>
                         <td class="align-middle text-center text-sm">
                             <p class="text-xs font-weight-bold mb-0"><?= $row['tgl_update'] ?></p>
-                        </td>
-                        <td class="align-middle text-center text-sm">
-                            <a href="#">
-                                <button type="button" data-bs-toggle="modal" data-bs-target="#modal-form" class="btn bg-gradient-warning btn-sm">
-                                    <i class="fas fa-edit"></i> Ubah
-                                </button>
-                            </a>
                         </td>
                     </tr>
                 <?php

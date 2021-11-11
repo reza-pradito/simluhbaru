@@ -8,23 +8,10 @@ use \Config\Database;
 class KelompokTaniModel extends Model
 {
     protected $table      = 'penyuluh';
-    //protected $primaryKey = 'id';
-
-
-    //protected $returnType     = 'array';
-    //protected $useSoftDeletes = true;
-
-    //protected $allowedFields = ['nama', 'alamat', 'telpon'];
+   
 
 
     protected $useTimestamps = false;
-    // protected $createdField  = 'created_at';
-    // protected $updatedField  = 'updated_at';
-    // protected $deletedField  = 'deleted_at';
-
-    // protected $validationRules    = [];
-    // protected $validationMessages = [];
-    // protected $skipValidation     = false;
 
 
     public function getKelompokTaniTotal($kode_kab)
@@ -36,7 +23,7 @@ class KelompokTaniModel extends Model
         $query2 = $db->query("SELECT count(id_poktan) as jum_poktan FROM tb_poktan where kode_kab ='$kode_kab'");
         $row2   = $query2->getRow();
         
-        $query3   = $db->query("select id_daerah, deskripsi, count(id_gap) as jum 
+        $query3   = $db->query("select id_daerah, deskripsi, count(id_poktan) as jum 
                                 from tbldaerah a
                                 left join tb_poktan b on a.id_daerah=b.kode_kec and b.kode_kab='$kode_kab'
                                 where id_dati2='$kode_kab'
