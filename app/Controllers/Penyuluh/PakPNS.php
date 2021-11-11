@@ -3,17 +3,16 @@
 namespace App\Controllers\Penyuluh;
 
 use App\Controllers\BaseController;
-use App\Models\penyuluh\PendInFormalPnsModel;
-use App\Models\penyuluh\PenyuluhPNSModel;
+use App\Models\penyuluh\PakPNSModel;
 
-class PendInFormalPns extends BaseController
+class PakPNS extends BaseController
 {
     protected $session;
     function __construct()
     {
         $this->session = \Config\Services::session();
         $this->session->start();
-        $this->model = new PendInFormalPnsModel();
+        $this->model = new PakPNSModel();
     }
 
     public function detail()
@@ -23,20 +22,20 @@ class PendInFormalPns extends BaseController
 
         $nip = $get_param['nip'];
         $nama = $get_paramm['nama'];
-        $penyuluhmodel = new PendInFormalPnsModel();
-        $dtpenyuluh = $penyuluhmodel->getPendInFormalPnsTotal($nip);
-        $diklat = $penyuluhmodel->getDiklat();
+        $penyuluhmodel = new PakPNSModel();
+        $dtpenyuluh = $penyuluhmodel->getPakPNSTotal($nip);
+        $pp = $penyuluhmodel->getPP();
         $data = [
             'tabel_data' => $dtpenyuluh['table_data'],
-            'title' => 'Pendidikan Formal PNS',
+            'title' => 'Riwayat Jenjang Jabatan / Gol / Nilai PAK Penyuluh PNS',
             'nipp' => $nip,
             'namaa' => $nama,
-            'diklat' => $diklat
+            'pp' => $pp
         ];
 
         //dd($data);
 
-        return view('kab/penyuluh/pendidikaninformalpns', $data);
+        return view('kab/penyuluh/pakpns', $data);
     }
 
     public function save()
@@ -44,12 +43,14 @@ class PendInFormalPns extends BaseController
         try {
             $res = $this->model->save([
                 'nip' => $this->request->getPost('nip'),
-                'nama' => $this->request->getPost('nama'),
-                'kelompok' => $this->request->getPost('kelompok'),
-                'lokasi' => $this->request->getPost('lokasi'),
-                'tgl_mulai' => $this->request->getPost('tgl_mulai'),
-                'penyelenggara' => $this->request->getPost('penyelenggara'),
-                'jml_jam' => $this->request->getPost('jml_jam'),
+                'kredit_utama' => $this->request->getPost('kredit_utama'),
+                'kredit_penunjang' => $this->request->getPost('kredit_penunjang'),
+                'gol' => $this->request->getPost('gol'),
+                'tgl_nilai' => $this->request->getPost('tgl_nilai'),
+                'tgl_nilai2' => $this->request->getPost('tgl_nilai2'),
+                'tgl_spk' => $this->request->getPost('tgl_spk'),
+                'no_sk' => $this->request->getPost('no_sk'),
+                'pejabat' => $this->request->getPost('pejabat'),
                 'satminkal' => $this->request->getPost('satminkal'),
                 'tgl_update' => $this->request->getPost('tgl_update')
             ]);
@@ -82,32 +83,36 @@ class PendInFormalPns extends BaseController
 
     public function edit($id)
     {
-        $pns = $this->model->getDetailEdit($id);
-        echo $pns;
+        $pakpns = $this->model->getDetailEdit($id);
+        echo $pakpns;
     }
 
     public function update($id)
     {
         //$id = $this->request->getVar('idjab');
         $nip = $this->request->getPost('nip');
-        $nama = $this->request->getPost('nama');
-        $kelompok = $this->request->getPost('kelompok');
-        $lokasi = $this->request->getPost('lokasi');
-        $tgl_mulai = $this->request->getPost('tgl_mulai');
-        $penyelenggara = $this->request->getPost('penyelenggara');
-        $jml_jam = $this->request->getPost('jml_jam');
+        $kredit_utama = $this->request->getPost('kredit_utama');
+        $kredit_penunjang = $this->request->getPost('kredit_penunjang');
+        $gol = $this->request->getPost('gol');
+        $tgl_nilai = $this->request->getPost('tgl_nilai');
+        $tgl_nilai2 = $this->request->getPost('tgl_nilai2');
+        $tgl_spk = $this->request->getPost('tgl_spk');
+        $no_sk = $this->request->getPost('no_sk');
+        $pejabat = $this->request->getPost('pejabat');
         $satminkal = $this->request->getPost('satminkal');
         $tgl_update = $this->request->getPost('tgl_update');
 
         $this->model->save([
             'id' => $id,
             'nip' => $nip,
-            'nama' => $nama,
-            'kelompok' => $kelompok,
-            'lokasi' => $lokasi,
-            'tgl_mulai' => $tgl_mulai,
-            'penyelenggara' => $penyelenggara,
-            'jml_jam' => $jml_jam,
+            'kredit_utama' => $kredit_utama,
+            'kredit_penunjang' => $kredit_penunjang,
+            'gol' => $gol,
+            'tgl_nilai' => $tgl_nilai,
+            'tgl_nilai2' => $tgl_nilai2,
+            'tgl_spk' => $tgl_spk,
+            'no_sk' => $no_sk,
+            'pejabat' => $pejabat,
             'satminkal' => $satminkal,
             'tgl_update' => $tgl_update
         ]);

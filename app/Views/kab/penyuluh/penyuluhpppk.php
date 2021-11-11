@@ -200,7 +200,7 @@
                                             </div>
                                             <label>Bidang Pendidikan</label>
                                             <div class="input-group mb-3">
-                                                <select class="form-select" aria-label="Default select example">
+                                                <select name="bidang_pendidikan" id="bidang_pendidikan" class="form-select" aria-label="Default select example">
                                                     <option selected>Pilih Bidang Pendidikan</option>
                                                     <option value="Pertanian">Pertanian</option>
                                                     <option value="Non Pertanian">Non Pertanian</option>
@@ -586,9 +586,9 @@
             var jabatan = $('#jabatan').val();
             var tgltmtgol = $('#tgltmtgol').val();
             var batas_pensiun = $('#batas_pensiun').val();
-            var tgl_pensiun = $('#tgl_pensiun').val();
-            var bulan_pensiun = $('#bulan_pensiun').val();
-            var tahun_pensiun = $('#tahun_pensiun').val();
+            var tgl_pensiun = $('#day').val();
+            var bulan_pensiun = $('#month').val();
+            var tahun_pensiun = $('#year').val();
             var tgl_update = $('#tgl_update').val();
             var unit_kerja = $('#unit_kerja').val();
             var unit_kerja_kab = $('#unit_kerja_kab').val();
@@ -721,36 +721,50 @@
         });
 
         $(document).delegate('#btnHapus', 'click', function() {
-            var id = $(this).data('id');
+            Swal.fire({
+                title: 'Apakah anda yakin',
+                text: "Data akan dihapus ?",
+                type: 'warning',
+                showCloseButton: true,
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                confirmButtonText: 'Hapus Data!'
+            }).then((result) => {
+                if (result.value) {
+                    var id = $(this).data('id');
 
-            $.ajax({
-                url: '<?= base_url() ?>/Penyuluh/PenyuluhPPPK/delete/' + id,
-                type: 'POST',
-                success: function(result) {
-                    Swal.fire({
-                        title: 'Sukses',
-                        text: "Sukses Hapus data",
-                        type: 'success',
-                    }).then((result) => {
+                    $.ajax({
+                        url: '<?= base_url() ?>/Penyuluh/PenyuluhPPPK/delete/' + id,
+                        type: 'POST',
 
-                        if (result.value) {
-                            location.reload();
-                        }
-                    });
-                },
-                error: function(jqxhr, status, exception) {
-                    Swal.fire({
-                        title: 'Error',
-                        text: "Gagal Hapus data",
-                        type: 'error',
-                    }).then((result) => {
-                        if (result.value) {
-                            location.reload();
+                        success: function(result) {
+                            Swal.fire({
+                                title: 'Sukses',
+                                text: "Sukses hapus data",
+                                type: 'success',
+                            }).then((result) => {
+
+                                if (result.value) {
+                                    location.reload();
+                                }
+                            });
+                        },
+                        error: function(jqxhr, status, exception) {
+                            Swal.fire({
+                                title: 'Error',
+                                text: "Gagal hapus data",
+                                type: 'error',
+                            }).then((result) => {
+                                if (result.value) {
+                                    location.reload();
+                                }
+                            });
                         }
                     });
                 }
-
             });
+
         });
 
 
@@ -813,9 +827,9 @@
                     $('#jabatan').val(result.jabatan);
                     $('#tgltmtgol').val(result.tgltmtgol);
                     $('#batas_pensiun').val(result.batas_pensiun);
-                    $('#tgl_pensiun').val(result.tgl_pensiun);
-                    $('#bulan_pensiun').val(result.bulan_pensiun);
-                    $('#tahun_pensiun').val(result.tahun_pensiun);
+                    $('#day').val(result.tgl_pensiun);
+                    $('#month').val(result.bulan_pensiun);
+                    $('#year').val(result.tahun_pensiun);
                     $('#tgl_update').val(result.tgl_update);
                     $('#unit_kerja').val(result.unit_kerja);
                     $('#unit_kerja_kab').val(result.unit_kerja_kab);
@@ -886,9 +900,9 @@
                         var jabatan = $('#jabatan').val();
                         var tgltmtgol = $('#tgltmtgol').val();
                         var batas_pensiun = $('#batas_pensiun').val();
-                        var tgl_pensiun = $('#tgl_pensiun').val();
-                        var bulan_pensiun = $('#bulan_pensiun').val();
-                        var tahun_pensiun = $('#tahun_pensiun').val();
+                        var tgl_pensiun = $('#day').val();
+                        var bulan_pensiun = $('#month').val();
+                        var tahun_pensiun = $('#year').val();
                         var tgl_update = $('#tgl_update').val();
                         var unit_kerja = $('#unit_kerja').val();
                         var unit_kerja_kab = $('#unit_kerja_kab').val();
@@ -1451,6 +1465,8 @@
             currentYear--;
         }
 
+        selectMonth.html("");
+
         for (var m = 1; m <= 12; m++) {
             let month = monthNames[m];
             let monthElem = document.createElement("option");
@@ -1460,7 +1476,7 @@
         }
 
         var d = new Date();
-        var month = d.getMonth();
+        var month = d.getMonth() + 1;
         var year = d.getFullYear();
         var day = d.getDate();
 
@@ -1474,7 +1490,7 @@
 
         function AdjustDays() {
             var year = selectYear.val();
-            var month = parseInt(selectMonth.val()) + 1;
+            var month = parseInt(selectMonth.val());
             selectDay.empty();
 
             //get the last day, so the number of days in that month

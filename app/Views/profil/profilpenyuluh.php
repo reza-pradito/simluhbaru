@@ -170,7 +170,52 @@
                     </div>
 
                 </div>
-                <div class="tab-pane fade" id="nav-jabatan" role="tabpanel" aria-labelledby="nav-jabatan-tab">Riwayat Jabatan</div>
+                <div class="tab-pane fade" id="nav-jabatan" role="tabpanel" aria-labelledby="nav-jabatan-tab">
+                    <div class="row">
+                        <div class="col-lg-12 mb-lg-0 mb-4">
+                            <div class="card">
+                                <div class="card-body p-3">
+                                    <div class="row">
+
+                                        <div class="col-lg-8">
+
+                                            <table class="table">
+
+                                                <tbody>
+                                                    <tr>
+                                                        <td>Nama Jabatan</td>
+                                                        <td>:</td>
+                                                        <td><?= $dt['namajab']; ?></td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>Golongan</td>
+                                                        <td>:</td>
+                                                        <td><?= $dt['gol_ruang']; ?></td>
+                                                    </tr>
+                                                    <tr>
+                                                        <a href="<?= base_url('/pakpns?nama=' . $dt['nama']) . ('&nip=' . $dt['nip']) ?>">
+                                                            <button type="button" class="btn bg-gradient-warning btn-sm">
+                                                                <i class="fas fa-edit"></i> Riwayat Jabatan
+                                                            </button>
+                                                        </a>
+                                                    </tr>
+
+                                                </tbody>
+
+                                            </table>
+
+                                        </div>
+
+
+
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+
+                    </div>
+                </div>
                 <div class="tab-pane fade" id="nav-pendidikan" role="tabpanel" aria-labelledby="nav-pendidikan-tab">
                     <div class="row">
                         <div class="col-lg-12 mb-lg-0 mb-4">
@@ -192,6 +237,13 @@
                                                         <td>Jurusan</td>
                                                         <td>:</td>
                                                         <td><?= $dt['jurusan']; ?></td>
+                                                    </tr>
+                                                    <tr>
+                                                        <a href="<?= base_url('/pendidikaninformalpns?nama=' . $dt['nama']) . ('&nip=' . $dt['nip']) ?>">
+                                                            <button type="button" class="btn bg-gradient-warning btn-sm">
+                                                                <i class="fas fa-edit"></i> Pendikan Teknis
+                                                            </button>
+                                                        </a>
                                                     </tr>
 
                                                 </tbody>
