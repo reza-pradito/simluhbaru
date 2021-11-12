@@ -3,7 +3,7 @@
 namespace App\Controllers\KelembagaanPelakuUtama\Gapoktan;
 use App\Controllers\BaseController;
 use App\Models\KelembagaanPelakuUtama\Gapoktan\ListGapoktanDesaModel;
-use App\Models\KodeWilayah\KodeWilModel;
+use App\Models\KodeWilayah\KodeWilModel2;
 
 class ListGapoktanDesa extends BaseController
 {
@@ -24,7 +24,7 @@ class ListGapoktanDesa extends BaseController
         } elseif (session()->get('status_user') == '300') {
             $kode = session()->get('kodebpp');
         }
-         $kode_model = new KodeWilModel;
+         $kode_model = new KodeWilModel2;
         $get_param = $this->request->getGet();
         $kode_desa = $get_param['kode_desa'];
         $listgapoktandesa_model = new ListGapoktanDesaModel();

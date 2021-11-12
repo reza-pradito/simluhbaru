@@ -5,7 +5,7 @@ namespace App\Controllers\KelembagaanPelakuUtama\Gapoktan;
 use App\Controllers\BaseController;
 use App\Models\KelembagaanPelakuUtama\Gapoktan\GapoktanModel;
 use App\Models\KelembagaanPelakuUtama\Gapoktan\ListGapoktanModel;
-use App\Models\KodeWilayah\KodeWilModel;
+use App\Models\KodeWilayah\KodeWilModel2;
 
 class Gapoktan extends BaseController
 {
@@ -28,7 +28,7 @@ class Gapoktan extends BaseController
         } elseif (session()->get('status_user') == '300') {
             $kode = session()->get('kodebpp');
         }
-        $kode_model = new KodeWilModel;
+        $kode_model = new KodeWilModel2;
         $gapoktan_model = new GapoktanModel;
         $gapoktan_data = $gapoktan_model->getGapoktanTotal($this->session->get('kodebapel'));
         $kode_data = $kode_model->getKodeWil2(session()->get('kodebapel'));
@@ -54,7 +54,7 @@ class Gapoktan extends BaseController
         $get_param = $this->request->getGet();
         $kode_kec = $get_param['kode_kec'];
         $listgapoktan_model = new ListGapoktanModel();
-        $kodewil_model = new KodeWilModel();
+        $kodewil_model = new KodeWilModel2();
         $desa = $listgapoktan_model->getDesa($kode_kec);
         $listgapoktan_data = $listgapoktan_model->getListGapoktanTotal($kode_kec);
         $kode_data = $kodewil_model->getKodeWil($kode_kec);

@@ -83,7 +83,7 @@ if (empty(session()->get('status_user')) || session()->get('status_user') == '2'
                                     <i class="fas fa-edit"></i> Ubah
                                 </button>
                            
-                                <button class="btn btn-danger btn-sm" id="btnHapus" data-id_kep="<?= $row['id_kep'] ?>" type="submit" onclick="return confirm('Are you sure ?')">
+                                <button class="btn btn-danger btn-sm" id="btnHapus" data-id_kep="<?= $row['id_kep'] ?>" type="button" >
                                 <i class="fas fa-trash"></i> Hapus</button>
                           
                         </td>
@@ -378,7 +378,18 @@ if (empty(session()->get('status_user')) || session()->get('status_user') == '2'
 
         });
         $(document).delegate('#btnHapus', 'click', function() {
-            var id_kep = $(this).data('id_kep');
+            Swal.fire({
+                title: 'Apakah anda yakin',
+                text: "Data akan dihapus ?",
+                type: 'warning',
+                showCloseButton: true,
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                confirmButtonText: 'Hapus Data!'
+            }).then((result) => {
+                if (result.value) {
+                    var id = $(this).data('id_kep');
 
                     $.ajax({
                         url: '<?= base_url() ?>/KelembagaanPelakuUtama/KelembagaanEkonomiPetani/KelembagaanEkonomiPetani/delete/' + id,
@@ -391,25 +402,26 @@ if (empty(session()->get('status_user')) || session()->get('status_user') == '2'
                                 type: 'success',
                             }).then((result) => {
 
-
-                        if (result.value) {
-                            location.reload();
-                        }
-                    });
-                },
-                error: function(jqxhr, status, exception) {
-                    Swal.fire({
-                        title: 'Error',
-                        text: "Gagal Hapus data",
-                        type: 'error',
-                    }).then((result) => {
-                        if (result.value) {
-                            location.reload();
+                                if (result.value) {
+                                    location.reload();
+                                }
+                            });
+                        },
+                        error: function(jqxhr, status, exception) {
+                            Swal.fire({
+                                title: 'Error',
+                                text: "Gagal hapus data",
+                                type: 'error',
+                            }).then((result) => {
+                                if (result.value) {
+                                    location.reload();
+                                }
+                            });
                         }
                     });
                 }
-
             });
+
         });
         $(document).delegate('#btnEditKEP', 'click', function() {
             $.ajax({
@@ -546,7 +558,7 @@ if (empty(session()->get('status_user')) || session()->get('status_user') == '2'
                         formData.append('bentuk_mitra_pemasaran', bentuk_mitra_pemasaran);
                         formData.append('bentuk_mitra_saprodi', bentuk_mitra_saprodi);
                         formData.append('bnetuk_mitra_pendampingan', bnetuk_mitra_pendampingan);
-x
+
                         formData.append('jum_poktan', jum_poktan);
 
 

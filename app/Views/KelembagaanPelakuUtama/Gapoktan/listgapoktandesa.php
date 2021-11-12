@@ -331,7 +331,6 @@
                         formData.append('ketua_poktan', ketua_poktan);
                         formData.append('alamat', alamat);
                         formData.append('simluh_tahun_bentuk', simluh_tahun_bentuk);
-                        formData.append('simluh_sk_pengukuhan', simluh_sk_pengukuhan);
                         formData.append('simluh_jenis_kelompok', simluh_jenis_kelompok);
                         formData.append('simluh_kelas_kemampuan', simluh_kelas_kemampuan);
                         formData.append('simluh_tahun_tap_kelas', simluh_tahun_tap_kelas);
