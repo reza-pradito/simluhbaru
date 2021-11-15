@@ -842,7 +842,7 @@
                         $('#nama').val(result.nama);
                         $('#gelar_dpn').val(result.gelar_dpn);
                         $('#gelar_blk').val(result.gelar_blk);
-                        $('#year').val(result.tgl_lahir.substr(0, 4)).change();
+                        $('#year').val(parseInt(result.tgl_lahir.substr(0, 4))).change();
                         $('#month').val(parseInt(result.tgl_lahir.substr(5, 2))).change();
                         $('#day').val(parseInt(result.tgl_lahir.substr(8, 2)));
                         $('#tempat_lahir').val(result.tempat_lahir);
@@ -861,7 +861,7 @@
                         } else {
                             $('#kode_kab2').prop("checked", true).click();
                         }
-                        $('#year2').val(result.tgl_skcpns.substr(0, 4)).change();
+                        $('#year2').val(parseInt(result.tgl_skcpns.substr(0, 4))).change();
                         $('#month2').val(parseInt(result.tgl_skcpns.substr(5, 2))).change();
                         $('#day2').val(parseInt(result.tgl_skcpns.substr(8, 2)));
                         $('#peng_kerja_thn').val(result.peng_kerja_thn);
