@@ -28,7 +28,7 @@ class User extends BaseController
     public function ajax_user_list()
     {
         $request = Services::request();
-        $datatable = new UserModel($request);
+        $datatable = new UserModel();
         if ($request->getMethod(true) === 'POST') {
             $lists = $datatable->getDatatables($request);
             $data = [];
@@ -53,7 +53,7 @@ class User extends BaseController
 
             $output = [
                 'draw' => $request->getPost('draw'),
-                'recordsTotal' => $datatable->countAll(),
+                'recordsTotal' => $datatable->countAll($request),
                 'recordsFiltered' => $datatable->countFiltered($request),
                 'data' => $data
             ];

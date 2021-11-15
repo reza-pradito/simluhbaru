@@ -57,6 +57,24 @@ class GapoktanBersama extends BaseController
                 'simluh_sk_pengukuhan' => $this->request->getPost('simluh_sk_pengukuhan'),
                 'simluh_bendahara' => $this->request->getPost('simluh_bendahara'),
                 'simluh_sekretaris' => $this->request->getPost('simluh_sekretaris'),
+                'simluh_usaha_tani' => $this->request->getPost('simluh_usaha_tani'),
+                'simluh_usaha_olah' => $this->request->getPost('simluh_usaha_olah'),
+
+                'simluh_usaha_saprodi' => $this->request->getPost('simluh_usaha_saprodi'),
+                'simluh_usaha_pemasaran' => $this->request->getPost('simluh_usaha_pemasaran'),
+                'simluh_usaha_simpan_pinjam' => $this->request->getPost('simluh_usaha_simpan_pinjam'),
+                'simluh_usaha_jasa_lain' => $this->request->getPost('simluh_usaha_jasa_lain'),
+                'simluh_usaha_jasa_lain_desc' => $this->request->getPost('simluh_usaha_jasa_lain_desc'),
+
+                'simluh_alsin_traktor' => $this->request->getPost('simluh_alsin_traktor'),
+                'simluh_alsin_hand_tractor' => $this->request->getPost('simluh_alsin_hand_tractor'),
+                'simluh_alsin_pompa_air' => $this->request->getPost('simluh_alsin_pompa_air'),
+                'simluh_alsin_penggiling_padi' => $this->request->getPost('simluh_alsin_penggiling_padi'),
+                'simluh_alsin_pengering' => $this->request->getPost('simluh_alsin_pengering'),
+                'simluh_alsin_chooper' => $this->request->getPost('simluh_alsin_chooper'),
+                'simluh_alsin_lain_desc' => $this->request->getPost('simluh_alsin_lain_desc'),
+                'simluh_alsin_lain' => $this->request->getPost('simluh_alsin_lain'),
+
 
             ]);
             if ($res == false) {
@@ -98,6 +116,23 @@ class GapoktanBersama extends BaseController
         $simluh_sk_pengukuhan = $this->request->getPost('simluh_sk_pengukuhan');
         $simluh_bendahara = $this->request->getPost('simluh_bendahara');
         $simluh_sekretaris = $this->request->getPost('simluh_sekretaris');
+        $simluh_usaha_tani = $this->request->getPost('simluh_usaha_tani');
+        $simluh_usaha_olah = $this->request->getPost('simluh_usaha_olah');
+
+        $simluh_usaha_saprodi = $this->request->getPost('simluh_usaha_saprodi');
+        $simluh_usaha_pemasaran = $this->request->getPost('simluh_usaha_pemasaran');
+        $simluh_usaha_simpan_pinjam = $this->request->getPost('simluh_usaha_simpan_pinjam');
+        $simluh_usaha_jasa_lain = $this->request->getPost('simluh_usaha_jasa_lain');
+        $simluh_usaha_jasa_lain_desc = $this->request->getPost('simluh_usaha_jasa_lain_desc');
+        
+        $simluh_alsin_traktor = $this->request->getPost('simluh_alsin_traktor');
+        $simluh_alsin_hand_tractor = $this->request->getPost('simluh_alsin_hand_tractor');
+        $simluh_alsin_pompa_air = $this->request->getPost('simluh_alsin_pompa_air');
+        $simluh_alsin_penggiling_padi = $this->request->getPost('simluh_alsin_penggiling_padi');
+        $simluh_alsin_pengering = $this->request->getPost('simluh_alsin_pengering');
+        $simluh_alsin_chooper = $this->request->getPost('simluh_alsin_chooper');
+        $simluh_alsin_lain_desc = $this->request->getPost('simluh_alsin_lain_desc');
+        $simluh_alsin_lain = $this->request->getPost('simluh_alsin_lain');
         $this->model->save([
             'id_gapber' => $id_gapber,
             'kode_kec' => $kode_kec,
@@ -111,6 +146,21 @@ class GapoktanBersama extends BaseController
             'simluh_sk_pengukuhan' => $simluh_sk_pengukuhan,
             'simluh_sekretaris' => $simluh_sekretaris,
             'simluh_bendahara' => $simluh_bendahara,
+            'simluh_usaha_tani' => $simluh_usaha_tani,
+            'simluh_usaha_olah' => $simluh_usaha_olah,
+            'simluh_usaha_saprodi' => $simluh_usaha_saprodi,
+            'simluh_usaha_pemasaran' => $simluh_usaha_pemasaran,
+            'simluh_usaha_simpan_pinjam' => $simluh_usaha_simpan_pinjam,
+            'simluh_usaha_jasa_lain' => $simluh_usaha_jasa_lain,
+            'simluh_usaha_jasa_lain_desc' => $simluh_usaha_jasa_lain_desc,
+            'simluh_alsin_traktor' => $simluh_alsin_traktor,
+            'simluh_alsin_hand_tractor' => $simluh_alsin_hand_tractor,
+            'simluh_alsin_pompa_air' => $simluh_alsin_pompa_air,
+            'simluh_alsin_penggiling_padi' => $simluh_alsin_penggiling_padi,
+            'simluh_alsin_pengering' => $simluh_alsin_pengering,
+            'simluh_alsin_chooper' => $simluh_alsin_chooper,
+            'simluh_alsin_lain_desc' => $simluh_alsin_lain_desc,
+            'simluh_alsin_lain' => $simluh_alsin_lain,
         ]);
 
         //session()->setFlashdata('pesan', 'Data berhasil diubah');
