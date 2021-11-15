@@ -88,15 +88,17 @@ class Lembaga extends BaseController
                 'title' => 'Profil Lembaga',
                 'dt' => $dtlembaga,
                 'tabel_data' => $bakor_data['table_data'],
+                'namaprov' => $namawil['namaprov'],
+                'namakab' => $namawil['namakab'],
                 'pnsprov' => $pnsprov,
                 'jum_pns' => $pns['jum_pns'],
                 'datapns' => $pns['datapns'],
                 'fotoprofil' => $dtlembaga['foto']
+
             ];
+            return view('profil/profilprov', $data);
         } elseif (session()->get('status_user') == '4') {
         } elseif (session()->get('status_user') == '200') {
-            $kode = session()->get('kodebapel');
-
             $kode = session()->get('kodebapel');
 
             $dtlembaga = $lembagaModel->getProfil(session()->get('kodebapel'));

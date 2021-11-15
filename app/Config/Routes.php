@@ -40,7 +40,10 @@ $routes->get('/index', 'Manage\Rolemenu::index');
 
 $routes->get('/daftarkelembagaan', 'profil/Guest::daftarkelembagaan');
 $routes->get('/dl_kab', 'profil/Guest::daftarkelembagaankab');
+$routes->get('/dl_kec', 'profil/Guest::daftarkelembagaankec');
+$routes->get('/profilbpp', 'profil/Guest::profilbpp');
 $routes->get('/rekap_keluh', 'profil/Guest::rekapkeluh');
+$routes->get('/rekapkec', 'profil/Guest::rekapkeluhkec');
 
 $routes->get('/penyuluhpns', 'Penyuluh/PenyuluhPns::penyuluhpns');
 $routes->get('/penyuluhcpns', 'Penyuluh/PenyuluhCpns::penyuluhcpns');

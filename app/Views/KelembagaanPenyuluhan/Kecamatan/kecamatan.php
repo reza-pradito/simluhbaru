@@ -92,6 +92,11 @@ if (empty(session()->get('status_user')) || session()->get('status_user') == '2'
                             <p class="text-xs font-weight-bold mb-0"><?= $row['tgl_update'] ?></p>
                         </td>
                         <td class="align-middle text-center text-sm">
+                            <a href="<?= base_url('/detail_kecamatan?kode_kec=' . $row['id_daerah']) ?>">
+                                <button type="button" id="btn-edit" class="btn bg-gradient-warning btn-sm">
+                                    <i class="fas fa-edit"></i> Ubah
+                                </button>
+                            </a>
                             <a href="<?= base_url('KelembagaanPenyuluhan/Kecamatan/Kecamatan/delete/' . $row['id']) ?>" onclick="return confirm('apakah anda ingin menghapus data ini?')">
                                 <button type="button" class="btn bg-gradient-danger btn-sm">
                                     <i class="fas fa-trash"></i> Hapus
