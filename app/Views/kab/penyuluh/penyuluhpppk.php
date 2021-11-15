@@ -4,6 +4,8 @@
 <?php $seskab = session()->get('kodebapel'); ?>
 
 <button type="button" data-bs-toggle="modal" data-bs-target="#modal-form" class="btn bg-gradient-primary btn-sm">+ Tambah Data</button><br>
+<b>Daftar Penyuluh PPPK Kab <?= ucwords(strtolower($nama_kabupaten)) ?></b>
+<p>Ditemukan <?= $jml_data ?> data</p>
 <div class="card">
     <div class="table-responsive">
         <table class="table align-items-center mb-0">
@@ -158,11 +160,11 @@
                                             <label>Jenis Kelamin</label>
                                             <div class="input-group mb-3">
                                                 <div class="form-check form-check-inline">
-                                                    <input class="form-check-input jenis_kelamin" type="radio" name="jenis_kelamin" id="jenis_kelamin" value="1">
+                                                    <input class="form-check-input jenis_kelamin" type="radio" name="jenis_kelamin" id="jenis_kelamin1" value="1">
                                                     <label class="form-check-label" for="inlineRadio1">Laki-laki</label>
                                                 </div>
                                                 <div class="form-check form-check-inline">
-                                                    <input class="form-check-input jenis_kelamin" type="radio" name="jenis_kelamin" id="jenis_kelamin" value="2">
+                                                    <input class="form-check-input jenis_kelamin" type="radio" name="jenis_kelamin" id="jenis_kelamin2" value="2">
                                                     <label class="form-check-label" for="inlineRadio2">Perempuan</label>
                                                 </div>
                                             </div>
@@ -219,11 +221,11 @@
                                             <label>Lokasi Kerja</label>
                                             <div class="input-group mb-3">
                                                 <div class="form-check form-check-inline">
-                                                    <input class="form-check-input rad" type="radio" name="kode_kab" id="kode_kab" value="3">
+                                                    <input class="form-check-input rad" type="radio" name="kode_kab" id="kode_kab1" value="3">
                                                     <label class="form-check-label" for="inlineRadio1">Kabupaten/Kota</label>
                                                 </div>
                                                 <div class="form-check form-check-inline">
-                                                    <input class="form-check-input rad" type="radio" name="kode_kab" id="kode_kab" value="4">
+                                                    <input class="form-check-input rad" type="radio" name="kode_kab" id="kode_kab2" value="4">
                                                     <label class="form-check-label" for="inlineRadio2">Kecamatan</label>
                                                 </div>
                                             </div>
@@ -786,14 +788,9 @@
                     $('#day').val(parseInt(result.tgl_lahir.substr(8, 2)));
                     $('#tempat_lahir').val(result.tempat_lahir);
                     if (result.jenis_kelamin == "1") {
-                        $("#jenis_kelamin").prop("checked", true);
+                        $('#jenis_kelamin1').prop("checked", true);
                     } else {
-                        $("#jenis_kelamin").prop("checked", false);
-                    }
-                    if (result.jenis_kelamin == "2") {
-                        $("#jenis_kelamin").prop("checked", true);
-                    } else {
-                        $("#jenis_kelamin").prop("checked", false);
+                        $('#jenis_kelamin2').prop("checked", true);
                     }
                     $('#status_kel').val(result.status_kel);
                     $('#agama').val(result.agama);
@@ -801,14 +798,9 @@
                     $('#keahlian').val(result.keahlian);
                     $('#satminkal').val(result.satminkal);
                     if (result.kode_kab == "3") {
-                        $("#kode_kab").prop("checked", true);
+                        $('#kode_kab1').prop("checked", true).click();
                     } else {
-                        $("#kode_kab").prop("checked", false);
-                    }
-                    if (result.kode_kab == "4") {
-                        $("#kode_kab").prop("checked", true);
-                    } else {
-                        $("#kode_kab").prop("checked", false);
+                        $('#kode_kab2').prop("checked", true).click();
                     }
                     $('#year2').val(result.tgl_skcpns.substr(0, 4)).change();
                     $('#month2').val(parseInt(result.tgl_skcpns.substr(5, 2))).change();
@@ -1107,6 +1099,28 @@
 
 <script>
     $(function() {
+        $("#form1").hide();
+        $("#form2").hide();
+        $("#form3").hide();
+        $("#form4").hide();
+        $("#form5").hide();
+        $("#form6").hide();
+        $("#form7").hide();
+        $("#form8").hide();
+        $("#form9").hide();
+        $("#form10").hide();
+        $("#form11").hide();
+        $("#form12").hide();
+        $("#form13").hide();
+        $("#form14").hide();
+        $("#form15").hide();
+        $("#form16").hide();
+        $("#form17").hide();
+        $("#form18").hide();
+        $("#form19").hide();
+        $("#form20").hide();
+        $("#form21").hide();
+        $("#form22").hide();
         $(":radio.rad").click(function() {
             $("#form1, #form2, #form3").hide()
             if ($(this).val() == "4") {

@@ -21,7 +21,6 @@
                                 <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Nama</th>
                                 <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Unit<br>Kerja</th>
                                 <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Tempat<br>Tugas</th>
-                                <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Wilayah<br>Kerja</th>
                                 <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Status</th>
                                 <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Jabatan<br>Terakhir</th>
                                 <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Terakhir<br>Update</th>
@@ -159,15 +158,14 @@
                                                         <label>Jenis Kelamin</label>
                                                         <div class="input-group mb-3">
                                                             <div class="form-check form-check-inline">
-                                                                <input class="form-check-input jenis_kelamin" type="radio" name="jenis_kelamin" id="jenis_kelamin" value="1">
+                                                                <input class="form-check-input jenis_kelamin" type="radio" name="jenis_kelamin" id="jenis_kelamin1" value="1">
                                                                 <label class="form-check-label" for="inlineRadio1">Laki-laki</label>
                                                             </div>
                                                             <div class="form-check form-check-inline">
-                                                                <input class="form-check-input jenis_kelamin" type="radio" name="jenis_kelamin" id="jenis_kelamin" value="2">
+                                                                <input class="form-check-input jenis_kelamin" type="radio" name="jenis_kelamin" id="jenis_kelamin2" value="2">
                                                                 <label class="form-check-label" for="inlineRadio2">Perempuan</label>
                                                             </div>
-                                                        </div>
-                                                        <label>Agama</label>
+                                                        </div <label>Agama</label>
                                                         <div class="input-group mb-3">
                                                             <select name="agama" id="agama" class="form-select" aria-label="Default select example">
                                                                 <option selected>Pilih Agama</option>
@@ -220,11 +218,11 @@
                                                         <label>Lokasi Kerja</label>
                                                         <div class="input-group mb-3">
                                                             <div class="form-check form-check-inline">
-                                                                <input class="form-check-input rad" type="radio" name="kode_kab" id="kode_kab" value="3">
+                                                                <input class="form-check-input rad" type="radio" name="kode_kab" id="kode_kab1" value="3">
                                                                 <label class="form-check-label" for="inlineRadio1">Kabupaten/Kota</label>
                                                             </div>
                                                             <div class="form-check form-check-inline">
-                                                                <input class="form-check-input rad" type="radio" name="kode_kab" id="kode_kab" value="4">
+                                                                <input class="form-check-input rad" type="radio" name="kode_kab" id="kode_kab2" value="4">
                                                                 <label class="form-check-label" for="inlineRadio2">Kecamatan</label>
                                                             </div>
                                                         </div>
@@ -849,14 +847,9 @@
                         $('#day').val(parseInt(result.tgl_lahir.substr(8, 2)));
                         $('#tempat_lahir').val(result.tempat_lahir);
                         if (result.jenis_kelamin == "1") {
-                            $("#jenis_kelamin").prop("checked", true);
+                            $('#jenis_kelamin1').prop("checked", true);
                         } else {
-                            $("#jenis_kelamin").prop("checked", false);
-                        }
-                        if (result.jenis_kelamin == "2") {
-                            $("#jenis_kelamin").prop("checked", true);
-                        } else {
-                            $("#jenis_kelamin").prop("checked", false);
+                            $('#jenis_kelamin2').prop("checked", true);
                         }
                         $('#status_kel').val(result.status_kel);
                         $('#agama').val(result.agama);
@@ -864,14 +857,9 @@
                         $('#keahlian').val(result.keahlian);
                         $('#satminkal').val(result.satminkal);
                         if (result.kode_kab == "3") {
-                            $("#kode_kab").prop("checked", true);
+                            $('#kode_kab1').prop("checked", true).click();
                         } else {
-                            $("#kode_kab").prop("checked", false);
-                        }
-                        if (result.kode_kab == "4") {
-                            $("#kode_kab").prop("checked", true);
-                        } else {
-                            $("#kode_kab").prop("checked", false);
+                            $('#kode_kab2').prop("checked", true).click();
                         }
                         $('#year2').val(result.tgl_skcpns.substr(0, 4)).change();
                         $('#month2').val(parseInt(result.tgl_skcpns.substr(5, 2))).change();
