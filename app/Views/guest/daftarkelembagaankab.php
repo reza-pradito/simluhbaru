@@ -4,7 +4,7 @@
 
 
 <center>
-    <h4> Kelembagaan Penyuluhan Pertanian Provinsi </h4>
+    <h4> Kelembagaan Penyuluhan Pertanian Kabupaten </h4>
 </center>
 
 
@@ -42,8 +42,8 @@
                             <p class="text-xs font-weight-bold mb-0"><?= $i++ ?></p>
                         </td>
                         <td class="align-middle text-center text-sm">
-                            <a href="<?= base_url('/rl_kec?kode_kab=' . $item['kode_kab']) ?>">
-                                <p class="text-xs font-weight-bold mb-0" style="text-align: left;"><?= $item['namakab'] ?></p>
+                            <a href="<?= base_url('/dl_kec?kode_kab=' . $item['kode_kab']) ?>" style="color: blue;">
+                                <p class="text-xs font-weight-bold mb-0" style="text-align: left;"><?= $item['nama_dati2'] ?></p>
                             </a>
                         </td>
                         <td class="align-middle text-sm">

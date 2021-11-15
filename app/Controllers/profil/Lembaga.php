@@ -15,8 +15,8 @@ use App\Models\KelembagaanPenyuluhan\Kecamatan\PotensiWilayahModel;
 use App\Models\KelembagaanPenyuluhan\Kecamatan\WilkecModel;
 use App\Models\KelembagaanPenyuluhan\Provinsi\ProvModel;
 use App\Models\KodeWilayah\KodeWilModel;
-
-
+use App\Models\LembagaModel;
+use App\Models\WilayahModel;
 
 class Lembaga extends BaseController
 {
@@ -87,11 +87,13 @@ class Lembaga extends BaseController
                 'title' => 'Profil Lembaga',
                 'dt' => $dtlembaga,
                 'tabel_data' => $bakor_data['table_data'],
+                'namaprov' => $namawil['namaprov'],
+                'namakab' => $namawil['namakab'],
                 'pnsprov' => $pnsprov,
                 'jum_pns' => $pns['jum_pns'],
                 'datapns' => $pns['datapns']
-                'fotoprofil' => $dtlembaga['foto']
             ];
+            return view('profil/profilprov', $data);
         } elseif (session()->get('status_user') == '4') {
         } elseif (session()->get('status_user') == '200') {
             $kode = session()->get('kodebapel');
@@ -134,7 +136,6 @@ class Lembaga extends BaseController
             ];
 
             return view('profil/profillembaga', $data);
-
         } elseif (session()->get('status_user') == '300') {
             $kode = session()->get('kodebpp');
 
@@ -191,67 +192,6 @@ class Lembaga extends BaseController
                 // 'datapns' => $pns['datapns']
             ];
             return view('profil/profilkecamatan', $data);
-        }
-     
-            $data = [
-                'title' => 'Profil Lembaga',
-                'dt' => $dtlembaga,
-                'penyuluhPNS' => $penyuluhPNS,
-                'penyuluhTHL' => $penyuluhTHL,
-                'namaprov' => $namawil['namaprov'],
-                'tabel_data' => $bapel_data['table_data'],
-                'bapel' => $bapel['bapel_data'],
-                'fasdata' => $fasdata['fasdata'],
-                'idgap' => $id_gap['idgap'],
-                'fotoprofil' => $dtlembaga['foto'],
-                'fasilitasi' => $query->getResultArray(),
-                'jum_pns' => $pns['jum_pns'],
-                'datapns' => $pns['datapns'],
-                'datathl' => $thl['datathl'],
-                'jum_thl' => $thl['jum_thl'],
-                'datathl_apbd' => $thl_apbd['datathl_apbd'],
-                'jum_thl_apbd' => $thl_apbd['jum_thl_apbd'],
-                'prov' => $dtprov,
-                'validation' => \Config\Services::validation()
-
-            ];
-        } elseif (session()->get('status_user') == '300') {
-            $kode = session()->get('kodebpp');
-            //$kode = session()->get('kodebapel');
-            $dtlembaga = $lembagaModel->getProfil($kode);
-            $penyuluhPNS = $kabModel->getPenyuluhPNS(session()->get('kodebapel'));
-            $penyuluhTHL = $kabModel->getPenyuluhTHL(session()->get('kodebapel'));
-            $bapel_data = $kabModel->getKabTotal(session()->get('kodebapel'));
-            $bapel = $kabModel->getBapel(session()->get('kodebapel'));
-            $fasdata = $kabModel->getFas(session()->get('kodebapel'));
-            $id_gap = $kabModel->getIdGap(session()->get('kodebapel'));
-            $namawil = $wilModel->getNamaWil(session()->get('kodebapel'));
-            $pns = $kabModel->getTotalPNS(session()->get('kodebapel'));
-            $thl = $kabModel->getTotalTHLAPBN(session()->get('kodebapel'));
-            $thl_apbd = $kabModel->getTotalTHLAPBD(session()->get('kodebapel'));
-
-            $data = [
-                'title' => 'Profil Lembaga',
-                'dt' => $dtlembaga,
-                'penyuluhPNS' => $penyuluhPNS,
-                'penyuluhTHL' => $penyuluhTHL,
-                'namaprov' => $namawil['namaprov'],
-                'tabel_data' => $bapel_data['table_data'],
-                'bapel' => $bapel['bapel_data'],
-                'fasdata' => $fasdata['fasdata'],
-                'idgap' => $id_gap['idgap'],
-                'fotoprofil' => $dtlembaga['foto'],
-                'fasilitasi' => $query->getResultArray(),
-                'jum_pns' => $pns['jum_pns'],
-                'datapns' => $pns['datapns'],
-                'datathl' => $thl['datathl'],
-                'jum_thl' => $thl['jum_thl'],
-                'datathl_apbd' => $thl_apbd['datathl_apbd'],
-                'jum_thl_apbd' => $thl_apbd['jum_thl_apbd'],
-                'prov' => $dtprov,
-                'validation' => \Config\Services::validation()
-
-            ];
         }
     }
 

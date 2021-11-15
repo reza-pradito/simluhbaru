@@ -40,7 +40,7 @@
                             <p class="text-xs font-weight-bold mb-0"><?= $i++ ?></p>
                         </td>
                         <td class="align-middle text-center text-sm">
-                            <a href="<?= base_url('/dl_kab?kode_prop=' . $item['kode_prop']) ?>">
+                            <a href="<?= base_url('/dl_kab?kode_prop=' . $item['kode_prop']) ?>" style="color: blue;">
                                 <p class="text-xs font-weight-bold mb-0" style="text-align: left;"><?= $item['namaprov'] ?></p>
                             </a>
                         </td>
