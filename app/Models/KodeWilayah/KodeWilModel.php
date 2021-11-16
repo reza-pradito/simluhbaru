@@ -7,6 +7,8 @@ use \Config\Database;
 
 class KodeWilModel extends Model
 {
+    protected $table      = 'tbldesa';
+
     public function getKodeWil($kode)
     {
         $db = Database::connect();
@@ -41,7 +43,7 @@ class KodeWilModel extends Model
             $query = $this->db->query("select id_prop as kode_prop from tbldesa where id_dati2='$kode'");
             $row   = $query->getRow();
             $query2 = $this->db->query("select id_daerah as kode_kec from tbldesa where id_dati2='$kode'");
-            $tow2   = $query2->getRow();
+            $row2   = $query2->getRow();
             $query3 = $this->db->query("select id_dati2 as kode_kab from tbldesa where id_dati2='$kode'");
             $row3   = $query3->getRow();
 

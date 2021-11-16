@@ -103,11 +103,11 @@
                                             <label>Jenis Kelamin</label>
                                             <div class="input-group mb-3">
                                                 <div class="form-check form-check-inline">
-                                                    <input class="form-check-input" type="radio" name="jenis_kelamin" id="jenis_kelamin" value="1">
+                                                    <input class="form-check-input jenis_kelamin" type="radio" name="jenis_kelamin" id="jenis_kelamin1" value="1">
                                                     <label class="form-check-label" for="inlineRadio1">Laki-laki</label>
                                                 </div>
                                                 <div class="form-check form-check-inline">
-                                                    <input class="form-check-input" type="radio" name="jenis_kelamin" id="jenis_kelamin" value="2">
+                                                    <input class="form-check-input jenis_kelamin" type="radio" name="jenis_kelamin" id="jenis_kelamin2" value="2">
                                                     <label class="form-check-label" for="inlineRadio2">Perempuan</label>
                                                 </div>
                                             </div>
@@ -220,7 +220,7 @@
             var thn_lahir = $('#year').val();
             var bln_lahir = $('#month').val();
             var tgl_lahir = $('#day').val();
-            var jenis_kelamin = $('#jenis_kelamin').val();
+            var jenis_kelamin = $(".jenis_kelamin:checked").val();
             var lokasi_kerja = $('#lokasi_kerja').val();
             var tempat_tugas = $('#tempat_tugas').val();
             var alamat = $('#alamat').val();
@@ -289,36 +289,50 @@
         });
 
         $(document).delegate('#btnHapus', 'click', function() {
-            var id_swa = $(this).data('id_swa');
+            Swal.fire({
+                title: 'Apakah anda yakin',
+                text: "Data akan dihapus ?",
+                type: 'warning',
+                showCloseButton: true,
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                confirmButtonText: 'Hapus Data!'
+            }).then((result) => {
+                if (result.value) {
+                    var id_swa = $(this).data('id_swa');
 
-            $.ajax({
-                url: '<?= base_url() ?>/Penyuluh/PenyuluhSwasta/delete/' + id_swa,
-                type: 'POST',
-                success: function(result) {
-                    Swal.fire({
-                        title: 'Sukses',
-                        text: "Sukses Hapus data",
-                        type: 'success',
-                    }).then((result) => {
+                    $.ajax({
+                        url: '<?= base_url() ?>/Penyuluh/PenyuluhSwasta/edit/' + id_swa,
+                        type: 'POST',
 
-                        if (result.value) {
-                            location.reload();
-                        }
-                    });
-                },
-                error: function(jqxhr, status, exception) {
-                    Swal.fire({
-                        title: 'Error',
-                        text: "Gagal Hapus data",
-                        type: 'error',
-                    }).then((result) => {
-                        if (result.value) {
-                            location.reload();
+                        success: function(result) {
+                            Swal.fire({
+                                title: 'Sukses',
+                                text: "Sukses hapus data",
+                                type: 'success',
+                            }).then((result) => {
+
+                                if (result.value) {
+                                    location.reload();
+                                }
+                            });
+                        },
+                        error: function(jqxhr, status, exception) {
+                            Swal.fire({
+                                title: 'Error',
+                                text: "Gagal hapus data",
+                                type: 'error',
+                            }).then((result) => {
+                                if (result.value) {
+                                    location.reload();
+                                }
+                            });
                         }
                     });
                 }
-
             });
+
         });
 
 
@@ -339,7 +353,11 @@
                     $('#year').val(result.thn_lahir);
                     $('#month').val(result.bln_lahir);
                     $('#day').val(result.tgl_lahir);
-                    $('#jenis_kelamin').val(result.jenis_kelamin);
+                    if (result.jenis_kelamin == "1") {
+                        $('#jenis_kelamin1').prop("checked", true);
+                    } else {
+                        $('#jenis_kelamin2').prop("checked", true);
+                    }
                     $('#lokasi_kerja').val(result.lokasi_kerja);
                     $('#tempat_tugas').val(result.tempat_tugas);
                     $('#alamat').val(result.alamat);
@@ -370,7 +388,7 @@
                         var thn_lahir = $('#year').val();
                         var bln_lahir = $('#month').val();
                         var tgl_lahir = $('#day').val();
-                        var jenis_kelamin = $('#jenis_kelamin').val();
+                        var jenis_kelamin = $(".jenis_kelamin:checked").val();
                         var lokasi_kerja = $('#lokasi_kerja').val();
                         var tempat_tugas = $('#tempat_tugas').val();
                         var alamat = $('#alamat').val();

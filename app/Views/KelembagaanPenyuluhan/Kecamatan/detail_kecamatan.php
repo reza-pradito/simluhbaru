@@ -13,7 +13,7 @@ if (empty(session()->get('status_user')) || session()->get('status_user') == '2'
     $kode = session()->get('kodebpp');
 }
 
-$api = 'https://api.pertanian.go.id/api/simantap/dashboard/list?&api-key=f13914d292b53b10936b7a7d1d6f2406&kode=' . $kode_kec;
+$api = 'https://api.pertanian.go.id/api/simantap/dashboard/list?&api-key=f13914d292b53b10936b7a7d1d6f2406&kode=' . $kode;
 $result = file_get_contents($api, false);
 $json = json_decode($result, true);
 $data = $json[0];
@@ -333,7 +333,7 @@ $data = $json[0];
                                                                     <p class="text-xs font-weight-bold mb-0"><?= $i++ ?></p>
                                                                 </td>
                                                                 <td class="align-middle text-sm">
-                                                                    <p class="text-xs font-weight-bold mb-0"><?= $pns['nama'] ?></p>
+                                                                    <p class="text-xs font-weight-bold mb-0"><a href="<?= base_url('profil/penyuluh/detail/' . $pns['nip']) ?>"><?= $pns['nama'] ?></p>
                                                                 </td>
                                                             </tr>
                                                         <?php
@@ -844,6 +844,8 @@ $data = $json[0];
                                             <input type="hidden" name="satminkal" id="satminkal" value="<?= $kode_kab; ?>">
                                             <input type="hidden" name="id" value="<?= $dt['id']; ?>">
                                             <input type="hidden" name="fotolama" value="<?= $dt['foto']; ?>">
+                                            <input type="hidden" name="urut" id="urut" value="<?= $dt['urut']; ?>">
+                                            <input type="hidden" name="kode_bp3k" id="kode_bp3k" value="<?= $bp; ?>">
                                             <label>Foto BPP</label>
                                             <div class="input-group mb-3">
                                                 <div class="col-lg-4">

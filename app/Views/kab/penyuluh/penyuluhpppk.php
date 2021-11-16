@@ -4,6 +4,8 @@
 <?php $seskab = session()->get('kodebapel'); ?>
 
 <button type="button" data-bs-toggle="modal" data-bs-target="#modal-form" class="btn bg-gradient-primary btn-sm">+ Tambah Data</button><br>
+<b>Daftar Penyuluh PPPK Kab <?= ucwords(strtolower($nama_kabupaten)) ?></b>
+<p>Ditemukan <?= $jml_data ?> data</p>
 <div class="card">
     <div class="table-responsive">
         <table class="table align-items-center mb-0">
@@ -158,11 +160,11 @@
                                             <label>Jenis Kelamin</label>
                                             <div class="input-group mb-3">
                                                 <div class="form-check form-check-inline">
-                                                    <input class="form-check-input jenis_kelamin" type="radio" name="jenis_kelamin" id="jenis_kelamin" value="1">
+                                                    <input class="form-check-input jenis_kelamin" type="radio" name="jenis_kelamin" id="jenis_kelamin1" value="1">
                                                     <label class="form-check-label" for="inlineRadio1">Laki-laki</label>
                                                 </div>
                                                 <div class="form-check form-check-inline">
-                                                    <input class="form-check-input jenis_kelamin" type="radio" name="jenis_kelamin" id="jenis_kelamin" value="2">
+                                                    <input class="form-check-input jenis_kelamin" type="radio" name="jenis_kelamin" id="jenis_kelamin2" value="2">
                                                     <label class="form-check-label" for="inlineRadio2">Perempuan</label>
                                                 </div>
                                             </div>
@@ -200,7 +202,7 @@
                                             </div>
                                             <label>Bidang Pendidikan</label>
                                             <div class="input-group mb-3">
-                                                <select class="form-select" aria-label="Default select example">
+                                                <select name="bidang_pendidikan" id="bidang_pendidikan" class="form-select" aria-label="Default select example">
                                                     <option selected>Pilih Bidang Pendidikan</option>
                                                     <option value="Pertanian">Pertanian</option>
                                                     <option value="Non Pertanian">Non Pertanian</option>
@@ -219,11 +221,11 @@
                                             <label>Lokasi Kerja</label>
                                             <div class="input-group mb-3">
                                                 <div class="form-check form-check-inline">
-                                                    <input class="form-check-input rad" type="radio" name="kode_kab" id="kode_kab" value="3">
+                                                    <input class="form-check-input rad" type="radio" name="kode_kab" id="kode_kab1" value="3">
                                                     <label class="form-check-label" for="inlineRadio1">Kabupaten/Kota</label>
                                                 </div>
                                                 <div class="form-check form-check-inline">
-                                                    <input class="form-check-input rad" type="radio" name="kode_kab" id="kode_kab" value="4">
+                                                    <input class="form-check-input rad" type="radio" name="kode_kab" id="kode_kab2" value="4">
                                                     <label class="form-check-label" for="inlineRadio2">Kecamatan</label>
                                                 </div>
                                             </div>
@@ -586,9 +588,9 @@
             var jabatan = $('#jabatan').val();
             var tgltmtgol = $('#tgltmtgol').val();
             var batas_pensiun = $('#batas_pensiun').val();
-            var tgl_pensiun = $('#tgl_pensiun').val();
-            var bulan_pensiun = $('#bulan_pensiun').val();
-            var tahun_pensiun = $('#tahun_pensiun').val();
+            var tgl_pensiun = $('#day').val();
+            var bulan_pensiun = $('#month').val();
+            var tahun_pensiun = $('#year').val();
             var tgl_update = $('#tgl_update').val();
             var unit_kerja = $('#unit_kerja').val();
             var unit_kerja_kab = $('#unit_kerja_kab').val();
@@ -721,36 +723,50 @@
         });
 
         $(document).delegate('#btnHapus', 'click', function() {
-            var id = $(this).data('id');
+            Swal.fire({
+                title: 'Apakah anda yakin',
+                text: "Data akan dihapus ?",
+                type: 'warning',
+                showCloseButton: true,
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                confirmButtonText: 'Hapus Data!'
+            }).then((result) => {
+                if (result.value) {
+                    var id = $(this).data('id');
 
-            $.ajax({
-                url: '<?= base_url() ?>/Penyuluh/PenyuluhPPPK/delete/' + id,
-                type: 'POST',
-                success: function(result) {
-                    Swal.fire({
-                        title: 'Sukses',
-                        text: "Sukses Hapus data",
-                        type: 'success',
-                    }).then((result) => {
+                    $.ajax({
+                        url: '<?= base_url() ?>/Penyuluh/PenyuluhPPPK/delete/' + id,
+                        type: 'POST',
 
-                        if (result.value) {
-                            location.reload();
-                        }
-                    });
-                },
-                error: function(jqxhr, status, exception) {
-                    Swal.fire({
-                        title: 'Error',
-                        text: "Gagal Hapus data",
-                        type: 'error',
-                    }).then((result) => {
-                        if (result.value) {
-                            location.reload();
+                        success: function(result) {
+                            Swal.fire({
+                                title: 'Sukses',
+                                text: "Sukses hapus data",
+                                type: 'success',
+                            }).then((result) => {
+
+                                if (result.value) {
+                                    location.reload();
+                                }
+                            });
+                        },
+                        error: function(jqxhr, status, exception) {
+                            Swal.fire({
+                                title: 'Error',
+                                text: "Gagal hapus data",
+                                type: 'error',
+                            }).then((result) => {
+                                if (result.value) {
+                                    location.reload();
+                                }
+                            });
                         }
                     });
                 }
-
             });
+
         });
 
 
@@ -772,14 +788,9 @@
                     $('#day').val(parseInt(result.tgl_lahir.substr(8, 2)));
                     $('#tempat_lahir').val(result.tempat_lahir);
                     if (result.jenis_kelamin == "1") {
-                        $("#jenis_kelamin").prop("checked", true);
+                        $('#jenis_kelamin1').prop("checked", true);
                     } else {
-                        $("#jenis_kelamin").prop("checked", false);
-                    }
-                    if (result.jenis_kelamin == "2") {
-                        $("#jenis_kelamin").prop("checked", true);
-                    } else {
-                        $("#jenis_kelamin").prop("checked", false);
+                        $('#jenis_kelamin2').prop("checked", true);
                     }
                     $('#status_kel').val(result.status_kel);
                     $('#agama').val(result.agama);
@@ -787,14 +798,9 @@
                     $('#keahlian').val(result.keahlian);
                     $('#satminkal').val(result.satminkal);
                     if (result.kode_kab == "3") {
-                        $("#kode_kab").prop("checked", true);
+                        $('#kode_kab1').prop("checked", true).click();
                     } else {
-                        $("#kode_kab").prop("checked", false);
-                    }
-                    if (result.kode_kab == "4") {
-                        $("#kode_kab").prop("checked", true);
-                    } else {
-                        $("#kode_kab").prop("checked", false);
+                        $('#kode_kab2').prop("checked", true).click();
                     }
                     $('#year2').val(result.tgl_skcpns.substr(0, 4)).change();
                     $('#month2').val(parseInt(result.tgl_skcpns.substr(5, 2))).change();
@@ -813,9 +819,9 @@
                     $('#jabatan').val(result.jabatan);
                     $('#tgltmtgol').val(result.tgltmtgol);
                     $('#batas_pensiun').val(result.batas_pensiun);
-                    $('#tgl_pensiun').val(result.tgl_pensiun);
-                    $('#bulan_pensiun').val(result.bulan_pensiun);
-                    $('#tahun_pensiun').val(result.tahun_pensiun);
+                    $('#day').val(result.tgl_pensiun);
+                    $('#month').val(result.bulan_pensiun);
+                    $('#year').val(result.tahun_pensiun);
                     $('#tgl_update').val(result.tgl_update);
                     $('#unit_kerja').val(result.unit_kerja);
                     $('#unit_kerja_kab').val(result.unit_kerja_kab);
@@ -886,9 +892,9 @@
                         var jabatan = $('#jabatan').val();
                         var tgltmtgol = $('#tgltmtgol').val();
                         var batas_pensiun = $('#batas_pensiun').val();
-                        var tgl_pensiun = $('#tgl_pensiun').val();
-                        var bulan_pensiun = $('#bulan_pensiun').val();
-                        var tahun_pensiun = $('#tahun_pensiun').val();
+                        var tgl_pensiun = $('#day').val();
+                        var bulan_pensiun = $('#month').val();
+                        var tahun_pensiun = $('#year').val();
                         var tgl_update = $('#tgl_update').val();
                         var unit_kerja = $('#unit_kerja').val();
                         var unit_kerja_kab = $('#unit_kerja_kab').val();
@@ -1093,6 +1099,28 @@
 
 <script>
     $(function() {
+        $("#form1").hide();
+        $("#form2").hide();
+        $("#form3").hide();
+        $("#form4").hide();
+        $("#form5").hide();
+        $("#form6").hide();
+        $("#form7").hide();
+        $("#form8").hide();
+        $("#form9").hide();
+        $("#form10").hide();
+        $("#form11").hide();
+        $("#form12").hide();
+        $("#form13").hide();
+        $("#form14").hide();
+        $("#form15").hide();
+        $("#form16").hide();
+        $("#form17").hide();
+        $("#form18").hide();
+        $("#form19").hide();
+        $("#form20").hide();
+        $("#form21").hide();
+        $("#form22").hide();
         $(":radio.rad").click(function() {
             $("#form1, #form2, #form3").hide()
             if ($(this).val() == "4") {
@@ -1451,6 +1479,8 @@
             currentYear--;
         }
 
+        selectMonth.html("");
+
         for (var m = 1; m <= 12; m++) {
             let month = monthNames[m];
             let monthElem = document.createElement("option");
@@ -1460,7 +1490,7 @@
         }
 
         var d = new Date();
-        var month = d.getMonth();
+        var month = d.getMonth() + 1;
         var year = d.getFullYear();
         var day = d.getDate();
 
@@ -1474,7 +1504,7 @@
 
         function AdjustDays() {
             var year = selectYear.val();
-            var month = parseInt(selectMonth.val()) + 1;
+            var month = parseInt(selectMonth.val());
             selectDay.empty();
 
             //get the last day, so the number of days in that month

@@ -83,7 +83,7 @@
                     <div class="modal-body p-0">
                         <div class="card card-plain">
                             <div class="card-header pb-0 text-left">
-                                <h4 class="font-weight-bolder text-warning text-gradient">Ubah Data</h4>
+                                <h4 class="font-weight-bolder text-warning text-gradient">Tambah Data</h4>
                             </div>
                             <div class="card-body">
                                 <form method="POST" action="<?= base_url('Penyuluh/PenyuluhTHLAPBD/save'); ?>">
@@ -149,11 +149,11 @@
                                             <label>Jenis Kelamin</label>
                                             <div class="input-group mb-3">
                                                 <div class="form-check form-check-inline">
-                                                    <input class="form-check-input jenis_kelamin" type="radio" name="jenis_kelamin" id="jenis_kelamin" value="1">
+                                                    <input class="form-check-input jenis_kelamin" type="radio" name="jenis_kelamin" id="jenis_kelamin1" value="1">
                                                     <label class="form-check-label" for="inlineRadio1">Laki-laki</label>
                                                 </div>
                                                 <div class="form-check form-check-inline">
-                                                    <input class="form-check-input jenis_kelamin" type="radio" name="jenis_kelamin" id="jenis_kelamin" value="2">
+                                                    <input class="form-check-input jenis_kelamin" type="radio" name="jenis_kelamin" id="jenis_kelamin2" value="2">
                                                     <label class="form-check-label" for="inlineRadio2">Perempuan</label>
                                                 </div>
                                             </div>
@@ -255,11 +255,11 @@
                                             <label>Lokasi Kerja</label>
                                             <div class="input-group mb-3">
                                                 <div class="form-check form-check-inline">
-                                                    <input class="form-check-input rad" type="radio" name="penyuluh_di" id="penyuluh_di" value="kabupaten">
+                                                    <input class="form-check-input rad" type="radio" name="penyuluh_di" id="penyuluh_di1" value="kabupaten">
                                                     <label class="form-check-label" for="inlineRadio1">Kabupaten/Kota</label>
                                                 </div>
                                                 <div class="form-check form-check-inline">
-                                                    <input class="form-check-input rad" type="radio" name="penyuluh_di" id="penyuluh_di" value="kecamatan">
+                                                    <input class="form-check-input rad" type="radio" name="penyuluh_di" id="penyuluh_di2" value="kecamatan">
                                                     <label class="form-check-label" for="inlineRadio2">Kecamatan</label>
                                                 </div>
                                             </div>
@@ -468,7 +468,7 @@
             var no_peserta = $('#no_peserta').val();
             var angkatan = $('#angkatan').val();
             var penyuluh_di = $(".rad:checked").val();
-            var kecamatan_tugas = $('#tempat_tugas').val();
+            // var kecamatan_tugas = $('#tempat_tugas').val();
             var wil_kerja2 = $('#wil_kerja2').val();
             var wil_kerja3 = $('#wil_kerja3').val();
             var wil_kerja4 = $('#wil_kerja4').val();
@@ -573,36 +573,50 @@
         });
 
         $(document).delegate('#btnHapus', 'click', function() {
-            var id_thl = $(this).data('id_thl');
+            Swal.fire({
+                title: 'Apakah anda yakin',
+                text: "Data akan dihapus ?",
+                type: 'warning',
+                showCloseButton: true,
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                confirmButtonText: 'Hapus Data!'
+            }).then((result) => {
+                if (result.value) {
+                    var id_thl = $(this).data('id_thl');
 
-            $.ajax({
-                url: '<?= base_url() ?>/Penyuluh/PenyuluhTHLAPBD/delete/' + id_thl,
-                type: 'POST',
-                success: function(result) {
-                    Swal.fire({
-                        title: 'Sukses',
-                        text: "Sukses Hapus data",
-                        type: 'success',
-                    }).then((result) => {
+                    $.ajax({
+                        url: '<?= base_url() ?>/Penyuluh/PenyuluhTHLAPBD/delete/' + id_thl,
+                        type: 'POST',
 
-                        if (result.value) {
-                            location.reload();
-                        }
-                    });
-                },
-                error: function(jqxhr, status, exception) {
-                    Swal.fire({
-                        title: 'Error',
-                        text: "Gagal Hapus data",
-                        type: 'error',
-                    }).then((result) => {
-                        if (result.value) {
-                            location.reload();
+                        success: function(result) {
+                            Swal.fire({
+                                title: 'Sukses',
+                                text: "Sukses hapus data",
+                                type: 'success',
+                            }).then((result) => {
+
+                                if (result.value) {
+                                    location.reload();
+                                }
+                            });
+                        },
+                        error: function(jqxhr, status, exception) {
+                            Swal.fire({
+                                title: 'Error',
+                                text: "Gagal hapus data",
+                                type: 'error',
+                            }).then((result) => {
+                                if (result.value) {
+                                    location.reload();
+                                }
+                            });
                         }
                     });
                 }
-
             });
+
         });
 
 
@@ -626,14 +640,9 @@
                     $('#year').val(result.thn_lahir);
                     $('#tempat_lahir').val(result.tempat_lahir);
                     if (result.jenis_kelamin == "1") {
-                        $("#jenis_kelamin").prop("checked", true);
+                        $('#jenis_kelamin1').prop("checked", true);
                     } else {
-                        $("#jenis_kelamin").prop("checked", false);
-                    }
-                    if (result.jenis_kelamin == "2") {
-                        $("#jenis_kelamin").prop("checked", true);
-                    } else {
-                        $("#jenis_kelamin").prop("checked", false);
+                        $('#jenis_kelamin2').prop("checked", true);
                     }
                     $('#status_kel').val(result.status_kel);
                     $('#agama').val(result.agama);
@@ -672,7 +681,7 @@
                     $('#prop_satminkal').val(result.prop_satminkal);
                     $('#unit_kerja').val(result.unit_kerja);
                     $('#kode_kab').val(result.kode_kab);
-                    $('#tempat_tugas').val(result.tempat_tugas);
+                    $('#tempat_tugas').val(result.tempat_tugas).change();
                     $('#wil_kerja').val(result.wil_kerja);
                     $('#alamat').val(result.alamat);
                     $('#dati2').val(result.dati2);
@@ -684,16 +693,11 @@
                     $('#no_peserta').val(result.no_peserta);
                     $('#angkatan').val(result.angkatan);
                     if (result.penyuluh_di == "kabupaten") {
-                        $("#penyuluh_di").prop("checked", true);
+                        $('#penyuluh_di1').prop("checked", true).click();
                     } else {
-                        $("#penyuluh_di").prop("checked", false);
+                        $('#penyuluh_di2').prop("checked", true).click();
                     }
-                    if (result.penyuluh_di == "kecamatan") {
-                        $("#penyuluh_di").prop("checked", true);
-                    } else {
-                        $("#penyuluh_di").prop("checked", false);
-                    }
-                    $('#tempat_tugas').val(result.kecamatan_tugas);
+                    // $('#tempat_tugas').val(result.kecamatan_tugas);
                     $('#wil_kerja2').val(result.wil_kerja2);
                     $('#wil_kerja3').val(result.wil_kerja3);
                     $('#wil_kerja4').val(result.wil_kerja4);
@@ -757,7 +761,7 @@
                         var no_peserta = $('#no_peserta').val();
                         var angkatan = $('#angkatan').val();
                         var penyuluh_di = $(".rad:checked").val();
-                        var kecamatan_tugas = $('#tempat_tugas').val();
+                        // var kecamatan_tugas = $('#tempat_tugas').val();
                         var wil_kerja2 = $('#wil_kerja2').val();
                         var wil_kerja3 = $('#wil_kerja3').val();
                         var wil_kerja4 = $('#wil_kerja4').val();
@@ -949,6 +953,18 @@
 
 <script>
     $(function() {
+        $("#form1").hide();
+        $("#form2").hide();
+        $("#form3").hide();
+        $("#form4").hide();
+        $("#form5").hide();
+        $("#form6").hide();
+        $("#form7").hide();
+        $("#form8").hide();
+        $("#form9").hide();
+        $("#form10").hide();
+        $("#form11").hide();
+        $("#form12").hide();
         $(":radio.rad").click(function() {
             $("#form1, #form2, #form3").hide()
             if ($(this).val() == "kecamatan") {
@@ -993,7 +1009,7 @@
         let selectMonth = $("#month");
         let selectDay = $("#day");
         let currentYear = new Date().getFullYear();
-
+        selectYear.html("");
         for (var y = 0; y < qntYears; y++) {
             let date = new Date(currentYear);
             let yearElem = document.createElement("option");
@@ -1002,6 +1018,8 @@
             selectYear.append(yearElem);
             currentYear--;
         }
+
+        selectMonth.html("");
 
         for (var m = 1; m <= 12; m++) {
             let month = monthNames[m];
@@ -1012,7 +1030,7 @@
         }
 
         var d = new Date();
-        var month = d.getMonth();
+        var month = d.getMonth() + 1;
         var year = d.getFullYear();
         var day = d.getDate();
 
@@ -1026,7 +1044,7 @@
 
         function AdjustDays() {
             var year = selectYear.val();
-            var month = parseInt(selectMonth.val()) + 1;
+            var month = parseInt(selectMonth.val());
             selectDay.empty();
 
             //get the last day, so the number of days in that month
@@ -1044,8 +1062,8 @@
 </script>
 
 <script>
-    var min = new Date().getFullYear(),
-        max = min + 20,
+    var min = 2007,
+        max = new Date().getFullYear(),
         select = document.getElementById('angkatan');
 
     for (var i = min; i <= max; i++) {
@@ -1054,5 +1072,7 @@
         opt.innerHTML = i;
         select.appendChild(opt);
     }
+
+    select.value = new Date().getFullYear();
 </script>
 <?= $this->endSection() ?>

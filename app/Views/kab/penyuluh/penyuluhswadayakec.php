@@ -523,36 +523,50 @@
         });
 
         $(document).delegate('#btnHapus', 'click', function() {
-            var id_swa = $(this).data('id_swa');
+            Swal.fire({
+                title: 'Apakah anda yakin',
+                text: "Data akan dihapus ?",
+                type: 'warning',
+                showCloseButton: true,
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                confirmButtonText: 'Hapus Data!'
+            }).then((result) => {
+                if (result.value) {
+                    var id_swa = $(this).data('id_swa');
 
-            $.ajax({
-                url: '<?= base_url() ?>/Penyuluh/PenyuluhSwadayaKec/delete/' + id_swa,
-                type: 'POST',
-                success: function(result) {
-                    Swal.fire({
-                        title: 'Sukses',
-                        text: "Sukses Hapus data",
-                        type: 'success',
-                    }).then((result) => {
+                    $.ajax({
+                        url: '<?= base_url() ?>/Penyuluh/PenyuluhSwadayaKec/delete/' + id_swa,
+                        type: 'POST',
 
-                        if (result.value) {
-                            location.reload();
-                        }
-                    });
-                },
-                error: function(jqxhr, status, exception) {
-                    Swal.fire({
-                        title: 'Error',
-                        text: "Gagal Hapus data",
-                        type: 'error',
-                    }).then((result) => {
-                        if (result.value) {
-                            location.reload();
+                        success: function(result) {
+                            Swal.fire({
+                                title: 'Sukses',
+                                text: "Sukses hapus data",
+                                type: 'success',
+                            }).then((result) => {
+
+                                if (result.value) {
+                                    location.reload();
+                                }
+                            });
+                        },
+                        error: function(jqxhr, status, exception) {
+                            Swal.fire({
+                                title: 'Error',
+                                text: "Gagal hapus data",
+                                type: 'error',
+                            }).then((result) => {
+                                if (result.value) {
+                                    location.reload();
+                                }
+                            });
                         }
                     });
                 }
-
             });
+
         });
 
 
@@ -838,6 +852,67 @@
     }
     var ack = makeid(12);
     document.getElementById("id").value = ack
+</script>
+<script>
+    $(document).ready(function() {
+        const monthNames = ["Bulan", "Januari", "Februari", "Maret", "April", "Mei", "Juni",
+            "Juli", "Agustus", "September", "Oktober", "November", "Desember"
+        ];
+        let qntYears = 80;
+        let selectYear = $("#year");
+        let selectMonth = $("#month");
+        let selectDay = $("#day");
+        let currentYear = new Date().getFullYear();
+
+        for (var y = 0; y < qntYears; y++) {
+            let date = new Date(currentYear);
+            let yearElem = document.createElement("option");
+            yearElem.value = currentYear
+            yearElem.textContent = currentYear;
+            selectYear.append(yearElem);
+            currentYear--;
+        }
+
+        selectMonth.html("");
+
+        for (var m = 1; m <= 12; m++) {
+            let month = monthNames[m];
+            let monthElem = document.createElement("option");
+            monthElem.value = m;
+            monthElem.textContent = month;
+            selectMonth.append(monthElem);
+        }
+
+        var d = new Date();
+        var month = d.getMonth() + 1;
+        var year = d.getFullYear();
+        var day = d.getDate();
+
+        selectYear.val(year);
+        selectYear.on("change", AdjustDays);
+        selectMonth.val(month);
+        selectMonth.on("change", AdjustDays);
+
+        AdjustDays();
+        selectDay.val(day)
+
+        function AdjustDays() {
+            var year = selectYear.val();
+            var month = parseInt(selectMonth.val());
+            selectDay.empty();
+
+            //get the last day, so the number of days in that month
+            var days = new Date(year, month, 0).getDate();
+
+            //lets create the days of that month
+            for (var d = 1; d <= days; d++) {
+                var dayElem = document.createElement("option");
+                dayElem.value = d;
+                dayElem.textContent = d;
+                selectDay.append(dayElem);
+            }
+        }
+    });
 </script>
 
 <?= $this->endSection() ?>

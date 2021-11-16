@@ -7,15 +7,17 @@ use \Config\Database;
 
 class ProvModel extends Model
 {
-    //protected $table      = 'penyuluh';
-    //protected $primaryKey = 'id';
+    protected $table      = 'tblbakor';
+    protected $primaryKey = 'id_bakor';
 
 
     //protected $returnType     = 'array';
     //protected $useSoftDeletes = true;
 
-    //protected $allowedFields = ['nama', 'alamat', 'telpon'];
-
+    protected $allowedFields = [
+        'id_bakor', 'nama_bapel', 'dasar_hukum', 'no_peraturan', 'tgl_berdiri', 'bln_berdiri', 'thn_berdiri', 'telp_kantor', 'alamat',  'email', 'website', 'ketua', 'telp_hp',
+        'nama_bidang_luh', 'nama_kabid', 'hp_kabid', 'seksi_luh', 'nama_kasie', 'hp_kasie', 'eselon3_luh', 'nama_koord_penyuluh', 'deskripsi_lembaga_lain', 'koordinat'
+    ];
 
     // protected $useTimestamps = false;
     // protected $createdField  = 'created_at';
@@ -34,7 +36,7 @@ class ProvModel extends Model
         $row   = $query->getRow();
         $query2 = $db->query("SELECT count(id_bakor) as jum_prop FROM tblbakor where kode_prop ='$kode_prop'");
         $row2   = $query2->getRow();
-        $query3  = $db->query("select *, a.alamat, a.ketua, a.tgl_update, a.kode_prop, a.nama_bapel, h.nama, h.nip, c.jumthl, d.jumswa, e.jumpok, f.jumgap, g.jumkep,
+        $query3  = $db->query("select *, a.alamat, a.ketua, a.tgl_update, a.kode_prop, a.nama_bapel, h.nama, h.nip, c.jumthl, d.jumswa, e.jumpok, f.jumgap, g.jumkep, i.nama_prop,
                                     case a.nama_bapel 
                                     when '10' then 'Sekretariat Badan Koordinasi Penyuluhan Pertanian, Perikanan dan Kehutanan'
                                     when '21' then deskripsi_lembaga_lain
@@ -47,6 +49,7 @@ class ProvModel extends Model
                                 left join (select kode_prop, count(id_poktan) as jumpok from tb_poktan GROUP BY kode_prop) e on a.kode_prop=e.kode_prop
                                 left join (select kode_prop, count(id_gap) as jumgap from tb_gapoktan GROUP BY kode_prop) f on a.kode_prop=f.kode_prop
                                 left join (select kode_prop, count(id_kep) as jumkep from tb_kep GROUP BY kode_prop) g on a.kode_prop=g.kode_prop
+                                left join tblpropinsi i on a.kode_prop=i.id_prop
                                 where a.kode_prop='$kode_prop' 
                                 ");
         $results = $query3->getResultArray();
@@ -66,7 +69,7 @@ class ProvModel extends Model
         $query = $db->query("select count(id) as jum_pns from tbldasar where satminkal like '$kode_prop' 
                             and kode_kab='2' and status !='1' and status !='2' and status !='3'");
         $row   = $query->getRow();
-        $query2  = $db->query("select id,nama from tbldasar where satminkal='$kode_prop' and kode_kab='2' 
+        $query2  = $db->query("select id,nama,nip from tbldasar where satminkal='$kode_prop' and kode_kab='2' 
                     and status !='1' and status !='2' and status !='3' order by nama");
         $results = $query2->getResultArray();
 
@@ -76,5 +79,24 @@ class ProvModel extends Model
         ];
 
         return $data;
+    }
+
+    public function getPenyuluhPNS($kode_prop)
+    {
+
+        $query = $this->db->query("select * from tbldasar where satminkal ='$kode_prop' and kode_kab='2' 
+                                    and nip !='nama_koord_penyuluh'");
+        $row   = $query->getResultArray();
+        return $row;
+    }
+
+    public function getDetailProv($id)
+    {
+        $query = $this->db->query("select *
+                                from tblbakor 
+                                where id_bakor='$id'
+                                ");
+        $row   = $query->getResultArray();
+        return $row;
     }
 }

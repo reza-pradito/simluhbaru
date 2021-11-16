@@ -122,11 +122,11 @@
                                                 </div>
                                                 <label>Jenis Kelamin</label>
                                                 <div class="input-group mb-3">
-                                                    <div class="form-check form-check-inline" id="jenis_kelamin">
-                                                        <input class="form-check-input jenis_kelamin" type="radio" name="jenis_kelamin" id="jenis_kelamin" value="1">
+                                                    <div class="form-check form-check-inline">
+                                                        <input class="form-check-input jenis_kelamin" type="radio" name="jenis_kelamin" id="jenis_kelamin1" value="1">
                                                         <label class="form-check-label" for="inlineRadio1">Laki-laki</label>
                                                     </div>
-                                                    <div class="form-check form-check-inline" id="jenis_kelamin">
+                                                    <div class="form-check form-check-inline">
                                                         <input class="form-check-input jenis_kelamin" type="radio" name="jenis_kelamin" id="jenis_kelamin2" value="2">
                                                         <label class="form-check-label" for="inlineRadio2">Perempuan</label>
                                                     </div>
@@ -529,36 +529,50 @@
         });
 
         $(document).delegate('#btnHapus', 'click', function() {
-            var id_swa = $(this).data('id_swa');
+            Swal.fire({
+                title: 'Apakah anda yakin',
+                text: "Data akan dihapus ?",
+                type: 'warning',
+                showCloseButton: true,
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                confirmButtonText: 'Hapus Data!'
+            }).then((result) => {
+                if (result.value) {
+                    var id_swa = $(this).data('id_swa');
 
-            $.ajax({
-                url: '<?= base_url() ?>/Penyuluh/PenyuluhSwadaya/delete/' + id_swa,
-                type: 'POST',
-                success: function(result) {
-                    Swal.fire({
-                        title: 'Sukses',
-                        text: "Sukses Hapus data",
-                        type: 'success',
-                    }).then((result) => {
+                    $.ajax({
+                        url: '<?= base_url() ?>/Penyuluh/PenyuluhSwadaya/delete/' + id_swa,
+                        type: 'POST',
 
-                        if (result.value) {
-                            location.reload();
-                        }
-                    });
-                },
-                error: function(jqxhr, status, exception) {
-                    Swal.fire({
-                        title: 'Error',
-                        text: "Gagal Hapus data",
-                        type: 'error',
-                    }).then((result) => {
-                        if (result.value) {
-                            location.reload();
+                        success: function(result) {
+                            Swal.fire({
+                                title: 'Sukses',
+                                text: "Sukses hapus data",
+                                type: 'success',
+                            }).then((result) => {
+
+                                if (result.value) {
+                                    location.reload();
+                                }
+                            });
+                        },
+                        error: function(jqxhr, status, exception) {
+                            Swal.fire({
+                                title: 'Error',
+                                text: "Gagal hapus data",
+                                type: 'error',
+                            }).then((result) => {
+                                if (result.value) {
+                                    location.reload();
+                                }
+                            });
                         }
                     });
                 }
-
             });
+
         });
 
 
@@ -580,14 +594,9 @@
                     $('#year').val(result.thn_lahir);
                     $('#tempat_lahir').val(result.tempat_lahir);
                     if (result.jenis_kelamin == "1") {
-                        $("#jenis_kelamin").prop("checked", true);
+                        $('#jenis_kelamin1').prop("checked", true);
                     } else {
-                        $("#jenis_kelamin").prop("checked", false);
-                    }
-                    if (result.jenis_kelamin == "2") {
-                        $("#jenis_kelamin2").prop("checked", true);
-                    } else {
-                        $("#jenis_kelamin2").prop("checked", false);
+                        $('#jenis_kelamin2').prop("checked", true);
                     }
                     $('#status_kel').val(result.status_kel);
                     $('#agama').val(result.agama);
@@ -626,7 +635,7 @@
                     $('#prop_satminkal').val(result.prop_satminkal);
                     $('#unit_kerja').val(result.unit_kerja);
                     $('#kode_kab').val(result.kode_kab);
-                    $('#tempat_tugas').val(result.tempat_tugas);
+                    $('#tempat_tugas').val(result.tempat_tugas).change();
                     $('#wil_kerja').val(result.wil_kerja);
                     $('#alamat').val(result.alamat);
                     $('#dati2').val(result.dati2);
@@ -654,7 +663,7 @@
                     $('#wil_kerja3').val(result.wil_kerja3);
                     $('#wil_kerja4').val(result.wil_kerja4);
                     $('#wil_kerja5').val(result.wil_kerja5);
-                    $('#tempat_tugas').val(result.kecamatan_tugas);
+                    // $('#tempat_tugas').val(result.kecamatan_tugas);
                     $('#mapping').val(result.mapping);
 
                     $('#modal-form').modal('show');
@@ -882,6 +891,67 @@
     }
     var ack = makeid(12);
     document.getElementById("id").value = ack
+</script>
+<script>
+    $(document).ready(function() {
+        const monthNames = ["Bulan", "Januari", "Februari", "Maret", "April", "Mei", "Juni",
+            "Juli", "Agustus", "September", "Oktober", "November", "Desember"
+        ];
+        let qntYears = 80;
+        let selectYear = $("#year");
+        let selectMonth = $("#month");
+        let selectDay = $("#day");
+        let currentYear = new Date().getFullYear();
+
+        for (var y = 0; y < qntYears; y++) {
+            let date = new Date(currentYear);
+            let yearElem = document.createElement("option");
+            yearElem.value = currentYear
+            yearElem.textContent = currentYear;
+            selectYear.append(yearElem);
+            currentYear--;
+        }
+
+        selectMonth.html("");
+
+        for (var m = 1; m <= 12; m++) {
+            let month = monthNames[m];
+            let monthElem = document.createElement("option");
+            monthElem.value = m;
+            monthElem.textContent = month;
+            selectMonth.append(monthElem);
+        }
+
+        var d = new Date();
+        var month = d.getMonth() + 1;
+        var year = d.getFullYear();
+        var day = d.getDate();
+
+        selectYear.val(year);
+        selectYear.on("change", AdjustDays);
+        selectMonth.val(month);
+        selectMonth.on("change", AdjustDays);
+
+        AdjustDays();
+        selectDay.val(day)
+
+        function AdjustDays() {
+            var year = selectYear.val();
+            var month = parseInt(selectMonth.val());
+            selectDay.empty();
+
+            //get the last day, so the number of days in that month
+            var days = new Date(year, month, 0).getDate();
+
+            //lets create the days of that month
+            for (var d = 1; d <= days; d++) {
+                var dayElem = document.createElement("option");
+                dayElem.value = d;
+                dayElem.textContent = d;
+                selectDay.append(dayElem);
+            }
+        }
+    });
 </script>
 
 <?= $this->endSection() ?>

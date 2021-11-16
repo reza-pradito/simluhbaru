@@ -2,7 +2,23 @@
 
 <?= $this->section('content') ?>
 
-<?php $sessnama = session()->get('kodebakor'); ?>
+<?php $sessnama = session()->get('kodebakor');
+
+if (empty(session()->get('status_user')) || session()->get('status_user') == '2') {
+    $kode = '00';
+} elseif (session()->get('status_user') == '1') {
+    $kode = session()->get('kodebakor');
+} elseif (session()->get('status_user') == '200') {
+    $kode = session()->get('kodebapel');
+} elseif (session()->get('status_user') == '300') {
+    $kode = session()->get('kodebpp');
+};
+
+$api = 'https://api.pertanian.go.id/api/simantap/dashboard/list?&api-key=f13914d292b53b10936b7a7d1d6f2406&kode=' . $kode;
+$result = file_get_contents($api, false);
+$json = json_decode($result, true);
+$data = $json[0];
+?>
 
 <center>
     <h3> Data Kelembagaan Penyuluhan Pertanian <br><?= ucwords(strtolower($nama_prop)) ?> </h3>
@@ -46,16 +62,19 @@
                             <p class="text-xs font-weight-bold mb-0"><?= $row['ketua'] ?></p>
                         </td>
                         <td class="align-middle text-center text-sm">
-                            <p class="text-xs font-weight-bold mb-0"><?= $row['jumthl'] ?></p>
+                            <p class="text-xs font-weight-bold mb-0"><?= number_format($data['jumpenyuluhpns']); ?></p>
                         </td>
                         <td class="align-middle text-center text-sm">
-                            <p class="text-xs font-weight-bold mb-0"><?= $row['jumswa'] ?></p>
+                            <p class="text-xs font-weight-bold mb-0"><?= number_format($data['jumpenyuluhthlapbn']) + ($data['jumpenyuluhthlapbd']); ?></p>
                         </td>
                         <td class="align-middle text-center text-sm">
-                            <p class="text-xs font-weight-bold mb-0"><?= $row['jumpok'] ?></p>
+                            <p class="text-xs font-weight-bold mb-0"><?= number_format($data['jumpenyuluhswadaya']); ?></p>
                         </td>
                         <td class="align-middle text-center text-sm">
-                            <p class="text-xs font-weight-bold mb-0"><?= $row['jumgap'] ?></p>
+                            <p class="text-xs font-weight-bold mb-0"><?= number_format($data['jumpoktan']); ?></p>
+                        </td>
+                        <td class="align-middle text-center text-sm">
+                            <p class="text-xs font-weight-bold mb-0"><?= number_format($data['jumgapoktan']); ?></p>
                         </td>
                         <td class="align-middle text-center text-sm">
                             <p class="text-xs font-weight-bold mb-0"><?= $row['jumkep'] ?></p>

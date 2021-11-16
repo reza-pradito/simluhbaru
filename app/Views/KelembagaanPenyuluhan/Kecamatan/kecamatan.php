@@ -92,6 +92,11 @@ if (empty(session()->get('status_user')) || session()->get('status_user') == '2'
                             <p class="text-xs font-weight-bold mb-0"><?= $row['tgl_update'] ?></p>
                         </td>
                         <td class="align-middle text-center text-sm">
+                            <a href="<?= base_url('/detail_kecamatan?kode_kec=' . $row['id_daerah']) ?>">
+                                <button type="button" id="btn-edit" class="btn bg-gradient-warning btn-sm">
+                                    <i class="fas fa-edit"></i> Ubah
+                                </button>
+                            </a>
                             <a href="<?= base_url('KelembagaanPenyuluhan/Kecamatan/Kecamatan/delete/' . $row['id']) ?>" onclick="return confirm('apakah anda ingin menghapus data ini?')">
                                 <button type="button" class="btn bg-gradient-danger btn-sm">
                                     <i class="fas fa-trash"></i> Hapus
@@ -120,8 +125,8 @@ if (empty(session()->get('status_user')) || session()->get('status_user') == '2'
                                                 <div class="col">
                                                     <input type="hidden" name="kode_prop" id="kode_prop" value="<?= $kode_prop; ?>">
                                                     <input type="hidden" name="satminkal" id="satminkal" value="<?= $kode_kab; ?>">
-                                                    <input type="hidden" name="urut" id="urut" value="<?= $urut['no_urut']; ?>">
-                                                    <input type="hidden" name="kode_bp3k" id="kode_bp3k" value="<?= $urut['no_urut'] . $kode; ?>">
+                                                    <input type="hidden" name="urut" id="urut" value="<?= $urut; ?>">
+                                                    <input type="hidden" name="kode_bp3k" id="kode_bp3k" value="<?= $kode . $urut; ?>">
                                                     <label>Upload Foto BPP</label>
                                                     <div class="input-group mb-3">
                                                         <div class="col-lg-4">
