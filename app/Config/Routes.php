@@ -74,6 +74,7 @@ $routes->get('/listpoktan', 'KelembagaanPelakuUtama/KelompokTani/KelompokTani::l
 $routes->get('/listpoktananggota', 'KelembagaanPelakuUtama/KelompokTani/ListPoktanAnggota::listpoktananggota');
 $routes->get('/listbantu', 'KelembagaanPelakuUtama/KelompokTani/ListBantu::listbantu');
 $routes->post('/listpoktan/save', 'KelembagaanPelakuUtama/Gapoktan/ListGapoktan::save');
+$routes->post('/jeniskelompok', 'KelembagaanPelakuUtama/Gapoktan/JenisKelompok::jeniskelompok');
 
 
 $routes->get('/kelembagaanpetanilainnya', 'KelembagaanPelakuUtama/KelembagaanPetaniLainnya/KelembagaanPetaniLainnya::kelembagaanpetanilainnya');

@@ -81,7 +81,7 @@ if (empty(session()->get('status_user')) || session()->get('status_user') == '2'
                          
                             
                             <button type="button" class="btn bg-gradient-info btn-sm">
-                            <a href="<?= base_url('/listbantu?ip=' . $row['id_poktan']) ?>"> <i class="fas fa-trash"></i>
+                            <a href="<?= base_url('/listbantu?ip=' . $row['id_poktan']) ?>"> 
                                  +Tambah Bantuan
                             </button>
                             

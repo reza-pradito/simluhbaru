@@ -210,6 +210,6 @@ class Gapoktan extends BaseController
     public function delete($id_gap)
     {
         $this->model->delete($id_gap);
-        return redirect()->to('/listgapoktan');
+       // return redirect()->to('/listgapoktan');
     }
 }

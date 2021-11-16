@@ -10,8 +10,7 @@ class ListGapoktanDesaModel extends Model
   
     protected $table      = 'tb_poktan';
     protected $primaryKey = 'id_poktan';
-    protected $allowedFields = [ 'kode_prop', 'kode_kab', 'id_gap',
-     'kode_kec', 'kode_desa', 'nama_poktan', 'ketua_poktan', 'alamat','simluh_jenis_kelompok',
+    protected $allowedFields = [ 'kode_prop', 'kode_kab', 'id_gap','kode_kec', 'kode_desa', 'nama_poktan', 'ketua_poktan', 'alamat','simluh_jenis_kelompok',
      'simluh_kelas_kemampuan','simluh_tahun_tap_kelas','simluh_tahun_bentuk','status', 'simluh_kelas_kemampuan', 'simluh_jenis_kelompok'];
 
     protected $useTimestamps = false;

@@ -67,7 +67,7 @@
                                             <h4 class="font-weight-bolder text-warning text-gradient">Tambah Data</h4>
                                         </div>
                                         <div class="card-body">
-                                        <form role="form text-left" action="<?= base_url('/KelembagaanPelakuUtama/KelompokTani/ListPokTan/save'); ?>" method="post" enctype="multipart/form-data">
+                                        <form role="form text-left" action="<?= base_url('/KelembagaanPelakuUtama/Gapoktan/ListGapoktanDesa/save'); ?>" method="post" enctype="multipart/form-data">
                                             <? csrf_field(); ?>
                                     <div class="row">
                                         <div class="col-5" mt-5>
@@ -106,9 +106,9 @@
                                             </div>
                                             <label>Jenis Kelompok</label>
                                             <div class="input-group mb-3">
-                                                <select class="form-select" id="simluh_jenis_kelompok" name="simluh_jenis_kelompok" aria-label="Default select example">
+                                                <select class="form-select simluh_jenis_kelompok" id="simluh_jenis_kelompok" name="simluh_jenis_kelompok" aria-label="Default select example">
                                                     <option selected>Pilih  </option>
-                                                    <option value="domisli">Domisili</option>
+                                                    <option value="domisili">Domisili</option>
                                                     <option value="perempuan">Perempuan</option>
                                                     <option value="tp">Tanaman Pangan</option>
                                                     <option value="hor">Hortikultura</option>
@@ -160,76 +160,6 @@
 <script>
     $(document).ready(function() {
 
-        $(document).delegate('#btnSave', 'click', function() {
-
-            var kode_prop = $('#kode_prop').val();
-            var kode_kec = $('#kode_kec').val();
-            var kode_kab = $('#kode_kab').val();
-            var kode_desa = $('#kode_desa').val();
-            var ketua_poktan = $('#ketua_poktan').val();
-            var nama_poktan = $('#nama_poktan').val();
-            var alamat = $('#alamat').val();
-            var simluh_tahun_bentuk = $('#year').val();
-            var simluh_jenis_kelompok = $('#simluh_jenis_kelompok').val();
-            var simluh_kelas_kemampuan = $('#simluh_kelas_kemampuan').val();
-            var simluh_tahun_tap_kelas = $('#year2').val();
-            
-
-            $.ajax({
-                url: '<?= base_url() ?>/KelembagaanPelakuUtama/Gapoktan/ListGapoktanDesa/save/',
-                type: 'POST',
-                data: {
-                    'kode_prop': kode_prop,
-                    'kode_kec': kode_kec,
-                    'kode_kab': kode_kab,
-                    'kode_desa': kode_desa,
-                    'nama_poktan': nama_poktan,
-                    'ketua_poktan': ketua_poktan,
-                    'alamat': alamat,
-                    'simluh_tahun_bentuk': simluh_tahun_bentuk,
-                    'simluh_jenis_kelompok': simluh_jenis_kelompok,
-                    'simluh_kelas_kemampuan': simluh_kelas_kemampuan,
-                    'simluh_tahun_tap_kelas': simluh_tahun_tap_kelas,
-                 
-                 
-
-                },
-                success: function(result) {
-                    result = JSON.parse(result);
-                    if(result.value){
-                        Swal.fire({
-                            title: 'Sukses',
-                            text: "Sukses tambah data",
-                            type: 'success',
-                        }).then((result) => {
-
-                            if (result.value) {
-                                location.reload();
-                            }
-                        });
-                    }else{
-                        Swal.fire({
-                            title: 'Error',
-                            text: "Gagal tambah data. " + result.message,
-                            type: 'error',
-                        }).then((result) => {
-                            
-                        });
-                    }
-                },
-                error: function(jqxhr, status, exception) {
-                    Swal.fire({
-                        title: 'Error',
-                        text: "Gagal tambah data",
-                        type: 'error',
-                    }).then((result) => {
-                        if (result.value) {
-                            location.reload();
-                        }
-                    });
-                }
-            });
-        });
         $(document).delegate('#btnHapus', 'click', function() {
             Swal.fire({
                 title: 'Apakah anda yakin',
@@ -242,7 +172,7 @@
                 confirmButtonText: 'Hapus Data!'
             }).then((result) => {
                 if (result.value) {
-                    var id = $(this).data('id_gap');
+                    var id = $(this).data('id_poktan');
 
                     $.ajax({
                         url: '<?= base_url() ?>/KelembagaanPelakuUtama/Gapoktan/ListGapoktanDesa/delete/' + id,
@@ -314,7 +244,7 @@
                         var alamat = $('#alamat').val();
                         var simluh_tahun_bentuk = $('#year').val();
                         var simluh_jenis_kelompok = $('#simluh_jenis_kelompok').val();
-                        var simluh_kelas_kemampuan = $('#alamat').val();
+                        var simluh_kelas_kemampuan = $('#simluh_kelas_kemampuan').val();
                         var simluh_tahun_tap_kelas = $('#year2').val();
                        
                       
