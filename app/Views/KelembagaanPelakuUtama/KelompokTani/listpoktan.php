@@ -81,7 +81,7 @@ if (empty(session()->get('status_user')) || session()->get('status_user') == '2'
                          
                             
                             <button type="button" class="btn bg-gradient-info btn-sm">
-                            <a href="<?= base_url('/listbantu?ip=' . $row['id_poktan']) ?>"> <i class="fas fa-trash"></i>
+                            <a href="<?= base_url('/listbantu?ip=' . $row['id_poktan']) ?>"> 
                                  +Tambah Bantuan
                             </button>
                             
@@ -155,7 +155,7 @@ if (empty(session()->get('status_user')) || session()->get('status_user') == '2'
                                             <div class="form-check">
                                                  <input class="form-check-input simluh_jenis_kelompok_perempuan" type="checkbox" value="perempuan" name="simluh_jenis_kelompok_perempuan" id="simluh_jenis_kelompok_perempuan" >
                                                     <label class="form-check-label" for="simluh_jenis_kelompok_perempuan">
-                                                    Perempuan
+                                                   Perempuan
                                                     </label>
                                                     </div>
                                                 <div class="form-check">
@@ -183,7 +183,7 @@ if (empty(session()->get('status_user')) || session()->get('status_user') == '2'
                                                          </label>
                                                 </div> 
                                                 <div class="form-check">
-                                                    <input class="form-check-input simluh_jenis_kelompok_penangkar" type="checkbox" value="penangkar_benih" name="simluh_jenis_kelompok_penangkar" id="simluh_jenis_kelompok_penangkar" >
+                                                    <input class="form-check-input simluh_jenis_kelompok_penangkar" type="checkbox" value="penangkar" name="simluh_jenis_kelompok_penangkar" id="simluh_jenis_kelompok_penangkar" >
                                                         <label class="form-check-label" for="simluh_jenis_kelompok_penangkar">
                                                             Penangkar Benih
                                                          </label>
@@ -219,7 +219,7 @@ if (empty(session()->get('status_user')) || session()->get('status_user') == '2'
                                             </div>
                                                         </div>                 
                                     
-r
+
                                             <input type="hidden" name="kode_kab" id="kode_kab" value="<?= $kode; ?>">
                                             <input type="hidden" name="kode_prop" id="kode_prop" value="<?= $kode_prop; ?>">
                                             <input type="hidden" name="kode_kec" id="kode_kec" value="<?= $kode_kec; ?>">
@@ -261,24 +261,54 @@ r
             var kode_kec = $('#kode_kec').val();
             var kode_kab = $('#kode_kab').val();
             var kode_desa = $('#kode_desa').val();
+            var kode_prop = $('#kode_prop').val();
+            var id_gap = $('#id_gap').val();
             var nama_poktan = $('#nama_poktan').val();
             var ketua_poktan = $('#ketua_poktan').val();
             var alamat = $('#alamat').val();
             var simluh_tahun_bentuk = $('#year').val();
             var status = $('#status').val();
+            var simluh_tahun_tap_kelas = $('#year2').val();
+            var simluh_kelas_kemampuan = $('#simluh_kelas_kemampuan').val();
+
+            var simluh_jenis_kelompok_perempuan = $(".simluh_jenis_kelompok_perempuan")[0].checked ? $(".simluh_jenis_kelompok_perempuan").val() : "";
+            var simluh_jenis_kelompok_domisili = $(".simluh_jenis_kelompok_domisili")[0].checked ? $(".simluh_jenis_kelompok_domisili").val() : "";
+            var simluh_jenis_kelompok_upja =$(".simluh_jenis_kelompok_upja")[0].checked ? $(".simluh_jenis_kelompok_upja").val() : "";
+            var simluh_jenis_kelompok_p3a = $(".simluh_jenis_kelompok_p3a")[0].checked ? $(".simluh_jenis_kelompok_p3a").val() : "";
+            var simluh_jenis_kelompok_lmdh =$(".simluh_jenis_kelompok_lmdh")[0].checked ? $(".simluh_jenis_kelompok_lmdh").val() : "";
+            var simluh_jenis_kelompok_penangkar =$(".simluh_jenis_kelompok_penangkar")[0].checked ? $(".simluh_jenis_kelompok_penangkar").val() : "";
+            var simluh_jenis_kelompok_kmp = $(".simluh_jenis_kelompok_kmp")[0].checked ? $(".simluh_jenis_kelompok_kmp").val() : "";
+            var simluh_jenis_kelompok_umkm = $(".simluh_jenis_kelompok_umkm")[0].checked ? $(".simluh_jenis_kelompok_umkm").val() : "";
+            
+            
+            
+          
 
             $.ajax({
-                url: '<?= base_url() ?>/KelembagaanPelakuUtama/KelompokTani/ListPokTan/save/',
+                url: '<?= base_url() ?>/KelembagaanPelakuUtama/KelompokTani/KelompokTani/save/',
                 type: 'POST',
                 data: {
                     'kode_kec': kode_kec,
                     'kode_kab': kode_kab,
                     'kode_desa': kode_desa,
+                    'kode_prop': kode_prop,
+                    'id_gap': id_gap,
                     'nama_poktan': nama_poktan,
                     'ketua_poktan': ketua_poktan,
                     'alamat': alamat,
                     'simluh_tahun_bentuk': simluh_tahun_bentuk,
                     'status': status,
+                    'simluh_tahun_tap_kelas': simluh_tahun_tap_kelas,
+                    'simluh_kelas_kemampuan': simluh_kelas_kemampuan,
+                    'simluh_jenis_kelompok_perempuan': simluh_jenis_kelompok_perempuan,
+                    'simluh_jenis_kelompok_domisili': simluh_jenis_kelompok_domisili,
+                    'simluh_jenis_kelompok_upja': simluh_jenis_kelompok_upja,
+                    'simluh_jenis_kelompok_p3a': simluh_jenis_kelompok_p3a,
+                    'simluh_jenis_kelompok_lmdh': simluh_jenis_kelompok_lmdh,
+                    'simluh_jenis_kelompok_penangkar': simluh_jenis_kelompok_penangkar,
+                    'simluh_jenis_kelompok_kmp': simluh_jenis_kelompok_kmp,
+                    'simluh_jenis_kelompok_umkm': simluh_jenis_kelompok_umkm,
+                    
                 },
                 success: function(result) {
                     result = JSON.parse(result);
@@ -332,7 +362,7 @@ r
                     var id = $(this).data('id_poktan');
 
                     $.ajax({
-                        url: '<?= base_url() ?>/KelembagaanPelakuUtama/KelompokTani/ListPokTan/delete/' + id,
+                        url: '<?= base_url() ?>/KelembagaanPelakuUtama/KelompokTani/KelompokTani/delete/' + id,
                         type: 'POST',
 
                         success: function(result) {
@@ -365,7 +395,7 @@ r
         });
         $(document).delegate('#btnEditPok', 'click', function() {
             $.ajax({
-                url: '<?= base_url() ?>/KelembagaanPelakuUtama/KelompokTani/ListPokTan/edit/' + $(this).data('id_poktan'),
+                url: '<?= base_url() ?>/KelembagaanPelakuUtama/KelompokTani/KelompokTani/edit/' + $(this).data('id_poktan'),
                 type: 'GET',
                 dataType: 'JSON',
                 success: function(result) {
@@ -375,15 +405,16 @@ r
                     $('#kode_kec').val(result.kode_kec);
                     $('#kode_desa').val(result.kode_desa);
                     $('#kode_kab').val(result.kode_kab);
+                    $('#kode_prop').val(result.kode_prop);
+                    $('#id_gap').val(result.id_gap);
                     $('#nama_poktan').val(result.nama_poktan);
                     $('#ketua_poktan').val(result.ketua_poktan);
                     $('#alamat').val(result.alamat);
                     $('#year').val(result.simluh_tahun_bentuk);
                     $('#status').val(result.status);
-
                     $('#year2').val(result.simluh_tahun_tap_kelas);
                     $('#simluh_kelas_kemampuan').val(result.simluh_kelas_kemampuan);
-
+                   
                     if (result.simluh_jenis_kelompok_perempuan == "perempuan") {
                         $("#simluh_jenis_kelompok_perempuan").prop("checked", true);
                     } else {
@@ -409,7 +440,7 @@ r
                     } else {
                         $("#simluh_jenis_kelompok_lmdh").prop("checked", false);
                     }
-                    if (result.simluh_jenis_kelompok_penangkar == "penangkar_benih") {
+                    if (result.simluh_jenis_kelompok_penangkar == "penangkar") {
                         $("#simluh_jenis_kelompok_penangkar").prop("checked", true);
                     } else {
                         $("#simluh_jenis_kelompok_penangkar").prop("checked", false);
@@ -424,7 +455,6 @@ r
                     } else {
                         $("#simluh_jenis_kelompok_umkm").prop("checked", false);
                     }
-
                     $('#modal-form').modal('show');
                     $("#btnSave").attr("id", "btnDoEdit");
 
@@ -435,25 +465,50 @@ r
                         var kode_kec = $('#kode_kec').val();
                         var kode_kab = $('#kode_kab').val();
                         var kode_desa = $('#kode_desa').val();
+                        var kode_prop = $('#kode_prop').val();
+                        var id_gap = $('#id_gap').val();
                         var nama_poktan = $('#nama_poktan').val();
                         var ketua_poktan = $('#ketua_poktan').val();
                         var alamat = $('#alamat').val();
                         var simluh_tahun_bentuk = $('#year').val();
                         var status = $('#status').val();
+                        var simluh_tahun_tap_kelas = $('#year2').val();
+                        var simluh_kelas_kemampuan = $('#simluh_kelas_kemampuan').val();
+
+                        var simluh_jenis_kelompok_perempuan = $(".simluh_jenis_kelompok_perempuan")[0].checked ? $(".simluh_jenis_kelompok_perempuan").val() : "";
+                        var simluh_jenis_kelompok_domisili = $(".simluh_jenis_kelompok_domisili")[0].checked ? $(".simluh_jenis_kelompok_domisili").val() : "";
+                        var simluh_jenis_kelompok_upja = $(".simluh_jenis_kelompok_upja")[0].checked ? $(".simluh_jenis_kelompok_upja").val() : "";
+                        var simluh_jenis_kelompok_p3a = $(".simluh_jenis_kelompok_p3a")[0].checked ? $(".simluh_jenis_kelompok_p3a").val() : "";
+                        var simluh_jenis_kelompok_lmdh = $(".simluh_jenis_kelompok_lmdh")[0].checked ? $(".simluh_jenis_kelompok_lmdh").val() : "";
+                        var simluh_jenis_kelompok_penangkar = $(".simluh_jenis_kelompok_penangkar")[0].checked ? $(".simluh_jenis_kelompok_penangkar").val() : "";
+                        var simluh_jenis_kelompok_kmp = $(".simluh_jenis_kelompok_kmp")[0].checked ? $(".simluh_jenis_kelompok_kmp").val() : "";
+                        var simluh_jenis_kelompok_umkm = $(".simluh_jenis_kelompok_umkm")[0].checked ? $(".simluh_jenis_kelompok_umkm").val() : "";
 
                         let formData = new FormData();
                         formData.append('id_poktan', id_poktan);
                         formData.append('kode_kec', kode_kec);
                         formData.append('kode_kab', kode_kab);
                         formData.append('kode_desa', kode_desa);
+                        formData.append('kode_prop', kode_prop);
+                        formData.append('id_gap', id_gap);
                         formData.append('nama_poktan', nama_poktan);
                         formData.append('ketua_poktan', ketua_poktan);
                         formData.append('alamat', alamat);
                         formData.append('simluh_tahun_bentuk', simluh_tahun_bentuk);
                         formData.append('status', status);
+                        formData.append('simluh_tahun_tap_kelas', simluh_tahun_tap_kelas);
+                        formData.append('simluh_kelas_kemampuan', simluh_kelas_kemampuan);
+                        formData.append('simluh_jenis_kelompok_perempuan', simluh_jenis_kelompok_perempuan);
+                        formData.append('simluh_jenis_kelompok_domisili', simluh_jenis_kelompok_domisili);
+                        formData.append('simluh_jenis_kelompok_upja', simluh_jenis_kelompok_upja);
+                        formData.append('simluh_jenis_kelompok_p3a', simluh_jenis_kelompok_p3a);
+                        formData.append('simluh_jenis_kelompok_lmdh', simluh_jenis_kelompok_lmdh);
+                        formData.append('simluh_jenis_kelompok_penangkar', simluh_jenis_kelompok_penangkar);
+                        formData.append('simluh_jenis_kelompok_kmp', simluh_jenis_kelompok_kmp);
+                        formData.append('simluh_jenis_kelompok_umkm', simluh_jenis_kelompok_umkm);
 
                         $.ajax({
-                            url: '<?= base_url() ?>/KelembagaanPelakuUtama/KelompokTani/ListPokTan/update/' + id_poktan,
+                            url: '<?= base_url() ?>/KelembagaanPelakuUtama/KelompokTani/KelompokTani/update/' + id_poktan,
                             type: "POST",
                             data: formData,
                             cache: false,
@@ -499,5 +554,66 @@ r
     });
     });
     
+</script>
+
+
+<script>
+    $(document).ready(function() {
+        const monthNames = ["Bulan", "Januari", "Februari", "Maret", "April", "Mei", "Juni",
+            "Juli", "Agustus", "September", "Oktober", "November", "Desember"
+        ];
+        let qntYears = 80;
+        let selectYear = $("#year2");
+        let selectMonth = $("#month");
+        let selectDay = $("#day");
+        let currentYear = new Date().getFullYear();
+
+        for (var y = 0; y < qntYears; y++) {
+            let date = new Date(currentYear);
+            let yearElem = document.createElement("option");
+            yearElem.value = currentYear
+            yearElem.textContent = currentYear;
+            selectYear.append(yearElem);
+            currentYear--;
+        }
+
+        for (var m = 1; m <= 12; m++) {
+            let month = monthNames[m];
+            let monthElem = document.createElement("option");
+            monthElem.value = m;
+            monthElem.textContent = month;
+            selectMonth.append(monthElem);
+        }
+
+        var d = new Date();
+        var month = d.getMonth();
+        var year2 = d.getFullYear();
+        var day = d.getDate();
+
+        selectYear.val(year2);
+        selectYear.on("change", AdjustDays);
+        selectMonth.val(month);
+        selectMonth.on("change", AdjustDays);
+
+        AdjustDays();
+        selectDay.val(day)
+
+        function AdjustDays() {
+            var year2 = selectYear.val();
+            var month = parseInt(selectMonth.val()) + 1;
+            selectDay.empty();
+
+            //get the last day, so the number of days in that month
+            var days = new Date(year2, month, 0).getDate();
+
+            //lets create the days of that month
+            for (var d = 1; d <= days; d++) {
+                var dayElem = document.createElement("option");
+                dayElem.value = d;
+                dayElem.textContent = d;
+                selectDay.append(dayElem);
+            }
+        }
+    });
 </script>
 <?= $this->endSection() ?>

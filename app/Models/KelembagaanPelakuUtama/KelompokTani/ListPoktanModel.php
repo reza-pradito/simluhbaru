@@ -9,9 +9,10 @@ class ListPoktanModel extends Model
 {
     protected $table      = 'tb_poktan';
     protected $primaryKey = 'id_poktan';
-    protected $allowedFields = ['no_reg', 'kode_prop', 'kode_kab',
-     'kode_kec', 'kode_desa', 'nama_poktan', 'ketua_poktan', 'alamat', 'jum_anggota','simluh_tahun_bentuk','status','simluh_tahun_tap_kelas','simluh_kelas_kemampuan'];
-
+    protected $allowedFields = ['no_reg', 'kode_prop', 'kode_kab','id_gap',
+     'kode_kec', 'kode_desa', 'nama_poktan', 'ketua_poktan', 'alamat', 'jum_anggota','simluh_tahun_bentuk','status','simluh_tahun_tap_kelas','simluh_kelas_kemampuan','simluh_jenis_kelompok_perempuan',
+     'simluh_jenis_kelompok_domisili', 'simluh_jenis_kelompok_upja',
+     'simluh_jenis_kelompok_p3a','simluh_jenis_kelompok_lmdh','simluh_jenis_kelompok_penangkar','simluh_jenis_kelompok_kmp','simluh_jenis_kelompok_umkm'];
 
     protected $useTimestamps = false;
     

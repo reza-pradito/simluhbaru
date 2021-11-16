@@ -8,10 +8,17 @@ class ListBantu extends BaseController
 {
     public function __construct()
     {
+        $this->session = service('session');
+        $this->config = config('Auth');
+        $this->auth = service('authentication');
         $this->model = new ListBantuModel();
     }
     public function listbantu()
     {
+         
+        if (session()->get('username') == "") {
+            return redirect()->to('login');
+        }
         $get_param = $this->request->getGet();
 
         $ip = $get_param['ip'];
@@ -25,7 +32,8 @@ class ListBantu extends BaseController
             'tabel_data' => $listbantu_data['table_data'],
             'title' => 'List Bantu Tani',
             'name' => 'List Bantu Tani',
-            'kegiatan' => $kegiatan
+            'kegiatan' => $kegiatan,
+            'id_poktan' => $ip,
            
         ];
 
@@ -35,11 +43,10 @@ class ListBantu extends BaseController
     {
         try {
             $res = $this->model->save([
-               
+                'id_poktan' => $this->request->getPost('id_poktan'),
+                'kegiatan' => $this->request->getPost('kegiatan'),
                 'volume' => $this->request->getPost('volume'),
                 'tahun' => $this->request->getPost('tahun'),
-                'kegiatan' => $this->request->getPost('kegiatan'),
-               
             ]);
             if($res == false){
                 $data = [
@@ -61,10 +68,35 @@ class ListBantu extends BaseController
         }
         // return redirect()->to('/listpoktan?kode_kec=' . $this->request->getPost('kode_kec'));
     }
-   
+    public function edit($idban)
+    {
+        $bantuan = $this->model->getDataById($idban);
+        echo $bantuan;
+    }
+
+    public function update($idban)
+    {
+        
+        $id_poktan = $this->request->getPost('id_poktan');
+        $kegiatan = $this->request->getPost('kegiatan');
+        $volume = $this->request->getPost('volume');
+        $tahun = $this->request->getPost('tahun');
+      
+        $this->model->save([
+            'idban' => $idban,
+            'id_poktan' => $id_poktan,
+            'kegiatan' => $kegiatan,
+            'volume' => $volume,
+            'tahun' => $tahun,
+            
+        ]);
+
+        //session()->setFlashdata('pesan', 'Data berhasil diubah');
+
+    }
     public function delete($idban)
     {
         $this->model->delete($idban);
-        return redirect()->to('/listbantu');
+       // return redirect()->to('/listpoktan');
     }
 }
