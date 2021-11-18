@@ -17,6 +17,7 @@ use App\Models\KelembagaanPenyuluhan\Provinsi\ProvModel;
 use App\Models\KodeWilayah\KodeWilModel;
 use App\Models\LembagaModel;
 use App\Models\WilayahModel;
+use Exception;
 
 
 class Lembaga extends BaseController
@@ -359,20 +360,9 @@ class Lembaga extends BaseController
     }
     public function updatekec($id)
     {
-        $fileSampul = $this->request->getFile('foto');
-        if ($fileSampul->getError() == 4) {
-            $namaSampul = $this->request->getVar('fotolama');
-        } else {
-            $namaSampul = $fileSampul->getName();
-
-            $fileSampul->move('assets/img', $namaSampul);
-
-            unlink('assets/img/' . $this->request->getVar('fotolama'));
-        }
 
         $this->kecmodel->save([
             'id' => $id,
-            'foto' => $namaSampul,
             'kode_prop' => $this->request->getVar('kode_prop'),
             'satminkal' => $this->request->getVar('satminkal'),
             'bentuk_lembaga' => $this->request->getVar('bentuk_lembaga'),
@@ -419,6 +409,90 @@ class Lembaga extends BaseController
             'industri_penyuluhan' => $this->request->getVar('industri_penyuluhan'),
             'luas_lahan_bp3k' => $this->request->getVar('luas_lahan_bp3k'),
             'luas_lahan_petani' => $this->request->getVar('luas_lahan_petani')
+        ]);
+
+
+        //session()->setFlashdata('pesan', 'Edit data berhasil.');
+
+        return redirect()->to('/lembaga');
+        // dd($this->request->getVar());
+    }
+
+    public function update_foto($id)
+    {
+        $fileSampul = $this->request->getFile('foto');
+        if ($fileSampul->getError() == 4) {
+            $namaSampul = $this->request->getVar('fotolama');
+        } else {
+            $namaSampul = $fileSampul->getName();
+
+            $fileSampul->move('assets/img', $namaSampul);
+            try {
+                unlink('assets/img/' . $this->request->getVar('fotolama'));
+            } catch (Exception $e) {
+            }
+        }
+        $fileSampul2 = $this->request->getFile('foto_depan');
+        if ($fileSampul2->getError() == 4) {
+            $namaSampul2 = $this->request->getVar('fotolama2');
+        } else {
+            $namaSampul2 = $fileSampul2->getName();
+
+            $fileSampul2->move('assets/img', $namaSampul2);
+            try {
+                unlink('assets/img/' . $this->request->getVar('fotolama2'));
+            } catch (Exception $e) {
+            }
+        }
+        $fileSampul3 = $this->request->getFile('foto_belakang');
+        if ($fileSampul3->getError() == 4) {
+            $namaSampul3 = $this->request->getVar('fotolama3');
+        } else {
+            $namaSampul3 = $fileSampul3->getName();
+
+            $fileSampul3->move('assets/img', $namaSampul3);
+            try {
+                unlink('assets/img/' . $this->request->getVar('fotolama3'));
+            } catch (Exception $e) {
+            }
+        }
+        $fileSampul4 = $this->request->getFile('foto_samping');
+        if ($fileSampul4->getError() == 4) {
+            $namaSampul4 = $this->request->getVar('fotolama4');
+        } else {
+            $namaSampul4 = $fileSampul4->getName();
+
+            $fileSampul4->move('assets/img', $namaSampul4);
+            try {
+                unlink('assets/img/' . $this->request->getVar('fotolama4'));
+            } catch (Exception $e) {
+            }
+        }
+        $fileSampul5 = $this->request->getFile('foto_dalam');
+        if ($fileSampul5->getError() == 4) {
+            $namaSampul5 = $this->request->getVar('fotolama5');
+        } else {
+            $namaSampul5 = $fileSampul5->getName();
+
+            $fileSampul5->move('assets/img', $namaSampul5);
+            try {
+                unlink('assets/img/' . $this->request->getVar('fotolama5'));
+            } catch (Exception $e) {
+            }
+        }
+
+        $this->kecmodel->save([
+            'id' => $id,
+            'foto' => $namaSampul,
+            'foto_depan' => $namaSampul2,
+            'foto_belakang' => $namaSampul3,
+            'foto_samping' => $namaSampul4,
+            'foto_dalam' => $namaSampul5,
+            'kode_prop' => $this->request->getVar('kode_prop'),
+            'satminkal' => $this->request->getVar('satminkal'),
+            'kode_bp3k' => $this->request->getVar('kode_bp3k'),
+            'urut' => $this->request->getVar('urut')
+
         ]);
 
 

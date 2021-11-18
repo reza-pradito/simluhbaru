@@ -44,6 +44,10 @@ $routes->get('/dl_kec', 'profil/Guest::daftarkelembagaankec');
 $routes->get('/profilbpp', 'profil/Guest::profilbpp');
 $routes->get('/rekap_keluh', 'profil/Guest::rekapkeluh');
 $routes->get('/rekapkec', 'profil/Guest::rekapkeluhkec');
+$routes->get('/profil_bpp', 'profil/Guest::rekapkelembagaan');
+$routes->get('/rkp_bpp', 'profil/Guest::rekapbpp');
+$routes->get('/rekap_profbpp', 'profil/Guest::rekapprofbpp');
+$routes->get('/rekap_bpp', 'profil/Guest::rekapexcbpp');
 
 $routes->get('/penyuluhpns', 'Penyuluh/PenyuluhPns::penyuluhpns');
 $routes->get('/penyuluhcpns', 'Penyuluh/PenyuluhCpns::penyuluhcpns');

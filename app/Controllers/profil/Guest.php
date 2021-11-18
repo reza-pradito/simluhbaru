@@ -134,8 +134,72 @@ class Guest extends BaseController
         $rekapluhkec = $gmodel->getRekapKeluhKec($kode_prop);
         $data = [
             'title' => 'Rekap Kelembagaan Penyuluhan',
-            'rkeluhkec' => $rekapluhkec['rkeluhkec'],
+            'namaprov' => $rekapluhkec['namaprov'],
+            'rkeluhkec' => $rekapluhkec['rkeluhkec']
         ];
         return view('guest/rekap_keluhkec', $data);
+    }
+
+    public function rekapkelembagaan()
+    {
+
+        $gmodel = new GuestModel();
+
+        $rlprov = $gmodel->getRekapKelembagaan();
+        $data = [
+            'title' => 'Rekap Kelembagaan Provinsi',
+            'rlprov' => $rlprov['rlprov']
+        ];
+        // dd($data);
+
+        return view('guest/rekapkelembagaan', $data);
+    }
+
+    public function rekapbpp()
+    {
+        $gmodel = new GuestModel();
+
+        $get_param = $this->request->getGet();
+        $kode_prop = $get_param['kode_prop'];
+
+        $rkbpp = $gmodel->getRekapBPP($kode_prop);
+        $data = [
+            'title' => 'Rekap Profil BPP',
+            'namaprov' => $rkbpp['namaprov'],
+            'rkbpp' => $rkbpp['rkbpp']
+        ];
+        return view('guest/rekap_bpp', $data);
+    }
+
+    public function rekapprofbpp()
+    {
+        $gmodel = new GuestModel();
+
+        $get_param = $this->request->getGet();
+        $kode_kab = $get_param['kode_kab'];
+
+        $rpbpp = $gmodel->getRekapProfBPP($kode_kab);
+        $data = [
+            'title' => 'Rekap Profil BPP',
+            'namaprov' => $rpbpp['namaprov'],
+            'namakab' => $rpbpp['namakab'],
+            'rpbpp' => $rpbpp['rpbpp']
+        ];
+        return view('guest/rekap_profbpp', $data);
+    }
+
+    public function rekapexcbpp()
+    {
+        $gmodel = new GuestModel();
+
+        // $get_param = $this->request->getGet();
+        // $kode_kab = $get_param['kode_kab'];
+
+        $prov = $gmodel->getProv();
+        $data = [
+            'title' => 'Rekap Profil BPP',
+            'prov' => $prov
+        ];
+        return view('guest/rekapbpp_excel', $data);
     }
 }

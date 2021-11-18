@@ -489,7 +489,7 @@ $data = $json[0];
                                                 <div class="input-group mb-3">
                                                     <input type="text" class="form-control" id="ketua" placeholder="Nama Kepala Dinas" name="ketua">
                                                     <label style="margin-top: 10px;">No.HP</label>
-                                                    <input type="text" style="margin-left: 5px;" class="form-control" id="telp_hp" placeholder="No. HP" name="telp_hp">
+                                                    <input type="text" style="margin-left: 5px;" class="form-control" id="telp_hp" placeholder="No. HP" name="telp_hp" onkeypress="return Angka(event)">
                                                 </div>
                                                 <label>Nama Koordinator Penyuluh</label>
                                                 <div class="input-group mb-3">
@@ -520,7 +520,7 @@ $data = $json[0];
                                                 <div class="input-group mb-3">
                                                     <input type="text" class="form-control" id="nama_kabid" placeholder="Nama Kabid" name="nama_kabid">
                                                     <label style="margin-top: 10px;">No.HP</label>
-                                                    <input type="text" style="margin-left: 5px;" class="form-control" id="hp_kabid" placeholder="No. HP" name="hp_kabid">
+                                                    <input type="text" style="margin-left: 5px;" class="form-control" id="hp_kabid" placeholder="No. HP" name="hp_kabid" onkeypress="return Angka(event)">
                                                 </div>
                                                 <label for="ketua">Nama seksi yang menangani penyuluhan</label>
                                                 <div class="input-group mb-3">
@@ -530,7 +530,7 @@ $data = $json[0];
                                                 <div class="input-group mb-3">
                                                     <input type="text" class="form-control" id="nama_kasie" name="nama_kasie" placeholder="Nama Kepala Seksi">
                                                     <label style="margin-top: 10px;">No.HP</label>
-                                                    <input type="text" style="margin-left: 5px;" class="form-control" id="hp_kasie" name="hp_kasie" placeholder="No. HP">
+                                                    <input type="text" style="margin-left: 5px;" class="form-control" id="hp_kasie" name="hp_kasie" placeholder="No. HP" onkeypress="return Angka(event)">
                                                 </div>
                                             </div>
                                             <div class="col">
@@ -568,7 +568,7 @@ $data = $json[0];
                                                 </div>
                                                 <label for="ketua">No.Telepon/Fax</label>
                                                 <div class="input-group mb-3">
-                                                    <input type="text" class="form-control" id="telp_kantor" placeholder="No Telp Kantor" name="telp_kantor">
+                                                    <input type="text" class="form-control" id="telp_kantor" placeholder="No Telp Kantor" name="telp_kantor" onkeypress="return Angka(event)">
                                                 </div>
                                                 <label for="ketua">Alamat Email</label>
                                                 <div class="input-group mb-3">
@@ -604,6 +604,12 @@ $data = $json[0];
 <?= $this->section('script') ?>
 
 <script type="text/javascript">
+    function Angka(event) {
+        var angka = (event.which) ? event.which : event.keyCode
+        if (angka != 46 && angka > 31 && (angka < 48 || angka > 57))
+            return false;
+        return true;
+    }
     $(document).ready(function() {
         $(document).delegate('#btn-edit', 'click', function() {
             //var myModal = new bootstrap.Modal(document.getElementById('modal-edit'), options);

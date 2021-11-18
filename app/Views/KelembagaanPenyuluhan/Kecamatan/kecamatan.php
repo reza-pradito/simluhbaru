@@ -127,19 +127,10 @@ if (empty(session()->get('status_user')) || session()->get('status_user') == '2'
                                                     <input type="hidden" name="satminkal" id="satminkal" value="<?= $kode_kab; ?>">
                                                     <input type="hidden" name="urut" id="urut" value="<?= $urut; ?>">
                                                     <input type="hidden" name="kode_bp3k" id="kode_bp3k" value="<?= $kode . $urut; ?>">
-                                                    <label>Upload Foto BPP</label>
-                                                    <div class="input-group mb-3">
-                                                        <div class="col-lg-4">
-                                                            <img src="/assets/img/logo.png" class="img-thumbnail img-preview">
-                                                        </div>
-                                                        <div class="custom-file">
-                                                            <input type="file" class="custom-file-input" id="foto" name="foto" onchange="previewImg()">
-                                                            <label class="custom-file-label" for="foto">Tipe file yang diizinkan diupload adalah .JPEG</label>
-                                                        </div>
-                                                    </div>
+
                                                     <label>Bentuk Kelembagaan</label>
                                                     <div class="input-group mb-3">
-                                                        <select class="form-select" name="bentuk_lembaga" id="bentuk_lembaga" aria-label="Default select example">
+                                                        <select class="form-select" name="bentuk_lembaga" id="bentuk_lembaga" aria-label="Default select example" required>
                                                             <option selected>Pilih Bentuk Kelembagaan</option>
                                                             <option value="20">Balai Penyuluhan Pertanian</option>
                                                             <option value="40">UPTD</option>
@@ -147,7 +138,7 @@ if (empty(session()->get('status_user')) || session()->get('status_user') == '2'
                                                     </div>
                                                     <label>Nama Kelembagaan</label>
                                                     <div class="input-group mb-3">
-                                                        <input type="text" class="form-control" placeholder="Nama Kelembagaan" name="nama_bpp" id="nama_bpp" aria-label="Nama" aria-describedby="nama-addon">
+                                                        <input type="text" class="form-control" placeholder="Nama Kelembagaan" name="nama_bpp" id="nama_bpp" aria-label="Nama" aria-describedby="nama-addon" required>
                                                     </div>
                                                     <label>Alamat Kantor</label>
                                                     <div class="input-group mb-3">
@@ -200,7 +191,7 @@ if (empty(session()->get('status_user')) || session()->get('status_user') == '2'
                                                     </div>
                                                     <label>No.Telepon/Fax</label>
                                                     <div class="input-group mb-3">
-                                                        <input type="text" class="form-control" placeholder="No. Telepon" name="telp_bpp" id="telp_bpp">
+                                                        <input type="text" class="form-control" placeholder="No. Telepon" name="telp_bpp" id="telp_bpp" onkeypress="return Angka(event)">
                                                     </div>
                                                     <label>Alamat Email</label>
                                                     <div class="input-group mb-3">
@@ -214,7 +205,7 @@ if (empty(session()->get('status_user')) || session()->get('status_user') == '2'
                                                     <div class="input-group mb-3">
                                                         <input type="text" class="form-control" placeholder="Nama" name="ketua" id="ketua">
                                                         &nbsp; &nbsp;<label style="margin-top: 10px;">No. HP</label>&nbsp; &nbsp;
-                                                        <input type="text" class="form-control" name="telp_hp" id="telp_hp" placeholder="No. HP">
+                                                        <input type="text" class="form-control" name="telp_hp" id="telp_hp" placeholder="No. HP" onkeypress="return Angka(event)">
                                                     </div>
                                                     <label>Koordinator Penyuluh</label>
                                                     <div class="input-group mb-3">
@@ -255,7 +246,7 @@ if (empty(session()->get('status_user')) || session()->get('status_user') == '2'
                                                     </div>
                                                     <div class="input-group mb-3" id="divST">
                                                         <label style="margin-top: 10px;">NIP:</label>
-                                                        <input type="text" class="form-control" style="margin-left: 10px;" id="koord_lainya_nip" placeholder="ketua" name="koord_lainya_nip">
+                                                        <input type="text" class="form-control" style="margin-left: 10px;" id="koord_lainya_nip" placeholder="ketua" name="koord_lainya_nip" onkeypress="return Angka(event)">
                                                         <label style="margin-top: 10px;">Nama</label>
                                                         <input type="text" class="form-control" style="margin-left: 10px;" id="koord_lainya_nama" placeholder="ketua" name="koord_lainya_nama">
                                                     </div>
@@ -265,73 +256,73 @@ if (empty(session()->get('status_user')) || session()->get('status_user') == '2'
                                                     <label>Kendaraan Roda 4</label>
                                                     <div class="input-group mb-3">
                                                         <label style="margin-top: 10px;">APBN</label>
-                                                        <input type="text" style="margin-left: 10px;" class="form-control" name="roda_4_apbn" id="roda_4_apbn" placeholder="" aria-label="gps" aria-describedby="nama-addon">
+                                                        <input type="text" style="margin-left: 10px;" class="form-control" name="roda_4_apbn" id="roda_4_apbn" placeholder="" aria-label="gps" aria-describedby="nama-addon" onkeypress="return Angka(event)">
                                                         &nbsp; &nbsp;<label style="margin-top: 10px;">Unit</label>&nbsp; &nbsp;
                                                         <label style="margin-top: 10px;">APBD</label>
-                                                        <input type="text" style="margin-left: 10px;" class="form-control" name="roda_4_apbd" id="roda_4_apbd" placeholder="" aria-label="gps" aria-describedby="nama-addon">
+                                                        <input type="text" style="margin-left: 10px;" class="form-control" name="roda_4_apbd" id="roda_4_apbd" placeholder="" aria-label="gps" aria-describedby="nama-addon" onkeypress="return Angka(event)">
                                                         &nbsp; &nbsp;<label style="margin-top: 10px;">Unit</label>&nbsp; &nbsp;
                                                     </div>
                                                     <label>Kendaraan Roda 2</label>
                                                     <div class="input-group mb-3">
                                                         <label style="margin-top: 10px;">APBN</label>
-                                                        <input type="text" style="margin-left: 10px;" class="form-control" name="roda_2_apbn" id="roda_2_apbn" placeholder="" aria-label="gps" aria-describedby="nama-addon">
+                                                        <input type="text" style="margin-left: 10px;" class="form-control" name="roda_2_apbn" id="roda_2_apbn" placeholder="" aria-label="gps" aria-describedby="nama-addon" onkeypress="return Angka(event)">
                                                         &nbsp; &nbsp;<label style="margin-top: 10px;">Unit</label>&nbsp; &nbsp;
                                                         <label style="margin-top: 10px;">APBD</label>
-                                                        <input type="text" style="margin-left: 10px;" class="form-control" name="roda_2_apbd" id="roda_2_apbd" placeholder="" aria-label="gps" aria-describedby="nama-addon">
+                                                        <input type="text" style="margin-left: 10px;" class="form-control" name="roda_2_apbd" id="roda_2_apbd" placeholder="" aria-label="gps" aria-describedby="nama-addon" onkeypress="return Angka(event)">
                                                         &nbsp; &nbsp;<label style="margin-top: 10px;">Unit</label>&nbsp; &nbsp;
                                                     </div>
                                                     <label>Alat Pengolah Data (PC)</label>
                                                     <div class="input-group mb-3">
                                                         <label style="margin-top: 10px;">APBN</label>
-                                                        <input type="text" style="margin-left: 10px;" class="form-control" name="pc_apbn" id="pc_apbn" placeholder="" aria-label="gps" aria-describedby="nama-addon">
+                                                        <input type="text" style="margin-left: 10px;" class="form-control" name="pc_apbn" id="pc_apbn" placeholder="" aria-label="gps" aria-describedby="nama-addon" onkeypress="return Angka(event)">
                                                         &nbsp; &nbsp;<label style="margin-top: 10px;">Unit</label>&nbsp; &nbsp;
                                                         <label style="margin-top: 10px;">APBD</label>
-                                                        <input type="text" style="margin-left: 10px;" class="form-control" name="pc_apbd" id="pc_apbd" placeholder="" aria-label="gps" aria-describedby="nama-addon">
+                                                        <input type="text" style="margin-left: 10px;" class="form-control" name="pc_apbd" id="pc_apbd" placeholder="" aria-label="gps" aria-describedby="nama-addon" onkeypress="return Angka(event)">
                                                         &nbsp; &nbsp;<label style="margin-top: 10px;">Unit</label>&nbsp; &nbsp;
                                                     </div>
                                                     <label>Alat Pengolah Data (Laptop)</label>
                                                     <div class="input-group mb-3">
                                                         <label style="margin-top: 10px;">APBN</label>
-                                                        <input type="text" style="margin-left: 10px;" class="form-control" name="laptop_apbn" id="laptop_apbn" placeholder="" aria-label="gps" aria-describedby="nama-addon">
+                                                        <input type="text" style="margin-left: 10px;" class="form-control" name="laptop_apbn" id="laptop_apbn" placeholder="" aria-label="gps" aria-describedby="nama-addon" onkeypress="return Angka(event)">
                                                         &nbsp; &nbsp;<label style="margin-top: 10px;">Unit</label>&nbsp; &nbsp;
                                                         <label style="margin-top: 10px;">APBD</label>
-                                                        <input type="text" style="margin-left: 10px;" class="form-control" name="laptop_apbd" id="laptop_apbd" placeholder="" aria-label="gps" aria-describedby="nama-addon">
+                                                        <input type="text" style="margin-left: 10px;" class="form-control" name="laptop_apbd" id="laptop_apbd" placeholder="" aria-label="gps" aria-describedby="nama-addon" onkeypress="return Angka(event)">
                                                         &nbsp; &nbsp;<label style="margin-top: 10px;">Unit</label>&nbsp; &nbsp;
                                                     </div>
                                                     <label>Alat Pengolah Data (Printer)</label>
                                                     <div class="input-group mb-3">
                                                         <label style="margin-top: 10px;">APBN</label>
-                                                        <input type="text" style="margin-left: 10px;" class="form-control" name="printer_apbn" id="printer_apbn" placeholder="" aria-label="gps" aria-describedby="nama-addon">
+                                                        <input type="text" style="margin-left: 10px;" class="form-control" name="printer_apbn" id="printer_apbn" placeholder="" aria-label="gps" aria-describedby="nama-addon" onkeypress="return Angka(event)">
                                                         &nbsp; &nbsp;<label style="margin-top: 10px;">Unit</label>&nbsp; &nbsp;
                                                         <label style="margin-top: 10px;">APBD</label>
-                                                        <input type="text" style="margin-left: 10px;" class="form-control" name="printer_apbd" id="printer_apbd" placeholder="" aria-label="gps" aria-describedby="nama-addon">
+                                                        <input type="text" style="margin-left: 10px;" class="form-control" name="printer_apbd" id="printer_apbd" placeholder="" aria-label="gps" aria-describedby="nama-addon" onkeypress="return Angka(event)">
                                                         &nbsp; &nbsp;<label style="margin-top: 10px;">Unit</label>&nbsp; &nbsp;
                                                     </div>
                                                     <label>Alat Pengolah Data (Modem)</label>
                                                     <div class="input-group mb-3">
                                                         <label style="margin-top: 10px;">APBN</label>
-                                                        <input type="text" style="margin-left: 10px;" class="form-control" name="modem_apbn" id="modem_apbn" placeholder="" aria-label="gps" aria-describedby="nama-addon">
+                                                        <input type="text" style="margin-left: 10px;" class="form-control" name="modem_apbn" id="modem_apbn" placeholder="" aria-label="gps" aria-describedby="nama-addon" onkeypress="return Angka(event)">
                                                         &nbsp; &nbsp;<label style="margin-top: 10px;">Unit</label>&nbsp; &nbsp;
                                                         <label style="margin-top: 10px;">APBD</label>
-                                                        <input type="text" style="margin-left: 10px;" class="form-control" name="modem_apbd" id="modem_apbd" placeholder="" aria-label="gps" aria-describedby="nama-addon">
+                                                        <input type="text" style="margin-left: 10px;" class="form-control" name="modem_apbd" id="modem_apbd" placeholder="" aria-label="gps" aria-describedby="nama-addon" onkeypress="return Angka(event)">
                                                         &nbsp; &nbsp;<label style="margin-top: 10px;">Unit</label>&nbsp; &nbsp;
                                                     </div>
                                                     <label>LCD Proyektor</label>
                                                     <div class="input-group mb-3">
                                                         <label style="margin-top: 10px;">APBN</label>
-                                                        <input type="text" style="margin-left: 10px;" class="form-control" name="lcd_apbn" id="lcd_apbn" placeholder="" aria-label="gps" aria-describedby="nama-addon">
+                                                        <input type="text" style="margin-left: 10px;" class="form-control" name="lcd_apbn" id="lcd_apbn" placeholder="" aria-label="gps" aria-describedby="nama-addon" onkeypress="return Angka(event)">
                                                         &nbsp; &nbsp;<label style="margin-top: 10px;">Unit</label>&nbsp; &nbsp;
                                                         <label style="margin-top: 10px;">APBD</label>
-                                                        <input type="text" style="margin-left: 10px;" class="form-control" name="lcd_apbd" id="lcd_apbd" placeholder="" aria-label="gps" aria-describedby="nama-addon">
+                                                        <input type="text" style="margin-left: 10px;" class="form-control" name="lcd_apbd" id="lcd_apbd" placeholder="" aria-label="gps" aria-describedby="nama-addon" onkeypress="return Angka(event)">
                                                         &nbsp; &nbsp;<label style="margin-top: 10px;">Unit</label>&nbsp; &nbsp;
                                                     </div>
                                                     <label>Soil Tester</label>
                                                     <div class="input-group mb-3">
                                                         <label style="margin-top: 10px;">APBN</label>
-                                                        <input type="text" style="margin-left: 10px;" class="form-control" name="soil_apbn" id="soil_apbn" placeholder="" aria-label="gps" aria-describedby="nama-addon">
+                                                        <input type="text" style="margin-left: 10px;" class="form-control" name="soil_apbn" id="soil_apbn" placeholder="" aria-label="gps" aria-describedby="nama-addon" onkeypress="return Angka(event)">
                                                         &nbsp; &nbsp;<label style="margin-top: 10px;">Unit</label>&nbsp; &nbsp;
                                                         <label style="margin-top: 10px;">APBD</label>
-                                                        <input type="text" style="margin-left: 10px;" class="form-control" name="soil_apbd" id="soil_apbd" placeholder="" aria-label="gps" aria-describedby="nama-addon">
+                                                        <input type="text" style="margin-left: 10px;" class="form-control" name="soil_apbd" id="soil_apbd" placeholder="" aria-label="gps" aria-describedby="nama-addon" onkeypress="return Angka(event)">
                                                         &nbsp; &nbsp;<label style="margin-top: 10px;">Unit</label>&nbsp; &nbsp;
                                                     </div>
                                                 </div>
@@ -339,38 +330,38 @@ if (empty(session()->get('status_user')) || session()->get('status_user') == '2'
                                                     <h5>Potensi Ekonomi</h5>
                                                     <label>Kios saprotan</label>
                                                     <div class="input-group mb-3">
-                                                        <input type="text" style="margin-left: 10px;" class="form-control" name="kios_saprotan" id="kios_saprotan" placeholder="" aria-label="gps" aria-describedby="nama-addon">
+                                                        <input type="text" style="margin-left: 10px;" class="form-control" name="kios_saprotan" id="kios_saprotan" placeholder="" aria-label="gps" aria-describedby="nama-addon" onkeypress="return Angka(event)">
                                                         &nbsp; &nbsp;<label style="margin-top: 10px;">Unit</label>&nbsp; &nbsp;
                                                     </div>
                                                     <label>Pedagang pengepul</label>
                                                     <div class="input-group mb-3">
-                                                        <input type="text" style="margin-left: 10px;" class="form-control" name="pedagang_pengepul" id="pedagang_pengepul" placeholder="" aria-label="gps" aria-describedby="nama-addon">
+                                                        <input type="text" style="margin-left: 10px;" class="form-control" name="pedagang_pengepul" id="pedagang_pengepul" placeholder="" aria-label="gps" aria-describedby="nama-addon" onkeypress="return Angka(event)">
                                                         &nbsp; &nbsp;<label style="margin-top: 10px;">Unit</label>&nbsp; &nbsp;
                                                     </div>
                                                     <label>Gudang pangan</label>
                                                     <div class="input-group mb-3">
-                                                        <input type="text" style="margin-left: 10px;" class="form-control" name="gudang_pangan" id="gudang_pangan" placeholder="" aria-label="gps" aria-describedby="nama-addon">
+                                                        <input type="text" style="margin-left: 10px;" class="form-control" name="gudang_pangan" id="gudang_pangan" placeholder="" aria-label="gps" aria-describedby="nama-addon" onkeypress="return Angka(event)">
                                                         &nbsp; &nbsp;<label style="margin-top: 10px;">Unit</label>&nbsp; &nbsp;
                                                     </div>
                                                     <label>Perbankan</label>
                                                     <div class="input-group mb-3">
-                                                        <input type="text" style="margin-left: 10px;" class="form-control" name="perbankan" id="perbankan" placeholder="" aria-label="gps" aria-describedby="nama-addon">
+                                                        <input type="text" style="margin-left: 10px;" class="form-control" name="perbankan" id="perbankan" placeholder="" aria-label="gps" aria-describedby="nama-addon" onkeypress="return Angka(event)">
                                                         &nbsp; &nbsp;<label style="margin-top: 10px;">Unit</label>&nbsp; &nbsp;
                                                     </div>
                                                     <label>Industri Pertanian</label>
                                                     <div class="input-group mb-3">
-                                                        <input type="text" style="margin-left: 10px;" class="form-control" name="industri_penyuluhan" id="industri_penyuluhan" placeholder="" aria-label="gps" aria-describedby="nama-addon">
+                                                        <input type="text" style="margin-left: 10px;" class="form-control" name="industri_penyuluhan" id="industri_penyuluhan" placeholder="" aria-label="gps" aria-describedby="nama-addon" onkeypress="return Angka(event)">
                                                         &nbsp; &nbsp;<label style="margin-top: 10px;">Unit</label>&nbsp; &nbsp;
                                                     </div>
                                                     <h5>Lahan Percontohan</h5>
                                                     <label>Di BPP</label>
                                                     <div class="input-group mb-3">
-                                                        <input type="text" style="margin-left: 10px;" class="form-control" name="luas_lahan_bp3k" id="luas_lahan_bp3k" placeholder="" aria-label="gps" aria-describedby="nama-addon">
+                                                        <input type="text" style="margin-left: 10px;" class="form-control" name="luas_lahan_bp3k" id="luas_lahan_bp3k" placeholder="" aria-label="gps" aria-describedby="nama-addon" onkeypress="return Angka(event)">
                                                         &nbsp; &nbsp;<label style="margin-top: 10px;">Ha</label>&nbsp; &nbsp;
                                                     </div>
                                                     <label>Di Petani</label>
                                                     <div class="input-group mb-3">
-                                                        <input type="text" style="margin-left: 10px;" class="form-control" name="luas_lahan_petani" id="luas_lahan_petani" placeholder="" aria-label="gps" aria-describedby="nama-addon">
+                                                        <input type="text" style="margin-left: 10px;" class="form-control" name="luas_lahan_petani" id="luas_lahan_petani" placeholder="" aria-label="gps" aria-describedby="nama-addon" onkeypress="return Angka(event)">
                                                         &nbsp; &nbsp;<label style="margin-top: 10px;">Ha</label>&nbsp; &nbsp;
                                                     </div>
                                                 </div>
@@ -460,6 +451,13 @@ if (empty(session()->get('status_user')) || session()->get('status_user') == '2'
     }
 </script>
 <script>
+    function Angka(event) {
+        var angka = (event.which) ? event.which : event.keyCode
+        if (angka != 46 && angka > 31 && (angka < 48 || angka > 57))
+            return false;
+        return true;
+    }
+
     function loadNamaKoordinator() {
         if ($('#inlineRadio1').is(':checked')) {
             $("#divPNS").show();

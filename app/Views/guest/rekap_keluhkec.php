@@ -4,7 +4,9 @@
 
 
 <center>
-    <h4> Kelembagaan Penyuluhan Pertanian Provinsi </h4>
+    <h4> Kelembagaan Penyuluhan Pertanian Tingkat Kecamatan </h4>
+    <br>
+    <h6 style="margin-top: -30px;">Provinsi <?= $namaprov; ?></h6>
 </center>
 
 <div class="card">
