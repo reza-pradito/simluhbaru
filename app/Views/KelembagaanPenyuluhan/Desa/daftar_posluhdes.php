@@ -114,7 +114,7 @@ if (empty(session()->get('status_user')) || session()->get('status_user') == '2'
                                             </div>
                                             <label for="kode_desa">Desa</label>
                                             <div class="input-group mb-3">
-                                                <select name="kode_desa" id="kode_desa" class="form-control input-lg">
+                                                <select name="kode_desa" id="kode_desa" class="form-control input-lg" required>
                                                     <option value="">Pilih Desa</option>
                                                     <?php
                                                     foreach ($desa as $row2) {
@@ -125,7 +125,7 @@ if (empty(session()->get('status_user')) || session()->get('status_user') == '2'
                                             </div>
                                             <label for="nama">Nama Posluhdes</label>
                                             <div class="input-group mb-3">
-                                                <input type="text" class="form-control" id="nama" placeholder="nama posluhdes" name="nama">
+                                                <input type="text" class="form-control" id="nama" placeholder="nama posluhdes" name="nama" required>
                                             </div>
                                             <label for="alamat">Alamat</label>
                                             <div class="input-group mb-3">
@@ -153,7 +153,7 @@ if (empty(session()->get('status_user')) || session()->get('status_user') == '2'
                                             </div>
                                             <label for="jum_anggota">Jumlah Anggota</label>
                                             <div class="input-group mb-3">
-                                                <input type="text" class="form-control" id="jum_anggota" placeholder="jumlah anggota" name="jum_anggota">
+                                                <input type="text" class="form-control" id="jum_anggota" placeholder="jumlah anggota" name="jum_anggota" onkeypress="return Angka(event)">
                                             </div>
                                             <label for="penyuluh_swadaya">Penyuluh Swadaya</label>
                                             <div class="input-group mb-3">
@@ -196,6 +196,12 @@ if (empty(session()->get('status_user')) || session()->get('status_user') == '2'
 
 <?= $this->section('script') ?>
 <script>
+    function Angka(event) {
+        var angka = (event.which) ? event.which : event.keyCode
+        if (angka != 46 && angka > 31 && (angka < 48 || angka > 57))
+            return false;
+        return true;
+    }
     $(document).ready(function() {
         $(document).delegate('#btnSave', 'click', function() {
 

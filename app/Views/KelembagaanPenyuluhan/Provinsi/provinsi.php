@@ -82,6 +82,13 @@ $data = $json[0];
                         <td class="align-middle text-center text-sm">
                             <p class="text-xs font-weight-bold mb-0"><?= $row['tgl_update'] ?></p>
                         </td>
+                        <td class="align-middle text-center text-sm">
+                            <a href="<?= base_url('/lembaga') ?>">
+                                <button type="button" id="btn-edit" class="btn bg-gradient-warning btn-sm">
+                                    <i class="fas fa-edit"></i> Ubah
+                                </button>
+                            </a>
+                        </td>
                     </tr>
                 <?php
                 }

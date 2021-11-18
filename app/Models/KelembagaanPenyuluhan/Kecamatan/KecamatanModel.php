@@ -15,7 +15,7 @@ class KecamatanModel extends Model
     //protected $useSoftDeletes = true;
 
     protected $allowedFields = [
-        'kode_prop', 'satminkal', 'bentuk_lembaga', 'nama_bpp', 'kecamatan', 'alamat', 'tgl_berdiri', 'bln_berdiri', 'foto', 'urut', 'kode_bp3k',
+        'kode_prop', 'satminkal', 'bentuk_lembaga', 'nama_bpp', 'kecamatan', 'alamat', 'tgl_berdiri', 'bln_berdiri', 'foto', 'foto_depan', 'foto_belakang', 'foto_samping', 'foto_dalam', 'urut', 'kode_bp3k',
         'thn_berdiri', 'status_gedung', 'kondisi_bangunan', 'koordinat_lokasi_bpp', 'telp_bpp', 'telp_hp', 'email', 'website', 'ketua', 'soil_apbd', 'soil_apbn',
         'roda_4_apbn', 'roda_4_apbd', 'roda_2_apbn', 'roda_2_apbd', 'pc_apbn', 'pc_apbd', 'laptop_apbn', 'laptop_apbd', 'printer_apbn', 'printer_apbd',
         'modem_apbn', 'modem_apbd', 'lcd_apbn', 'lcd_apbd', 'kios_saprotan', 'pedagang_pengepul', 'gudang_pangan', 'perbankan', 'industri_penyuluhan',
