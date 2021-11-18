@@ -66,7 +66,7 @@ class GuestModel extends Model
         return $data;
     }
 
-    public function getProfilBPP($kode_kec)
+    public function getProfilBPP($kode_kec, $kode_bpp)
     {
         $db = Database::connect();
         $query  = $db->query("select * , d.nama_dati2 as namakab, e.nama_prop as namaprov
@@ -76,7 +76,7 @@ class GuestModel extends Model
                                 left join tbldati2 d on a.satminkal=d.id_dati2
                                 left join tblpropinsi e on a.kode_prop=e.id_prop 
                                 left join tblbpp_wil_kec j on a.kode_bp3k = j.kode_bp3k
-                                where a.kecamatan='$kode_kec' and a.kecamatan !='0'  
+                                where a.kecamatan='" . $kode_kec . "' and a.kecamatan !='0' and a.id = '" . $kode_bpp . "' 
                                 order by nama_bpp");
         $row   = $query->getRowArray();
         return $row;

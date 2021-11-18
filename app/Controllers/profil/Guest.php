@@ -72,18 +72,19 @@ class Guest extends BaseController
 
 
         $get_param = $this->request->getGet();
+        $kode_bpp = $get_param['kodebpp'];
         $kode_kec = $get_param['kode_kec'];
 
-        $profilkec = $gmodel->getProfilBPP($kode_kec);
-        $wilkec = $kec_model->getWIlkec($kode_kec);
+        $profilkec = $gmodel->getProfilBPP($kode_kec, $kode_bpp);
+        $wilkec = $kec_model->getWIlkec($kode_kec, $kode_bpp);;
         $penyuluhPNS = $kec_model->getPenyuluhPNS(session()->get('kodebapel'));
         $penyuluhTHL = $kec_model->getPenyuluhTHL(session()->get('kodebapel'));
         $kec = $kec_model->getKec(session()->get('kodebapel'));
-        $fasdata = $kec_model->getFas($kode_kec);
-        $klas = $kec_model->getKlasifikasi($kode_kec);
-        $award = $kec_model->getAward($kode_kec);
-        $dana = $kec_model->getDana($kode_kec);
-        $potensi = $kec_model->getPotensiWilayah($kode_kec);
+        $fasdata = $kec_model->getFas($kode_kec, $kode_bpp);
+        $klas = $kec_model->getKlasifikasi($kode_kec, $kode_bpp);
+        $award = $kec_model->getAward($kode_kec, $kode_bpp);
+        $dana = $kec_model->getDana($kode_kec, $kode_bpp);
+        $potensi = $kec_model->getPotensiWilayah($kode_kec, $kode_bpp);
         $jenis_komoditas = $kec_model->getJenisKomoditas();
         $penyuluh = $kec_model->getPenyuluh($kode_kec);
         $bp = $kec_model->getBP3K($kode_kec);
