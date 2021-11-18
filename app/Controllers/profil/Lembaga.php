@@ -19,6 +19,7 @@ use App\Models\LembagaModel;
 use App\Models\WilayahModel;
 use Exception;
 
+
 class Lembaga extends BaseController
 {
     protected $session;
@@ -92,13 +93,13 @@ class Lembaga extends BaseController
                 'namakab' => $namawil['namakab'],
                 'pnsprov' => $pnsprov,
                 'jum_pns' => $pns['jum_pns'],
-                'datapns' => $pns['datapns']
+                'datapns' => $pns['datapns'],
+                'fotoprofil' => $dtlembaga['foto']
+
             ];
             return view('profil/profilprov', $data);
         } elseif (session()->get('status_user') == '4') {
         } elseif (session()->get('status_user') == '200') {
-            $kode = session()->get('kodebapel');
-
             $kode = session()->get('kodebapel');
 
             $dtlembaga = $lembagaModel->getProfil(session()->get('kodebapel'));

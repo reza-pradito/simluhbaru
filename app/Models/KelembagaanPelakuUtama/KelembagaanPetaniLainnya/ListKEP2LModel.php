@@ -10,8 +10,8 @@ class ListKEP2LModel extends Model
 
     protected $table      = 'tb_poktan_p2l';
     protected $primaryKey = 'id_p2l';
-    protected $allowedFields = ['kode_prop', 'kode_kab',
-     'kode_kec', 'kode_desa', 'nama_poktan', 'nama_ketua', 'no_sk_cpl', 'no_urut_sk', 'nama_bendahara', 'nama_sekretaris', 'alamat','tahun_bentuk','status'];
+    protected $allowedFields = ['kode_prop', 'kode_kab', 'alamat_sekretariat','tanggal_bentuk','kode_komoditas_hor',
+     'kode_kec', 'kode_desa', 'nama_poktan', 'nama_ketua', 'no_sk_cpcl', 'no_urut_sk', 'nama_bendahara', 'nama_sekretaris', 'status'];
 
     protected $useTimestamps = false;
  
@@ -24,8 +24,10 @@ class ListKEP2LModel extends Model
         $query2 = $db->query("SELECT count(id_p2l)  as jum FROM tb_poktan_p2l where kode_kec ='$kode_kec'");
         $row2   = $query2->getRow();
         
-        $query3   = $db->query("select * , b.nm_desa from tb_poktan_p2l a
+        $query3   = $db->query("select * , b.nm_desa
+                                from tb_poktan_p2l a
                                 left join tbldesa b on a.kode_desa=b.id_desa 
+                              
                                 where kode_kec='$kode_kec'
                                
                                 order by kode_desa,nama_poktan");
@@ -51,12 +53,12 @@ class ListKEP2LModel extends Model
         $row2   = $query->getResultArray();
         return $row2;
     }
-    public function getDataById($id_kep2l)
+    public function getDataById($id_p2l)
     {
-        $query = $this->db->query("select * , b.deskripsi
+        $query = $this->db->query("select * ,  b.deskripsi
                                 from tb_poktan_p2l a
                                 left join tbldaerah b on a.kode_kec=b.id_daerah
-                                where id_kep2l= '" . $id_kep2l . "' 
+                                where a.id_p2l= '" . $id_p2l . "' 
                                 ORDER BY nama_poktan ");
                                 $row = $query->getRow();
                                 return json_encode($row);
