@@ -74,6 +74,7 @@ $routes->get('/listgapoktan', 'KelembagaanPelakuUtama/Gapoktan/Gapoktan::listgap
 $routes->get('/listgapoktandesa', 'KelembagaanPelakuUtama/Gapoktan/ListGapoktanDesa::listgapoktandesa');
 $routes->post('/listgapoktan/save', 'KelembagaanPelakuUtama/Gapoktan/ListGapoktan::save');
 $routes->get('/gapoktankec', 'KelembagaanPelakuUtama/Gapoktan/GapoktanKec::gapoktankec');
+$routes->get('/komoditasbun', 'KelembagaanPelakuUtama/KelompokTani/JenisKomoditasDiusahakan::komoditasbun');
 
 $routes->get('/gapoktanbersama', 'KelembagaanPelakuUtama/GapoktanBersama/GapoktanBersama::gapoktanbersama');
 

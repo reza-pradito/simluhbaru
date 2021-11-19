@@ -252,10 +252,10 @@ class KecamatanModel extends Model
     public function getDana($kode_kec, $kode_bpp)
     {
         $db = Database::connect();
-        $query3  = $db->query("select *, a.id, a.id_bpp, a.tahun_dak, b.kecamatan, b.id
+        $query3  = $db->query("select *, a.id, a.id_bpp, a.tahun_dak, b.kecamatan
                                 from tblbpp_dak a
                                 left join tblbpp b on a.id_bpp=b.id
-                                where b.kecamatan='" . $kode_kec . "' and b.id = '" . $kode_bpp . "'");
+                                where b.kecamatan='" . $kode_kec . "' and a.id_bpp = '" . $kode_bpp . "'");
         $results = $query3->getResultArray();
 
         $data =  [

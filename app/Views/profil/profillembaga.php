@@ -550,7 +550,7 @@ $data = $json[0];
                             <div class="card">
                                 <div class="card-body p-3">
                                     <div class="row">
-                                        <h1 class="h3 mb-4 text-gray-800">Kegiatan yang dilakukan <i class="fas fa-add" style="float: right;" data-bs-toggle="modal" data-bs-target="#modal-fk" id="btn-add-fas"></i></h1>
+                                        <h1 class="h3 mb-4 text-gray-800">Kegiatan yang dilakukan <i class="fas fa-edit" style="float: right;" data-bs-toggle="modal" data-bs-target="#modal-fk" id="btn-add-fas"></i></h1>
                                         <div class="col-lg-12">
 
 
