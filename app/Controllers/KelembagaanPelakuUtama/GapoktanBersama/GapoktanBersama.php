@@ -4,7 +4,7 @@ namespace App\Controllers\KelembagaanPelakuUtama\GapoktanBersama;
 
 use App\Controllers\BaseController;
 use App\Models\KelembagaanPelakuUtama\GapoktanBersama\GapoktanBersamaModel;
-use App\MoDELS\KodeWilayah\KodeWilModel;
+use App\MoDELS\KodeWilayah\KodeWilModel2;
 
 class GapoktanBersama extends BaseController
 {
@@ -24,10 +24,12 @@ class GapoktanBersama extends BaseController
         } elseif (session()->get('status_user') == '300') {
             $kode = session()->get('kodebpp');
         }
-        $kode_model = new KodeWilModel;
+        $kode_model = new KodeWilModel2;
         $gapoktanbersama_model = new GapoktanBersamaModel;
         $gapoktanbersama_data = $gapoktanbersama_model->getGapoktanBersamaTotal(session()->get('kodebapel'));
-        $kode_data = $kode_model->getKodeWil2(session()->get('kodebapel'));
+        $kode_data = $kode_model->getKodeWil2(session()->get('kodebapel'));   
+        $usaha_tani = $gapoktanbersama_model->getUsahaTani();
+        $usaha_olah = $gapoktanbersama_model->getUsahaOlah();
 
         $data = [
 
@@ -36,7 +38,10 @@ class GapoktanBersama extends BaseController
             'tabel_data' => $gapoktanbersama_data['table_data'],
             'title' => 'Gapoktan Bersama',
             'name' => 'Gapoktan Bersama',
-            'kode_prop' => $kode_data['kode_prop']
+            'kode_prop' => $kode_data['kode_prop'],
+            'kode_kab' => $kode_data['kode_kab'],
+            'usahatani' => $usaha_tani,
+            'usahaolah' => $usaha_olah
 
         ];
 

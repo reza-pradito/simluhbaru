@@ -18,10 +18,6 @@ class ListGapoktanModel extends Model
 
     protected $useTimestamps = false;
 
-
-
-  
-   
     public function getListGapoktanTotal($kode_kec)
     {
         $db = Database::connect();

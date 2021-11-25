@@ -4,7 +4,7 @@ namespace App\Controllers\KelembagaanPelakuUtama\KelembagaanEkonomiPetani;
 use App\Controllers\BaseController;
 use App\Models\KelembagaanPelakuUtama\KelembagaanEkonomiPetani\KelembagaanEkonomiPetaniModel;
 use App\Models\KelembagaanPelakuUtama\KelembagaanEkonomiPetani\ListKEPModel;
-use App\Models\KodeWilayah\KodeWilModel;
+use App\Models\KodeWilayah\KodeWilModel2;
 
 class KelembagaanEkonomiPetani extends BaseController
 {
@@ -49,7 +49,7 @@ class KelembagaanEkonomiPetani extends BaseController
         }
         $get_param = $this->request->getGet();
         $kode_kec = $get_param['kode_kec'];
-        $kodewil_model = new KodeWilModel();
+        $kodewil_model = new KodeWilModel2();
         $listkep_model = new ListKEPModel();
         $desa = new ListKEPModel();
         $listkep_data = $listkep_model->getListKEPTotal($kode_kec);
@@ -194,7 +194,7 @@ class KelembagaanEkonomiPetani extends BaseController
     public function delete($id)
     {
         $this->model->delete($id);
-        return redirect()->to('/listkep');
+       // return redirect()->to('/listkep');
     }
    
 }

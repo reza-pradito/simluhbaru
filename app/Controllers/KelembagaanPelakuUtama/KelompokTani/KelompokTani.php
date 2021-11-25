@@ -68,7 +68,7 @@ class KelompokTani extends BaseController
         return view('KelembagaanPelakuUtama/KelompokTani/listpoktan', $data);
     }
     public function save()
-    {
+
         $listpoktan_model = new ListPoktanModel();
         try {
             $res = $listpoktan_model->save([
@@ -84,7 +84,6 @@ class KelompokTani extends BaseController
                 'status' => $this->request->getPost('status'),
                 'simluh_tahun_tap_kelas' => $this->request->getPost('simluh_tahun_tap_kelas'),
                 'simluh_kelas_kemampuan' => $this->request->getPost('simluh_kelas_kemampuan'),
-
                 'simluh_jenis_kelompok_perempuan' => $this->request->getPost('simluh_jenis_kelompok_perempuan'),
                 'simluh_jenis_kelompok_domisili' => $this->request->getPost('simluh_jenis_kelompok_domisili'),
                 'simluh_jenis_kelompok_upja' => $this->request->getPost('simluh_jenis_kelompok_upja'),
@@ -160,7 +159,6 @@ class KelompokTani extends BaseController
             'status' => $status,
             'simluh_tahun_tap_kelas' => $simluh_tahun_tap_kelas,
             'simluh_kelas_kemampuan' => $simluh_kelas_kemampuan,
-
             'simluh_jenis_kelompok_perempuan' => $simluh_jenis_kelompok_perempuan,
             'simluh_jenis_kelompok_domisili' => $simluh_jenis_kelompok_domisili,
             'simluh_jenis_kelompok_upja' => $simluh_jenis_kelompok_upja,
