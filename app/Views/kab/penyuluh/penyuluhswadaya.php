@@ -123,11 +123,11 @@
                                                 <label>Jenis Kelamin</label>
                                                 <div class="input-group mb-3">
                                                     <div class="form-check form-check-inline">
-                                                        <input class="form-check-input jenis_kelamin" type="radio" name="jenis_kelamin" id="jenis_kelamin" value="1">
+                                                        <input class="form-check-input jenis_kelamin" type="radio" name="jenis_kelamin" id="jenis_kelamin1" value="1">
                                                         <label class="form-check-label" for="inlineRadio1">Laki-laki</label>
                                                     </div>
                                                     <div class="form-check form-check-inline">
-                                                        <input class="form-check-input jenis_kelamin" type="radio" name="jenis_kelamin" id="jenis_kelamin" value="2">
+                                                        <input class="form-check-input jenis_kelamin" type="radio" name="jenis_kelamin" id="jenis_kelamin2" value="2">
                                                         <label class="form-check-label" for="inlineRadio2">Perempuan</label>
                                                     </div>
                                                 </div>
@@ -594,22 +594,9 @@
                     $('#year').val(result.thn_lahir);
                     $('#tempat_lahir').val(result.tempat_lahir);
                     if (result.jenis_kelamin == "1") {
-                        $('.jenis_kelamin').each(function() {
-                            this.checked = true;
-                        });
+                        $('#jenis_kelamin1').prop("checked", true);
                     } else {
-                        $('.jenis_kelamin').each(function() {
-                            this.checked = false;
-                        });
-                    }
-                    if (result.jenis_kelamin == "2") {
-                        $('.jenis_kelamin').each(function() {
-                            this.checked = true;
-                        });
-                    } else {
-                        $('.jenis_kelamin').each(function() {
-                            this.checked = false;
-                        });
+                        $('#jenis_kelamin2').prop("checked", true);
                     }
                     $('#status_kel').val(result.status_kel);
                     $('#agama').val(result.agama);
@@ -648,7 +635,7 @@
                     $('#prop_satminkal').val(result.prop_satminkal);
                     $('#unit_kerja').val(result.unit_kerja);
                     $('#kode_kab').val(result.kode_kab);
-                    $('#tempat_tugas').val(result.tempat_tugas);
+                    $('#tempat_tugas').val(result.tempat_tugas).change();
                     $('#wil_kerja').val(result.wil_kerja);
                     $('#alamat').val(result.alamat);
                     $('#dati2').val(result.dati2);
@@ -676,7 +663,7 @@
                     $('#wil_kerja3').val(result.wil_kerja3);
                     $('#wil_kerja4').val(result.wil_kerja4);
                     $('#wil_kerja5').val(result.wil_kerja5);
-                    $('#tempat_tugas').val(result.kecamatan_tugas);
+                    // $('#tempat_tugas').val(result.kecamatan_tugas);
                     $('#mapping').val(result.mapping);
 
                     $('#modal-form').modal('show');

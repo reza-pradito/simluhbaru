@@ -84,7 +84,7 @@
                         <div class="modal-body p-0">
                             <div class="card card-plain">
                                 <div class="card-header pb-0 text-left">
-                                    <h4 class="font-weight-bolder text-warning text-gradient">Ubah Data</h4>
+                                    <h4 class="font-weight-bolder text-warning text-gradient">Tambah Data</h4>
                                 </div>
                                 <div class="card-body">
                                     <form method="POST" action="<?= base_url('Penyuluh/PenyuluhTHLAPBN/save'); ?>">
@@ -153,11 +153,11 @@
                                                 <label>Jenis Kelamin</label>
                                                 <div class="input-group mb-3">
                                                     <div class="form-check form-check-inline">
-                                                        <input class="form-check-input jenis_kelamin" type="radio" name="jenis_kelamin" id="jenis_kelamin" value="1">
+                                                        <input class="form-check-input jenis_kelamin" type="radio" name="jenis_kelamin" id="jenis_kelamin1" value="1">
                                                         <label class="form-check-label" for="inlineRadio1">Laki-laki</label>
                                                     </div>
                                                     <div class="form-check form-check-inline">
-                                                        <input class="form-check-input jenis_kelamin" type="radio" name="jenis_kelamin" id="jenis_kelamin" value="2">
+                                                        <input class="form-check-input jenis_kelamin" type="radio" name="jenis_kelamin" id="jenis_kelamin2" value="2">
                                                         <label class="form-check-label" for="inlineRadio2">Perempuan</label>
                                                     </div>
                                                 </div>
@@ -259,11 +259,11 @@
                                                 <label>Lokasi Kerja</label>
                                                 <div class="input-group mb-3">
                                                     <div class="form-check form-check-inline">
-                                                        <input class="form-check-input rad" type="radio" name="penyuluh_di" id="penyuluh_di" value="kabupaten">
+                                                        <input class="form-check-input rad" type="radio" name="penyuluh_di" id="penyuluh_di1" value="kabupaten">
                                                         <label class="form-check-label" for="inlineRadio1">Kabupaten/Kota</label>
                                                     </div>
                                                     <div class="form-check form-check-inline">
-                                                        <input class="form-check-input rad" type="radio" name="penyuluh_di" id="penyuluh_di" value="kecamatan">
+                                                        <input class="form-check-input rad" type="radio" name="penyuluh_di" id="penyuluh_di2" value="kecamatan">
                                                         <label class="form-check-label" for="inlineRadio2">Kecamatan</label>
                                                     </div>
                                                 </div>
@@ -648,14 +648,9 @@
                     $('#year').val(result.thn_lahir);
                     $('#tempat_lahir').val(result.tempat_lahir);
                     if (result.jenis_kelamin == "1") {
-                        $("#jenis_kelamin").prop("checked", true);
+                        $('#jenis_kelamin1').prop("checked", true);
                     } else {
-                        $("#jenis_kelamin").prop("checked", false);
-                    }
-                    if (result.jenis_kelamin == "2") {
-                        $("#jenis_kelamin").prop("checked", true);
-                    } else {
-                        $("#jenis_kelamin").prop("checked", false);
+                        $('#jenis_kelamin2').prop("checked", true);
                     }
                     $('#status_kel').val(result.status_kel);
                     $('#agama').val(result.agama);
@@ -705,7 +700,11 @@
                     $('#tgl_update').val(result.tgl_update);
                     $('#no_peserta').val(result.no_peserta);
                     $('#angkatan').val(result.angkatan);
-                    $('#penyuluh_di').val(result.penyuluh_di);
+                    if (result.penyuluh_di == "kabupaten") {
+                        $('#penyuluh_di1').prop("checked", true).click();
+                    } else {
+                        $('#penyuluh_di2').prop("checked", true).click();
+                    }
                     $('#tempat_tugas').val(result.kecamatan_tugas);
                     $('#wil_kerja2').val(result.wil_kerja2);
                     $('#wil_kerja3').val(result.wil_kerja3);
@@ -962,6 +961,18 @@
 
 <script>
     $(function() {
+        $("#form1").hide();
+        $("#form2").hide();
+        $("#form3").hide();
+        $("#form4").hide();
+        $("#form5").hide();
+        $("#form6").hide();
+        $("#form7").hide();
+        $("#form8").hide();
+        $("#form9").hide();
+        $("#form10").hide();
+        $("#form11").hide();
+        $("#form12").hide();
         $(":radio.rad").click(function() {
             $("#form1, #form2, #form3").hide()
             if ($(this).val() == "kecamatan") {
@@ -993,6 +1004,68 @@
                 $("#form12").hide();
             }
         });
+    });
+</script>
+
+<script>
+    $(document).ready(function() {
+        const monthNames = ["Bulan", "Januari", "Februari", "Maret", "April", "Mei", "Juni",
+            "Juli", "Agustus", "September", "Oktober", "November", "Desember"
+        ];
+        let qntYears = 80;
+        let selectYear = $("#year");
+        let selectMonth = $("#month");
+        let selectDay = $("#day");
+        let currentYear = new Date().getFullYear();
+
+        for (var y = 0; y < qntYears; y++) {
+            let date = new Date(currentYear);
+            let yearElem = document.createElement("option");
+            yearElem.value = currentYear
+            yearElem.textContent = currentYear;
+            selectYear.append(yearElem);
+            currentYear--;
+        }
+
+        selectMonth.html("");
+
+        for (var m = 1; m <= 12; m++) {
+            let month = monthNames[m];
+            let monthElem = document.createElement("option");
+            monthElem.value = m;
+            monthElem.textContent = month;
+            selectMonth.append(monthElem);
+        }
+
+        var d = new Date();
+        var month = d.getMonth() + 1;
+        var year = d.getFullYear();
+        var day = d.getDate();
+
+        selectYear.val(year);
+        selectYear.on("change", AdjustDays);
+        selectMonth.val(month);
+        selectMonth.on("change", AdjustDays);
+
+        AdjustDays();
+        selectDay.val(day)
+
+        function AdjustDays() {
+            var year = selectYear.val();
+            var month = parseInt(selectMonth.val());
+            selectDay.empty();
+
+            //get the last day, so the number of days in that month
+            var days = new Date(year, month, 0).getDate();
+
+            //lets create the days of that month
+            for (var d = 1; d <= days; d++) {
+                var dayElem = document.createElement("option");
+                dayElem.value = d;
+                dayElem.textContent = d;
+                selectDay.append(dayElem);
+            }
+        }
     });
 </script>
 

@@ -5,7 +5,7 @@ namespace App\Controllers\KelembagaanPelakuUtama\KelembagaanPetaniLainnya;
 use App\Controllers\BaseController;
 use App\Models\KelembagaanPelakuUtama\KelembagaanPetaniLainnya\KelembagaanPetaniLainnyaModel;
 use App\Models\KelembagaanPelakuUtama\KelembagaanPetaniLainnya\ListKEP2LModel;
-use App\Models\KodeWilayah\KodeWilModel;
+use App\Models\KodeWilayah\KodeWilModel2;
 
 class KelembagaanPetaniLainnya extends BaseController
 {   
@@ -28,7 +28,7 @@ class KelembagaanPetaniLainnya extends BaseController
             $kode = session()->get('kodebpp');
         }
   
-        $kode_model = new KodeWilModel; 
+        $kode_model = new KodeWilModel2; 
         $kelembagaanpetanilainnya_model = new KelembagaanPetaniLainnyaModel();
         $kelembagaanpetanilainnya_data = $kelembagaanpetanilainnya_model->getKelembagaanPetaniLainnyaTotal($this->session->get('kodebapel'));
         $kode_data = $kode_model->getKodeWil2(session()->get('kodebapel'));
@@ -50,7 +50,7 @@ class KelembagaanPetaniLainnya extends BaseController
     {
         $get_param = $this->request->getGet();
         $kode_kec = $get_param['kode_kec'];
-        $kodewil_model = new KodeWilModel();
+        $kodewil_model = new KodeWilModel2();
         $listkep2l_model = new ListKEP2LModel();
         $desa = $listkep2l_model->getDesa($kode_kec);
         $komoditas = $listkep2l_model->getKomoditas();
