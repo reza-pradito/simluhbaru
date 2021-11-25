@@ -33,7 +33,7 @@ class LembagaModel extends Model
             where kabupaten='$id'
             ");
         } elseif (session()->get('status_user') == '300') {
-            $query = $this->db->query("select * , a.id, a.email, a.roda_4_apbn, a.tgl_update, a.alamat,  b.nama, c.deskripsi, f.jumgap,f.kode_bp3k,g.jumkep,d.jumpok,e.jumthl,h.jumpns,i.unit_kerja, k.nama_prop as namaprov, k.id_prop, l.nama_dati2 as namakab, l.id_dati2
+            $query = $this->db->query("select * , a.id, a.email, a.tgl_berdiri, a.bln_berdiri,a.thn_berdiri,a.roda_4_apbn, a.tgl_update, a.alamat,  b.nama, c.deskripsi, f.jumgap,f.kode_bp3k,g.jumkep,d.jumpok,e.jumthl,h.jumpns,i.unit_kerja, k.nama_prop as namaprov, k.id_prop, l.nama_dati2 as namakab, l.id_dati2
                                     from tblbpp a
                                     left join tbldasar b on a.nama_koord_penyuluh=b.nip
                                     left join tbldaerah c on a.kecamatan=c.id_daerah  
