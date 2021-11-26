@@ -240,7 +240,7 @@ class Kecamatan extends BaseController
 
         //session()->setFlashdata('pesan', 'Edit data berhasil.');
 
-        return redirect()->to('/detail_kecamatan?kode_kec=' . $this->request->getVar('kecamatan'));
+        return redirect()->to('/detail_kecamatan?kode_kec=' . $this->request->getVar('kecamatan') . '&kodebpp=' . $id . '&kode_bp3k=' . $this->request->getVar('kode_bp3k'));
         // dd($this->request->getVar());
     }
 

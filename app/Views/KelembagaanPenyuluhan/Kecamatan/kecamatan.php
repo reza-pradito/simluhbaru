@@ -92,7 +92,7 @@ if (empty(session()->get('status_user')) || session()->get('status_user') == '2'
                             <p class="text-xs font-weight-bold mb-0"><?= $row['tgl_update'] ?></p>
                         </td>
                         <td class="align-middle text-center text-sm">
-                            <a href="<?= base_url('/detail_kecamatan?kode_kec=' . $row['id_daerah']) ?>">
+                            <a href="<?= base_url('/detail_kecamatan?kode_kec=' . $row['id_daerah'] . '&kodebpp=' . $row['id'] . '&kode_bp3k=' . $row['kode_bp3k']) ?>">
                                 <button type="button" id="btn-edit" class="btn bg-gradient-warning btn-sm">
                                     <i class="fas fa-edit"></i> Ubah
                                 </button>
@@ -130,8 +130,8 @@ if (empty(session()->get('status_user')) || session()->get('status_user') == '2'
 
                                                     <label>Bentuk Kelembagaan</label>
                                                     <div class="input-group mb-3">
-                                                        <select class="form-select" name="bentuk_lembaga" id="bentuk_lembaga" aria-label="Default select example" required>
-                                                            <option selected>Pilih Bentuk Kelembagaan</option>
+                                                        <select class="form-select" name="bentuk_lembaga" id="bentuk_lembaga" required>
+                                                            <option value="">Pilih Bentuk Kelembagaan</option>
                                                             <option value="20">Balai Penyuluhan Pertanian</option>
                                                             <option value="40">UPTD</option>
                                                         </select>
@@ -146,7 +146,7 @@ if (empty(session()->get('status_user')) || session()->get('status_user') == '2'
                                                     </div>
                                                     <label>Kecamatan (lokasi BPP)</label>
                                                     <div class="input-group mb-3">
-                                                        <select name="kecamatan" id="kecamatan" class="form-control input-lg" required>
+                                                        <select name="kecamatan" id="kecamatan" class="form-select" required>
                                                             <option value="">Pilih Kecamatan</option>
                                                             <?php
                                                             foreach ($kec as $row) {
@@ -205,7 +205,7 @@ if (empty(session()->get('status_user')) || session()->get('status_user') == '2'
                                                     <div class="input-group mb-3">
                                                         <input type="text" class="form-control" placeholder="Nama" name="ketua" id="ketua" required>
                                                         &nbsp; &nbsp;<label style="margin-top: 10px;">No. HP</label>&nbsp; &nbsp;
-                                                        <input type="text" class="form-control" name="telp_hp" id="telp_hp" placeholder="No. HP" onkeypress="return Angka(event)">
+                                                        <input type="text" class="form-control" name="telp_hp" id="telp_hp" placeholder="No. HP" onkeypress="return Angka(event)" required>
                                                     </div>
                                                     <label>Koordinator Penyuluh</label>
                                                     <div class="input-group mb-3">
